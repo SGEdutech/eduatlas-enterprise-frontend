@@ -1,0 +1,32 @@
+.tinted {
+    opacity: 0.8;
+    filter: brightness(30%);
+}
+
+.Align-Name {
+    position: absolute;
+    top: 50%;
+}
+
+.fixSize {
+    max-height: 100%;
+    /*max-width: 200px;*/
+}
+
+.moveUp {
+    top: -15%;
+    left: 70%;
+}
+
+.moveUp2 {
+    top: -15%;
+    left: 80%;
+}
+
+.color-white {
+    color: white;
+}
+
+.icon-small {
+    font-size: 1.2rem;
+}

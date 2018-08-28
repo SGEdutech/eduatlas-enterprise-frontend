@@ -1,0 +1,17 @@
+.sl_table
+{
+    margin:auto!important;
+    width:70%!important;
+}
+.table_th
+{
+background: white;
+box-shadow: 3px 2px 13px 6px #ccc5c5;
+}
+
+.form_style
+{
+    padding: 15px;
+    border: 1px solid #b5aeae;
+    box-shadow: 1px 15px 20px 5px #cac2c2;
+}

@@ -1,0 +1,17 @@
+#discover {
+    position: relative;
+}
+
+#autocomplete_container {
+    position: absolute;
+    top: 150%;          /*Hard coded*/
+    left: 0;
+}
+
+.tuition-cards {
+    cursor: pointer;
+}
+/* the slides */
+.slick-slide {
+    margin: 0 27px;
+}

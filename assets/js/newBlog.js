@@ -1,0 +1,1 @@
+let simplemde = new SimpleMDE({ element: $("#blogData")[0] });

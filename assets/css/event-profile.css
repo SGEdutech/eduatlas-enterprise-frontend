@@ -1,0 +1,14 @@
+.share{text-align:right!important;width:100%!important;margin-top: 180px!important;}
+.ficon {color: black;padding: 12px;background: beige;}
+.share>span{font-weight: bold;font-size: 24px;color:white;background: #e91e63;}
+.link{background: #e91e63;}
+.work{background: #dadcdc!important;padding: 40px!important;}
+.contactform{padding-left:70px;}
+.map{padding:4px;}
+.workss{box-shadow: 2px 0px 17px 1px;}
+.links{}
+@media only screen and (max-width: 600px) {
+    .links {
+    padding: 7px;
+    }
+}
