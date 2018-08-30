@@ -4,3 +4,10 @@
     margin: auto;    
     overflow: hidden;
 }
+
+.ficon
+{
+    font-size: 75px!important;
+    padding: 0px!important;
+    margin-top: 29px!important;
+}
