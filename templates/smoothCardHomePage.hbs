@@ -1,0 +1,107 @@
+{{#if col4}}
+<div class="col-md-4" id="{{_id}}">
+    {{/if}}
+    <div class="card newFont">
+        <div class=" tuition-cards" style="cursor: pointer" onclick="helperScripts.openDetailsPage('{{typeOfInfo}}','{{_id}}')">
+            <div class="card p-0 m-0 rounded-0 rounded-top" style="overflow: hidden;text-overflow: ellipsis">
+                <div class="rounded-top" style="position: absolute; height: 192px;width: 100%;background-color: rgba(0,0,0,0.5)">
+                </div>
+                <img class="card-img-top" src="/assets/img/fourgirls.jpeg" alt="Tuition Image" style="height: 182px;width: 100%;">
+                <div class="card-img-overlay">
+                    <h4 class="card-title text-white">{{name}}</h4>
+                    <span class="badge badge-warning">{{averageRating}}/5</span>
+                    {{#if claimedBy}}
+                    <span class="badge badge-info">verified</span>
+                    {{/if}}
+                    <br>
+                    <div class="my-1">
+                        {{#each categories}}
+                        <span class="badge badge-success my-1">{{this}}</span>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{#if hideBody}} {{else}}
+        <div class="card-body pb-0">
+            <div class="row" style="min-height: 70px;max-height: 70px;text-overflow: ellipsis;
+            overflow: hidden; ">
+                <div class="col-1 px-0">
+                    <i class="material-icons md-18" style="color: #00bcd4">
+                        location_on
+                    </i>
+                </div>
+                <div class="col-11">
+                    <p id="address" class="my-0">{{addressLine1}},{{addressLine2}},{{city}},{{state}}</p>
+                </div>
+            </div>
+            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
+            overflow: hidden">
+                <div class="col-1 px-0">
+                    <i class="material-icons md-18" style="color: #00bcd4">
+                        phone
+                    </i>
+                </div>
+                <div class="col-11">
+                    <p id="phone" class="my-0">{{primaryNumber}}{{organiserPhone}}</p>
+                </div>
+            </div>
+            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
+            overflow: hidden">
+                <div class="col-1 px-0">
+                    <i class="material-icons md-18" style="color: #00bcd4">
+                        email
+                    </i>
+                </div>
+                <div class="col-11">
+                    <p id="email" class="my-0">{{email}}{{organiserEmail}}</p>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+        <div class="pb-0 pt-0 rounded-0 card-footer justify-content-center">
+            {{#if manageClaimed}}
+            <div class="col">
+                <a class="btn btn-info btn-round" href="user-edit-{{typeOfInfo}}.html?a={{_id}}">Edit</a>
+            </div>
+            <div class="col">
+                <button class="btn btn-danger btn-round unclaim-button" data-id="{{_id}}" data-category="{{typeOfInfo}}">Unclaim
+                </button>
+            </div>
+            {{/if}} {{#if hideFooter}} {{else}}
+            <div class="col">
+                <!--<i class="material-icons" style="cursor: pointer">
+                        bookmark
+                    </i>-->
+                <i class="material-icons bookmark-button" style="cursor: pointer" data-id="{{_id}}" data-category="{{typeOfInfo}}" data-bookmarked="{{bookmarked}}">
+                    {{#if bookmarked}} bookmark {{else}} bookmark_border {{/if}}
+                </i>
+            </div>
+            <div class="col-6 text-center">
+                {{#if openedNow}}
+                <p class="font-weight-bold text-success">Open Now</p>
+                {{/if}}
+            </div>
+            <div class="col">
+                <i class="material-icons share" style="cursor: pointer">
+                    share
+                </i>
+                {{!-- <div class="social">
+                    <i class="fa fa-facebook-f fb"></i>
+                    <i class="fa fa-whatsapp whatsup"></i>
+                </div> --}}
+
+            </div>
+
+            {{/if}} {{#if manageBookmarks}}
+            <div class="col">
+                <button class="btn btn-danger btn-round remove-bookmark-button" data-id="{{_id}}" data-category="{{typeOfInfo}}">Remove
+                    bookmark
+                </button>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+    {{#if col4}}
+</div>
+{{/if}}
