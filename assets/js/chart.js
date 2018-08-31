@@ -1,9 +1,18 @@
-
 var ctx = document.getElementById("myChart").getContext('2d');
 var ctx2 = document.getElementById("myChart2").getContext('2d');
 createChart(ctx);
 createChart(ctx2)
 
+let homePageData = {
+    day1: 23,
+    day2: 63,
+    day3: 31,
+    day4: 2,
+    day5: 53,
+    day6: 23,
+    day7: 50,
+    day8: 25,
+}
 
 
 
@@ -15,10 +24,10 @@ function createChart(ctx) {
         type: 'line',
         responsive: true,
         data: {
-            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            labels: ["day 1", "day 2", "day 3", "day 4", "day 5", "day 6"],
             datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                label: '# of views',
+                data: [12, 53, 3, 5, 2, 3],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -52,4 +61,3 @@ function createChart(ctx) {
         }
     });
 }
-

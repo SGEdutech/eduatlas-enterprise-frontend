@@ -16,14 +16,13 @@
 
         gtag('config', 'UA-121945570-1');
     </script>
-    <title>User-dashboard</title>
+    <title>Dashboard-Pro</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
-    />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Material Kit CSS -->
@@ -54,7 +53,7 @@
                 <div class="card-body">
                     <div class="fileinput fileinput-new text-center">
                         <div class="fileinput-new thumbnail img-raised">
-                            <img id="profile_pic" src="" alt="User Profile Pic">
+                            <img id="profile_pic" alt="User Profile Pic">
                         </div>
                     </div>
                     <div class="card-subtitle text-muted h5" id="userIdContainer"></div>
@@ -67,10 +66,13 @@
                 <div class="card-body p-1 p-md-3">
                     <ul class="nav nav-pills nav-pills-info flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#tab1" data-toggle="tab"> Go Back</a>
+                            <a class="nav-link active" href="#tab2" data-toggle="tab"> Dashboard-Pro</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="#tab2" data-toggle="tab"> Promoter</a>
+                            <a class="nav-link" href="#tab3" data-toggle="tab"> Promoter</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tab1" data-toggle="tab"> Dashboard</a>
                         </li>
                     </ul>
                 </div>
@@ -81,91 +83,340 @@
         <div class="col-md-9">
             <div class="card">
                 <div class="card-body p-1 p-md-3">
-                    <!--<div class="row">-->
                     <div class="tab-content">
-
-                        <div class="tab-pane active" id="tab1">
-
-
+                        <div class="tab-pane" id="tab1">
                         </div>
-                        <div class="tab-pane" id="tab2">
-                            <div class="row justify-content-around">
-                                <div class="card bg-info col-3" style="width: 300px;">
-                                    <div class="card-body">
-                                        <div class="card-title text-center">
-                                            <h2>Promoter</h2>
-                                        </div>
-                                        <p class="card-title">
-                                            <a href="#pablo">&quot;You Don&apos;t Have to Sacrifice Joy to Build a Fabulous Business and Life&quot;</a>
-                                        </p>
-
-                                        <div class="card-stats justify-content-around">
-                                            <button type="button" class="btn btn-rose" style="cursor: default;">Due Date:Aug 27,2018</button>
-                                        </div>
-                                        <div class="card-stats justify-content-around">
-                                            <button type="button" class="btn btn-success">Upgrade</button>
-                                        </div>
-                                        <div class="card-stats justify-content-around">
-                                            <button type="button" class="btn btn-success">Renew</button>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="card bg-secondary col-3 inactive-card" style="width: 300px;">
-                                    <span class="badge badge-danger">this plan is not activated</span>
-                                    <div class="card-body">
-                                        <div class="card-title text-center text-gray">
-                                            <h2>Promoter</h2>
-                                        </div>
-
-                                        <p class="card-title">
-                                            <a href="#pablo" class="text-gray">&quot;You Don&apos;t Have to Sacrifice Joy to Build a Fabulous Business and Life&quot;</a>
-                                        </p>
-
-
-                                        <div class="card-stats justify-content-around">
-
-                                            <i id="plus_icon" class="fas fa-plus-circle"></i>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="card bg-secondary col-3 inactive-card" style="width: 300px;">
-                                    <span class="badge badge-danger">this plan is not activated</span>
-                                    <div class="card-body">
-                                        <div class="card-title text-center text-gray">
-                                            <h2>Promoter</h2>
-                                        </div>
-
-                                        <p class="card-title text-gray">
-                                            <a href="#pablo" class="text-gray">&quot;You Don&apos;t Have to Sacrifice Joy to Build a Fabulous Business and Life&quot;</a>
-                                        </p>
-
-
-                                        <div class="card-stats justify-content-around">
-                                            <i id="plus_icon" class="fas fa-plus-circle"></i>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-
-
+                        <div class="tab-pane active" id="tab2">
+                            <div class="card-title col-12 h3">
+                                Manage Pro Features
                             </div>
+                            <div class="row justify-content-around">
+                                <div class="col-md-4">
+                                    <div class="card bg-info">
+                                        <div class="card-body">
+                                            <a href="#tacla">
+                                                <div class="card-title text-center">
+                                                    <h2>Promoter</h2>
+                                                </div>
+                                                <p class="card-title">
+                                                    Promoter lets you promote your institute on various pages on
+                                                    Eduatlas.com
+                                                </p>
 
+                                                <div class="card-stats justify-content-around">
+                                                    <button type="button" class="btn btn-rose" style="cursor: default;">Due
+                                                        Date:Aug 27,2018</button>
+                                                </div>
+                                            </a>
+                                            <div class="card-stats justify-content-around">
+                                                <button type="button" class="btn btn-success">Upgrade</button>
+                                            </div>
+                                            <div class="card-stats justify-content-around">
+                                                <button type="button" class="btn btn-success">Renew</button>
+                                            </div>
+                                        </div>
 
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card bg-secondary inactive-card h-75">
+                                        <span class="badge badge-danger">this plan is not activated</span>
+                                        <div class="card-body">
+                                            <a href="#tacla">
+                                                <div class="card-title text-center text-gray">
+                                                    <h3>Communicator</h3>
+                                                </div>
+
+                                                <p class="card-title text-gray text-center">
+                                                    Comnnunicator lets you communicate info back and forth to students
+                                                    and parents
+                                                </p>
+                                            </a>
+                                            <div class="card-stats justify-content-around">
+
+                                                <i id="plus_icon" class="fas fa-plus-circle"></i>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card bg-secondary inactive-card h-75">
+                                        <span class="badge badge-danger">this plan is not activated</span>
+                                        <div class="card-body">
+                                            <a href="#tacla">
+                                                <div class="card-title text-center text-gray">
+                                                    <h3>Manager</h3>
+                                                </div>
+
+                                                <p class="card-title text-gray text-center">
+                                                    Manager lets you control almost all of your institutes stats and
+                                                    info flow
+                                                </p>
+                                            </a>
+                                            <div class="card-stats justify-content-around">
+
+                                                <i id="plus_icon" class="fas fa-plus-circle"></i>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-title col-12">
+                                Manage Your Tuitions
+                            </div>
+                            <div class="container">
+                                <div class="col-md-4" id="5b2a160735d37428c37f403d">
+                                    <div class="card newFont">
+                                        <div class=" tuition-cards" style="cursor: pointer" onclick="helperScripts.openDetailsPage('tuition','5b2a160735d37428c37f403d')">
+                                            <div class="card p-0 m-0 rounded-0 rounded-top" style="overflow: hidden;text-overflow: ellipsis">
+                                                <div class="rounded-top" style="position: absolute; height: 192px;width: 100%;background-color: rgba(0,0,0,0.5)">
+                                                </div>
+                                                <img class="card-img-top" src="/assets/img/fourgirls.jpeg" alt="Tuition Image"
+                                                    style="height: 182px;width: 100%;">
+                                                <div class="card-img-overlay">
+                                                    <h4 class="card-title text-white">PV EDUCATION PVT. LTD.</h4>
+                                                    <span class="badge badge-warning">2.5/5</span>
+                                                    <span class="badge badge-info">verified</span>
+                                                    <br>
+                                                    <div class="my-1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body pb-0">
+                                            <div class="row" style="min-height: 70px;max-height: 70px;text-overflow: ellipsis;
+                                                    overflow: hidden; ">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        location_on
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="address" class="my-0">16, second floor,
+                                                        vaishali,pitampura,delhi,delhi</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
+                                                    overflow: hidden">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        phone
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="phone" class="my-0">8800889917</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
+                                                    overflow: hidden">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        email
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="email" class="my-0">prashant.mailbox@gmail.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-0 pt-0 rounded-0 card-footer justify-content-center">
+                                            <div class="col">
+                                                <a class="btn btn-info btn-round" href="user-edit-tuition.html?a=5b2a160735d37428c37f403d">Edit</a>
+                                            </div>
+                                            <div class="col">
+                                                <button class="btn btn-danger btn-round unclaim-button" data-id="5b2a160735d37428c37f403d"
+                                                    data-category="tuition">Unclaim
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-title col-12">
+                                Manage Your Schools
+                            </div>
+                            <div class="container">
+                                <div class="col-md-4">
+                                    <div class="card newFont">
+                                        <div class=" tuition-cards" style="cursor: pointer" onclick="helperScripts.openDetailsPage('tuition','5b2a160735d37428c37f403d')">
+                                            <div class="card p-0 m-0 rounded-0 rounded-top" style="overflow: hidden;text-overflow: ellipsis">
+                                                <div class="rounded-top" style="position: absolute; height: 192px;width: 100%;background-color: rgba(0,0,0,0.5)">
+                                                </div>
+                                                <img class="card-img-top" src="/assets/img/fourgirls.jpeg" alt="Tuition Image"
+                                                    style="height: 182px;width: 100%;">
+                                                <div class="card-img-overlay">
+                                                    <h4 class="card-title text-white">PV EDUCATION PVT. LTD.</h4>
+                                                    <span class="badge badge-warning">2.5/5</span>
+                                                    <span class="badge badge-info">verified</span>
+                                                    <br>
+                                                    <div class="my-1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body pb-0">
+                                            <div class="row" style="min-height: 70px;max-height: 70px;text-overflow: ellipsis;
+                                                            overflow: hidden; ">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        location_on
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="address" class="my-0">16, second floor,
+                                                        vaishali,pitampura,delhi,delhi</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
+                                                            overflow: hidden">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        phone
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="phone" class="my-0">8800889917</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
+                                                            overflow: hidden">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        email
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="email" class="my-0">prashant.mailbox@gmail.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-0 pt-0 rounded-0 card-footer justify-content-center">
+                                            <div class="col">
+                                                <a class="btn btn-info btn-round" href="user-edit-tuition.html?a=5b2a160735d37428c37f403d">Edit</a>
+                                            </div>
+                                            <div class="col">
+                                                <button class="btn btn-danger btn-round unclaim-button" data-id="5b2a160735d37428c37f403d"
+                                                    data-category="tuition">Unclaim
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-title col-12">
+                                Manage Your Events
+                            </div>
+                            <div class="container">
+                                <div class="col-md-4">
+                                    <div class="card newFont">
+                                        <div class=" tuition-cards" style="cursor: pointer" onclick="helperScripts.openDetailsPage('tuition','5b2a160735d37428c37f403d')">
+                                            <div class="card p-0 m-0 rounded-0 rounded-top" style="overflow: hidden;text-overflow: ellipsis">
+                                                <div class="rounded-top" style="position: absolute; height: 192px;width: 100%;background-color: rgba(0,0,0,0.5)">
+                                                </div>
+                                                <img class="card-img-top" src="/assets/img/fourgirls.jpeg" alt="Tuition Image"
+                                                    style="height: 182px;width: 100%;">
+                                                <div class="card-img-overlay">
+                                                    <h4 class="card-title text-white">PV EDUCATION PVT. LTD.</h4>
+                                                    <span class="badge badge-warning">2.5/5</span>
+                                                    <span class="badge badge-info">verified</span>
+                                                    <br>
+                                                    <div class="my-1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body pb-0">
+                                            <div class="row" style="min-height: 70px;max-height: 70px;text-overflow: ellipsis;
+                                                            overflow: hidden; ">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        location_on
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="address" class="my-0">16, second floor,
+                                                        vaishali,pitampura,delhi,delhi</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
+                                                            overflow: hidden">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        phone
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="phone" class="my-0">8800889917</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
+                                                            overflow: hidden">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        email
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="email" class="my-0">prashant.mailbox@gmail.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-0 pt-0 rounded-0 card-footer justify-content-center">
+                                            <div class="col">
+                                                <a class="btn btn-info btn-round" href="user-edit-tuition.html?a=5b2a160735d37428c37f403d">Edit</a>
+                                            </div>
+                                            <div class="col">
+                                                <button class="btn btn-danger btn-round unclaim-button" data-id="5b2a160735d37428c37f403d"
+                                                    data-category="tuition">Unclaim
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab3">
+                            <div class="card-title col-12 h3">
+                                Manage Advertisements
+                            </div>
+                            <div class="row m-1" style="overflow: hidden;">
+                                <div class="list-group">
+                                    <a class="list-group-item row mb-4" href="User-dashboard.html">
+                                        <b class="list-group-item-heading text-info col-4">Institute Name</b>
+                                        <b class="list-group-item-heading text-info col-4">Address</b>
+                                        <b class="list-group-item-heading text-info col-3">Ads Status</b>
+                                    </a>
+                                    <a class="list-group-item list-group-item-action row" href="User-dashboard.html">
+                                        <b class="list-group-item-heading col-4">PV EDUCATION PVT. LTD</b>
+                                        <b class="list-group-item-text col-4">16, second floor,
+                                            vaishali,pitampura,delhi,delhi</b>
+                                        <b class="list-group-item-text col-3">Ads activated at 3 places</b>
+                                    </a>
+                                    <a class="list-group-item list-group-item-action row" href="User-dashboard.html">
+                                        <b class="list-group-item-heading col-4">PV EDUCATION PVT. LTD</b>
+                                        <b class="list-group-item-text col-4">16, second floor,
+                                            vaishali,pitampura,delhi,delhi</b>
+                                        <b class="list-group-item-text col-3">Ads activated at 3 places</b>
+                                    </a>
+                                    <a class="list-group-item list-group-item-action row" href="User-dashboard.html">
+                                        <b class="list-group-item-heading col-4">PV EDUCATION PVT. LTD</b>
+                                        <b class="list-group-item-text col-4">16, second floor,
+                                            vaishali,pitampura,delhi,delhi</b>
+                                        <b class="list-group-item-text col-3">Ads activated at 3 places</b>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
