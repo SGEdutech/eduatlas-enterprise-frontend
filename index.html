@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/index/style.css" type="text/css">
+    <link rel="stylesheet" href="css/index/nav-elements.css" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Sawarabi+Mincho|Slabo+27px" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -13,12 +14,10 @@
 <body>
 <div class="wrapp">
     <!-- Banner Start -->
-    <div class="banner">
-        <div class="row flex-div">
-            <div class="col-sm-4 col-sm-offset-1 col-xs-12">
-                <h2>
-                    <svg id="logo" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="100%" height="100%" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 0.632722 0.715935"
-                        >
+    <div class="">
+        <div class="row header align-self-center text-center">
+            <div class="col-md-6">
+                <svg id="eduatlas_logo" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="100%" height="100%" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 0.632722 0.715935">
                            <defs>
                                <style type="text/css">
                                    .str0 {
@@ -70,48 +69,13 @@
                                </g>
                            </g>
                        </svg>
-
-                </h2>
             </div>
-            <div class="col-sm-6 col-xs-12">
-                <h2 class="heading2">
-                    EduAtlas Enterprise
-                    <!-- <ul>
-                        <li>EduAtlas</li>
-                        <li>1.29.0
-                            <br>
-                            <span>Release Notes</span>
-                        </li>
-                        <li>EnterPrise
-                            <br>
-                            <span>For 64 Bit Windows Or Later</span>
-                        </li>
-
-
-                    </ul> -->
-                </h2>
-
-            </div>
-
-
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <p>By Accepting This Product, you agree to the
-                    <a href="#">Terms and Conditions.</a>
-                </p>
-                <p>
-					<span>
-                        <a href="#"> EduAtlas platforms</a>
-                    </span>
-                    <!-- <span>
-                        <a href="#">Try Atom Beta</a>
-                    </span> -->
-                </p>
+            <div id="eduatlas_heading_container" class="col-md-6">
+                <h1 id="eduatlas_heading">EduAtlas Enterprise</h1>
             </div>
         </div>
     </div>
+
     <!--Banner End-->
     <!--Section2 Start-->
     <div class="section2">
@@ -119,65 +83,42 @@
         <br>
         <div class="mx-auto">
 
-            <!--<div class="row justify-content-center text-center">-->
-            <!--<div class="nav-element col-md-1">-->
-            <!--<a href="#teletype1">Promoter</a>-->
-            <!--</div>-->
-            <!--<div class="nav-element col-md-1">-->
-            <!--<a href="#teletype2">Communicator</a>-->
-            <!--</div>-->
-            <!--<div class="nav-element col-md-1">-->
-            <!--<a href="#teletype3">Manager</a>-->
-            <!--</div>-->
-            <!--</div>-->
-
+            <!--Nav Elements Start-->
             <div class="container">
                 <div class="row justify-content-center text-center">
-                    <div class="col-md-3 nav-element-container">
+                    <div class="col-sm-6 col-md-4 my-1 nav-element-container">
                         <span class="nav-element d-inline-block">Promoter</span>
                     </div>
-                    <div class="col-md-3 nav-element-container">
+                    <div class="col-sm-6 col-md-4 my-1 nav-element-container">
                         <span class="nav-element d-inline-block">Communicator</span>
                     </div>
-                    <div class="col-md-3 nav-element-container">
+                    <div class="col-sm-6 col-md-4 my-1 nav-element-container">
                         <span class="nav-element d-inline-block">Manager</span>
                     </div>
                 </div>
             </div>
-
-
-            <!-- <ul>
-                <li>
-                    <a href="#teletype1">Promoter</a>
-                </li>
-                <li>
-                    <a href="#teletype2">Communicator</a>
-                </li>
-                <li>
-                    <a href="#teletype3">Manager</a>
-                </li>
-            </ul> -->
+            <!--Nav Elements End-->
         </div>
-        </h2>
     </div>
     <!--Section2 End-->
+
     <!-- Section3 Start-->
-    <div class="row section3 flex-md" id="teletype1">
-        <div class="col-sm-6">
+    <div class="row section3 product-explain-container">
+        <div class="col-6">
             <img src="img/img2.png" class="img">
         </div>
-        <div class="col-sm-4 col-sm-offset-1">
-            <a href="#"><h2>Promotor</h2></a>
-            <p>Great things happen when developers work together—from teaching and sharing knowledge to building better
-                software. Teletype for Atom makes collaborating on code just as easy as it is to code alone, right from
-                your editor.</p>
-            <p>Share your workspace and edit code together in real time. To start collaborating,
-                <a href="#">open Teletype in Atom</a> and install the package.</p>
-
-
+        <div class="col-6">
+            <div class="product-explain-content">
+                <h2>Promotor</h2>
+                <p>Great things happen when developers work together—from teaching and sharing knowledge to building
+                    better
+                    software. Teletype for Atom makes collaborating on code just as easy as it is to code alone, right
+                    from
+                    your editor.</p>
+                <p>Share your workspace and edit code together in real time. To start collaborating,
+                    <a href="#">open Teletype in Atom</a> and install the package.</p>
+            </div>
         </div>
-
-
     </div>
 
 
@@ -185,28 +126,22 @@
 
 
     <!-- Section4 Start-->
-    <div class="row section3 flex-md" id="teletype2">
-
-
-        <div class="col-sm-5 col-sm-offset-1">
-            <a href="#">
-                <h2>Communicator</h2></a>
-            <p>Great things happen when developers work together—from teaching and sharing knowledge to building better
-                software. Teletype for Atom makes collaborating on code just as easy as it is to code alone, right from
-                your editor.</p>
-            <p>Share your workspace and edit code together in real time. To start collaborating,
-                <a href="#">open Teletype in Atom</a> and install the package.</p>
-
-
-        </div>
-
+    <div class="row section3 product-explain-container">
         <div class="col-sm-6">
             <img src="img/img2.png" class="img">
-
-
         </div>
-
-
+        <div class="col-sm-5">
+            <div  class="product-explain-content">
+                <h2>Communicator</h2>
+                <p>Great things happen when developers work together—from teaching and sharing knowledge to building
+                    better
+                    software. Teletype for Atom makes collaborating on code just as easy as it is to code alone, right
+                    from
+                    your editor.</p>
+                <p>Share your workspace and edit code together in real time. To start collaborating,
+                    <a href="#">open Teletype in Atom</a> and install the package.</p>
+            </div>
+        </div>
     </div>
 
 
@@ -214,23 +149,21 @@
 
 
     <!-- Section5 Start-->
-    <div class="row section3 flex-md" id="teletype3">
+    <div class="row section3 product-explain-container" id="teletype3">
         <div class="col-sm-6">
             <img src="img/img2.png" class="img">
-
-
         </div>
-
         <div class="col-sm-4 col-sm-offset-1">
-            <a href="#">
-                <h2>Manager</h2></a>
-            <p>Great things happen when developers work together—from teaching and sharing knowledge to building better
-                software. Teletype for Atom makes collaborating on code just as easy as it is to code alone, right from
-                your editor.</p>
-            <p>Share your workspace and edit code together in real time. To start collaborating,
-                <a href="#">open Teletype in Atom</a> and install the package.</p>
-
-
+            <div class="product-explain-content">
+                <h2>Manager</h2>
+                <p>Great things happen when developers work together—from teaching and sharing knowledge to building
+                    better
+                    software. Teletype for Atom makes collaborating on code just as easy as it is to code alone, right
+                    from
+                    your editor.</p>
+                <p>Share your workspace and edit code together in real time. To start collaborating,
+                    <a href="#">open Teletype in Atom</a> and install the package.</p>
+            </div>
         </div>
 
 
