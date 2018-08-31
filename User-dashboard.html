@@ -23,7 +23,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <!--     Fonts and icons     -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
+    />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Material Kit CSS -->
@@ -34,6 +35,7 @@
     <link rel="stylesheet" href="assets/css/nav-links.css">
     <!-- steps in adding new thing -->
     <!-- <link rel="stylesheet" href="assets/css/steps.css"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 </head>
 
 <body>
@@ -65,8 +67,8 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="#tab4" data-toggle="tab"> Promotor</a>
                         </li>
-                    </ul>                
-                   </div>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -76,78 +78,104 @@
                     <!--<div class="row">-->
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab1">
-                            <div class="row mx-1 justify-content-around">                                
+                            <div class="row mx-1 justify-content-around">
                                 <div class="col-md-3">
-                                    <div class="card  btn btn-primary"  style="height: 200px;padding:15px;margin-top: 50px;">
-                                            <div class="ml-auto mr-auto">                                                   
-                                                    <div class="card-stats justify-content-around">
-                                                            <i class="fa fa-5x fa-home ficon" aria-hidden="true"></i>                                                                                                                   
-                                                    </div><br><br><br><br><br>
-                                                    <a href="#"><h6 class="info-title" style="color: white;">
-                                                        Click Here To
-                                                        <br> View Statistics</h6>
-                                                    </a>                                                
+                                    <div class="card  btn btn-primary" style="height: 200px;padding:15px;margin-top: 50px;">
+                                        <div class="ml-auto mr-auto">
+                                            <div class="card-stats justify-content-around">
+                                                <i class="fa fa-5x fa-home ficon" aria-hidden="true"></i>
                                             </div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <a href="#">
+                                                <h6 class="info-title" style="color: white;">
+                                                    Click Here To
+                                                    <br> View Statistics</h6>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3 ">
-                                        <div class="card  btn btn-info"  style="height: 200px;padding:15px;margin-top: 50px;">
-                                                <div class="ml-auto mr-auto">                                                        
-                                                        <div class="card-stats justify-content-around">
-                                                                <i class="fa fa-5x fa-search ficon" aria-hidden="true"></i>                                                        
-                                                            </div><br><br><br><br><br>
-                                                            <a href="#"><h6 class="info-title" style="color: white;">
-                                                                Click Here To
-                                                                <br> View Statistics</h6>
-                                                            </a>                                                  
-                                                </div>
+                                    <div class="card  btn btn-info" style="height: 200px;padding:15px;margin-top: 50px;">
+                                        <div class="ml-auto mr-auto">
+                                            <div class="card-stats justify-content-around">
+                                                <i class="fa fa-5x fa-search ficon" aria-hidden="true"></i>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <a href="#">
+                                                <h6 class="info-title" style="color: white;">
+                                                    Click Here To
+                                                    <br> View Statistics</h6>
+                                            </a>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 ">
-                                            <div class="card  btn btn-danger"  style="height: 200px;padding:15px;margin-top: 50px;">
-                                                    <div class="ml-auto mr-auto">                                                        
-                                                            <div class="card-stats justify-content-around">
-                                                                    <i class="fa fa-plus-square ficon"></i>
-                                                                </div><br><br><br><br><br>
-                                                                                                                 
-                                                    </div>
+                                </div>
+                                <div class="col-md-3 ">
+                                    <div class="card  btn btn-danger" style="height: 200px;padding:15px;margin-top: 50px;">
+                                        <div class="ml-auto mr-auto">
+                                            <div class="card-stats justify-content-around">
+                                                <i class="fa fa-plus-square ficon"></i>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 ">
+                                    <div class="card  btn btn-rose" style="height: 200px;padding:15px;margin-top: 50px;">
+                                        <div class="ml-auto mr-auto">
+                                            <div class="card-stats justify-content-around">
+                                                <i class="fa fa-plus-square ficon"></i>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row mx-1 justify-content-around">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="ml-auto mr-auto">
+                                            <div class="card-stats justify-content-around">
+                                                <div style="width: 300px; height: 300px;">
+                                                    <canvas id="myChart" width="400" height="400"></canvas>
+                                                </div>
                                             </div>
                                         </div>
-                                
-                                        <div class="col-md-3 ">
-                                                <div class="card  btn btn-rose"  style="height: 200px;padding:15px;margin-top: 50px;">
-                                                        <div class="ml-auto mr-auto">                                                        
-                                                                <div class="card-stats justify-content-around">
-                                                                        <i class="fa fa-plus-square ficon"></i>
-                                                                    </div><br><br><br><br><br>
-                                                                                                                     
-                                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <div class="card">
+                                        <div class="ml-auto mr-auto">
+                                            <div class="card-stats justify-content-around">
+                                                <div style="width: 300px; height: 300px;">
+                                                    <canvas id="myChart2" width="400" height="400"></canvas>
                                                 </div>
-                                            </div>                         
-                               </div>
-
-
-
-                               <div class="row mx-1 justify-content-around">                                
-                                    <div class="col-md-6">
-                                        <div class="card">
-                                                <div class="ml-auto mr-auto">                                                   
-                                                        <div class="card-stats justify-content-around">
-                                                               <img src="https://via.placeholder.com/350x250">                                                                                                                   
-                                                        </div><br><br><br><br><br>                                                                                                       
-                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 ">
-                                            <div class="card">
-                                                    <div class="ml-auto mr-auto">                                                        
-                                                            <div class="card-stats justify-content-around">
-                                                                    <img src="https://via.placeholder.com/350x250">                                                        
-                                                                </div><br><br><br><br><br>                                                                                                                 
-                                                    </div>
-                                            </div>
-                                        </div>                                
-                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!--</div>-->
@@ -188,6 +216,7 @@
     </div>
 
     <!--   Core JS Files   -->
+    <script src="assets/js/chart.js"></script>
     <script src="assets/js/core/jquery.min.js"></script>
     <script src="assets/js/core/popper.min.js"></script>
     <script src="assets/js/bootstrap-material-design.js"></script>
