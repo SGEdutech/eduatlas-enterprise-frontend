@@ -1,4 +1,4 @@
-(() => {
+const scroll = (() => {
 	let promoterNav;
 	let managerNav;
 	let communicatorNav;
@@ -16,9 +16,9 @@
 	}
 
 	function bindEvents() {
-		promoterNav.click(() => scrollToElement(scrollToElement($promoterContainer)));
+		$promoterNav.click(() => scrollToElement(scrollToElement($promoterContainer)));
 		$communicatorNav.click(() => scrollToElement(scrollToElement($communicatorContainer)));
-		managerNav.click(() => scrollToElement(scrollToElement($managerContainer)));
+		$managerNav.click(() => scrollToElement(scrollToElement($managerContainer)));
 	}
 
 	function scrollToElement($element, duration = 1000) {
