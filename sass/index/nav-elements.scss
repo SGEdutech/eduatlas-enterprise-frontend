@@ -1,0 +1,26 @@
+@import "./variable.scss";
+
+.section2 {
+  h2 {
+    text-align: center;
+    color: $color;
+    font-size: 35px;
+    span {
+      color: #1cacbd;
+    }
+  }
+  .nav-element {
+    color: $color2;
+    padding: 9px;
+    border: 1px solid #31d4e8;
+    font-size: 15px;
+    a {
+      color: $color2;
+      font-weight: bold;
+
+      &:hover {
+        color: $hover;
+      }
+    }
+  }
+}
