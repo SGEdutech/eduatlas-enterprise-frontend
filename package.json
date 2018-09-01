@@ -24,7 +24,4 @@
     "gulp-sass": "^4.0.1",
     "gulp-wrap": "^0.14.0"
   },
-  "dependencies": {
-    "gulp-cli": "^2.0.1"
-  }
 }
