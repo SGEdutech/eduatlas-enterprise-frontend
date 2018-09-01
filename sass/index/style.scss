@@ -31,7 +31,8 @@ body {
     font-size: 55px;
     position: absolute;
     top: 50%;
-    transform: translate(0, -50%);
+    transform: translateY(-50%);
+	width: 100%; // For some reason this doesn't take full width
     @media(max-width: 991.98px) {
       position: relative;
     }
@@ -82,10 +83,7 @@ body {
     text-align: center;
     color: $color;
     font-size: 35px;
-    span {
-      color: #1cacbd;
-    }
-  }
+}
   .nav-element {
     color: $color2;
     padding: 9px;
@@ -106,14 +104,16 @@ body {
 
 /*section3*/
 .section3 {
-  margin-top: 100px;
-  margin-right: 0 !important;
   background-image: url("../img/img.svg");
   padding: 50px;
   background-repeat: no-repeat;
   background-position: calc(50% + 1000px) center;
   &:nth-child(2n) {
     flex-direction: row-reverse;
+	.product-explain-content {
+		float: right;
+		clear: right;
+	}
   }
   .product-explain-content {
     max-width: 350px
