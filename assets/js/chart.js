@@ -1,7 +1,8 @@
+let chart1, chart2;
 var ctx = document.getElementById("myChart").getContext('2d');
 var ctx2 = document.getElementById("myChart2").getContext('2d');
-createChart(ctx);
-createChart(ctx2)
+chart1 = createChart(ctx, chart1);
+chart2 = createChart(ctx2, chart2)
 
 let homePageData = {
     day1: 23,
@@ -20,7 +21,7 @@ let homePageData = {
 
 
 function createChart(ctx) {
-    new Chart(ctx, {
+    return new Chart(ctx, {
         type: 'line',
         responsive: true,
         data: {
@@ -60,4 +61,15 @@ function createChart(ctx) {
             }
         }
     });
+}
+
+addData(chart1, "day7", 23)
+
+function addData(chart, label, data) {
+    console.log(chart)
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
 }
