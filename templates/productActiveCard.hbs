@@ -1,0 +1,55 @@
+{{#if col4}}
+<div class="col-md-4">
+    {{else}} {{/if}}
+    <div class="card bg-info">
+        <div class="card-body text-center">
+            {{#if promoter}}
+            <a data-toggle="promoter" class="tab-toggle" style="cursor: pointer">
+                <div class="card-title text-center">
+                    <h2>Promoter</h2>
+                </div>
+                <p class="card-title">
+                    Promoter lets you promote your institute on various pages on Eduatlas.com
+                </p>
+
+                <div class="card-stats justify-content-around">
+                    <button type="button" class="btn btn-danger" style="cursor: default;">Due Date: {{promoter}}</button>
+                </div>
+            </a>
+            {{/if}} {{#if communicator}}
+            <a data-toggle="communicator" class="tab-toggle" style="cursor: pointer">
+                <div class="card-title text-center">
+                    <h2>Communicator</h2>
+                </div>
+                <p class="card-title">
+                    Comnnunicator lets you communicate info back and forth to students and parents
+                </p>
+
+                <div class="card-stats justify-content-around">
+                    <button type="button" class="btn btn-danger" style="cursor: default;">Due Date: {{communicator}}</button>
+                </div>
+            </a>
+            {{/if}} {{#if manager}}
+            <a data-toggle="manager" class="tab-toggle" style="cursor: pointer">
+                <div class="card-title text-center">
+                    <h2>Manager</h2>
+                </div>
+                <p class="card-title">
+                    Manager lets you control almost all of your institutes stats and info flow
+                </p>
+
+                <div class="card-stats justify-content-around">
+                    <button type="button" class="btn btn-danger" style="cursor: default;">Due Date: {{manager}}</button>
+                </div>
+            </a>
+            {{/if}}
+
+            <div class="card-stats justify-content-around">
+                <button type="button" class="btn btn-success">Upgrade/Renew</button>
+            </div>
+        </div>
+
+    </div>
+    {{#if col4}}
+</div>
+{{else}} {{/if}}
