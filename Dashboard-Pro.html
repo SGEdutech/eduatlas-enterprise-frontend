@@ -1,0 +1,1080 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121945570-1"></script>
+    <link rel="apple-touch-icon" href="assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-121945570-1');
+    </script>
+    <title>Dashboard-Pro</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Material Kit CSS -->
+    <link rel="stylesheet" href="assets/css/material-kit.css">
+    <link rel="stylesheet" href="assets/css/userdashboard.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/dashboard-pro.css">
+</head>
+
+<body>
+    <div id="nav_container">
+    </div>
+    <!-- <div id="coverImgContainer">
+        <div id="cover_image" class="page-header header-filter header-small" data-parallax="true" filter-color="dark" style="background-image: url(assets/img/bg2.jpg);">
+        </div>
+    </div> -->
+    <div id="secondary_info" class="row p-0 mt-5">
+        <div class="col-md-3 text-center">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="fileinput fileinput-new text-center">
+                        <div class="fileinput-new thumbnail img-raised">
+                            <img id="profile_pic" alt="User Profile Pic">
+                        </div>
+                    </div>
+                    <div class="card-subtitle text-muted h5" id="userIdContainer"></div>
+                    <button class="btn btn-outline-info btn-round" onclick="logout()">Logout</button>
+                </div>
+
+            </div>
+
+            <div class="card">
+                <div class="card-body p-1 p-md-3">
+                    <ul class="nav nav-pills nav-pills-info flex-column" id="nav-pills-list">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#tab2" data-toggle="tab"> Dashboard-Pro</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tab6" data-toggle="tab"> Add Tuition</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tab7" data-toggle="tab"> Add School</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tab8" data-toggle="tab"> Add Event</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body p-1 p-md-3">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab2">
+                            <div class="card-title col-12 h3">
+                                Manage Pro Features
+                            </div>
+                            <div class="row justify-content-around" id="item-cards-container">
+                            </div>
+                            <div class="card-title col-12">
+                                Manage Your Tuitions
+                            </div>
+                            <div class="container">
+                                <div class="col-md-4" id="5b2a160735d37428c37f403d">
+                                    <div class="card newFont">
+                                        <div class=" tuition-cards" style="cursor: pointer" onclick="helperScripts.openDetailsPage('tuition','5b2a160735d37428c37f403d')">
+                                            <div class="card p-0 m-0 rounded-0 rounded-top" style="overflow: hidden;text-overflow: ellipsis">
+                                                <div class="rounded-top" style="position: absolute; height: 192px;width: 100%;background-color: rgba(0,0,0,0.5)">
+                                                </div>
+                                                <img class="card-img-top" src="/assets/img/fourgirls.jpeg" alt="Tuition Image"
+                                                    style="height: 182px;width: 100%;">
+                                                <div class="card-img-overlay">
+                                                    <h4 class="card-title text-white">PV EDUCATION PVT. LTD.</h4>
+                                                    <span class="badge badge-warning">2.5/5</span>
+                                                    <span class="badge badge-info">verified</span>
+                                                    <br>
+                                                    <div class="my-1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body pb-0">
+                                            <div class="row" style="min-height: 70px;max-height: 70px;text-overflow: ellipsis;
+                                                    overflow: hidden; ">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        location_on
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="address" class="my-0">16, second floor,
+                                                        vaishali,pitampura,delhi,delhi</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
+                                                    overflow: hidden">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        phone
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="phone" class="my-0">8800889917</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
+                                                    overflow: hidden">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        email
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="email" class="my-0">prashant.mailbox@gmail.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-0 pt-0 rounded-0 card-footer justify-content-center">
+                                            <div class="col">
+                                                <a class="btn btn-info btn-round" href="user-edit-tuition.html?a=5b2a160735d37428c37f403d">Edit</a>
+                                            </div>
+                                            <div class="col">
+                                                <button class="btn btn-danger btn-round unclaim-button" data-id="5b2a160735d37428c37f403d"
+                                                    data-category="tuition">Unclaim
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-title col-12">
+                                Manage Your Schools
+                            </div>
+                            <div class="container">
+                                <div class="col-md-4">
+                                    <div class="card newFont">
+                                        <div class=" tuition-cards" style="cursor: pointer" onclick="helperScripts.openDetailsPage('tuition','5b2a160735d37428c37f403d')">
+                                            <div class="card p-0 m-0 rounded-0 rounded-top" style="overflow: hidden;text-overflow: ellipsis">
+                                                <div class="rounded-top" style="position: absolute; height: 192px;width: 100%;background-color: rgba(0,0,0,0.5)">
+                                                </div>
+                                                <img class="card-img-top" src="/assets/img/fourgirls.jpeg" alt="Tuition Image"
+                                                    style="height: 182px;width: 100%;">
+                                                <div class="card-img-overlay">
+                                                    <h4 class="card-title text-white">PV EDUCATION PVT. LTD.</h4>
+                                                    <span class="badge badge-warning">2.5/5</span>
+                                                    <span class="badge badge-info">verified</span>
+                                                    <br>
+                                                    <div class="my-1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body pb-0">
+                                            <div class="row" style="min-height: 70px;max-height: 70px;text-overflow: ellipsis;
+                                                            overflow: hidden; ">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        location_on
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="address" class="my-0">16, second floor,
+                                                        vaishali,pitampura,delhi,delhi</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
+                                                            overflow: hidden">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        phone
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="phone" class="my-0">8800889917</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
+                                                            overflow: hidden">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        email
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="email" class="my-0">prashant.mailbox@gmail.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-0 pt-0 rounded-0 card-footer justify-content-center">
+                                            <div class="col">
+                                                <a class="btn btn-info btn-round" href="user-edit-tuition.html?a=5b2a160735d37428c37f403d">Edit</a>
+                                            </div>
+                                            <div class="col">
+                                                <button class="btn btn-danger btn-round unclaim-button" data-id="5b2a160735d37428c37f403d"
+                                                    data-category="tuition">Unclaim
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-title col-12">
+                                Manage Your Events
+                            </div>
+                            <div class="container">
+                                <div class="col-md-4">
+                                    <div class="card newFont">
+                                        <div class=" tuition-cards" style="cursor: pointer" onclick="helperScripts.openDetailsPage('tuition','5b2a160735d37428c37f403d')">
+                                            <div class="card p-0 m-0 rounded-0 rounded-top" style="overflow: hidden;text-overflow: ellipsis">
+                                                <div class="rounded-top" style="position: absolute; height: 192px;width: 100%;background-color: rgba(0,0,0,0.5)">
+                                                </div>
+                                                <img class="card-img-top" src="/assets/img/fourgirls.jpeg" alt="Tuition Image"
+                                                    style="height: 182px;width: 100%;">
+                                                <div class="card-img-overlay">
+                                                    <h4 class="card-title text-white">PV EDUCATION PVT. LTD.</h4>
+                                                    <span class="badge badge-warning">2.5/5</span>
+                                                    <span class="badge badge-info">verified</span>
+                                                    <br>
+                                                    <div class="my-1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body pb-0">
+                                            <div class="row" style="min-height: 70px;max-height: 70px;text-overflow: ellipsis;
+                                                            overflow: hidden; ">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        location_on
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="address" class="my-0">16, second floor,
+                                                        vaishali,pitampura,delhi,delhi</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
+                                                            overflow: hidden">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        phone
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="phone" class="my-0">8800889917</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
+                                                            overflow: hidden">
+                                                <div class="col-1 px-0">
+                                                    <i class="material-icons md-18" style="color: #00bcd4">
+                                                        email
+                                                    </i>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p id="email" class="my-0">prashant.mailbox@gmail.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-0 pt-0 rounded-0 card-footer justify-content-center">
+                                            <div class="col">
+                                                <a class="btn btn-info btn-round" href="user-edit-tuition.html?a=5b2a160735d37428c37f403d">Edit</a>
+                                            </div>
+                                            <div class="col">
+                                                <button class="btn btn-danger btn-round unclaim-button" data-id="5b2a160735d37428c37f403d"
+                                                    data-category="tuition">Unclaim
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab3">
+                            <div class="card-title col-12 h3">
+                                Manage Advertisements
+                            </div>
+                            <div class="row m-1" style="overflow: hidden;">
+                                <div class="list-group" id="ad-manage-list">
+                                    <a class="list-group-item row mb-4">
+                                        <b class="list-group-item-heading text-info col-4">Institute Name</b>
+                                        <b class="list-group-item-heading text-info col-4">Address</b>
+                                        <b class="list-group-item-heading text-info col-3">Ads Status</b>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">
+                            Communicator Pane
+                        </div>
+                        <div class="tab-pane" id="tab5">
+                            Manager Pane
+                        </div>
+                        <div class="tab-pane" id="tab6">
+                            <form id="addTuition" method="POST" action="/tuition">
+
+                                <div id="basicContainerTuition">
+                                    <div class="btn-group btn-group-raised justify-content-around" role="group"
+                                        aria-label="stepwise">
+                                        <button type="button btn" class="btn btn-info disabled" disabled>Step 1</button>
+                                        <button type="button btn" class="btn btn-secondary disabled" disabled>Step 2</button>
+                                        <button type="button btn" class="btn btn-secondary disabled" disabled>Step 3</button>
+                                        <button type="button btn" class="btn btn-secondary disabled" disabled>Step 4</button>
+                                        <button type="button btn" class="btn btn-secondary disabled" disabled>Step 5</button>
+                                        <button type="button btn" class="btn btn-secondary disabled" disabled>Step 6</button>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h2 class="card-title h3">Basic Details:</h2>
+                                            <div class="row align-items-center mb-3">
+                                                <div class="col-md-3">
+                                                    <h6>Institute Name</h6>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <input id="tName" value="" class="form-control" type="text" name="name">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="row form-group">
+                                                        <label for="al1">Address Line 1</label>
+                                                        <input class="form-control" value="" type="text" id="al1" name="addressLine1">
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="al2">Address Line 2</label>
+                                                        <input class="form-control" value="" type="text" id="al2" name="addressLine2">
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="inputCity">City</label>
+                                                        <select id="inputCity" name="city" class="form-control inputCity">
+                                                            <option selected>Choose...</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="dist">District</label>
+                                                        <input class="form-control" value="" type="text" id="dist" name="district">
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="inputState">State</label>
+                                                        <input class="form-control inputState" value="" type="text" id="inputState"
+                                                            name="state">
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="country">Country</label>
+                                                        <input class="form-control" value="India" type="text" id="country"
+                                                            name="country">
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="pin">Pin</label>
+                                                        <input class="form-control" value="" type="number" id="pin"
+                                                            name="pin">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h2 class="card-title h3">Facilities:</h2>
+
+                                        <div id="facilityContainer">
+                                            <!--todo - fix backend to support array in facilities-->
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio1" value="Library/Study Area"> Library/Study
+                                                    Area
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio2" value="Smart Classes"> Smart Classes
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio3" value="Study Material"> Study Material
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio4" value="AC Classes"> AC Classes
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio5" value="Internet/WIFI"> Internet/WIFI
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio6" value="Transport"> Transport
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio7" value="E-Learning"> E-Learning
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h2 class="card-title h3">About Us</h2>
+                                        <div id="descriptionContainer">
+                                            <div>
+                                                <input value="" name="description" class="form-control" id="description">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h2 class="card-title h3">Category</h2>
+                                        <div id="cateContainer">
+                                            <select id="category" name="category" class="selectpicker form-control"
+                                                data-style="btn btn-link" multiple>
+                                                <option value="Tuition Centers">Tuition Centers</option>
+                                                <option value="Coaching Centers">Coaching Centers</option>
+                                                <option value="Enhanced Learning">Enhanced Learning</option>
+                                                <option value="Hobby Centers">Hobby Centers</option>
+                                                <option value="Sports Center">Sports Center</option>
+                                                <option value="Education Companies">Education Companies</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--todo- test if working-->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h2 class="card-title h3">Add/Change Cover Pic</h2>
+
+                                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail img-raised">
+                                                <img src="assets/img/preview.jpg" ; style="-webkit-filter: grayscale(100%);
+                                         filter: grayscale(100%);">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                                            <div>
+                                                <span class="btn btn-raised btn-round btn-default btn-file">
+                                                    <span class="fileinput-new">Select image</span>
+                                                    <span class="fileinput-exists">Change</span>
+                                                    <input type="file" name="tuitionCoverPic" />
+                                                </span>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
+                                                    data-dismiss="fileinput">
+                                                    <i class="fa fa-times"></i> Remove</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input name="claimedBy" id="claimedByInput" type="hidden">
+                                <button class="btn btn-info btn-round" type="submit">Proceed to Step 2</button>
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="tab7">
+                            <form id="addSchool" method="POST" action="/school">
+                                <div id="basicContainerSchool">
+                                    <div class="btn-group btn-group-raised justify-content-around" role="group"
+                                        aria-label="stepwise">
+                                        <button type="button btn" class="btn btn-info disabled" disabled>Step 1</button>
+                                        <button type="button btn" class="btn btn-secondary disabled" disabled>Step 2</button>
+                                        <button type="button btn" class="btn btn-secondary disabled" disabled>Step 3</button>
+                                        <button type="button btn" class="btn btn-secondary disabled" disabled>Step 4</button>
+                                        <button type="button btn" class="btn btn-secondary disabled" disabled>Step 5</button>
+                                        <button type="button btn" class="btn btn-secondary disabled" disabled>Step 6</button>
+                                        <button type="button btn" class="btn btn-secondary disabled" disabled>Step 7</button>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h2 class="card-title h3">Basic Details:</h2>
+                                            <div class="row align-items-center mb-3">
+                                                <div class="col-md-3">
+                                                    <h6>School Name</h6>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <input id="sName" value="" class="form-control" type="text" name="name">
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="row form-group">
+                                                        <label for="al1School">Address Line 1</label>
+                                                        <input class="form-control" value="" type="text" id="al1School"
+                                                            name="addressLine1">
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="al2School">Address Line 2</label>
+                                                        <input class="form-control" value="" type="text" id="al2School"
+                                                            name="addressLine2">
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="inputCitySchool">City</label>
+                                                        <select id="inputCitySchool" name="city" class="form-control inputCity">
+                                                            <option selected>Choose...</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="distSchool">District</label>
+                                                        <input class="form-control" value="" type="text" id="distSchool"
+                                                            name="district">
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="inputStateSchool">State</label>
+                                                        <input class="form-control inputState" value="" type="text" id="inputStateSchool"
+                                                            name="state">
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="countrySchool">Country</label>
+                                                        <input class="form-control" value="India" type="text" id="countrySchool"
+                                                            name="country">
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="pinSchool">Pin</label>
+                                                        <input class="form-control" value="" type="number" id="pinSchool"
+                                                            name="pin">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h2 class="card-title h3">Other Details:</h2>
+                                        <div id="otherDetailsContainerSchool">
+                                            <div class="row form-group mb-4">
+                                                <label for="curriculumSchool" class="text-dark">Curriculum</label>
+                                                <select id="curriculumSchool" name="curriculum" class="selectpicker form-control"
+                                                    data-style="btn btn-link">
+                                                    <option value="" disabled selected>Choose your option</option>
+                                                    <option value="CBSE">CBSE</option>
+                                                    <option value="ICSE">ICSE</option>
+                                                    <option value="State Board">State Board</option>
+                                                    <option value="Open School">Open School</option>
+                                                    <option value="IGCSE">IGCSE</option>
+                                                    <option value="CIE">CIE</option>
+                                                    <option value="IB">IB</option>
+                                                    <option value="Others">Others</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="row form-group mb-4">
+                                                <label for="grades" class="text-dark">Grades</label>
+                                                <select id="grades" name="grades" class="selectpicker form-control"
+                                                    data-style="btn btn-link" multiple>
+                                                    <option value="" disabled>Choose multiple</option>
+                                                    <option value="Nursery">Nursery</option>
+                                                    <option value="Kindergarten">Kindergarten</option>
+                                                    <option value="1st">1st</option>
+                                                    <option value="2nd">2nd</option>
+                                                    <option value="3rd">3rd</option>
+                                                    <option value="4th">4th</option>
+                                                    <option value="5th">5th</option>
+                                                    <option value="6th">6th</option>
+                                                    <option value="7th">7th</option>
+                                                    <option value="8th">8th</option>
+                                                    <option value="9th">9th</option>
+                                                    <option value="10th">10th</option>
+                                                    <option value="11th">11th</option>
+                                                    <option value="12th">12th</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="row form-group mb-4">
+                                                <label for="type" class="text-dark">Type Of Schooling</label>
+                                                <select id="type" name="type" class="selectpicker form-control"
+                                                    data-style="btn btn-link">
+                                                    <option value="" disabled selected>Choose your option</option>
+                                                    <option value="Day">Day School</option>
+                                                    <option value="Day Boarding">Day Boarding</option>
+                                                    <option value="Boarding/Residential">Boarding/Residential</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="row form-group">
+                                                <label for="principalName">Head Of School</label>
+                                                <input id="principalName" class="form-control" type="text" name="principalName">
+                                            </div>
+                                            <div class="row form-group">
+                                                <label for="yearFounded">Founded</label>
+                                                <input id="yearFounded" class="form-control" type="number" name="yearFounded">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h2 class="card-title h3">Facilities:</h2>
+
+                                        <div id="facilityContainerSchool">
+                                            <!--todo - fix backend to support array in facilities-->
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio1School" value="Library/Study Area">
+                                                    Library/Study Area
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio2School" value="Smart Classes"> Smart Classes
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio3School" value="Science Labs"> Science Labs
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio4School" value="AC Classes"> AC Classes
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio6School" value="Transport"> Transport
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio7School" value="E-Learning"> E-Learning
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio8School" value="Playing Fields"> Playing Fields
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio9School" value="Canteen"> Canteen
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio10School" value="Medical Centre"> Medical Centre
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio11School" value="Book Store"> Book Store
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio12School" value="Uniform Store"> Uniform Store
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio13School" value="Counselling Support">
+                                                    Counselling Support
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="facilities"
+                                                        id="inlineRadio14School" value="Swimming Pool"> Swimming Pool
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h2 class="card-title h3">About Us</h2>
+                                        <div id="descriptionContainerSchool">
+                                            <div>
+                                                <input value="" name="description" class="form-control" id="descriptionSchool">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h2 class="card-title h3">Category</h2>
+                                        <div id="cateContainerSchool">
+                                            <select id="categorySchool" name="category" class="selectpicker form-control"
+                                                data-style="btn btn-link" multiple>
+                                                <option value="" disabled>Choose your option</option>
+                                                <option value="Pre/Play School">Pre/Play School</option>
+                                                <option value="Day Care">Day Care</option>
+                                                <option value="Formal School">Formal School</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--todo- test if working-->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h2 class="card-title h3">Add/Change Cover Pic</h2>
+
+                                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail img-raised">
+                                                <img src="assets/img/preview.jpg" ; style="-webkit-filter: grayscale(100%);
+                                         filter: grayscale(100%);">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                                            <div>
+                                                <span class="btn btn-raised btn-round btn-default btn-file">
+                                                    <span class="fileinput-new">Select image</span>
+                                                    <span class="fileinput-exists">Change</span>
+                                                    <input type="file" name="schoolCoverPic">
+                                                </span>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
+                                                    data-dismiss="fileinput">
+                                                    <i class="fa fa-times"></i> Remove</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input name="claimedBy" id="claimedByInputSchool" type="hidden">
+                                <button class="btn btn-info btn-round" type="submit">Proceed to Step 2</button>
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="tab8">
+                            <form id="addEvent" method="POST" action="/event">
+                                <div id="basicContainerEvent">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h2 class="card-title h3">Basic Details:</h2>
+                                            <div class="row align-items-center mb-3">
+                                                <div class="col-md-3">
+                                                    <h6>Event Name</h6>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <input id="eName" value="" class="form-control" type="text" name="name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">Description</label>
+                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                                    name="description"></textarea>
+                                            </div>
+                                            <div class="row">
+                                                <h6>For Age Group</h6>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="fromAge">From Age</label>
+                                                    <input class="form-control" type="number" id="fromAge" name="fromAge">
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label for="toAge">To Age</label>
+                                                    <input class="form-control" type="number" id="toAge" name="toAge">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <h6>Day And Time</h6>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="fromDate">From Date</label>
+                                                    <input class="form-control text-gray" type="date" id="fromDate"
+                                                        name="fromDate">
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label for="toDate">To Date</label>
+                                                    <input class="form-control text-gray" type="date" id="toDate" name="toDate">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="fromTime">From Time</label>
+                                                    <input class="form-control text-gray" type="time" id="fromTime"
+                                                        name="fromTime">
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label for="toTime">To Time</label>
+                                                    <input class="form-control text-gray" type="time" id="toTime" name="toTime">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="last_day_registration">Last Date Of Registration</label>
+                                                    <input class="form-control text-gray" type="date" id="last_day_registration"
+                                                        name="lastDateRegistration">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <h6>Organiser/Contact Person</h6>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="organiserName">Contact Person Name</label>
+                                                    <input class="form-control" type="text" id="organiserName" name="organiserName">
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label for="organiserPhone">Contact Person Phone Number</label>
+                                                    <input class="form-control" type="number" id="organiserPhone" name="organiserPhone">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="organiserEmail">Contact Person Email</label>
+                                                    <input class="form-control" type="email" id="organiserEmail" name="organiserEmail">
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label for="website">Event Official Website</label>
+                                                    <input class="form-control" type="text" id="website" name="website">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <h6>Address</h6>
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="al1Event">Address Line 1</label>
+                                                        <input class="form-control" value="" type="text" id="al1Event"
+                                                            name="addressLine1">
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="al2Event">Address Line 2</label>
+                                                        <input class="form-control" value="" type="text" id="al2Event"
+                                                            name="addressLine2">
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="inputCityEvent">City</label>
+                                                        <select id="inputCityEvent" name="city" class="form-control inputCity">
+                                                            <option selected>Choose...</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="distEvent">District</label>
+                                                        <input class="form-control" value="" type="text" id="distEvent"
+                                                            name="district">
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="inputStateEvent">State</label>
+                                                        <input class="form-control inputState" value="" type="text" id="inputStateEvent"
+                                                            name="state">
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="countryEvent">Country</label>
+                                                        <input class="form-control" value="India" type="text" id="countryEvent"
+                                                            name="country">
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <label for="pinEvent">Pin</label>
+                                                        <input class="form-control" value="" type="number" id="pinEvent"
+                                                            name="pin">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h3 class="card-title">Category :</h3>
+                                            <label for="categoryEvent">Category</label>
+                                            <select id="categoryEvent" name="category" class="selectpicker" data-style="btn btn-link"
+                                                multiple>
+                                                <option value="" disabled>Choose your option</option>
+                                                <option value="Cultural">Cultural</option>
+                                                <option value="Annual Day">Annual Day</option>
+                                                <option value="Music">Music</option>
+                                                <option value="Programming">Programming</option>
+                                                <option value="Fest">Fest</option>
+                                                <option value="Educational">Educational</option>
+                                                <option value="Comedy">Comedy</option>
+                                                <option value="Food and Drink">Food and Drink</option>
+                                                <option value="Exhibition">Exhibition</option>
+                                                <option value="Travel n Activities">Travel n Activities</option>
+                                                <option value="others">others</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h2 class="card-title h3">Add/Change Cover Pic</h2>
+
+
+                                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail img-raised">
+                                                <img src="assets/img/preview.jpg" ; style="-webkit-filter: grayscale(100%);
+                                             filter: grayscale(100%);">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                                            <div>
+                                                <span class="btn btn-raised btn-round btn-default btn-file">
+                                                    <span class="fileinput-new">Select image</span>
+                                                    <span class="fileinput-exists">Change</span>
+                                                    <input type="file" name="eventCoverPic">
+                                                </span>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
+                                                    data-dismiss="fileinput">
+                                                    <i class="fa fa-times"></i> Remove</a>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+                                <input type="hidden" name="claimedBy" id="event_owner_id_input">
+                                <button class="btn btn-info btn-round" type="submit">Save Event</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--   Core JS Files   -->
+    <script src="assets/js/core/jquery.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/bootstrap-material-design.js"></script>
+
+    <!-- Plugin for Date Time Picker and Full Calendar Plugin-->
+    <script src="assets/js/plugins/moment.min.js"></script>
+
+    <!-- Plugin for Select, full documentation here: https://silviomoreto.github.io/bootstrap-select -->
+    <script src="assets/js/plugins/bootstrap-selectpicker.js"></script>
+
+    <!-- Plugin for Tags, full documentation here: https://xoxco.com/projects/code/tagsinput/  -->
+    <script src="assets/js/plugins/bootstrap-tagsinput.js"></script>
+
+    <!-- Plugin for Fileupload, full documentation here: https://www.jasny.net/bootstrap/javascript/#fileinput -->
+    <script src="assets/js/plugins/jasny-bootstrap.min.js"></script>
+
+    <!-- Plugin for Small Gallery in Product Page -->
+    <script src="assets/js/plugins/jquery.flexisel.js"></script>
+
+    <!-- Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+    <script src="assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+
+    <!-- Plugin for the Sliders, full documentation here: https://refreshless.com/nouislider/ -->
+    <script src="assets/js/plugins/nouislider.min.js"></script>
+
+    <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
+    <script src="assets/js/material-kit.js?v=2.0.0"></script>
+
+    <!--HandleBars for templating-->
+    <script src="assets/js/handlebars-v4.0.11.js"></script>
+    <script src="assets/js/templates.js"></script>
+
+    <!--seed cities-->
+    <!--Docs at: https://github.com/mroderick/PubSubJS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pubsub-js/1.6.0/pubsub.min.js"></script>
+
+    <script src="assets/js/active-products.js"></script>
+    <script src="assets/js/promoter.js"></script>
+    <script src="assets/js/dashboard-add-tuition.js"></script>
+    <script src="assets/js/dashboard-add-school.js"></script>
+    <script src="assets/js/dashboard-add-event.js"></script>
+    <script src="assets/js/dashboard-pro-service.js"></script>
+
+</body>
+
+</html>

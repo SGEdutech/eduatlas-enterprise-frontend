@@ -1,0 +1,48 @@
+{{#if col4}}
+<div class="col-md-4">
+    {{else}} {{/if}}
+    <div class="card bg-secondary inactive-card h-75">
+        <span class="badge badge-danger">this plan is not activated</span>
+        <div class="card-body">
+            {{#if promoter}}
+            <a href="#tacla">
+                <div class="card-title text-center text-gray">
+                    <h3>Promoter</h3>
+                </div>
+
+                <p class="card-title text-gray text-center">
+                    Promoter lets you promote your institute on various pages on Eduatlas.com
+                </p>
+            </a>
+            {{/if}} {{#if communicator}}
+            <a href="#tacla">
+                <div class="card-title text-center text-gray">
+                    <h3>Communicator</h3>
+                </div>
+
+                <p class="card-title text-gray text-center">
+                    Comnnunicator lets you communicate info back and forth to students and parents
+                </p>
+            </a>
+            {{/if}} {{#if manager}}
+            <a href="#tacla">
+                <div class="card-title text-center text-gray">
+                    <h3>Manager</h3>
+                </div>
+
+                <p class="card-title text-gray text-center">
+                    Manager lets you control almost all of your institutes stats and info flow
+                </p>
+            </a>
+            {{/if}}
+            <div class="card-stats justify-content-around">
+
+                <i id="plus_icon" class="fas fa-plus-circle"></i>
+
+            </div>
+        </div>
+
+    </div>
+    {{#if col4}}
+</div>
+{{else}} {{/if}}
