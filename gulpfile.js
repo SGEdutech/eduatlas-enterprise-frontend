@@ -12,6 +12,18 @@ gulp.task('styles', function () {
 		.pipe(gulp.dest('./css/'));
 });
 
+gulp.task('templates', function(){
+    gulp.src('templates/*.hbs')
+        .pipe(handlebars())
+        .pipe(wrap('Handlebars.template(<%= contents %>)'))
+        .pipe(declare({
+            namespace: 'template',
+            noRedeclare: true, // Avoid duplicate declarations
+        }))
+        .pipe(concat('templates.js'))
+        .pipe(gulp.dest('assets/js/'));
+});
+
 gulp.task('default', function () {
 	gulp.watch('./sass/**/*.scss', ['styles']);
 });
