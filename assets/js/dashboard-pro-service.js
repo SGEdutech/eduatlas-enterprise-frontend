@@ -20,10 +20,10 @@ let sampleUserData = {
 }
 
 // imitate  user.getInfo.then(userInfo=>{})
-setTimeout(() => {
+/* setTimeout(() => {
     activeProducts.init(sampleUserData);
     promoter.init(sampleUserData);
-}, 500);
+}, 500); */
 
 PubSub.subscribe('user', (msg, userInfo) => {
     navigationBar.render(userInfo);
@@ -34,4 +34,9 @@ user.getInfo().then(userInfo => {
     navigationBar.init(userInfo, {
         colorOnScroll: false
     });
+    userClaimed.init(userInfo);
+    institutePills.init(userInfo);
+    dashboardEditProfile.init(userInfo);
 });
+
+setTimeout(loginModal.init());

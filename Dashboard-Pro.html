@@ -40,7 +40,7 @@
         <div id="cover_image" class="page-header header-filter header-small" data-parallax="true" filter-color="dark" style="background-image: url(assets/img/bg2.jpg);">
         </div>
     </div> -->
-    <div id="secondary_info" class="row m-3">
+    <div id="secondary_info" class="row m-3 mt-5">
         <div class="col-md-2 text-center">
             <div class="card">
                 <div class="card-body">
@@ -59,7 +59,10 @@
                 <div class="card-body p-1 p-md-3">
                     <ul class="nav nav-pills nav-pills-info flex-column" id="nav-pills-list">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#tab2" data-toggle="tab"> Dashboard-Pro</a>
+                            <a class="nav-link active" href="#tab2" data-toggle="tab"> Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tab3" data-toggle="tab"> Edit Profile</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#tab6" data-toggle="tab"> Add Tuition</a>
@@ -70,6 +73,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#tab8" data-toggle="tab"> Add Event</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#" data-toggle="tab"> My Listings</a>
+                        </li>
+                        <hr>
                     </ul>
                 </div>
             </div>
@@ -81,222 +88,55 @@
                 <div class="card-body p-1 p-md-3">
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab2">
-                            <div class="card-title col-12 h3">
-                                Manage Pro Features
-                            </div>
-                            <div class="row justify-content-around" id="item-cards-container">
-                            </div>
-                            <div class="card-title col-12">
-                                Manage Your Tuitions
-                            </div>
-                            <div class="container">
-                                <div class="col-md-4" id="5b2a160735d37428c37f403d">
-                                    <div class="card newFont">
-                                        <div class=" tuition-cards" style="cursor: pointer" onclick="helperScripts.openDetailsPage('tuition','5b2a160735d37428c37f403d')">
-                                            <div class="card p-0 m-0 rounded-0 rounded-top" style="overflow: hidden;text-overflow: ellipsis">
-                                                <div class="rounded-top" style="position: absolute; height: 192px;width: 100%;background-color: rgba(0,0,0,0.5)">
-                                                </div>
-                                                <img class="card-img-top" src="/assets/img/fourgirls.jpeg" alt="Tuition Image"
-                                                    style="height: 182px;width: 100%;">
-                                                <div class="card-img-overlay">
-                                                    <h4 class="card-title text-white">PV EDUCATION PVT. LTD.</h4>
-                                                    <span class="badge badge-warning">2.5/5</span>
-                                                    <span class="badge badge-info">verified</span>
-                                                    <br>
-                                                    <div class="my-1">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="card-body pb-0">
-                                            <div class="row" style="min-height: 70px;max-height: 70px;text-overflow: ellipsis;
-                                                    overflow: hidden; ">
-                                                <div class="col-1 px-0">
-                                                    <i class="material-icons md-18" style="color: #00bcd4">
-                                                        location_on
-                                                    </i>
-                                                </div>
-                                                <div class="col-11">
-                                                    <p id="address" class="my-0">16, second floor,
-                                                        vaishali,pitampura,delhi,delhi</p>
-                                                </div>
-                                            </div>
-                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
-                                                    overflow: hidden">
-                                                <div class="col-1 px-0">
-                                                    <i class="material-icons md-18" style="color: #00bcd4">
-                                                        phone
-                                                    </i>
-                                                </div>
-                                                <div class="col-11">
-                                                    <p id="phone" class="my-0">8800889917</p>
-                                                </div>
-                                            </div>
-                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
-                                                    overflow: hidden">
-                                                <div class="col-1 px-0">
-                                                    <i class="material-icons md-18" style="color: #00bcd4">
-                                                        email
-                                                    </i>
-                                                </div>
-                                                <div class="col-11">
-                                                    <p id="email" class="my-0">prashant.mailbox@gmail.com</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="pb-0 pt-0 rounded-0 card-footer justify-content-center">
-                                            <div class="col">
-                                                <a class="btn btn-info btn-round" href="user-edit-tuition.html?a=5b2a160735d37428c37f403d">Edit</a>
-                                            </div>
-                                            <div class="col">
-                                                <button class="btn btn-danger btn-round unclaim-button" data-id="5b2a160735d37428c37f403d"
-                                                    data-category="tuition">Unclaim
-                                                </button>
-                                            </div>
+                            <ul class="nav nav-pills nav-pills-rose" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#link1" role="tablist"
+                                        aria-expanded="true">
+                                        Tuitions
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#link2" role="tablist" aria-expanded="false">
+                                        Schools
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#link3" role="tablist" aria-expanded="false">
+                                        Events
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#link4" role="tablist" aria-expanded="false">
+                                        Notifications
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content tab-space">
+                                <div class="tab-pane active" id="link1" aria-expanded="true">
+                                    <div class="container">
+                                        <div id="userOwnedTuitionContainer" class="row">
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-title col-12">
-                                Manage Your Schools
-                            </div>
-                            <div class="container">
-                                <div class="col-md-4">
-                                    <div class="card newFont">
-                                        <div class=" tuition-cards" style="cursor: pointer" onclick="helperScripts.openDetailsPage('tuition','5b2a160735d37428c37f403d')">
-                                            <div class="card p-0 m-0 rounded-0 rounded-top" style="overflow: hidden;text-overflow: ellipsis">
-                                                <div class="rounded-top" style="position: absolute; height: 192px;width: 100%;background-color: rgba(0,0,0,0.5)">
-                                                </div>
-                                                <img class="card-img-top" src="/assets/img/fourgirls.jpeg" alt="Tuition Image"
-                                                    style="height: 182px;width: 100%;">
-                                                <div class="card-img-overlay">
-                                                    <h4 class="card-title text-white">PV EDUCATION PVT. LTD.</h4>
-                                                    <span class="badge badge-warning">2.5/5</span>
-                                                    <span class="badge badge-info">verified</span>
-                                                    <br>
-                                                    <div class="my-1">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="card-body pb-0">
-                                            <div class="row" style="min-height: 70px;max-height: 70px;text-overflow: ellipsis;
-                                                            overflow: hidden; ">
-                                                <div class="col-1 px-0">
-                                                    <i class="material-icons md-18" style="color: #00bcd4">
-                                                        location_on
-                                                    </i>
-                                                </div>
-                                                <div class="col-11">
-                                                    <p id="address" class="my-0">16, second floor,
-                                                        vaishali,pitampura,delhi,delhi</p>
-                                                </div>
-                                            </div>
-                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
-                                                            overflow: hidden">
-                                                <div class="col-1 px-0">
-                                                    <i class="material-icons md-18" style="color: #00bcd4">
-                                                        phone
-                                                    </i>
-                                                </div>
-                                                <div class="col-11">
-                                                    <p id="phone" class="my-0">8800889917</p>
-                                                </div>
-                                            </div>
-                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
-                                                            overflow: hidden">
-                                                <div class="col-1 px-0">
-                                                    <i class="material-icons md-18" style="color: #00bcd4">
-                                                        email
-                                                    </i>
-                                                </div>
-                                                <div class="col-11">
-                                                    <p id="email" class="my-0">prashant.mailbox@gmail.com</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="pb-0 pt-0 rounded-0 card-footer justify-content-center">
-                                            <div class="col">
-                                                <a class="btn btn-info btn-round" href="user-edit-tuition.html?a=5b2a160735d37428c37f403d">Edit</a>
-                                            </div>
-                                            <div class="col">
-                                                <button class="btn btn-danger btn-round unclaim-button" data-id="5b2a160735d37428c37f403d"
-                                                    data-category="tuition">Unclaim
-                                                </button>
-                                            </div>
+                                <div class="tab-pane" id="link2" aria-expanded="false">
+                                    <div class="container">
+                                        <div id="userOwnedSchoolContainer" class="row">
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-title col-12">
-                                Manage Your Events
-                            </div>
-                            <div class="container">
-                                <div class="col-md-4">
-                                    <div class="card newFont">
-                                        <div class=" tuition-cards" style="cursor: pointer" onclick="helperScripts.openDetailsPage('tuition','5b2a160735d37428c37f403d')">
-                                            <div class="card p-0 m-0 rounded-0 rounded-top" style="overflow: hidden;text-overflow: ellipsis">
-                                                <div class="rounded-top" style="position: absolute; height: 192px;width: 100%;background-color: rgba(0,0,0,0.5)">
-                                                </div>
-                                                <img class="card-img-top" src="/assets/img/fourgirls.jpeg" alt="Tuition Image"
-                                                    style="height: 182px;width: 100%;">
-                                                <div class="card-img-overlay">
-                                                    <h4 class="card-title text-white">PV EDUCATION PVT. LTD.</h4>
-                                                    <span class="badge badge-warning">2.5/5</span>
-                                                    <span class="badge badge-info">verified</span>
-                                                    <br>
-                                                    <div class="my-1">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <div class="tab-pane" id="link3" aria-expanded="false">
+                                    <div class="container">
+                                        <div id="userOwnedEventContainer" class="row">
                                         </div>
-
-                                        <div class="card-body pb-0">
-                                            <div class="row" style="min-height: 70px;max-height: 70px;text-overflow: ellipsis;
-                                                            overflow: hidden; ">
-                                                <div class="col-1 px-0">
-                                                    <i class="material-icons md-18" style="color: #00bcd4">
-                                                        location_on
-                                                    </i>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="link4" aria-expanded="false">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="card text-center">
+                                                <div class="card-body">
+                                                    <h4 class="card-title">No Notifications</h4>
                                                 </div>
-                                                <div class="col-11">
-                                                    <p id="address" class="my-0">16, second floor,
-                                                        vaishali,pitampura,delhi,delhi</p>
-                                                </div>
-                                            </div>
-                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
-                                                            overflow: hidden">
-                                                <div class="col-1 px-0">
-                                                    <i class="material-icons md-18" style="color: #00bcd4">
-                                                        phone
-                                                    </i>
-                                                </div>
-                                                <div class="col-11">
-                                                    <p id="phone" class="my-0">8800889917</p>
-                                                </div>
-                                            </div>
-                                            <div class="row" style="min-height: 30px;max-height: 15px;text-overflow: ellipsis;
-                                                            overflow: hidden">
-                                                <div class="col-1 px-0">
-                                                    <i class="material-icons md-18" style="color: #00bcd4">
-                                                        email
-                                                    </i>
-                                                </div>
-                                                <div class="col-11">
-                                                    <p id="email" class="my-0">prashant.mailbox@gmail.com</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="pb-0 pt-0 rounded-0 card-footer justify-content-center">
-                                            <div class="col">
-                                                <a class="btn btn-info btn-round" href="user-edit-tuition.html?a=5b2a160735d37428c37f403d">Edit</a>
-                                            </div>
-                                            <div class="col">
-                                                <button class="btn btn-danger btn-round unclaim-button" data-id="5b2a160735d37428c37f403d"
-                                                    data-category="tuition">Unclaim
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -304,18 +144,21 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="tab3">
-                            <div class="card-title col-12 h3">
-                                Manage Advertisements
-                            </div>
-                            <div class="row m-1" style="overflow: hidden;">
-                                <div class="list-group" id="ad-manage-list">
-                                    <a class="list-group-item row mb-4">
-                                        <b class="list-group-item-heading text-info col-4">Institute Name</b>
-                                        <b class="list-group-item-heading text-info col-4">Address</b>
-                                        <b class="list-group-item-heading text-info col-3">Ads Status</b>
-                                    </a>
+                            <form id="Form1" method="" action="">
+
+                                <div id="basicContainer">
                                 </div>
-                            </div>
+
+                            </form>
+                            <button id="saveFrom1" class="btn btn-info btn-round">Save Personal Info</button>
+                            <form id="Form2" method="" action="">
+
+                                <div class="card" id="userSocialLinksContainer">
+                                </div>
+
+                            </form>
+
+                            <button id="saveFrom2" class="btn btn-info btn-round">Save Social Links</button>
                         </div>
                         <div class="tab-pane" id="tab4">
                             Communicator Pane
@@ -1024,11 +867,426 @@
                                 <button class="btn btn-info btn-round" type="submit">Save Event</button>
                             </form>
                         </div>
+                        <div class="tab-pane" id="tab10">
+                            <div class="card bg-info mt-1">
+                                <div class="card-body px-3">
+                                    <h3 class="card-title text-dark">
+                                        IMS Pitumpura
+                                    </h3>
+                                    <h5 class="card-title">
+                                        Study Monitor
+                                    </h5>
+                                </div>
+                            </div>
+                            <ul class="nav nav-pills nav-pills-rose">
+                                <li class="nav-item"><a class="nav-link active" href="#pill1" data-toggle="tab">Settings</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#pill2" data-toggle="tab">Profile</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#pill3" data-toggle="tab">Options</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Options</a></li>
+                            </ul>
+                            <hr>
+                            <div class="tab-content tab-space">
+                                <div class="tab-pane active" id="pill1">
+                                    <div class="row m-0">
+                                        <div class="col-md-3" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
+                                            <ul class="nav nav-pills nav-pills-rose flex-column">
+                                                <li class="nav-item"><a class="nav-link active" href="#innertab1"
+                                                        data-toggle="tab">Courses</a></li>
+                                                <li class="nav-item"><a class="nav-link" href="#innertab2" data-toggle="tab">Students</a></li>
+                                                <li class="nav-item"><a class="nav-link" href="#innertab3" data-toggle="tab">Batches</a></li>
+                                                <li class="nav-item"><a class="nav-link" href="#innertab4" data-toggle="tab">Active
+                                                        Batches</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="innertab1">
+                                                    <form class="">
+                                                        <div class="row m-0">
+                                                            <div class="card m-0 mb-4">
+                                                                <div class="row card-body">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group label-floating is-empty has-rose bmd-form-group">
+                                                                            <input type="text" name="email" class="form-control"
+                                                                                placeholder="Course Name">
+                                                                            <span class="material-input"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group label-floating is-empty has-rose bmd-form-group">
+                                                                            <input type="email" name="email" class="form-control"
+                                                                                placeholder="Course Fee">
+                                                                            <span class="material-input"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group label-floating has-rose is-empty bmd-form-group">
+                                                                            <textarea name="message" class="form-control"
+                                                                                id="exampleMessage" rows="4"
+                                                                                placeholder="Description(Optional)"></textarea>
+                                                                            <span class="material-input"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group label-floating is-empty has-rose bmd-form-group">
+                                                                            <label for="active-till">Active Till</label>
+                                                                            <input id="active-till" name="email" class="form-control"
+                                                                                type="date" placeholder="Active Till(Date)">
+                                                                            <span class="material-input"></span>
+                                                                        </div>
+                                                                        <br>
+                                                                        <button type="submit" class="btn btn-round btn-rose pull-right">
+                                                                            ADD Courses
+                                                                            <div class="ripple-container"></div>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-title col-12 h3">
+                                                                Active Courses(3)
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="card">
+                                                                    <div class="card-body ">
+                                                                        <h4 class="card-title">
+                                                                            <a href="#pablo">MBA Prep 18</a>
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="card-footer ">
+                                                                        <div class="author">
+                                                                            <h6 class="card-category text-danger">
+                                                                                <i class="material-icons">trending_up</i>
+                                                                                Price 50000/-
+                                                                            </h6>
+                                                                        </div>
+                                                                        <div class="stats ml-auto">
+                                                                            <i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
+                                                                            <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="card">
+                                                                    <div class="card-body ">
+                                                                        <h4 class="card-title">
+                                                                            <a href="#pablo">MBA Prep 18</a>
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="card-footer ">
+                                                                        <div class="author">
+                                                                            <h6 class="card-category text-danger">
+                                                                                <i class="material-icons">trending_up</i>
+                                                                                Price 50000/-
+                                                                            </h6>
+                                                                        </div>
+                                                                        <div class="stats ml-auto">
+                                                                            <i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
+                                                                            <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="card">
+                                                                    <div class="card-body ">
+                                                                        <h4 class="card-title">
+                                                                            <a href="#pablo">MBA Prep 18</a>
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="card-footer ">
+                                                                        <div class="author">
+                                                                            <h6 class="card-category text-danger">
+                                                                                <i class="material-icons">trending_up</i>
+                                                                                Price 50000/-
+                                                                            </h6>
+                                                                        </div>
+                                                                        <div class="stats ml-auto">
+                                                                            <i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
+                                                                            <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-title col-12 h3">
+                                                                Inactive Courses(1)
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="card">
+                                                                    <div class="card-body ">
+                                                                        <h4 class="card-title">
+                                                                            <a href="#pablo">MBA Prep 18</a>
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="card-footer ">
+                                                                        <div class="author">
+                                                                            <h6 class="card-category text-danger">
+                                                                                <i class="material-icons">trending_up</i>
+                                                                                Price 50000/-
+                                                                            </h6>
+                                                                        </div>
+                                                                        <div class="stats ml-auto">
+                                                                            <i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
+                                                                            <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <br><br>
+                                                </div>
+                                                <div class="tab-pane" id="innertab2">
+                                                    <div class="card card-profile card-plaina main-raised m-0">
+                                                        <div class="row card-body">
+                                                            <div class="col-md-6">
+                                                                <h4 class="card-title text-left">Bulk Upload</h4>
+                                                                <p class="description text-left">use the excel template
+                                                                    to bulk
+                                                                    Upload your student data please do not edit
+                                                                    template</p>
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                <button class="btn btn-round btn-rose">Download
+                                                                    Template</button>
+                                                                <button class="btn btn-round btn-rose">Upload Template</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+
+
+                                                    <div class="card card-profile main-raised m-0">
+                                                        <div class="card-body text-left has-rose">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <h4 class="card-title">Auto Fields</h4>
+                                                                    <input type="text" value="" placeholder="-EA Membership number"
+                                                                        class="form-control" />
+                                                                    <h4 class="card-title">Compulsory Fields</h4>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" value="" placeholder="Student Roll No."
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" value="" placeholder="Student Name"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" value="" placeholder="Student E-mail"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <h4 class="card-title">Additional Fields</h4>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" value="" placeholder="Address"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" value="" placeholder="Contact No."
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <h4 class="card-title">Payment Details</h4>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" value="" placeholder="-Product Name"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" value="" placeholder="-Products Fees"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" value="" placeholder="-Discount Amount Given"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" value="" placeholder="-Discount Reason"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" value="" placeholder="-Net Fee"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" value="" placeholder="-Fee Collected"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" value="" placeholder="-Mode Of Payment"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" value="" placeholder="-Balance Pending"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" value="" placeholder="-next installment details"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" value="" placeholder="-print receipt"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" value="" placeholder="-add to batch code"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-12 mt-3">
+                                                                            <button class="btn btn-round btn-rose">ADD
+                                                                                STUDENTS</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                                                    <div class="card">
+
+                                                        <div class=" card-title col-12 h3">
+                                                            Active Students(143)
+                                                        </div>
+                                                        <div class="container">
+                                                            <div class="section section-comments">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="media-area main-raised">
+                                                                            <div class="media">
+                                                                                <a class="float-left" href="#pablo">
+                                                                                    <div class="avatar">
+                                                                                        <img class="media-object" src="../assets/img/faces/card-profile4-square.jpg"
+                                                                                            alt="...">
+                                                                                    </div>
+                                                                                </a>
+                                                                                <div class="media-body">
+                                                                                    <h4 class="media-heading">Prashant
+                                                                                        Gupta<br>
+                                                                                        <small>joined on 2017</small>
+                                                                                    </h4>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <div class="col-md-4">
+                                                                        <div class="media-area main-raised">
+                                                                            <div class="media">
+                                                                                <a class="float-left" href="#pablo">
+                                                                                    <div class="avatar">
+                                                                                        <img class="media-object" src="../assets/img/faces/card-profile4-square.jpg"
+                                                                                            alt="...">
+                                                                                    </div>
+                                                                                </a>
+                                                                                <div class="media-body">
+                                                                                    <h4 class="media-heading">Prashant
+                                                                                        Gupta<br>
+                                                                                        <small>joined on 2017</small>
+                                                                                    </h4>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-4">
+                                                                        <div class="media-area main-raised">
+                                                                            <div class="media">
+                                                                                <a class="float-left" href="#pablo">
+                                                                                    <div class="avatar">
+                                                                                        <img class="media-object" src="../assets/img/faces/card-profile4-square.jpg"
+                                                                                            alt="...">
+                                                                                    </div>
+                                                                                </a>
+                                                                                <div class="media-body">
+                                                                                    <h4 class="media-heading">Prashant
+                                                                                        Gupta<br>
+                                                                                        <small>joined on 2017</small>
+                                                                                    </h4>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </div>
+                                                <div class="tab-pane" id="innertab3">
+                                                    Completely synergize resource taxing relationships via premier
+                                                    niche markets.
+                                                    Professionally cultivate one-to-one customer service with robust
+                                                    ideas.
+                                                    <br><br>Dynamically innovate resource-leveling customer service for
+                                                    state of the art
+                                                    customer service.
+                                                </div>
+                                                <div class="tab-pane" id="innertab4">
+                                                    Completely synergize resource taxing relationships via premier
+                                                    niche markets.
+                                                    Professionally cultivate one-to-one customer service with robust
+                                                    ideas.
+                                                    <br><br>Dynamically innovate resource-leveling customer service for
+                                                    state of the art
+                                                    customer service.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                </div>
+                                <div class="tab-pane" id="pill2">
+                                    Efficiently unleash cross-media information without cross-media value. Quickly
+                                    maximize timely deliverables
+                                    for real-time schemas.
+                                    <br><br>Dramatically maintain clicks-and-mortar solutions without functional
+                                    solutions.
+                                </div>
+                                <div class="tab-pane" id="pill3">
+                                    Completely synergize resource taxing relationships via premier niche markets.
+                                    Professionally cultivate
+                                    one-to-one customer service with robust ideas.
+                                    <br><br>Dynamically innovate resource-leveling customer service for state of the
+                                    art customer service.
+                                </div>
+                                <div class="tab-pane" id="pill4">
+                                    Completely synergize resource taxing relationships via premier niche markets.
+                                    Professionally cultivate
+                                    one-to-one customer service with robust ideas.
+                                    <br><br>Dynamically innovate resource-leveling customer service for state of the
+                                    art customer service.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div id="login_modal_container"></div>
 
     <!--   Core JS Files   -->
     <script src="assets/js/core/jquery.min.js"></script>
@@ -1068,7 +1326,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pubsub-js/1.6.0/pubsub.min.js"></script>
 
     <script src="assets/js/active-products.js"></script>
+    <script src="assets/js/user-claimed.js"></script>
+    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/user.js"></script>
+    <script src="assets/js/login-modal.js"></script>
+    <script src="assets/js/institute-pills.js"></script>
+    <script src="assets/js/navbar.js"></script>
     <script src="assets/js/promoter.js"></script>
+    <script src="assets/js/dashboard-edit-profile.js"></script>
     <script src="assets/js/dashboard-add-tuition.js"></script>
     <script src="assets/js/dashboard-add-school.js"></script>
     <script src="assets/js/dashboard-add-event.js"></script>

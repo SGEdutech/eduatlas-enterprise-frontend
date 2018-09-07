@@ -1,0 +1,92 @@
+{{#if school}}
+    <form class="row" id="monFormSchool{{office}}">
+{{else}}
+    <form class="row" id="monForm">
+{{/if}}
+    <div class="col-4">
+        Monday:
+        <input hidden name="day" value="Monday">
+    </div>
+    <input class="form-control col-4 m-md-0 p-md-1" value="{{monFrom}}" name="fromTime"
+           type="time">
+    <input class="form-control col-4 m-md-0 p-md-1" value="{{monTo}}" name="toTime"
+           type="time">
+</form>
+
+{{#if school}}
+    <form class="row" id="tueFormSchool{{office}}">
+{{else}}
+    <form class="row" id="tueForm">
+{{/if}}
+    <div class="col-4">
+        Tuesday:
+        <input hidden name="day" value="Tuesday">
+    </div>
+    <input class="form-control col-4 m-md-0 p-md-1" value="{{tueFrom}}" name="fromTime" type="time">
+    <input class="form-control col-4 m-md-0 p-md-1" value="{{tueTo}}" name="toTime" type="time">
+</form>
+
+{{#if school}}
+    <form class="row" id="wedFormSchool{{office}}">
+{{else}}
+    <form class="row" id="wedForm">
+{{/if}}
+    <div class="col-4">
+        Wednesday:
+        <input hidden name="day" value="Wednesday">
+    </div>
+    <input class="form-control col-4 m-md-0 p-md-1" value="{{wedFrom}}" name="fromTime" type="time">
+    <input class="form-control col-4 m-md-0 p-md-1" value="{{wedTo}}" name="toTime" type="time">
+</form>
+
+{{#if school}}
+    <form class="row" id="thrFormSchool{{office}}">
+{{else}}
+    <form class="row" id="thrForm">
+{{/if}}
+    <div class="col-4">
+        Thursday:
+        <input hidden name="day" value="Thursday">
+    </div>
+    <input class="form-control col-4 m-md-0 p-md-1" value="{{thrFrom}}" name="fromTime" type="time">
+    <input class="form-control col-4 m-md-0 p-md-1" value="{{thrTo}}" name="toTime" type="time">
+</form>
+
+{{#if school}}
+    <form class="row" id="friFormSchool{{office}}">
+{{else}}
+    <form class="row" id="friForm">
+{{/if}}
+    <div class="col-4">
+        Friday:
+        <input hidden name="day" value="Friday">
+    </div>
+    <input class="form-control col-4 m-md-0 p-md-1" value="{{friFrom}}" name="fromTime" type="time">
+    <input class="form-control col-4 m-md-0 p-md-1" value="{{friTo}}" name="toTime" type="time">
+</form>
+
+{{#if school}}
+    <form class="row" id="satFormSchool{{office}}">
+{{else}}
+    <form class="row" id="satForm">
+{{/if}}
+    <div class="col-4">
+        Saturday:
+        <input hidden name="day" value="Saturday">
+    </div>
+    <input class="form-control col-4 m-md-0 p-md-1" value="{{satFrom}}" name="fromTime" type="time">
+    <input class="form-control col-4 m-md-0 p-md-1" value="{{satTo}}" name="toTime" type="time">
+</form>
+
+{{#if school}}
+    <form class="row" id="sunFormSchool{{office}}">
+{{else}}
+    <form class="row" id="sunForm">
+{{/if}}
+    <div class="col-4">
+        Sunday:
+        <input hidden name="day" value="Sunday">
+    </div>
+    <input class="form-control col-4 m-md-0 p-md-1" value="{{sunFrom}}" name="fromTime" type="time">
+    <input class="form-control col-4 m-md-0 p-md-1" value="{{sunTo}}" name="toTime" type="time">
+</form>
