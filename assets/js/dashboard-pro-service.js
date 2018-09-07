@@ -24,3 +24,14 @@ setTimeout(() => {
     activeProducts.init(sampleUserData);
     promoter.init(sampleUserData);
 }, 500);
+
+PubSub.subscribe('user', (msg, userInfo) => {
+    navigationBar.render(userInfo);
+    redirectOnLogout.init(userInfo);
+});
+
+user.getInfo().then(userInfo => {
+    navigationBar.init(userInfo, {
+        colorOnScroll: false
+    });
+});
