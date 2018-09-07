@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121945570-1"></script>
+    <link rel="apple-touch-icon" href="assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-121945570-1');
+    </script>
+    <title>Dashboard-Pro</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Material Kit CSS -->
+    <link rel="stylesheet" href="assets/css/material-kit.css">
+    <link rel="stylesheet" href="assets/css/userdashboard.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/dashboard-pro.css">
+    <link rel="stylesheet" href="assets/css/navbar.css">
+</head>
+
+<body>
+    <div id="nav_container">
+    </div>
+    <ul class="nav nav-pills nav-pills-rose">
+        <li class="nav-item"><a class="nav-link active" href="#pill1" data-toggle="tab">Profile</a></li>
+        <li class="nav-item"><a class="nav-link" href="#pill2" data-toggle="tab">Settings</a></li>
+        <li class="nav-item"><a class="nav-link" href="#pill3" data-toggle="tab">Options</a></li>
+        <li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Options</a></li>
+    </ul>
+    <div class="tab-content tab-space">
+        <div class="tab-pane active" id="pill1">
+            <div class="row m-0">
+                <div class="col-md-3">
+                    <ul class="nav nav-pills nav-pills-rose flex-column">
+                        <li class="nav-item"><a class="nav-link" href="#tab1" data-toggle="tab">Products</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="#tab2" data-toggle="tab">Students</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#tab3" data-toggle="tab">Batches</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#tab4" data-toggle="tab">Active Batches</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content">
+                        <div class="tab-pane" id="tab1">
+                            <form>
+                                <div class="row main-raised m-0">
+                                    <div class="col-md-6">
+                                        <div class="form-group label-floating is-empty has-rose bmd-form-group">
+                                            <input type="text" name="email" class="form-control" placeholder="Product Name">
+                                            <span class="material-input"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group label-floating is-empty has-rose bmd-form-group">
+                                            <input type="email" name="email" class="form-control" placeholder="Course Fee">
+                                            <span class="material-input"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group label-floating has-rose is-empty bmd-form-group">
+                                            <textarea name="message" class="form-control" id="exampleMessage" rows="6"
+                                                placeholder="Description(Optional)"></textarea>
+                                            <span class="material-input"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group label-floating is-empty has-rose bmd-form-group">
+                                            <input type="email" name="email" class="form-control" placeholder="Active Till(Date)">
+                                            <span class="material-input"></span>
+                                        </div><br>
+                                        <button type="submit" class="btn btn-rose pull-right">ADD Products<div class="ripple-container"></div></button>
+                                    </div>
+                                    <div class="card-title col-12 h3">
+                                        Active Products(3)
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body ">
+                                                <h4 class="card-title">
+                                                    <a href="#pablo">MBA Prep 18</a>
+                                                </h4>
+                                            </div>
+                                            <div class="card-footer ">
+                                                <div class="author">
+                                                    <h6 class="card-category text-danger">
+                                                        <i class="material-icons">trending_up</i> Price 50000/-
+                                                    </h6>
+                                                </div>
+                                                <div class="stats ml-auto">
+                                                    <i class="material-icons">delete</i>
+                                                    <i class="material-icons">edit</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body ">
+                                                <h4 class="card-title">
+                                                    <a href="#pablo">MBA Prep 18</a>
+                                                </h4>
+                                            </div>
+                                            <div class="card-footer ">
+                                                <div class="author">
+                                                    <h6 class="card-category text-danger">
+                                                        <i class="material-icons">trending_up</i> Price 50000/-
+                                                    </h6>
+                                                </div>
+                                                <div class="stats ml-auto">
+                                                    <i class="material-icons">delete</i>
+                                                    <i class="material-icons">edit</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body ">
+                                                <h4 class="card-title">
+                                                    <a href="#pablo">MBA Prep 18</a>
+                                                </h4>
+                                            </div>
+                                            <div class="card-footer ">
+                                                <div class="author">
+                                                    <h6 class="card-category text-danger">
+                                                        <i class="material-icons">trending_up</i> Price 50000/-
+                                                    </h6>
+                                                </div>
+                                                <div class="stats ml-auto">
+                                                    <i class="material-icons">delete</i>
+                                                    <i class="material-icons">edit</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-title col-12 h3">
+                                        Inactive Products(1)
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body ">
+                                                <h4 class="card-title">
+                                                    <a href="#pablo">MBA Prep 18</a>
+                                                </h4>
+                                            </div>
+                                            <div class="card-footer ">
+                                                <div class="author">
+                                                    <h6 class="card-category text-danger">
+                                                        <i class="material-icons">trending_up</i> Price 50000/-
+                                                    </h6>
+                                                </div>
+                                                <div class="stats ml-auto">
+                                                    <i class="material-icons">delete</i>
+                                                    <i class="material-icons">edit</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <br><br>
+                        </div>
+                        <div class="tab-pane active" id="tab2">
+                            <div class="card card-profile card-plaina main-raised m-0">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4 class="card-title">Alec Thompson</h4>
+                                        <p class="description">I've been trying to figure out the bed design for the
+                                            master bedroom at our Hidden Hills compound...I like good music from
+                                            Youtube.</p>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <button class="btn btn-default disabled">Download Template</button>
+                                        <button class="btn btn-primary">Upload Template</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+
+                            <div class="card card-profile card-plaina main-raised m-0">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h4 class="card-title">Auto Fields</h4>
+                                            <input type="text" value="" placeholder="-EA Membership number" class="form-control" />
+                                            <h4 class="card-title">Compulsory Fields</h4>
+                                            <div class="col-md-4">
+                                            <input type="text" value="" placeholder="Student Roll No." class="form-control" /><br>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" value="" placeholder="Student Name" class="form-control" /><br>
+                                        </div>
+                                            <div class="col-md-4">
+                                            <input type="text" value="" placeholder="Student E-mail" class="form-control" /><br>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <h4 class="card-title">Additional Fields</h4>
+                                            <input type="text" value="" placeholder="Address" class="form-control" /><br>
+                                            <input type="text" value="" placeholder="Contact No." class="form-control" /><br>
+                                            <h4 class="card-title">Payment Details</h4>
+                                            <input type="text" value="" placeholder="-Product Name" class="form-control" /><br>
+                                            <input type="text" value="" placeholder="-Products Fees" class="form-control" /><br>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="text" value="" placeholder="-Discount Amount Given" class="form-control" /><br>
+                                            <input type="text" value="" placeholder="-Discount Reason" class="form-control" /><br>
+                                            <input type="text" value="" placeholder="-Net Fee" class="form-control" /><br>
+                                            <input type="text" value="" placeholder="-Fee Collected" class="form-control" /><br>
+                                            <input type="text" value="" placeholder="-Mode Of Payment" class="form-control" /><br>
+                                            <input type="text" value="" placeholder="-Balance Pending" class="form-control" /><br>
+                                            <input type="text" value="" placeholder="-next installment details" class="form-control" /><br>
+                                            <input type="text" value="" placeholder="-print receipt" class="form-control" /><br>
+                                            <input type="text" value="" placeholder="-add to batch code" class="form-control" /><br>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button class="btn btn-primary">ADD STUDENTS</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="card">
+
+                            <div class=" card-title col-12 h3">
+                                Active Students(143)
+                            </div>
+                            <div class="container">
+                                <div class="section section-comments">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="media-area main-raised">
+                                                <div class="media">
+                                                    <a class="float-left" href="#pablo">
+                                                        <div class="avatar">
+                                                            <img class="media-object" src="../assets/img/faces/card-profile4-square.jpg"
+                                                                alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Prashant Gupta<br>
+                                                            <small>joined on 2017</small>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4">
+                                            <div class="media-area main-raised">
+                                                <div class="media">
+                                                    <a class="float-left" href="#pablo">
+                                                        <div class="avatar">
+                                                            <img class="media-object" src="../assets/img/faces/card-profile4-square.jpg"
+                                                                alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Prashant Gupta<br>
+                                                            <small>joined on 2017</small>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="media-area main-raised">
+                                                <div class="media">
+                                                    <a class="float-left" href="#pablo">
+                                                        <div class="avatar">
+                                                            <img class="media-object" src="../assets/img/faces/card-profile4-square.jpg"
+                                                                alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Prashant Gupta<br>
+                                                            <small>joined on 2017</small>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        </div>
+                        <div class="tab-pane" id="tab3">
+                            Completely synergize resource taxing relationships via premier niche markets.
+                            Professionally cultivate one-to-one customer service with robust ideas.
+                            <br><br>Dynamically innovate resource-leveling customer service for state of the art
+                            customer service.
+                        </div>
+                        <div class="tab-pane" id="tab4">
+                            Completely synergize resource taxing relationships via premier niche markets.
+                            Professionally cultivate one-to-one customer service with robust ideas.
+                            <br><br>Dynamically innovate resource-leveling customer service for state of the art
+                            customer service.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+        </div>
+        <div class="tab-pane" id="pill2">
+            Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables
+            for real-time schemas.
+            <br><br>Dramatically maintain clicks-and-mortar solutions without functional solutions.
+        </div>
+        <div class="tab-pane" id="pill3">
+            Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate
+            one-to-one customer service with robust ideas.
+            <br><br>Dynamically innovate resource-leveling customer service for state of the art customer service.
+        </div>
+        <div class="tab-pane" id="pill4">
+            Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate
+            one-to-one customer service with robust ideas.
+            <br><br>Dynamically innovate resource-leveling customer service for state of the art customer service.
+        </div>
+    </div>
+
+
+    <!--   Core JS Files   -->
+    <script src="assets/js/core/jquery.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/bootstrap-material-design.js"></script>
+
+    <!-- Plugin for Date Time Picker and Full Calendar Plugin-->
+    <script src="assets/js/plugins/moment.min.js"></script>
+
+    <!-- Plugin for Select, full documentation here: https://silviomoreto.github.io/bootstrap-select -->
+    <script src="assets/js/plugins/bootstrap-selectpicker.js"></script>
+
+    <!-- Plugin for Tags, full documentation here: https://xoxco.com/projects/code/tagsinput/  -->
+    <script src="assets/js/plugins/bootstrap-tagsinput.js"></script>
+
+    <!-- Plugin for Fileupload, full documentation here: https://www.jasny.net/bootstrap/javascript/#fileinput -->
+    <script src="assets/js/plugins/jasny-bootstrap.min.js"></script>
+
+    <!-- Plugin for Small Gallery in Product Page -->
+    <script src="assets/js/plugins/jquery.flexisel.js"></script>
+
+    <!-- Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+    <script src="assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+
+    <!-- Plugin for the Sliders, full documentation here: https://refreshless.com/nouislider/ -->
+    <script src="assets/js/plugins/nouislider.min.js"></script>
+
+    <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
+    <script src="assets/js/material-kit.js?v=2.0.0"></script>
+
+    <!--HandleBars for templating-->
+    <script src="assets/js/handlebars-v4.0.11.js"></script>
+    <script src="assets/js/templates.js"></script>
+
+    <!--seed cities-->
+    <!--Docs at: https://github.com/mroderick/PubSubJS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pubsub-js/1.6.0/pubsub.min.js"></script>
+    <script src="assets/js/active-products.js"></script>
+    <script src="assets/js/promoter.js"></script>
+    <script src="assets/js/dashboard-add-tuition.js"></script>
+    <script src="assets/js/dashboard-add-school.js"></script>
+    <script src="assets/js/dashboard-add-event.js"></script>
+    <script src="assets/js/dashboard-pro-service.js"></script>
+
+</body>
+
+</html>
