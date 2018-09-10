@@ -1,8 +1,8 @@
-let chart1, chart2;
-var ctx = document.getElementById("myChart").getContext('2d');
-var ctx2 = document.getElementById("myChart2").getContext('2d');
-chart1 = createChart(ctx, chart1);
-chart2 = createChart(ctx2, chart2)
+// let chart1, chart2;
+// var ctx = document.getElementById("myChart").getContext('2d');
+// var ctx2 = document.getElementById("myChart2").getContext('2d');
+// chart1 = createChart(ctx, chart1);
+// chart2 = createChart(ctx2, chart2)
 
 let homePageData = {
     day1: 23,
@@ -15,20 +15,23 @@ let homePageData = {
     day8: 25,
 }
 
+function createChartFor(tabNumber, dataObj) {
+    var ctx = document.getElementById(`myChart${tabNumber}`).getContext('2d');
+    createChart(ctx, dataObj);
+}
 
 
 
 
-
-function createChart(ctx) {
+function createChart(ctx, dataObj) {
     return new Chart(ctx, {
         type: 'line',
         responsive: true,
         data: {
-            labels: ["day 1", "day 2", "day 3", "day 4", "day 5", "day 6"],
+            labels: Object.keys(dataObj),
             datasets: [{
                 label: '# of views',
-                data: [12, 53, 3, 5, 2, 3],
+                data: Object.values(dataObj),
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -63,7 +66,7 @@ function createChart(ctx) {
     });
 }
 
-addData(chart1, "day7", 23)
+/* addData(chart1, "day7", 23)
 
 function addData(chart, label, data) {
     console.log(chart)
@@ -72,4 +75,4 @@ function addData(chart, label, data) {
         dataset.data.push(data);
     });
     chart.update();
-}
+} */

@@ -84,7 +84,7 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-body p-1 p-md-3">
-                    <div class="tab-content">
+                    <div class="tab-content" id="tab-container">
                         <div class="tab-pane active" id="tab2">
                             <ul class="nav nav-pills nav-pills-rose" role="tablist">
                                 <li class="nav-item">
@@ -894,7 +894,7 @@
                                 <button class="btn btn-info btn-round" type="submit">Save Event</button>
                             </form>
                         </div>
-                        <div class="tab-pane" id="tab10">
+                        <!-- <div class="tab-pane" id="tab10">
                             <div class="card bg-info mt-1">
                                 <div class="card-body px-3">
                                     <h3 class="card-title text-dark">
@@ -907,7 +907,7 @@
                             </div>
                             <ul class="nav nav-pills nav-pills-rose">
                                 <li class="nav-item"><a class="nav-link active" href="#pill1" data-toggle="tab">Settings</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#pill2" data-toggle="tab">Profile</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#pill2" data-toggle="tab">Promoter</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#pill3" data-toggle="tab">Options</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Options</a></li>
                             </ul>
@@ -1176,20 +1176,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
                                                     <div class="card">
-
                                                         <div class=" card-title col-12 h3">
                                                             Active Students(143)
                                                         </div>
@@ -1214,8 +1201,6 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-
-
                                                                     <div class="col-md-4">
                                                                         <div class="media-area main-raised">
                                                                             <div class="media">
@@ -1257,9 +1242,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-
-
                                                 </div>
                                                 <div class="tab-pane" id="innertab3">
                                                     Completely synergize resource taxing relationships via premier
@@ -1285,11 +1267,78 @@
                                     <br><br>
                                 </div>
                                 <div class="tab-pane" id="pill2">
-                                    Efficiently unleash cross-media information without cross-media value. Quickly
-                                    maximize timely deliverables
-                                    for real-time schemas.
-                                    <br><br>Dramatically maintain clicks-and-mortar solutions without functional
-                                    solutions.
+                                    <ul class="nav nav-pills nav-pills-rose nav-pills-icons" role="tablist">
+                                        <li class="nav-item col-3">
+                                            <a class="nav-link active" href="#dashboard-1" role="tab" data-toggle="tab">
+                                                <i class="material-icons" style="font-size: 48px">
+                                                    home
+                                                </i>
+                                                Ad Stats for
+                                                <h4 class="info-title">
+                                                    HOMEPAGE</h4>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item col-3">
+                                            <a class="nav-link" href="#schedule-1" role="tab" data-toggle="tab">
+                                                <i class="material-icons" style="font-size: 48px">
+                                                    search
+                                                </i>
+                                                Ad Stats for
+                                                <h4 class="info-title">
+                                                    SEARCHPAGE</h4>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item col-3">
+                                            <a class="nav-link disabled" href="#tasks-1" role="tab" data-toggle="tab">
+                                                <span class="badge badge-pill badge-danger">Not purchased</span>
+                                                <i class="material-icons" style="font-size: 48px">
+                                                    format_list_bulleted
+                                                </i>
+                                                Ad Stats for
+                                                <h4 class="info-title">
+                                                    RELATED LISTING</h4>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content tab-space">
+                                        <div class="tab-pane active" id="dashboard-1">
+                                            <div class="row mx-3 justify-content-around">
+                                                <div class="col-md-6">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="card-stats justify-content-around">
+                                                                <canvas id="myChart"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="card-stats justify-content-around">
+                                                                <canvas id="myChart2"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="schedule-1">
+                                            <div class="container">
+                                                Efficiently unleash cross-media information without cross-media value.
+                                                Quickly maximize timely deliverables for real-time schemas.
+                                                <br><br>Dramatically maintain clicks-and-mortar solutions without
+                                                functional solutions.
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tasks-1">
+                                            Completely synergize resource taxing relationships via premier niche
+                                            markets. Professionally cultivate one-to-one customer service with robust
+                                            ideas.
+                                            <br><br>Dynamically innovate resource-leveling customer service for state
+                                            of the art customer service.
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane" id="pill3">
                                     Completely synergize resource taxing relationships via premier niche markets.
@@ -1306,7 +1355,7 @@
                                     art customer service.
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -1362,6 +1411,7 @@
     <!--seed cities-->
     <!--Docs at: https://github.com/mroderick/PubSubJS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pubsub-js/1.6.0/pubsub.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 
     <script src="assets/js/active-products.js"></script>
     <script src="assets/js/user-claimed.js"></script>
@@ -1371,6 +1421,8 @@
     <script src="assets/js/institute-pills.js"></script>
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/promoter.js"></script>
+    <script src="assets/js/chart.js"></script>
+    <script src="assets/js/promoter-homepage-api-calls.js"></script>
     <script src="assets/js/dashboard-edit-profile.js"></script>
     <script src="assets/js/dashboard-add-tuition.js"></script>
     <script src="assets/js/dashboard-add-school.js"></script>
