@@ -40,3 +40,4 @@ user.getInfo().then(userInfo => {
 });
 
 setTimeout(loginModal.init());
+setTimeout(promoterModal.init());
