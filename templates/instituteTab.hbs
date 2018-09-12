@@ -1,7 +1,7 @@
 <div class="tab-pane" id="tab{{tabNumber}}">
     <div class="card bg-info mt-1">
         <div class="card-body px-3">
-            <h3 class="card-title text-dark">
+            <h3 class="card-title text-dark" data-id="{{_id}}" data-tabNumber="{{tabNumber}}">
                 {{name}}
             </h3>
             <h5 class="card-title">
@@ -31,136 +31,102 @@
                 <div class="col-md-9">
                     <div class="tab-content">
                         <div class="tab-pane active" id="innertab1">
-                            <form class="">
-                                <div class="row m-0">
-                                    <div class="card m-0 mb-4">
+                            <div class="row m-0">
+                                <div class="card m-0 mb-4">
+                                    <form class="new_course_form" data-tabNumber="{{tabNumber}}">
                                         <div class="row card-body">
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating is-empty has-rose bmd-form-group">
-                                                    <input type="text" name="email" class="form-control" placeholder="Course Name">
+                                                    <input type="text" name="name" class="form-control" placeholder="Course Name">
                                                     <span class="material-input"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating is-empty has-rose bmd-form-group">
-                                                    <input type="email" name="email" class="form-control" placeholder="Course Fee">
+                                                    <input type="number" name="fees" class="form-control" placeholder="Course Fee">
                                                     <span class="material-input"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating has-rose is-empty bmd-form-group">
-                                                    <textarea name="message" class="form-control" id="exampleMessage"
-                                                        rows="4" placeholder="Description(Optional)"></textarea>
+                                                    <textarea name="description" class="form-control" rows="4"
+                                                        placeholder="Description(Optional)"></textarea>
                                                     <span class="material-input"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-group label-floating is-empty has-rose bmd-form-group">
+                                                {{!-- <div class="form-group label-floating is-empty has-rose bmd-form-group">
                                                     <label for="active-till">Active Till</label>
                                                     <input id="active-till" name="email" class="form-control" type="date"
                                                         placeholder="Active Till(Date)">
                                                     <span class="material-input"></span>
-                                                </div>
-                                                <br>
+                                                </div> --}}
                                                 <button type="submit" class="btn btn-round btn-rose pull-right">
                                                     ADD Courses
                                                     <div class="ripple-container"></div>
                                                 </button>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="card-title col-12 h3">
-                                        Active Courses(3)
-                                    </div>
-                                    <div class="col-md-4">
+                                        <input type="hidden" name="listingId" value="{{_id}}">
+                                        <input type="hidden" name="listingCategory" value="{{category}}">
+                                    </form>
+                                </div>
+                                <div class="card-title col-12 h3">
+                                    Active Courses
+                                </div>
+                                <div class="col-12">
+                                    {{#each courses}}
+                                    <div class="col-md-4" id="{{_id}}">
                                         <div class="card">
                                             <div class="card-body ">
                                                 <h4 class="card-title">
-                                                    <a href="#pablo">MBA Prep 18</a>
+                                                    <a href="#pablo">{{name}}</a>
                                                 </h4>
                                             </div>
                                             <div class="card-footer ">
                                                 <div class="author">
                                                     <h6 class="card-category text-danger">
                                                         <i class="material-icons">trending_up</i>
-                                                        Price 50000/-
+                                                        Price {{fees}}/-
                                                     </h6>
                                                 </div>
                                                 <div class="stats ml-auto">
-                                                    <i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
+                                                    <i class="material-icons delete-course-btn" style="top: 0%; cursor: pointer;"
+                                                        data-id="{{_id}}">delete</i>
                                                     <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="card">
-                                            <div class="card-body ">
-                                                <h4 class="card-title">
-                                                    <a href="#pablo">MBA Prep 18</a>
-                                                </h4>
-                                            </div>
-                                            <div class="card-footer ">
-                                                <div class="author">
-                                                    <h6 class="card-category text-danger">
-                                                        <i class="material-icons">trending_up</i>
-                                                        Price 50000/-
-                                                    </h6>
-                                                </div>
-                                                <div class="stats ml-auto">
-                                                    <i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
-                                                    <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
-                                                </div>
-                                            </div>
+                                    {{/each}}
+                                    <div id="active_course_container{{tabNumber}}" class="row">
+                                    </div>
+                                </div>
+                                <div class="card-title col-12 h3">
+                                    Inactive Courses
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-body ">
+                                            <h4 class="card-title">
+                                                <a href="#pablo">MBA Prep 18</a>
+                                            </h4>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="card">
-                                            <div class="card-body ">
-                                                <h4 class="card-title">
-                                                    <a href="#pablo">MBA Prep 18</a>
-                                                </h4>
+                                        <div class="card-footer ">
+                                            <div class="author">
+                                                <h6 class="card-category text-danger">
+                                                    <i class="material-icons">trending_up</i>
+                                                    Price 50000/-
+                                                </h6>
                                             </div>
-                                            <div class="card-footer ">
-                                                <div class="author">
-                                                    <h6 class="card-category text-danger">
-                                                        <i class="material-icons">trending_up</i>
-                                                        Price 50000/-
-                                                    </h6>
-                                                </div>
-                                                <div class="stats ml-auto">
-                                                    <i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
-                                                    <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-title col-12 h3">
-                                        Inactive Courses(1)
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="card">
-                                            <div class="card-body ">
-                                                <h4 class="card-title">
-                                                    <a href="#pablo">MBA Prep 18</a>
-                                                </h4>
-                                            </div>
-                                            <div class="card-footer ">
-                                                <div class="author">
-                                                    <h6 class="card-category text-danger">
-                                                        <i class="material-icons">trending_up</i>
-                                                        Price 50000/-
-                                                    </h6>
-                                                </div>
-                                                <div class="stats ml-auto">
-                                                    <i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
-                                                    <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
-                                                </div>
+                                            <div class="stats ml-auto">
+                                                <i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
+                                                <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                             <br><br>
                         </div>
                         <div class="tab-pane" id="innertab2">
@@ -273,7 +239,7 @@
                                                     <div class="media">
                                                         <a class="float-left" href="#pablo">
                                                             <div class="avatar">
-                                                                <img class="media-object" src="../assets/img/faces/card-profile4-square.jpg"
+                                                                <img class="media-object" src="../assets/img/fourgirls.jpeg"
                                                                     alt="...">
                                                             </div>
                                                         </a>
@@ -291,7 +257,7 @@
                                                     <div class="media">
                                                         <a class="float-left" href="#pablo">
                                                             <div class="avatar">
-                                                                <img class="media-object" src="../assets/img/faces/card-profile4-square.jpg"
+                                                                <img class="media-object" src="../assets/img/fourgirls.jpeg"
                                                                     alt="...">
                                                             </div>
                                                         </a>
@@ -310,7 +276,7 @@
                                                     <div class="media">
                                                         <a class="float-left" href="#pablo">
                                                             <div class="avatar">
-                                                                <img class="media-object" src="../assets/img/faces/card-profile4-square.jpg"
+                                                                <img class="media-object" src="../assets/img/fourgirls.jpeg"
                                                                     alt="...">
                                                             </div>
                                                         </a>
@@ -387,7 +353,7 @@
                             SEARCHPAGE</h4>
                     </a>
                     {{else}}
-                    <a class="nav-link" href="#schedule-1{{tabNumber}}"  data-toggle="modal" data-target="#promoterModal">
+                    <a class="nav-link" href="#schedule-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
                         <span class="badge badge-pill badge-danger">Not purchased</span>
                         <i class="material-icons" style="font-size: 48px">
                             search
@@ -410,7 +376,7 @@
                             RELATED LISTING</h4>
                     </a>
                     {{else}}
-                    <a class="nav-link" href="##tasks-1{{tabNumber}}"  data-toggle="modal" data-target="#promoterModal">
+                    <a class="nav-link" href="##tasks-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
                         <span class="badge badge-pill badge-danger">Not purchased</span>
                         <i class="material-icons" style="font-size: 48px">
                             format_list_bulleted

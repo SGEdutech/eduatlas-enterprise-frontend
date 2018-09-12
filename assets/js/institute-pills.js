@@ -8,8 +8,13 @@ const institutePills = (() => {
     }
 
     function renderPills(userInfo) {
+        const maxLength = userInfo.claims.length;
         userInfo.claims.forEach((obj, index) => {
             getName(obj).then((instituteData) => {
+                if(instituteData[0]){
+                    instituteData = instituteData[0];
+                }
+                console.log(instituteData);
                 let tabNumber = (index + 1) * 10;
 
                 $navPillsList.append(`<li class="nav-item">
@@ -48,8 +53,16 @@ const institutePills = (() => {
                     if (relatedResult) {
                         instituteData.promotedRelated = true;
                     }
+                    console.log("rendered one tab");
+                    instituteData.category = obj.category;
                     renderCorrespondingTabs(instituteData);
                     calculateViewsNHits(instituteData, tabNumber)
+                    if (index === maxLength - 1) {
+                        setTimeout(() => {
+                            console.log("event published");
+                            PubSub.publish('instituteTabs.load', null)
+                        }, 400);
+                    }
                 })
             }).catch((err) => {
                 console.error(err);
@@ -58,7 +71,6 @@ const institutePills = (() => {
     }
 
     function renderCorrespondingTabs(instituteData) {
-        console.log(instituteData.tabNumber);
         $tabContainer.append(template.instituteTab(instituteData))
     }
 
@@ -101,13 +113,19 @@ const institutePills = (() => {
     }
 
     function getName(claimObj) {
-        return $.ajax({
-            type: "GET",
-            url: `/${claimObj.category}`,
-            data: {
+        if (claimObj.category === "tuition") {
+            return tuitionApiCalls.getSpecificTuitionWithCoursesNBatches({
                 _id: claimObj.objectId
-            },
-        });
+            })
+        } else {
+            return $.ajax({
+                type: "GET",
+                url: `/${claimObj.category}`,
+                data: {
+                    _id: claimObj.objectId
+                },
+            });
+        }
     }
 
     function init(userInfo) {
