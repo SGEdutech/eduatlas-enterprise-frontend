@@ -21,22 +21,26 @@ const tuitionApiCalls = (() => {
         });
     }
 
-    function getClaimedTuitions(limit = 0, skip = 0, demands) {
-        return $.ajax({
-            type: "GET",
-            url: `/tuition/claimed`,
-            data: {
-                limit: limit,
-                skip: skip,
-                demands: demands
-            },
-        });
-    }
-
     function getSpecificTuition(idenfifierObj) {
         return $.ajax({
             type: "GET",
             url: `/tuition/`,
+            data: idenfifierObj,
+        });
+    }
+
+    function getSpecificTuitionWithCourses(idenfifierObj) {
+        return $.ajax({
+            type: "GET",
+            url: `/tuition/plus-courses`,
+            data: idenfifierObj,
+        });
+    }
+
+    function getSpecificTuitionWithCoursesNBatches(idenfifierObj) {
+        return $.ajax({
+            type: "GET",
+            url: `/tuition/plus-courses-and-batches`,
             data: idenfifierObj,
         });
     }
@@ -163,8 +167,9 @@ const tuitionApiCalls = (() => {
 
     return {
         getAllTuitions,
-        getClaimedTuitions,
         getSpecificTuition,
+        getSpecificTuitionWithCourses,
+        getSpecificTuitionWithCoursesNBatches,
         searchTuitions,
         putInArrayInTuition,
         putNewTuition,
