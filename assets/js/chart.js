@@ -1,9 +1,3 @@
-// let chart1, chart2;
-// var ctx = document.getElementById("myChart").getContext('2d');
-// var ctx2 = document.getElementById("myChart2").getContext('2d');
-// chart1 = createChart(ctx, chart1);
-// chart2 = createChart(ctx2, chart2)
-
 let homePageData = {
     day1: 23,
     day2: 63,
@@ -19,9 +13,6 @@ function createChartFor(tabNumber, dataObj) {
     var ctx = document.getElementById(`myChart${tabNumber}`).getContext('2d');
     createChart(ctx, dataObj);
 }
-
-
-
 
 function createChart(ctx, dataObj) {
     return new Chart(ctx, {
@@ -65,14 +56,3 @@ function createChart(ctx, dataObj) {
         }
     });
 }
-
-/* addData(chart1, "day7", 23)
-
-function addData(chart, label, data) {
-    console.log(chart)
-    chart.data.labels.push(label);
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.push(data);
-    });
-    chart.update();
-} */

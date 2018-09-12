@@ -16,17 +16,41 @@ const institutePills = (() => {
                 <a class="nav-link" href="#tab${tabNumber}" data-toggle="tab">${instituteData.name}</a>
                 </li>`);
 
-                promotedHomepageApiCalls.getSpecificAd({
+
+                instituteData.tabNumber = tabNumber;
+                const promiseArr = [];
+
+                promiseArr.push(promotedHomepageApiCalls.getSpecificAd({
                     category: obj.category,
                     listingId: obj.objectId
-                }).then(data => {
-                    if (data) {
+                }))
+
+                promiseArr.push(promotedSearchPageApiCalls.getSpecificAd({
+                    category: obj.category,
+                    listingId: obj.objectId
+                }))
+
+                promiseArr.push(promotedRelatedApiCalls.getSpecificAd({
+                    category: obj.category,
+                    listingId: obj.objectId
+                }))
+
+                Promise.all(promiseArr).then(resultArr => {
+                    const homeResult = resultArr[0];
+                    const searchResult = resultArr[1];
+                    const relatedResult = resultArr[2];
+                    if (homeResult) {
                         instituteData.promotedHome = true;
-                        plotGraph(instituteData.views.total, tabNumber)
                     }
-                    instituteData.tabNumber = tabNumber;
+                    if (searchResult) {
+                        instituteData.promotedSearch = true;
+                    }
+                    if (relatedResult) {
+                        instituteData.promotedRelated = true;
+                    }
                     renderCorrespondingTabs(instituteData);
-                });
+                    calculateViewsNHits(instituteData, tabNumber)
+                })
             }).catch((err) => {
                 console.error(err);
             });
@@ -34,10 +58,15 @@ const institutePills = (() => {
     }
 
     function renderCorrespondingTabs(instituteData) {
+        console.log(instituteData.tabNumber);
         $tabContainer.append(template.instituteTab(instituteData))
     }
 
-    function plotGraph(totalViewsArray = [], tabNumber) {
+    function calculateViewsNHits(instituteData, tabNumber) {
+        if (!instituteData.views.total) {
+            return
+        }
+        const totalViewsArray = instituteData.views.total;
         let date = new Date();
         let currentYear = date.getFullYear();
         let currentMonth = date.getMonth();
@@ -59,14 +88,22 @@ const institutePills = (() => {
             let temp = parseInt(d.getDate());
             map[temp]++;
         });
-        createChartFor(tabNumber, map);
-        // console.log(Object.values(map));
+
+        if (instituteData.promotedHome) {
+            createChartFor(tabNumber, map);
+        }
+        if (instituteData.promotedSearch) {
+            createChartFor(tabNumber + "1", map);
+        }
+        if (instituteData.promotedRelated) {
+            createChartFor(tabNumber + "2", map);
+        }
     }
 
     function getName(claimObj) {
         return $.ajax({
             type: "GET",
-            url: `/${claimObj.category}/`,
+            url: `/${claimObj.category}`,
             data: {
                 _id: claimObj.objectId
             },

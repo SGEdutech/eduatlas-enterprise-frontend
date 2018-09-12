@@ -1,4 +1,4 @@
-const promotedHomepageApiCalls = (() => {
+const promotedRelatedApiCalls = (() => {
     const validArrayNames = {
         // schoolTiming: true,
     };
@@ -14,7 +14,7 @@ const promotedHomepageApiCalls = (() => {
 
         return $.ajax({
             type: "POST",
-            url: `/promoted-homepage/`,
+            url: `/promoted-related/`,
             data: {
                 promotedBy: promotedBy,
                 listingId: listingId,
@@ -26,7 +26,7 @@ const promotedHomepageApiCalls = (() => {
     function getSpecificAd(idenfifierObj) {
         return $.ajax({
             type: "GET",
-            url: `/promoted-home`,
+            url: `/promoted-related`,
             data: idenfifierObj,
         });
     }

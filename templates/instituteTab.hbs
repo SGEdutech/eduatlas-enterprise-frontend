@@ -364,7 +364,7 @@
                             HOMEPAGE</h4>
                     </a>
                     {{else}}
-                    <a class="nav-link disabled" href="#dashboard-1{{tabNumber}}" role="tab" data-toggle="tab">
+                    <a class="nav-link" href="#dashboard-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
                         <span class="badge badge-pill badge-danger">Not purchased</span>
                         <i class="material-icons" style="font-size: 48px">
                             home
@@ -377,6 +377,7 @@
 
                 </li>
                 <li class="nav-item col-3">
+                    {{#if promotedSearch}}
                     <a class="nav-link" href="#schedule-1{{tabNumber}}" role="tab" data-toggle="tab">
                         <i class="material-icons" style="font-size: 48px">
                             search
@@ -385,9 +386,21 @@
                         <h4 class="info-title">
                             SEARCHPAGE</h4>
                     </a>
+                    {{else}}
+                    <a class="nav-link" href="#schedule-1{{tabNumber}}"  data-toggle="modal" data-target="#promoterModal">
+                        <span class="badge badge-pill badge-danger">Not purchased</span>
+                        <i class="material-icons" style="font-size: 48px">
+                            search
+                        </i>
+                        Ad Stats for
+                        <h4 class="info-title">
+                            SEARCHPAGE</h4>
+                    </a>
+                    {{/if}}
                 </li>
                 <li class="nav-item col-3">
-                    <a class="nav-link disabled" href="#tasks-1{{tabNumber}}" role="tab" data-toggle="tab">
+                    {{#if promotedRelated}}
+                    <a class="nav-link" href="#tasks-1{{tabNumber}}" role="tab" data-toggle="tab">
                         <span class="badge badge-pill badge-danger">Not purchased</span>
                         <i class="material-icons" style="font-size: 48px">
                             format_list_bulleted
@@ -396,10 +409,22 @@
                         <h4 class="info-title">
                             RELATED LISTING</h4>
                     </a>
+                    {{else}}
+                    <a class="nav-link" href="##tasks-1{{tabNumber}}"  data-toggle="modal" data-target="#promoterModal">
+                        <span class="badge badge-pill badge-danger">Not purchased</span>
+                        <i class="material-icons" style="font-size: 48px">
+                            format_list_bulleted
+                        </i>
+                        Ad Stats for
+                        <h4 class="info-title">
+                            RELATED LISTING</h4>
+                    </a>
+                    {{/if}}
                 </li>
             </ul>
             <div class="tab-content tab-space">
                 <div class="tab-pane active" id="dashboard-1{{tabNumber}}">
+                    {{#if promotedHome}}
                     <div class="row mx-3 justify-content-around">
                         <div class="col-md-6">
                             <div class="card">
@@ -420,21 +445,59 @@
                             </div>
                         </div>
                     </div>
+                    {{else}}
+                    <div class="row mx-3">
+                        <small>You Don't have promoter subscription, click on above buttons to activate promoter</small>
+                    </div>
+                    {{/if}}
                 </div>
                 <div class="tab-pane" id="schedule-1{{tabNumber}}">
-                    <div class="container">
-                        Efficiently unleash cross-media information without cross-media value.
-                        Quickly maximize timely deliverables for real-time schemas.
-                        <br><br>Dramatically maintain clicks-and-mortar solutions without
-                        functional solutions.
+                    {{#if promotedSearch}}
+                    <div class="row mx-3 justify-content-around">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-stats justify-content-around">
+                                        <canvas id="myChart{{tabNumber}}1"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 ">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-stats justify-content-around">
+                                        <canvas id="myChart2{{tabNumber}}1"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    {{/if}}
                 </div>
                 <div class="tab-pane" id="tasks-1{{tabNumber}}">
-                    Completely synergize resource taxing relationships via premier niche
-                    markets. Professionally cultivate one-to-one customer service with robust
-                    ideas.
-                    <br><br>Dynamically innovate resource-leveling customer service for state
-                    of the art customer service.
+                    {{#if promotedRelated}}
+                    <div class="row mx-3 justify-content-around">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-stats justify-content-around">
+                                        <canvas id="myChart{{tabNumber}}2"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 ">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-stats justify-content-around">
+                                        <canvas id="myChart2{{tabNumber}}2"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
                 </div>
             </div>
         </div>
