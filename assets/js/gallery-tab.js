@@ -8,7 +8,7 @@ const galleryTab = (() => {
     }
 
     function bindEvents(typeOfInfo, instituteId) {
-        $saveAndExitButton.click(() => addGallery(typeOfInfo,instituteId));
+        $saveAndExitButton.click(() => addGallery(typeOfInfo, instituteId));
     }
 
     function addGallery(typeOfInfo, instituteId) {
@@ -33,7 +33,7 @@ const galleryTab = (() => {
             alert("Gallery addition failed")
         })*/
 
-        window.location.assign('User-dashboard.html');
+        window.location.assign('Dashboard-Pro.html');
     }
 
     function init(typeOfInfo, instituteInfo) {
@@ -41,5 +41,7 @@ const galleryTab = (() => {
         bindEvents(typeOfInfo, instituteInfo._id);
     }
 
-    return {init};
+    return {
+        init
+    };
 })();

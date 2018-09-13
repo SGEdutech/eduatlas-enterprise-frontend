@@ -10,9 +10,6 @@ const dashboardAddEvent = (() => {
     function bindEvents(user) {
         $addEventForm.submit(e => {
             e.preventDefault();
-
-            // todo - this thing below won't protect our server from user-less entries
-            // todo - apply a check at server side and prevent this
             let eventSavedPromise = submitEvent(user);
             updateUser(user, eventSavedPromise);
         });
@@ -36,18 +33,16 @@ const dashboardAddEvent = (() => {
     function updateUser(user, eventSavedPromise) {
         // console.log('tuition saved');
         eventSavedPromise.then((data) => {
-            // console.log(userData);
             const eventIdCreated = data._id;
             const userUpdatedPromise = $.ajax({
-                url: '/user/add/eventsOwned/' + user._id,
+                url: '/user/add/claims/' + user._id,
                 method: 'POST',
                 data: {
-                    string: data._id
+                    category: "event",
+                    objectId: data._id
                 }
             });
-
             redirectToDashboard(userUpdatedPromise);
-
         }).catch(err => {
             console.log(err);
         });
@@ -55,7 +50,7 @@ const dashboardAddEvent = (() => {
 
     function redirectToDashboard(userUpdatedPromise) {
         userUpdatedPromise.then((data) => {
-            window.location.assign('./User-dashboard.html')
+            window.location.assign('./Dashboard-Pro.html')
         }).catch(err => {
             console.log(err);
         });
@@ -66,5 +61,7 @@ const dashboardAddEvent = (() => {
         bindEvents(user);
     }
 
-    return {init};
+    return {
+        init
+    };
 })();

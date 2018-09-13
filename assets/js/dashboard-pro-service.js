@@ -14,6 +14,9 @@ user.getInfo().then(userInfo => {
     userClaimed.init(userInfo);
     institutePills.init(userInfo);
     dashboardEditProfile.init(userInfo);
+    dashboardAddTuition.init(userInfo);
+    dashboardAddSchool.init(userInfo);
+    dashboardAddEvent.init(userInfo);
 });
 
 setTimeout(loginModal.init());

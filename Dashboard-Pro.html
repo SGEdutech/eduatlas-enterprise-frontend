@@ -187,18 +187,19 @@
                                                     <h6>Institute Name</h6>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <input id="tName" value="" class="form-control" type="text" name="name">
+                                                    <input id="tName" class="form-control" type="text" name="name"
+                                                        required>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="row form-group">
                                                         <label for="al1">Address Line 1</label>
-                                                        <input class="form-control" value="" type="text" id="al1" name="addressLine1">
+                                                        <input class="form-control" type="text" id="al1" name="addressLine1">
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="al2">Address Line 2</label>
-                                                        <input class="form-control" value="" type="text" id="al2" name="addressLine2">
+                                                        <input class="form-control" type="text" id="al2" name="addressLine2">
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="inputCity">City</label>
@@ -208,11 +209,11 @@
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="dist">District</label>
-                                                        <input class="form-control" value="" type="text" id="dist" name="district">
+                                                        <input class="form-control" type="text" id="dist" name="district">
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="inputState">State</label>
-                                                        <input class="form-control inputState" value="" type="text" id="inputState"
+                                                        <input class="form-control inputState" type="text" id="inputState"
                                                             name="state">
                                                     </div>
                                                     <div class="row form-group">
@@ -222,8 +223,7 @@
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="pin">Pin</label>
-                                                        <input class="form-control" value="" type="number" id="pin"
-                                                            name="pin">
+                                                        <input class="form-control" type="number" id="pin" name="pin">
                                                     </div>
                                                 </div>
                                             </div>
@@ -312,7 +312,7 @@
                                         <h2 class="card-title h3">About Us</h2>
                                         <div id="descriptionContainer">
                                             <div>
-                                                <input value="" name="description" class="form-control" id="description">
+                                                <input name="description" class="form-control" id="description">
                                             </div>
                                         </div>
                                     </div>
@@ -384,7 +384,7 @@
                                                     <h6>School Name</h6>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <input id="sName" value="" class="form-control" type="text" name="name">
+                                                    <input id="sName" class="form-control" type="text" name="name">
                                                 </div>
 
                                             </div>
@@ -392,13 +392,11 @@
                                                 <div class="col">
                                                     <div class="row form-group">
                                                         <label for="al1School">Address Line 1</label>
-                                                        <input class="form-control" value="" type="text" id="al1School"
-                                                            name="addressLine1">
+                                                        <input class="form-control" type="text" id="al1School" name="addressLine1">
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="al2School">Address Line 2</label>
-                                                        <input class="form-control" value="" type="text" id="al2School"
-                                                            name="addressLine2">
+                                                        <input class="form-control" type="text" id="al2School" name="addressLine2">
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="inputCitySchool">City</label>
@@ -408,12 +406,11 @@
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="distSchool">District</label>
-                                                        <input class="form-control" value="" type="text" id="distSchool"
-                                                            name="district">
+                                                        <input class="form-control" type="text" id="distSchool" name="district">
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="inputStateSchool">State</label>
-                                                        <input class="form-control inputState" value="" type="text" id="inputStateSchool"
+                                                        <input class="form-control inputState" type="text" id="inputStateSchool"
                                                             name="state">
                                                     </div>
                                                     <div class="row form-group">
@@ -423,8 +420,7 @@
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="pinSchool">Pin</label>
-                                                        <input class="form-control" value="" type="number" id="pinSchool"
-                                                            name="pin">
+                                                        <input class="form-control" type="number" id="pinSchool" name="pin">
                                                     </div>
                                                 </div>
                                             </div>
@@ -441,7 +437,7 @@
                                                 <label for="curriculumSchool" class="text-dark">Curriculum</label>
                                                 <select id="curriculumSchool" name="curriculum" class="selectpicker form-control"
                                                     data-style="btn btn-link">
-                                                    <option value="" disabled selected>Choose your option</option>
+                                                    <option disabled selected>Choose your option</option>
                                                     <option value="CBSE">CBSE</option>
                                                     <option value="ICSE">ICSE</option>
                                                     <option value="State Board">State Board</option>
@@ -457,7 +453,7 @@
                                                 <label for="grades" class="text-dark">Grades</label>
                                                 <select id="grades" name="grades" class="selectpicker form-control"
                                                     data-style="btn btn-link" multiple>
-                                                    <option value="" disabled>Choose multiple</option>
+                                                    <option disabled>Choose multiple</option>
                                                     <option value="Nursery">Nursery</option>
                                                     <option value="Kindergarten">Kindergarten</option>
                                                     <option value="1st">1st</option>
@@ -479,7 +475,7 @@
                                                 <label for="type" class="text-dark">Type Of Schooling</label>
                                                 <select id="type" name="type" class="selectpicker form-control"
                                                     data-style="btn btn-link">
-                                                    <option value="" disabled selected>Choose your option</option>
+                                                    <option disabled selected>Choose your option</option>
                                                     <option value="Day">Day School</option>
                                                     <option value="Day Boarding">Day Boarding</option>
                                                     <option value="Boarding/Residential">Boarding/Residential</option>
@@ -633,7 +629,7 @@
                                         <h2 class="card-title h3">About Us</h2>
                                         <div id="descriptionContainerSchool">
                                             <div>
-                                                <input value="" name="description" class="form-control" id="descriptionSchool">
+                                                <input name="description" class="form-control" id="descriptionSchool">
                                             </div>
                                         </div>
                                     </div>
@@ -645,7 +641,7 @@
                                         <div id="cateContainerSchool">
                                             <select id="categorySchool" name="category" class="selectpicker form-control"
                                                 data-style="btn btn-link" multiple>
-                                                <option value="" disabled>Choose your option</option>
+                                                <option disabled>Choose your option</option>
                                                 <option value="Pre/Play School">Pre/Play School</option>
                                                 <option value="Day Care">Day Care</option>
                                                 <option value="Formal School">Formal School</option>
@@ -693,7 +689,7 @@
                                                     <h6>Event Name</h6>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <input id="eName" value="" class="form-control" type="text" name="name">
+                                                    <input id="eName" class="form-control" type="text" name="name">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -776,13 +772,11 @@
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="al1Event">Address Line 1</label>
-                                                        <input class="form-control" value="" type="text" id="al1Event"
-                                                            name="addressLine1">
+                                                        <input class="form-control" type="text" id="al1Event" name="addressLine1">
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="al2Event">Address Line 2</label>
-                                                        <input class="form-control" value="" type="text" id="al2Event"
-                                                            name="addressLine2">
+                                                        <input class="form-control" type="text" id="al2Event" name="addressLine2">
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="inputCityEvent">City</label>
@@ -792,12 +786,11 @@
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="distEvent">District</label>
-                                                        <input class="form-control" value="" type="text" id="distEvent"
-                                                            name="district">
+                                                        <input class="form-control" type="text" id="distEvent" name="district">
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="inputStateEvent">State</label>
-                                                        <input class="form-control inputState" value="" type="text" id="inputStateEvent"
+                                                        <input class="form-control inputState" type="text" id="inputStateEvent"
                                                             name="state">
                                                     </div>
                                                     <div class="row form-group">
@@ -807,8 +800,7 @@
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="pinEvent">Pin</label>
-                                                        <input class="form-control" value="" type="number" id="pinEvent"
-                                                            name="pin">
+                                                        <input class="form-control" type="number" id="pinEvent" name="pin">
                                                     </div>
                                                 </div>
                                             </div>
@@ -816,7 +808,7 @@
                                             <label for="categoryEvent">Category</label>
                                             <select id="categoryEvent" name="category" class="selectpicker" data-style="btn btn-link"
                                                 multiple>
-                                                <option value="" disabled>Choose your option</option>
+                                                <option disabled>Choose your option</option>
                                                 <option value="Cultural">Cultural</option>
                                                 <option value="Annual Day">Annual Day</option>
                                                 <option value="Music">Music</option>

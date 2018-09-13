@@ -11,7 +11,7 @@ const institutePills = (() => {
         const maxLength = userInfo.claims.length;
         userInfo.claims.forEach((obj, index) => {
             getName(obj).then((instituteData) => {
-                if(instituteData[0]){
+                if (instituteData[0]) {
                     instituteData = instituteData[0];
                 }
                 console.log(instituteData);
@@ -75,6 +75,9 @@ const institutePills = (() => {
     }
 
     function calculateViewsNHits(instituteData, tabNumber) {
+        if (!instituteData.views) {
+            return
+        }
         if (!instituteData.views.total) {
             return
         }

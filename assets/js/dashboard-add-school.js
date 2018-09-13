@@ -10,8 +10,6 @@ const dashboardAddSchool = (() => {
     function bindEvents(user) {
         $addSchoolForm.submit(e => {
             e.preventDefault();
-            // todo - this thing below won't protect our server from user-less entries
-            // todo - apply a check at server side and prevent this
             let tuitionSavedPromise = submitTuition(user);
             updateUser(user, tuitionSavedPromise);
         });
@@ -34,14 +32,13 @@ const dashboardAddSchool = (() => {
         tuitionSavedPromise.then((data) => {
             const schoolIdCreated = data._id;
             const userUpdatedPromise = $.ajax({
-                // todo - need to fix
-                url: '/user/add/schoolsOwned/' + user._id,
+                url: '/user/add/claims/' + user._id,
                 method: 'POST',
                 data: {
-                    string: data._id
+                    category: "school",
+                    objectId: data._id
                 }
             });
-
             redirectToEditTuition(userUpdatedPromise, schoolIdCreated);
 
         }).catch(err => {
@@ -62,5 +59,7 @@ const dashboardAddSchool = (() => {
         bindEvents(user);
     }
 
-    return {init};
+    return {
+        init
+    };
 })();
