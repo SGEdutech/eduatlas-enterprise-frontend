@@ -8,6 +8,7 @@ const redirectTabs = (() => {
     }
 
     function showTab(queryObject) {
+        console.log(queryObject.tab);
         if (queryObject.tab === 'addTuition') {
             $addTuitionTab.tab('show');
         } else if (queryObject.tab === 'addSchool') {

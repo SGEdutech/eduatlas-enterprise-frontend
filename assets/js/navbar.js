@@ -33,9 +33,9 @@ const navigationBar = (() => {
 
     function updateAddTuitionLink() {
         if (user) {
-            $addTuitionBtn.attr('href', './User-dashboard.html?tab=addTuition');
-            $addSchoolBtn.attr('href', './User-dashboard.html?tab=addSchool');
-            $addEventBtn.attr('href', './User-dashboard.html?tab=addEvent');
+            $addTuitionBtn.attr('href', './Dashboard-Pro.html?tab=addTuition');
+            $addSchoolBtn.attr('href', './Dashboard-Pro.html?tab=addSchool');
+            $addEventBtn.attr('href', './Dashboard-Pro.html?tab=addEvent');
         } else {
             $addTuitionBtn.attr('data-toggle', 'modal');
             $addTuitionBtn.attr('data-target', '#loginModal');
