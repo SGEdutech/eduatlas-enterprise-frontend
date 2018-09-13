@@ -55,13 +55,26 @@ const institutePills = (() => {
                     }
                     console.log("rendered one tab");
                     instituteData.category = obj.category;
+                    let allBatches = [];
+                    if (instituteData.courses) {
+                        instituteData.courses.forEach(course => {
+                            if (course.batches) {
+                                course.batches.forEach(batch => {
+                                    batch.parentCourse = course.name;
+                                    allBatches.push(batch);
+                                })
+                            }
+                        });
+                    }
+                    instituteData.batches = allBatches;
+
                     renderCorrespondingTabs(instituteData);
                     calculateViewsNHits(instituteData, tabNumber)
                     if (index === maxLength - 1) {
                         setTimeout(() => {
                             console.log("event published");
                             PubSub.publish('instituteTabs.load', null)
-                        }, 400);
+                        }, 600);
                     }
                 })
             }).catch((err) => {

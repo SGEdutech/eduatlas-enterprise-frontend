@@ -21,16 +21,16 @@
             <div class="row m-0">
                 <div class="col-md-3" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
                     <ul class="nav nav-pills nav-pills-rose flex-column">
-                        <li class="nav-item"><a class="nav-link active" href="#innertab1" data-toggle="tab">Courses</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#innertab2" data-toggle="tab">Students</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#innertab3" data-toggle="tab">Batches</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#innertab4" data-toggle="tab">Active
+                        <li class="nav-item"><a class="nav-link active" href="#innertab1{{tabNumber}}" data-toggle="tab">Courses</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#innertab2{{tabNumber}}" data-toggle="tab">Students</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#innertab3{{tabNumber}}" data-toggle="tab">Batches</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#innertab4{{tabNumber}}" data-toggle="tab">Active
                                 Batches</a></li>
                     </ul>
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content">
-                        <div class="tab-pane active" id="innertab1">
+                        <div class="tab-pane active" id="innertab1{{tabNumber}}">
                             <div class="row m-0">
                                 <div class="card m-0 mb-4">
                                     <form class="new_course_form" data-tabNumber="{{tabNumber}}">
@@ -75,30 +75,32 @@
                                     Active Courses
                                 </div>
                                 <div class="col-12">
-                                    {{#each courses}}
-                                    <div class="col-md-4" id="{{_id}}">
-                                        <div class="card">
-                                            <div class="card-body ">
-                                                <h4 class="card-title">
-                                                    <a href="#pablo">{{name}}</a>
-                                                </h4>
-                                            </div>
-                                            <div class="card-footer ">
-                                                <div class="author">
-                                                    <h6 class="card-category text-danger">
-                                                        <i class="material-icons">trending_up</i>
-                                                        Price {{fees}}/-
-                                                    </h6>
+                                    <div class="row">
+                                        {{#each courses}}
+                                        <div class="col-md-4" id="{{_id}}">
+                                            <div class="card">
+                                                <div class="card-body ">
+                                                    <h4 class="card-title">
+                                                        <a href="#pablo">{{name}}</a>
+                                                    </h4>
                                                 </div>
-                                                <div class="stats ml-auto">
-                                                    <i class="material-icons delete-course-btn" style="top: 0%; cursor: pointer;"
-                                                        data-id="{{_id}}">delete</i>
-                                                    <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+                                                <div class="card-footer ">
+                                                    <div class="author">
+                                                        <h6 class="card-category text-danger">
+                                                            <i class="material-icons">trending_up</i>
+                                                            Price {{fees}}/-
+                                                        </h6>
+                                                    </div>
+                                                    <div class="stats ml-auto">
+                                                        <i class="material-icons delete-course-btn" style="top: 0%; cursor: pointer;"
+                                                            data-id="{{_id}}">delete</i>
+                                                        <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        {{/each}}
                                     </div>
-                                    {{/each}}
                                     <div id="active_course_container{{tabNumber}}" class="row">
                                     </div>
                                 </div>
@@ -129,7 +131,7 @@
                             </div>
                             <br><br>
                         </div>
-                        <div class="tab-pane" id="innertab2">
+                        <div class="tab-pane" id="innertab2{{tabNumber}}">
                             <div class="card card-profile card-plaina main-raised m-0">
                                 <div class="row card-body">
                                     <div class="col-md-6">
@@ -239,7 +241,7 @@
                                                     <div class="media">
                                                         <a class="float-left" href="#pablo">
                                                             <div class="avatar">
-                                                                <img class="media-object" src="../assets/img/fourgirls.jpeg"
+                                                                <img class="media-object" src="../assets/img/logo.png"
                                                                     alt="...">
                                                             </div>
                                                         </a>
@@ -257,7 +259,7 @@
                                                     <div class="media">
                                                         <a class="float-left" href="#pablo">
                                                             <div class="avatar">
-                                                                <img class="media-object" src="../assets/img/fourgirls.jpeg"
+                                                                <img class="media-object" src="../assets/img/logo.png"
                                                                     alt="...">
                                                             </div>
                                                         </a>
@@ -276,7 +278,7 @@
                                                     <div class="media">
                                                         <a class="float-left" href="#pablo">
                                                             <div class="avatar">
-                                                                <img class="media-object" src="../assets/img/fourgirls.jpeg"
+                                                                <img class="media-object" src="../assets/img/logo.png"
                                                                     alt="...">
                                                             </div>
                                                         </a>
@@ -294,16 +296,107 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="innertab3">
-                            Completely synergize resource taxing relationships via premier
-                            niche markets.
-                            Professionally cultivate one-to-one customer service with robust
-                            ideas.
-                            <br><br>Dynamically innovate resource-leveling customer service for
-                            state of the art
-                            customer service.
+                        <div class="tab-pane" id="innertab3{{tabNumber}}">
+                            <div class="row m-0">
+                                <div class="card m-0 mb-4">
+                                    <form class="new_batch_form" data-tabNumber="{{tabNumber}}">
+                                        <div class="row card-body">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="courseIdSelect">Choose Course for your batch</label>
+                                                    <select class="form-control selectpicker courseIdSelect" data-style="btn btn-link"
+                                                        name="courseId">
+                                                        {{#each courses}}
+                                                        <option value="{{_id}}">{{name}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating is-empty has-rose bmd-form-group">
+                                                    <input type="text" name="name" class="form-control" placeholder="Batch Name">
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating has-rose is-empty bmd-form-group">
+                                                    <textarea name="description" class="form-control" rows="4"
+                                                        placeholder="Description(Optional)"></textarea>
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="submit" class="btn btn-round btn-rose pull-right">
+                                                    ADD Batch
+                                                    <div class="ripple-container"></div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {{!-- <input type="hidden" name="courseId" value="{{_id}}"> --}}
+                                    </form>
+                                </div>
+                                <div class="card-title col-12 h3">
+                                    Active Batches
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        {{#each batches}}
+                                        <div class="col-md-4" id="{{_id}}">
+                                            <div class="card">
+                                                <div class="card-body ">
+                                                    <h4 class="card-title">
+                                                        <a href="#pablo">{{name}}</a>
+                                                    </h4>
+                                                    <p class="card-text">
+                                                        {{description}}
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <small class="text-secondary">Course:</small>
+                                                        <small class="text-danger">{{parentCourse}}</small>
+                                                    </p>
+                                                </div>
+                                                <div class="card-footer ">
+                                                    <div class="stats ml-auto">
+                                                        <i class="material-icons delete-batch-btn" style="top: 0%; cursor: pointer;"
+                                                            data-id="{{_id}}">delete</i>
+                                                        <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                    <div id="active_batch_container{{tabNumber}}" class="row">
+                                    </div>
+                                </div>
+                                <div class="card-title col-12 h3">
+                                    Inactive Batches
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-body ">
+                                            <h4 class="card-title">
+                                                <a href="#pablo">Jul17</a>
+                                            </h4>
+                                            <p class="card-text">
+                                                morning batch
+                                            </p>
+                                            <p class="card-text">
+                                                <small class="text-secondary">Course:</small>
+                                                <small class="text-danger">MBA Prep 18</small>
+                                            </p>
+                                        </div>
+                                        <div class="card-footer ">
+                                            <div class="stats ml-auto">
+                                                <i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
+                                                <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="tab-pane" id="innertab4">
+                        <div class="tab-pane" id="innertab4{{tabNumber}}">
                             Completely synergize resource taxing relationships via premier
                             niche markets.
                             Professionally cultivate one-to-one customer service with robust

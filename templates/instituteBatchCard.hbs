@@ -1,0 +1,26 @@
+{{#if col4}}
+<div class="col-md-4" id="{{_id}}">
+    {{/if}}
+    <div class="card">
+        <div class="card-body ">
+            <h4 class="card-title">
+                <a href="#pablo">{{name}}</a>
+            </h4>
+            <p class="card-text">
+                {{description}}
+            </p>
+            <p class="card-text">
+                <small class="text-secondary">Course:</small>
+                <small class="text-danger">{{parentCourse}}</small>
+            </p>
+        </div>
+        <div class="card-footer ">
+            <div class="stats ml-auto">
+                <i class="material-icons delete-batch-btn" style="top: 0%; cursor: pointer;" data-id="{{_id}}">delete</i>
+                <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+            </div>
+        </div>
+    </div>
+    {{#if col4}}
+</div>
+{{/if}}

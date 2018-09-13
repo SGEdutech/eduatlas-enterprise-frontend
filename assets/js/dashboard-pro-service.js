@@ -5,6 +5,8 @@ PubSub.subscribe('user', (msg, userInfo) => {
 
 PubSub.subscribe('instituteTabs.load', (msg) => {
     instituteCourses.init();
+    instituteBatches.init();
+    refreshSelectInput.init();
 });
 
 user.getInfo().then(userInfo => {

@@ -1,51 +1,51 @@
-const instituteCourses = (() => {
-    let $coursesContainer;
-    let $newCourseForm;
-    let $activeCourseContainer;
+const instituteBatches = (() => {
+    let $batchesContainer;
+    let $newBatchForm;
+    let $activeBatchContainer;
     let $deleteButtons;
 
     function cache() {
-        $coursesContainer = $("#coursesContainer");
-        $newCourseForm = $('.new_course_form');
+        $BatchesContainer = $("#batchesContainer");
+        $newBatchForm = $('.new_batch_form');
     }
 
-    function cacheNewCourseContainer(tabNumber) {
-        $activeCourseContainer = $(`#active_course_container${tabNumber}`);
+    function cacheNewBatchContainer(tabNumber) {
+        $activeBatchContainer = $(`#active_batch_container${tabNumber}`);
     }
 
     function cacheDynamic() {
-        $deleteButtons = $('.delete-course-btn');
+        $deleteButtons = $('.delete-batch-btn');
     }
 
     function render() {
         /* let html = getHtml();
-        $coursesContainer.append(html); */
+        $batchesContainer.append(html); */
     }
 
     function bindEvents() {
-        $newCourseForm.submit(function (e) {
+        $newBatchForm.submit(function (e) {
             e.preventDefault();
-            addCourse($(this));
+            addBatch($(this));
         });
 
         $deleteButtons.click(function (e) {
             e.preventDefault();
-            deleteCourse($(this))
+            deleteBatch($(this))
         });
     }
 
-    function cacheNBindDeleteButtons(tuitionId) {
+    function cacheNBindDeleteButtons() {
         cacheDynamic();
         $deleteButtons.click(function (e) {
             e.preventDefault();
-            deleteCourse($(this));
+            deleteBatch($(this));
         });
     }
 
-    function deleteCourse($element) {
+    function deleteBatch($element) {
         let cardId = $element.attr('data-id');
 
-        courseApiCalls.deleteCourse(cardId).then(data => {
+        batchApiCalls.deleteBatch(cardId).then(data => {
             eagerRemoveCard(cardId);
         }).catch(err => console.error(err));
 
@@ -56,18 +56,18 @@ const instituteCourses = (() => {
         $('#' + cardId).remove()
     }
 
-    function eagerLoadCourse(context) {
+    function eagerLoadBatch(context) {
         context.col4 = true;
-        $activeCourseContainer.append(template.instituteCourseCard(context))
+        $activeBatchContainer.append(template.instituteBatchCard(context))
         cacheNBindDeleteButtons();
     }
 
-    function addCourse(form) {
+    function addBatch(form) {
         if (!form) {
             return
         }
         const tabNumber = form.attr("data-tabNumber");
-        cacheNewCourseContainer(tabNumber);
+        cacheNewBatchContainer(tabNumber);
 
         const serializedArrayForm = form.serializeArray()
         let bodyObj = {};
@@ -75,15 +75,14 @@ const instituteCourses = (() => {
             bodyObj[obj.name] = obj.value;
         })
 
-        courseApiCalls.putNewCourse(bodyObj).then(data => {
+        batchApiCalls.putNewBatch(bodyObj).then(data => {
                 bodyObj._id = data._id;
-                eagerLoadCourse(bodyObj)
+                eagerLoadBatch(bodyObj)
             })
             .catch(err => console.error(err));
     }
 
     function getHtml() {
-        // return template.userEditTuitionCourses(context);
     }
 
     function init() {
@@ -92,7 +91,7 @@ const instituteCourses = (() => {
         cacheDynamic();
         bindEvents();
     }
-
+    
     return {
         init
     };
