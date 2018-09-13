@@ -9,6 +9,10 @@ PubSub.subscribe('instituteTabs.load', (msg) => {
     refreshSelectInput.init();
 });
 
+PubSub.subscribeOnce('query.load', (msg, queryObject) => {
+    redirectTabs.init(queryObject);
+});
+
 user.getInfo().then(userInfo => {
     navigationBar.init(userInfo, {
         colorOnScroll: false
