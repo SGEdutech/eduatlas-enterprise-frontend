@@ -9,7 +9,7 @@ const tuitionApiCalls = (() => {
     };
     const checkForHexRegExp = new RegExp("^[0-9a-fA-F]{24}$");
 
-    function getAllTuitions(limit = 0, skip = 0, demands) {
+    function getAllTuitions(skip = 0, limit = 0, demands) {
         return $.ajax({
             type: "GET",
             url: `/tuition/all`,
@@ -21,10 +21,11 @@ const tuitionApiCalls = (() => {
         });
     }
 
-    function getSpecificTuition(idenfifierObj) {
+    function getSpecificTuition(idenfifierObj = {}) {
+        console.log(idenfifierObj);
         return $.ajax({
             type: "GET",
-            url: `/tuition/`,
+            url: `/tuition`,
             data: idenfifierObj,
         });
     }
@@ -45,29 +46,23 @@ const tuitionApiCalls = (() => {
         });
     }
 
-    function searchTuitions(skip = 0, limit = 0, sortBy, demands) {
-        return $.ajax({
-            type: "GET",
-            url: `/tuition/search`,
-            data: {
-                skip: skip,
-                limit: limit,
-                sortBy: sortBy,
-                demands: demands
-            },
-        });
-    }
+    function searchTuitions(skip = 0, limit = 0, sortBy, demands, extraInfoObj = {}) {
+        let basicData = {
+            skip: skip,
+            limit: limit,
+            sortBy: sortBy,
+            demands: demands
+        }
 
-    function searchTuitions(skip = 0, limit = 0, sortBy, demands) {
+        let data = {
+            ...basicData,
+            ...extraInfoObj
+        }
+
         return $.ajax({
             type: "GET",
             url: `/tuition/search`,
-            data: {
-                skip: skip,
-                limit: limit,
-                sortBy: sortBy,
-                demands: demands
-            },
+            data: data,
         });
     }
 
@@ -114,16 +109,26 @@ const tuitionApiCalls = (() => {
         }
     }
 
-    function updateInTuition(idOfTuition, bodyObj) {
+    function updateInTuition(idOfTuition, bodyObj, isForm = false) {
         if (!checkForHexRegExp.test(idOfTuition)) {
             console.error("Not a valid idOfTuition");
         }
-
-        return $.ajax({
-            type: "PUT",
-            url: `/tuition/${idOfTuition}`,
-            data: bodyObj,
-        });
+        if (isForm) {
+            return $.ajax({
+                type: "PUT",
+                url: `/tuition/${idOfTuition}`,
+                data: bodyObj,
+                cache: false,
+                contentType: false,
+                processData: false,
+            });
+        } else {
+            return $.ajax({
+                type: "PUT",
+                url: `/tuition/${idOfTuition}`,
+                data: bodyObj,
+            });
+        }
     }
 
     function deleteInArrayInTuition(idOfTuition, arrayName, bodyObj) {
