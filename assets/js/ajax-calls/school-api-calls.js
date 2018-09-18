@@ -36,10 +36,10 @@ const schoolApiCalls = (() => {
         });
     }
 
-    function getSpecificSchool(idenfifierObj) {
+    function getSpecificSchool(idenfifierObj = {}) {
         return $.ajax({
             type: "GET",
-            url: `/school/`,
+            url: `/school`,
             data: idenfifierObj,
         });
     }
@@ -87,16 +87,26 @@ const schoolApiCalls = (() => {
         }
     }
 
-    function updateInSchool(idOfSchool, bodyObj) {
+    function updateInSchool(idOfSchool, bodyObj, isForm = false) {
         if (!checkForHexRegExp.test(idOfSchool)) {
             console.error("Not a valid idOfSchool");
         }
-
-        return $.ajax({
-            type: "PUT",
-            url: `/school/${idOfSchool}`,
-            data: bodyObj,
-        });
+        if (isForm) {
+            return $.ajax({
+                type: "PUT",
+                url: `/school/${idOfSchool}`,
+                data: bodyObj,
+                cache: false,
+                contentType: false,
+                processData: false,
+            });
+        } else {
+            return $.ajax({
+                type: "PUT",
+                url: `/school/${idOfSchool}`,
+                data: bodyObj,
+            });
+        }
     }
 
     function deleteInArrayInSchool(idOfSchool, arrayName, bodyObj) {

@@ -1,4 +1,4 @@
-const schoolApiCalls = (() => {
+const userApiCalls = (() => {
     const validArrayNames = {
         claims: true,
         reviewsOwned: true,
@@ -57,7 +57,7 @@ const schoolApiCalls = (() => {
         if (arrayName in validArrayNames) {
             return $.ajax({
                 type: "POST",
-                url: `/user/add/${arrayName}/${idOfUser}`,
+                url: `/user/add/${idOfUser}/${arrayName}`,
                 data: bodyObj,
             });
         } else {
