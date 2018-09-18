@@ -58,23 +58,30 @@
                 <div class="card-body p-1 p-md-3">
                     <ul class="nav nav-pills nav-pills-info flex-column" id="nav-pills-list">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#tab2" data-toggle="tab"> Dashboard</a>
+                            <a class="nav-link active p-0" href="#tab2" data-toggle="tab"> Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#tab3" data-toggle="tab"> Edit Profile</a>
+                            <a class="nav-link  p-0" href="#tab3" data-toggle="tab">My Listing</a>
+                            <ul>
+                               <li class="list-unstyled float-left">
+                                   <a href="#testprdt" class="active text-dark" data-toggle="tab">IMS PP</a></li>
+                                <li class="list-unstyled float-left"><a href="#testprdt" class="active text-dark" data-toggle="tab">IMS KC</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#tab6" data-toggle="tab"> Add Tuition</a>
+                            <a class="nav-link   p-0" href="#tab6" data-toggle="tab">Resources</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#tab7" data-toggle="tab"> Add School</a>
+                            <a class="nav-link   p-0" href="#tab7" data-toggle="tab"> My Shop</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#tab8" data-toggle="tab"> Add Event</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" data-toggle="tab"> My Listings</a>
-                        </li>
+                            <a class="nav-link  p-0" href="#tab8" data-toggle="tab"> ADD</a>
+                            <ul>
+                                <li class="list-unstyled float-left text-dark"><a href="#testprdt" class="active text-dark" data-toggle="tab">INSTITUTE</a></li><br>
+                                <li class="list-unstyled float-left text-dark"><a href="#testprdt" class="active text-dark" data-toggle="tab">EVENT</a></li><br>
+                                <li class="list-unstyled float-left text-dark"><a href="#testprdt" class="active text-dark" data-toggle="tab">BLOG</a></li><br>
+                            </ul>
+                        </li>                        
                         <li class="nav-item">
                             <a class="nav-link" href="#testprdt" data-toggle="tab">Test Item</a>
                         </li>
@@ -227,15 +234,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="card">
                                     <div class="card-body">
                                         <h2 class="card-title h3">Facilities:</h2>
-
                                         <div id="facilityContainer">
                                             <!--todo - fix backend to support array in facilities-->
                                             <div class="form-check form-check-inline">
@@ -491,16 +495,12 @@
                                                 <input id="yearFounded" class="form-control" type="number" name="yearFounded">
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
-
                                 <div class="card">
                                     <div class="card-body">
                                         <h2 class="card-title h3">Facilities:</h2>
-
-                                        <div id="facilityContainerSchool">
-                                            <!--todo - fix backend to support array in facilities-->
+                                        <div id="facilityContainerSchool">                                            
                                             <div class="form-check form-check-inline">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" type="checkbox" name="facilities"
@@ -654,7 +654,6 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h2 class="card-title h3">Add/Change Cover Pic</h2>
-
                                         <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                             <div class="fileinput-new thumbnail img-raised">
                                                 <img src="assets/img/preview.jpg" ; style="-webkit-filter: grayscale(100%);
@@ -862,25 +861,36 @@
                                     </div>
                                 </div>
                                 <ul class="nav nav-pills nav-pills-rose">
-                                    <li class="nav-item"><a class="nav-link active" href="#pill1" data-toggle="tab">Settings</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#pill2" data-toggle="tab">Promoter</a></li>
+                                    <li class="nav-item"><a class="nav-link active" href="#pill1" data-toggle="tab">Dashboard</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#pill2" data-toggle="tab">Configure</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#pill3" data-toggle="tab">Messages</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Form</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Schedules</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Attendence</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Report Cards</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Finance</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Utilities</a></li>
                                 </ul>
                                 <hr>
                                 <div class="tab-content tab-space">
                                     <div class="tab-pane active" id="pill1">
                                         <div class="row m-0">
-                                            <div class="col-md-3" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
+                                            <div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
                                                 <ul class="nav nav-pills nav-pills-rose flex-column">
-                                                    <li class="nav-item"><a class="nav-link active" href="#innertab1" data-toggle="tab">Courses</a></li>
-                                                    <li class="nav-item"><a class="nav-link" href="#innertab2" data-toggle="tab">Students</a></li>
-                                                    <li class="nav-item"><a class="nav-link" href="#innertab3" data-toggle="tab">Batches</a></li>
-                                                    <li class="nav-item"><a class="nav-link" href="#innertab4" data-toggle="tab">Active
-                                                            Batches</a></li>
+                                                    <li class="nav-item"><a class="nav-link active" href="#innertab1" data-toggle="tab">Stats</a></li>
+                                                    <li class="nav-item"><a class="nav-link" href="#innertab2" data-toggle="tab">Leads</a></li>
+                                                    <li class="nav-item"><a class="nav-link" href="#innertab3" data-toggle="tab">Promote</a></li>
+                                                    <li class="nav-item"><a class="nav-link p-0" href="#innertab3" data-toggle="tab">Edit Institute</a>
+                                                    <ul>
+                                                        <a href="#"> <li class="list-unstyled text-center text-dark"><small>-</small> Item 1</li></a>
+                                                        <a href="#"> <li class="list-unstyled text-center text-dark"><small>-</small> Item 2</li></a>
+                                                        <a href="#"> <li class="list-unstyled text-center text-dark"><small>-</small> Item 3</li></a>
+                                                    </ul>
+                                                    
+                                                    
+                                                    </li>
                                                 </ul>
                                             </div>
-                                            <div class="col-md-9">
+                                            <div class="col-md-10">
                                                 <div class="tab-content">
                                                     <div class="tab-pane active" id="innertab1">
                                                         <div class="row m-0">
@@ -923,61 +933,215 @@
                                                                     <input type="hidden" name="listingCategory" value="{{category}}">
                                                                 </form>
                                                             </div>
-                                                            <div class="card-title col-12 h3">
-                                                                Active Courses
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <div class="row">                                                                   
-                                                                    <div class="col-md-4">
-                                                                        <div class="card">
-                                                                            <div class="card-body ">
-                                                                                <h4 class="card-title">
-                                                                                    <a href="#pablo">MBA Prep 18</a>
-                                                                                </h4>
-                                                                            </div>
-                                                                            <div class="card-footer ">
-                                                                                <div class="author">
-                                                                                    <h6 class="card-category text-danger">
-                                                                                        <i class="material-icons">trending_up</i>
-                                                                                        Price 50000/-
-                                                                                    </h6>
-                                                                                </div>
-                                                                                <div class="stats ml-auto">
-                                                                                    <i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
-                                                                                    <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    
-                                                                </div>
-                                                                <div id="active_course_container{{tabNumber}}" class="row">
-                                                                </div>
-                                                            </div>
-                                                            <div class="card-title col-12 h3">
-                                                                Inactive Courses
-                                                            </div>
-                                                            <div class="col-md-4">
+
+                                                            <div class="card-profile card-plaina  m-0">
                                                                 <div class="card">
-                                                                    <div class="card-body ">
-                                                                        <h4 class="card-title">
-                                                                            <a href="#pablo">MBA Prep 18</a>
-                                                                        </h4>
-                                                                    </div>
-                                                                    <div class="card-footer ">
-                                                                        <div class="author">
-                                                                            <h6 class="card-category text-danger">
-                                                                                <i class="material-icons">trending_up</i>
-                                                                                Price 50000/-
-                                                                            </h6>
-                                                                        </div>
-                                                                        <div class="stats ml-auto">
-                                                                            <i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
-                                                                            <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+                                                                    <div class="container">
+                                                                        <div class="section section-comments">
+                                                                            <div class="row">   
+                                                                                        <div class="col-md-4">                                                                                            
+                                                                                                  <p class="font-weight-bold"> NEW LEADS </p>                                                                                             
+                                                                                            <div class="media-area main-raised m-0">
+                                                                                                <div class="media">
+                                                                                                    <a class="float-left" href="#pablo">
+                                                                                                        <div class="avatar">
+                                                                                                            <img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                    <div class="media-body">
+                                                                                                        <h4 class="media-heading">Parshant Gupta                                                                                                            
+                                                                                                            <small>Joined On 23-Jan-18</small>
+                                                                                                        </h4>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="media-area main-raised m-0">
+                                                                                                    <div class="media">
+                                                                                                        <a class="float-left" href="#pablo">
+                                                                                                            <div class="avatar">
+                                                                                                                <img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+                                                                                                            </div>
+                                                                                                        </a>
+                                                                                                        <div class="media-body">
+                                                                                                            <h4 class="media-heading">Parshant Gupta                                                                                                            
+                                                                                                                <small>Joined On 23-Jan-18</small>
+                                                                                                            </h4>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="media-area main-raised m-0">
+                                                                                                        <div class="media">
+                                                                                                            <a class="float-left" href="#pablo">
+                                                                                                                <div class="avatar">
+                                                                                                                    <img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+                                                                                                                </div>
+                                                                                                            </a>
+                                                                                                            <div class="media-body">
+                                                                                                                <h4 class="media-heading">Parshant Gupta                                                                                                            
+                                                                                                                    <small>Joined On 23-Jan-18</small>
+                                                                                                                </h4>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="media-area main-raised m-0">
+                                                                                                            <div class="media">
+                                                                                                                <a class="float-left" href="#pablo">
+                                                                                                                    <div class="avatar">
+                                                                                                                        <img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+                                                                                                                    </div>
+                                                                                                                </a>
+                                                                                                                <div class="media-body">
+                                                                                                                    <h4 class="media-heading">Parshant Gupta                                                                                                            
+                                                                                                                        <small>Joined On 23-Jan-18</small>
+                                                                                                                    </h4>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">                                                                                            
+                                                                                                <p class="font-weight-bold text-danger"> ALERTS/REMINDERS </p>                                                                                          
+                                                                                        <div class="media-area main-raised m-0">
+                                                                                            <div class="media">
+                                                                                                <a class="float-left" href="#pablo">
+                                                                                                    <div class="avatar">
+                                                                                                        <img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+                                                                                                    </div>
+                                                                                                </a>
+                                                                                                <div class="media-body">
+                                                                                                    <h4 class="media-heading">Parshant Gupta                                                                                                            
+                                                                                                        <small>Joined On 23-Jan-18</small>
+                                                                                                    </h4>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="media-area main-raised m-0">
+                                                                                                <div class="media">
+                                                                                                    <a class="float-left" href="#pablo">
+                                                                                                        <div class="avatar">
+                                                                                                            <img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                    <div class="media-body">
+                                                                                                        <h4 class="media-heading">Parshant Gupta                                                                                                            
+                                                                                                            <small>Joined On 23-Jan-18</small>
+                                                                                                        </h4>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="media-area main-raised m-0">
+                                                                                                    <div class="media">
+                                                                                                        <a class="float-left" href="#pablo">
+                                                                                                            <div class="avatar">
+                                                                                                                <img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+                                                                                                            </div>
+                                                                                                        </a>
+                                                                                                        <div class="media-body">
+                                                                                                            <h4 class="media-heading">Parshant Gupta                                                                                                            
+                                                                                                                <small>Joined On 23-Jan-18</small>
+                                                                                                            </h4>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+    
+
+
+                                                                                            <div class="media-area main-raised m-0">
+                                                                                                    <div class="media">
+                                                                                                        <a class="float-left" href="#pablo">
+                                                                                                            <div class="avatar">
+                                                                                                                <img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+                                                                                                            </div>
+                                                                                                        </a>
+                                                                                                        <div class="media-body">
+                                                                                                            <h4 class="media-heading">Parshant Gupta                                                                                                            
+                                                                                                                <small>Joined On 23-Jan-18</small>
+                                                                                                            </h4>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>                                                                                
+                                                                                    <div class="col-md-4">                                                                                            
+                                                                                            <p class="font-weight-bold text-danger"> LATEST REVIEWS </p>                                                                                               
+                                                                                    <div class="media-area main-raised m-0">
+                                                                                        <div class="media">
+                                                                                            <a class="float-left" href="#pablo">
+                                                                                                <div class="avatar">
+                                                                                                    <img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+                                                                                                </div>
+                                                                                            </a>
+                                                                                            <div class="media-body">
+                                                                                                <h4 class="media-heading">Parshant Gupta                                                                                                            
+                                                                                                    <small>Joined On 23-Jan-18</small>
+                                                                                                </h4>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="media-area main-raised m-0">
+                                                                                            <div class="media">
+                                                                                                <a class="float-left" href="#pablo">
+                                                                                                    <div class="avatar">
+                                                                                                        <img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+                                                                                                    </div>
+                                                                                                </a>
+                                                                                                <div class="media-body">
+                                                                                                    <h4 class="media-heading">Parshant Gupta                                                                                                            
+                                                                                                        <small>Joined On 23-Jan-18</small>
+                                                                                                    </h4>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="media-area main-raised m-0">
+                                                                                                <div class="media">
+                                                                                                    <a class="float-left" href="#pablo">
+                                                                                                        <div class="avatar">
+                                                                                                            <img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                    <div class="media-body">
+                                                                                                        <h4 class="media-heading">Parshant Gupta                                                                                                            
+                                                                                                            <small>Joined On 23-Jan-18</small>
+                                                                                                        </h4>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="media-area main-raised m-0">
+                                                                                                    <div class="media">
+                                                                                                        <a class="float-left" href="#pablo">
+                                                                                                            <div class="avatar">
+                                                                                                                <img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+                                                                                                            </div>
+                                                                                                        </a>
+                                                                                                        <div class="media-body">
+                                                                                                            <h4 class="media-heading">Parshant Gupta                                                                                                            
+                                                                                                                <small>Joined On 23-Jan-18</small>
+                                                                                                            </h4>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                            
                                                         </div>
                                                         <br><br>
                                                     </div>
