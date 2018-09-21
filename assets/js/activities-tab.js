@@ -19,12 +19,8 @@ const activities = (() => {
 		const inputObj = $form.serializeArray();
 		let activitiesArr = inputObj[0].value;
 		activitiesArr = activitiesArr.split(',');
-		$.ajax({
-			url: '/school/empty/activities',
-			type: 'DELETE',
-			data: {
-				_id: schoolId
-			}
+		schoolApiCalls.deleteArrayInSchool("activities", {
+			_id: schoolId
 		}).then(() => {
 			// console.log('deleted old array');
 			submitActivity(schoolId, activitiesArr)
@@ -35,10 +31,8 @@ const activities = (() => {
 		const promiseArr = [];
 		arr.forEach(entry => {
 			promiseArr.push(
-				$.ajax({
-					url: `/school/add/activities/${schoolId}`,
-					type: 'POST',
-					data: { string: entry }
+				schoolApiCalls.putInArrayInSchool(schoolId, "activities", {
+					string: entry
 				})
 			)
 		});
@@ -60,5 +54,7 @@ const activities = (() => {
 		bindEvents(school._id);
 	}
 
-	return { init };
+	return {
+		init
+	};
 })();

@@ -51,17 +51,28 @@ const schoolApiCalls = (() => {
         });
     }
 
-    function putInArrayInSchool(idOfSchool, arrayName, bodyObj) {
+    function putInArrayInSchool(idOfSchool, arrayName, bodyObj, isForm = false) {
         if (!checkForHexRegExp.test(idOfSchool)) {
             console.error("Not a valid idOfSchool");
         }
 
         if (arrayName in validArrayNames) {
-            return $.ajax({
-                type: "POST",
-                url: `/school/add/${idOfSchool}/${arrayName}`,
-                data: bodyObj,
-            });
+            if (isForm) {
+                return $.ajax({
+                    type: "POST",
+                    url: `/school/add/${idOfSchool}/${arrayName}`,
+                    data: bodyObj,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                });
+            } else {
+                return $.ajax({
+                    type: "POST",
+                    url: `/school/add/${idOfSchool}/${arrayName}`,
+                    data: bodyObj,
+                });
+            }
         } else {
             console.error("Not a valid array name in schools");
         }

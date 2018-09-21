@@ -45,14 +45,17 @@ const faculty = (() => {
         let name = $element.attr('data-name');
         let cardId = $element.attr('data-faculty-id');
         eagerRemoveCard(cardId);
-
-        $.ajax({
-            url: `/${typeOfInfo}/delete/${tuitionId}/team`,
-            type: 'DELETE',
-            data: {
+        let tempPromise;
+        if (typeOfInfo === "tuition") {
+            tempPromise = tuitionApiCalls.deleteInArrayInTuition(instituteId, "team", {
                 name: name
-            }
-        }).then((data) => {
+            })
+        } else if (typeOfInfo === "school") {
+            tempPromise = schoolApiCalls.deleteInArrayInSchool(instituteId, "team", {
+                name: name
+            })
+        }
+        tempPromise.then((data) => {
             // alert("faculty deleted successfully")
         }).catch((err) => {
             console.log(err);
@@ -85,14 +88,12 @@ const faculty = (() => {
 
         const formData = new FormData(form[0]);
         // get the data and send it in post request
-        const promise = $.ajax({
-            url: `/${typeOfInfo}/add/team/${instituteId}`,
-            type: 'POST',
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-        });
+        let promise;
+        if (typeOfInfo === "tuition") {
+            promise = tuitionApiCalls.putInArrayInTuition(instituteId, "team", formData, true)
+        } else if (typeOfInfo === "school") {
+            promise = schoolApiCalls.putInArrayInSchool(instituteId, "team", formData, true)
+        }
 
         promise.then((data) => {
             cacheNBindDeleteButtons(instituteId);
@@ -127,5 +128,7 @@ const faculty = (() => {
         bindEvents(typeOfInfo, institute._id);
     }
 
-    return {init};
+    return {
+        init
+    };
 })();

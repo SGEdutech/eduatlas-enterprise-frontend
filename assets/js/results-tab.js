@@ -48,14 +48,17 @@ const results = (() => {
         console.log(cardId);
 
         eagerRemoveCard(cardId);
-
-        $.ajax({
-            url: `/${typeOfInfo}/delete/${instituteId}/bragging`,
-            type: 'DELETE',
-            data: {
+        let tempPromise;
+        if (typeOfInfo === "tuition") {
+            tempPromise = tuitionApiCalls.deleteInArrayInTuition(instituteId, "bragging", {
                 title: title
-            }
-        }).then(() => {
+            })
+        } else if (typeOfInfo === "school") {
+            tempPromise = schoolApiCalls.deleteInArrayInSchool(instituteId, "bragging", {
+                title: title
+            })
+        }
+        tempPromise.then(() => {
             // alert("result deleted successfully")
         }).catch((err) => {
             console.log(err);
@@ -88,14 +91,12 @@ const results = (() => {
 
         const formData = new FormData(form[0]);
         // get the data and send it in post request
-        const promise = $.ajax({
-            url: `/${typeOfInfo}/add/bragging/${instituteId}`,
-            type: 'POST',
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-        });
+        let promise;
+        if (typeOfInfo === "tuition") {
+            promise = tuitionApiCalls.putInArrayInTuition(instituteId, "bragging", formData, true)
+        } else if (typeOfInfo === "school") {
+            promise = schoolApiCalls.putInArrayInSchool(instituteId, "bragging", formData, true)
+        }
 
         promise.then((data) => {
             cacheNBindDeleteButtons(instituteId);
@@ -131,5 +132,7 @@ const results = (() => {
         bindEvents(typeOfInfo, institute._id);
     }
 
-    return {init};
+    return {
+        init
+    };
 })();

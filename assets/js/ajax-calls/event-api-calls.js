@@ -44,17 +44,28 @@ const eventApiCalls = (() => {
         });
     }
 
-    function putInArrayInEvent(idOfEvent, arrayName, bodyObj) {
+    function putInArrayInEvent(idOfEvent, arrayName, bodyObj, isForm = false) {
         if (!checkForHexRegExp.test(idOfEvent)) {
             console.error("Not a valid idOfEvent");
         }
 
         if (arrayName in validArrayNames) {
-            return $.ajax({
-                type: "POST",
-                url: `/event/add/${idOfEvent}/${arrayName}`,
-                data: bodyObj,
-            });
+            if (isForm) {
+                return $.ajax({
+                    type: "POST",
+                    url: `/event/add/${idOfSchool}/${arrayName}`,
+                    data: bodyObj,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                });
+            } else {
+                return $.ajax({
+                    type: "POST",
+                    url: `/event/add/${idOfSchool}/${arrayName}`,
+                    data: bodyObj,
+                });
+            }
         } else {
             console.error("Not a valid array name in events");
         }
