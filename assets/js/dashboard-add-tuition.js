@@ -19,31 +19,19 @@ const dashboardAddTuition = (() => {
         $claimedByInput.val(user._id);
         const formData = new FormData($addTuitionForm[0]);
         // console.log(formData);
-        return $.ajax({
-            type: $addTuitionForm.attr('method'),
-            url: $addTuitionForm.attr('action'),
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: formData,
-        })
+        return tuitionApiCalls.putNewTuition(formData, true)
     }
 
     function updateUser(user, tuitionSavedPromise) {
         // console.log('tuition saved');
         tuitionSavedPromise.then((data) => {
             const tuitionIdCreated = data._id;
-            const userUpdatedPromise = $.ajax({
-                url: '/user/add/claims/' + user._id,
-                method: 'POST',
-                data: {
-                    category: "tuition",
-                    objectId: data._id
-                }
+            const userUpdatedPromise = userApiCalls.putInArrayInUser(user._id, "claims", {
+                listingCategory: "tuition",
+                listingId: data._id
             });
 
             redirectToEditTuition(userUpdatedPromise, tuitionIdCreated);
-
         }).catch(err => {
             console.log(err);
         });

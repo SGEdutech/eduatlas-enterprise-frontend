@@ -82,12 +82,23 @@ const tuitionApiCalls = (() => {
         }
     }
 
-    function putNewTuition(bodyObj) {
-        return $.ajax({
-            type: "POST",
-            url: `/tuition/`,
-            data: bodyObj,
-        });
+    function putNewTuition(bodyObj, isForm = false) {
+        if (isForm) {
+            return $.ajax({
+                type: "POST",
+                url: `/tuition/`,
+                data: bodyObj,
+                cache: false,
+                contentType: false,
+                processData: false,
+            });
+        } else {
+            return $.ajax({
+                type: "POST",
+                url: `/tuition/`,
+                data: bodyObj,
+            });
+        }
     }
 
     function updateInArrayInTuition(idOfTuition, arrayName, idOfNestedObj, bodyObj) {

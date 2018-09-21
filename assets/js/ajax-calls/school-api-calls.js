@@ -23,16 +23,23 @@ const schoolApiCalls = (() => {
         });
     }
 
-    function searchSchools(skip = 0, limit = 0, sortBy, demands) {
+    function searchSchools(skip = 0, limit = 0, sortBy, demands, extraInfoObj = {}) {
+        let basicData = {
+            skip: skip,
+            limit: limit,
+            sortBy: sortBy,
+            demands: demands
+        }
+
+        let data = {
+            ...basicData,
+            ...extraInfoObj
+        }
+
         return $.ajax({
             type: "GET",
             url: `/school/search`,
-            data: {
-                skip: skip,
-                limit: limit,
-                sortBy: sortBy,
-                demands: demands
-            },
+            data: data,
         });
     }
 
@@ -52,7 +59,7 @@ const schoolApiCalls = (() => {
         if (arrayName in validArrayNames) {
             return $.ajax({
                 type: "POST",
-                url: `/school/add/${arrayName}/${idOfSchool}`,
+                url: `/school/add/${idOfSchool}/${arrayName}`,
                 data: bodyObj,
             });
         } else {
@@ -60,12 +67,23 @@ const schoolApiCalls = (() => {
         }
     }
 
-    function putNewSchool(bodyObj) {
-        return $.ajax({
-            type: "POST",
-            url: `/school/`,
-            data: bodyObj,
-        });
+    function putNewSchool(bodyObj, isForm = false) {
+        if (isForm) {
+            return $.ajax({
+                type: "POST",
+                url: `/school`,
+                data: bodyObj,
+                cache: false,
+                contentType: false,
+                processData: false,
+            });
+        } else {
+            return $.ajax({
+                type: "POST",
+                url: `/school`,
+                data: bodyObj,
+            });
+        }
     }
 
     function updateInArrayInSchool(idOfSchool, arrayName, idOfNestedObj, bodyObj) {

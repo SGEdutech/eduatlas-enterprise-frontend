@@ -24,16 +24,23 @@ const eventApiCalls = (() => {
         });
     }
 
-    function searchEvents(skip = 0, limit = 0, sortBy, demands) {
+    function searchEvents(skip = 0, limit = 0, sortBy, demands, extraInfoObj = {}) {
+        let basicData = {
+            skip: skip,
+            limit: limit,
+            sortBy: sortBy,
+            demands: demands
+        }
+
+        let data = {
+            ...basicData,
+            ...extraInfoObj
+        }
+
         return $.ajax({
             type: "GET",
             url: `/event/search`,
-            data: {
-                skip: skip,
-                limit: limit,
-                sortBy: sortBy,
-                demands: demands
-            },
+            data: data,
         });
     }
 
@@ -53,12 +60,23 @@ const eventApiCalls = (() => {
         }
     }
 
-    function putNewEvent(bodyObj) {
-        return $.ajax({
-            type: "POST",
-            url: `/event/`,
-            data: bodyObj,
-        });
+    function putNewEvent(bodyObj, isForm = false) {
+        if (isForm) {
+            return $.ajax({
+                type: "POST",
+                url: `/event/`,
+                data: bodyObj,
+                cache: false,
+                contentType: false,
+                processData: false,
+            });
+        } else {
+            return $.ajax({
+                type: "POST",
+                url: `/event/`,
+                data: bodyObj,
+            });
+        }
     }
 
     function updateInArrayInEvent(idOfEvent, arrayName, idOfNestedObj, bodyObj) {

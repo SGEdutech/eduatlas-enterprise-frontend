@@ -36,7 +36,7 @@ const userApiCalls = (() => {
         }
         return $.ajax({
             type: "GET",
-            url: `/user/`,
+            url: `/user`,
             data: idenfifierObj,
         });
     }
@@ -44,7 +44,7 @@ const userApiCalls = (() => {
     function putNewUser(bodyObj) {
         return $.ajax({
             type: "POST",
-            url: `/user/`,
+            url: `/user`,
             data: bodyObj,
         });
     }
