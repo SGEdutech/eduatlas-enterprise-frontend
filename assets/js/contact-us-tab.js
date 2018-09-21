@@ -152,7 +152,9 @@ const contactUs = (() => {
             $.ajax({
                 url: `/${typeOfInfo}/empty/dayAndTimeOfOperation`,
                 type: 'DELETE',
-                data: {_id: instituteId}
+                data: {
+                    _id: instituteId
+                }
             }).then((data) => {
                 return Promise.all([
                     addDayAndTimeOfOperation(typeOfInfo, $monForm, instituteId),
@@ -173,7 +175,9 @@ const contactUs = (() => {
             $.ajax({
                 url: `/${typeOfInfo}/empty/schoolTiming`,
                 type: 'DELETE',
-                data: {_id: instituteId}
+                data: {
+                    _id: instituteId
+                }
             }).then((data) => {
                 return Promise.all([
                     addDayAndTimeOfOperation(typeOfInfo, $monFormSchool, instituteId),
@@ -192,7 +196,9 @@ const contactUs = (() => {
             $.ajax({
                 url: `/${typeOfInfo}/empty/officeTiming`,
                 type: 'DELETE',
-                data: {_id: instituteId}
+                data: {
+                    _id: instituteId
+                }
             }).then((data) => {
                 return Promise.all([
                     addDayAndTimeOfOperation(typeOfInfo, $monFormSchoolOffice, instituteId),
@@ -214,7 +220,7 @@ const contactUs = (() => {
         // data is in $form
         // get the data and send it in post request
         return $.ajax({
-            url: `/${typeOfInfo}/add/dayAndTimeOfOperation/${tuitionId}`,
+            url: `/${typeOfInfo}/add/${tuitionId}/dayAndTimeOfOperation`,
             type: 'POST',
             data: $form.serialize()
         });
@@ -227,5 +233,7 @@ const contactUs = (() => {
         bindEvents(typeOfInfo, instituteInfo._id);
     }
 
-    return {init};
+    return {
+        init
+    };
 })();
