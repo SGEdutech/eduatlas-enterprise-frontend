@@ -26,10 +26,7 @@ const dashboardAddTuition = (() => {
         // console.log('tuition saved');
         tuitionSavedPromise.then((data) => {
             const tuitionIdCreated = data._id;
-            const userUpdatedPromise = userApiCalls.putInArrayInUser(user._id, "claims", {
-                listingCategory: "tuition",
-                listingId: data._id
-            });
+            const userUpdatedPromise = userApiCalls.addClaim("tuition", data._id);
 
             redirectToEditTuition(userUpdatedPromise, tuitionIdCreated);
         }).catch(err => {

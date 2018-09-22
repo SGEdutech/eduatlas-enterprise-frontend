@@ -37,7 +37,7 @@ const userClaimed = (() => {
             url: `/user/delete/claims/${userInfo._id}`,
             type: 'DELETE',
             data: {
-                objectId: tuitionId
+                listingId: tuitionId
             }
         });
 
@@ -63,7 +63,7 @@ const userClaimed = (() => {
                                            </div>`)
         const instituteInfoPromiseArr = [];
         instituteIdArr.forEach(object => {
-            if (object.category === typeOfInfo) {
+            if (object.listingCategory === typeOfInfo) {
                 instituteInfoPromiseArr.push(getTuitionsInfo(typeOfInfo, object.objectId))
             }
         });

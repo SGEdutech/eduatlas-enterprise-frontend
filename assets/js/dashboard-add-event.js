@@ -27,10 +27,7 @@ const dashboardAddEvent = (() => {
         // console.log('event saved');
         eventSavedPromise.then((data) => {
             const eventIdCreated = data._id;
-            const userUpdatedPromise = userApiCalls.putInArrayInUser(user._id, "claims", {
-                listingCategory: "event",
-                listingId: data._id
-            });
+            const userUpdatedPromise = userApiCalls.addClaim("event", data._id);
             redirectToDashboard(userUpdatedPromise);
         }).catch(err => {
             console.log(err);

@@ -24,10 +24,7 @@ const dashboardAddSchool = (() => {
     function updateUser(user, tuitionSavedPromise) {
         tuitionSavedPromise.then((data) => {
             const schoolIdCreated = data._id;
-            const userUpdatedPromise = userApiCalls.putInArrayInUser(user._id, "claims", {
-                listingCategory: "school",
-                listingId: data._id
-            });
+            const userUpdatedPromise = userApiCalls.addClaim("school", data._id);
             redirectToEditTuition(userUpdatedPromise, schoolIdCreated);
         }).catch(err => {
             console.log(err);
