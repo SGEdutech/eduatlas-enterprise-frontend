@@ -5,13 +5,13 @@ const schoolApiCalls = (() => {
         team: true,
         gallery: true,
         bragging: true,
-        acticities: true,
+        activities: true,
         reviews: true,
         importantDates: true
     };
     const checkForHexRegExp = new RegExp("^[0-9a-fA-F]{24}$");
 
-    function getAllSchools(skip = 0, limit = 0, demands) {
+function getAllSchools(skip = 0, limit = 0, demands) {
         return $.ajax({
             type: "GET",
             url: `/school/all`,
@@ -52,6 +52,7 @@ const schoolApiCalls = (() => {
     }
 
     function putInArrayInSchool(idOfSchool, arrayName, bodyObj, isForm = false) {
+        console.log(bodyObj);
         if (!checkForHexRegExp.test(idOfSchool)) {
             console.error("Not a valid idOfSchool");
         }

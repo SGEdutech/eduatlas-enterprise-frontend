@@ -130,6 +130,7 @@ const helperScripts = {
 
     saveDetails(typeOfInfo, $form, $nextTab, instituteId) {
         const formData = new FormData($form[0]);
+        console.log($form);
         let Promise;
         if (typeOfInfo === "tuition") {
             Promise = tuitionApiCalls.updateInTuition(instituteId, formData, true);
@@ -139,7 +140,8 @@ const helperScripts = {
             Promise = eventApiCalls.updateInEvent(instituteId, formData, true);
         }
 
-        Promise.then(() => {
+        Promise.then((data) => {
+            // console.log(data);
             this.showNextTab($nextTab);
         }).catch((err) => {
             alert('Fail!');
