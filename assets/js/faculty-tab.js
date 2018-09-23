@@ -6,6 +6,8 @@ const faculty = (() => {
     let $galleryTab;
     let $newFacultyModal;
     let $deleteButtons;
+    let $facultyImgInp;
+    let imgPath;
 
     function cache() {
         $facultyContainer = $("#facultyContainer");
@@ -14,6 +16,7 @@ const faculty = (() => {
         $galleryTabButton = $('#next_Tab_Button3');
         $galleryTab = $(`[href = "#tab6"]`);
         $newFacultyModal = $('#new_faculty_modal');
+        $facultyImgInp = $('#facultyImageInp')
     }
 
     function cacheDynamic() {
@@ -28,19 +31,28 @@ const faculty = (() => {
     function bindEvents(typeOfInfo, tuitionId) {
         $addNewFacultyButton.click(() => addFaculty(typeOfInfo, tuitionId));
         $galleryTabButton.click(() => helperScripts.showNextTab($galleryTab));
+        $facultyImgInp.change(function() {
+			let reader = new FileReader();
+			reader.onload = function(e) {
+				// get loaded data and render thumbnail.
+				imgPath = e.target.result;
+			};
+			// read the image file as a data URL.
+			reader.readAsDataURL(this.files[0]);
+		});
         $deleteButtons.click(function () {
             deleteFaculty(typeOfInfo, this, tuitionId)
         });
     }
 
-    function cacheNBindDeleteButtons(instituteId) {
+    function cacheNBindDeleteButtons(typeOfInfo, instituteId) {
         cacheDynamic();
         $deleteButtons.click(function () {
-            deleteFaculty(this, instituteId)
+            deleteFaculty(typeOfInfo, this, instituteId)
         });
     }
 
-    function deleteFaculty(typeOfInfo, element, tuitionId) {
+    function deleteFaculty(typeOfInfo, element, instituteId) {
         const $element = $(element);
         let name = $element.attr('data-name');
         let cardId = $element.attr('data-faculty-id');
@@ -75,7 +87,9 @@ const faculty = (() => {
         serializedForm.forEach(obj => contextInner[obj.name] = obj.value);
         //give _id to contextInner
         contextInner._id = Math.floor(Math.random() * (50000 - 100) + 100);
-
+        contextInner.img_path = imgPath;
+        contextInner.eagerLoad = true;
+        
         let contextOuter = {
             faculty: [contextInner]
         };
@@ -96,7 +110,7 @@ const faculty = (() => {
         }
 
         promise.then((data) => {
-            cacheNBindDeleteButtons(instituteId);
+            cacheNBindDeleteButtons(typeOfInfo, instituteId);
             // alert("result added successfully");
         }).catch((err) => {
             console.log(err);

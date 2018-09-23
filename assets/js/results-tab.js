@@ -6,6 +6,8 @@ const results = (() => {
     let $facultyTab;
     let $newResultModal;
     let $deleteButtons;
+    let $resultImgInp;
+    let imgPath;
 
     function cache() {
         $resultsContainer = $("#resultsContainer");
@@ -14,6 +16,7 @@ const results = (() => {
         $facultyTabButton = $('#next_Tab_Button2');
         $facultyTab = $(`[href = "#tab5"]`);
         $newResultModal = $('#new_result_modal');
+        $resultImgInp = $('#resultImageInp')
     }
 
     function cacheDynamic() {
@@ -28,26 +31,37 @@ const results = (() => {
     function bindEvents(typeOfInfo, instituteId) {
         $addNewResultButton.click(() => addResult(typeOfInfo, instituteId));
         $facultyTabButton.click(() => helperScripts.showNextTab($facultyTab));
+        $resultImgInp.change(function() {
+			let reader = new FileReader();
+			reader.onload = function(e) {
+				// get loaded data and render thumbnail.
+				imgPath = e.target.result;
+			};
+			// read the image file as a data URL.
+			reader.readAsDataURL(this.files[0]);
+		});
         $deleteButtons.click(function () {
             deleteResult(typeOfInfo, this, instituteId)
         });
     }
 
-    function cacheNBindDeleteButtons(instituteId) {
+    function cacheNBindDeleteButtons(typeOfInfo, instituteId) {
         cacheDynamic();
         $deleteButtons.click(function () {
-            deleteResult(this, instituteId)
+            deleteResult(typeOfInfo, this, instituteId)
         });
     }
 
     function deleteResult(typeOfInfo, element, instituteId) {
         const $element = $(element);
+        console.log($element);
         let title = $element.attr('data-title');
         let cardId = $element.attr('data-result-id');
-        console.log(title);
-        console.log(cardId);
+        // console.log(title);
+        // console.log(cardId);
 
         eagerRemoveCard(cardId);
+
         let tempPromise;
         if (typeOfInfo === "tuition") {
             tempPromise = tuitionApiCalls.deleteInArrayInTuition(instituteId, "bragging", {
@@ -78,7 +92,8 @@ const results = (() => {
         serializedForm.forEach(obj => contextInner[obj.name] = obj.value);
         //give _id to contextInner
         contextInner._id = Math.floor(Math.random() * (50000 - 100) + 100);
-
+        contextInner.img_cover = imgPath;
+		contextInner.eagerLoad = true;
         let contextOuter = {
             results: [contextInner]
         };
@@ -99,7 +114,7 @@ const results = (() => {
         }
 
         promise.then((data) => {
-            cacheNBindDeleteButtons(instituteId);
+            cacheNBindDeleteButtons(typeOfInfo, instituteId);
             // alert("result added successfully");
         }).catch((err) => {
             console.log(err);

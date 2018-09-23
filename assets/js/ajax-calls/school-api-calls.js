@@ -52,7 +52,6 @@ function getAllSchools(skip = 0, limit = 0, demands) {
     }
 
     function putInArrayInSchool(idOfSchool, arrayName, bodyObj, isForm = false) {
-        console.log(bodyObj);
         if (!checkForHexRegExp.test(idOfSchool)) {
             console.error("Not a valid idOfSchool");
         }

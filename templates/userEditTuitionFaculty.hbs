@@ -1,25 +1,29 @@
 {{#each faculty}}
-    <div class="col-4" id="{{_id}}">
-        <div class="card card-nav-tabs">
-            <span style="position: absolute;left: 92%;top: -6%;">
+<div class="col-4" id="{{_id}}">
+    <div class="card card-nav-tabs">
+        <span style="position: absolute;left: 92%;top: -6%;">
             <!-- send (name of the faculty , id of card) as arguments for function deleteFaculty()-->
             <button class="btn btn-danger btn-fab btn-fab-mini btn-round deleteBtn delete-faculty-button"
-                    data-faculty-id="{{_id}}" data-name="{{name}}">
+                data-faculty-id="{{_id}}" data-name="{{name}}">
                 <i class="material-icons">
                     delete
                 </i>
             </button>
-            </span>
-            <img class="card-img-bottom" src="images/{{img_path}}" alt="">
-            <div class="card-body">
-                <div class="card-title">
-                    {{name}}
-                </div>
-                <div class="card-subtitle mb-2 text-muted">
-                    {{qualification}}
-                </div>
-                <p class="card-text">{{description}}</p>
+        </span>
+        {{#if eagerLoad}}
+        <img class="card-img-bottom" src="{{img_path}}" alt="">
+        {{else}}
+        <img class="card-img-bottom" src="images/{{img_path}}" alt="">
+        {{/if}}
+        <div class="card-body">
+            <div class="card-title">
+                {{name}}
             </div>
+            <div class="card-subtitle mb-2 text-muted">
+                {{qualification}}
+            </div>
+            <p class="card-text">{{description}}</p>
         </div>
     </div>
+</div>
 {{/each}}
