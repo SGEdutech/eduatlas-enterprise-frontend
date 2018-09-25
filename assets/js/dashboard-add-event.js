@@ -20,28 +20,14 @@ const dashboardAddEvent = (() => {
         console.log($ownerUserIdInput);
         $ownerUserIdInput.val(user._id);
         const formData = new FormData($addEventForm[0]);
-        return $.ajax({
-            type: $addEventForm.attr('method'),
-            url: $addEventForm.attr('action'),
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: formData,
-        })
+        return eventApiCalls.putNewEvent(formData, true)
     }
 
     function updateUser(user, eventSavedPromise) {
-        // console.log('tuition saved');
+        // console.log('event saved');
         eventSavedPromise.then((data) => {
             const eventIdCreated = data._id;
-            const userUpdatedPromise = $.ajax({
-                url: '/user/add/claims/' + user._id,
-                method: 'POST',
-                data: {
-                    category: "event",
-                    objectId: data._id
-                }
-            });
+            const userUpdatedPromise = userApiCalls.addClaim("event", data._id);
             redirectToDashboard(userUpdatedPromise);
         }).catch(err => {
             console.log(err);

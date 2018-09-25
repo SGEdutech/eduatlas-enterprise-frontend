@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
+
 <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121945570-1"></script>
     <link rel="apple-touch-icon" href="assets/img/favicon.png">
@@ -32,6 +33,7 @@
     <link rel="stylesheet" href="assets/css/dashboard-pro.css">
     <link rel="stylesheet" href="css/index/dashboard.css" type="text/css">
 </head>
+
 <body>
     <div id="nav_container">
     </div>
@@ -75,14 +77,14 @@
                         <li class="nav-item">
                             <a class="nav-link disabled" href="#" data-toggle="tab"> My Listings</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="#testprdt" data-toggle="tab">Test Item</a>
-                        </li>
+                        </li> -->
                         <hr>
-                    </ul>                    
+                    </ul>
                 </div>
             </div>
-        </div>        
+        </div>
         <div class="col-md-10">
             <div class="card">
                 <div class="card-body p-1 p-md-3">
@@ -195,15 +197,18 @@
                                                 <div class="col">
                                                     <div class="row form-group">
                                                         <label for="al1">Address Line 1</label>
-                                                        <input class="form-control" type="text" id="al1" name="addressLine1">
+                                                        <input class="form-control" type="text" id="al1" name="addressLine1"
+                                                            required>
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="al2">Address Line 2</label>
-                                                        <input class="form-control" type="text" id="al2" name="addressLine2">
+                                                        <input class="form-control" type="text" id="al2" name="addressLine2"
+                                                            required>
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="inputCity">City</label>
-                                                        <select id="inputCity" name="city" class="form-control inputCity">
+                                                        <select id="inputCity" name="city" class="form-control inputCity"
+                                                            required>
                                                             <option selected>Choose...</option>
                                                         </select>
                                                     </div>
@@ -214,12 +219,12 @@
                                                     <div class="row form-group">
                                                         <label for="inputState">State</label>
                                                         <input class="form-control inputState" type="text" id="inputState"
-                                                            name="state">
+                                                            name="state" required>
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="country">Country</label>
                                                         <input class="form-control" value="India" type="text" id="country"
-                                                            name="country">
+                                                            name="country" required>
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="pin">Pin</label>
@@ -227,7 +232,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -323,7 +327,7 @@
                                         <h2 class="card-title h3">Category</h2>
                                         <div id="cateContainer">
                                             <select id="category" name="category" class="selectpicker form-control"
-                                                data-style="btn btn-link" multiple>
+                                                data-style="btn btn-link" multiple required>
                                                 <option value="Tuition Centers">Tuition Centers</option>
                                                 <option value="Coaching Centers">Coaching Centers</option>
                                                 <option value="Enhanced Learning">Enhanced Learning</option>
@@ -384,7 +388,8 @@
                                                     <h6>School Name</h6>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <input id="sName" class="form-control" type="text" name="name">
+                                                    <input id="sName" class="form-control" type="text" name="name"
+                                                        required>
                                                 </div>
 
                                             </div>
@@ -392,15 +397,18 @@
                                                 <div class="col">
                                                     <div class="row form-group">
                                                         <label for="al1School">Address Line 1</label>
-                                                        <input class="form-control" type="text" id="al1School" name="addressLine1">
+                                                        <input class="form-control" type="text" id="al1School" name="addressLine1"
+                                                            required>
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="al2School">Address Line 2</label>
-                                                        <input class="form-control" type="text" id="al2School" name="addressLine2">
+                                                        <input class="form-control" type="text" id="al2School" name="addressLine2"
+                                                            required>
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="inputCitySchool">City</label>
-                                                        <select id="inputCitySchool" name="city" class="form-control inputCity">
+                                                        <select id="inputCitySchool" name="city" class="form-control inputCity"
+                                                            required>
                                                             <option selected>Choose...</option>
                                                         </select>
                                                     </div>
@@ -411,12 +419,12 @@
                                                     <div class="row form-group">
                                                         <label for="inputStateSchool">State</label>
                                                         <input class="form-control inputState" type="text" id="inputStateSchool"
-                                                            name="state">
+                                                            name="state" required>
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="countrySchool">Country</label>
                                                         <input class="form-control" value="India" type="text" id="countrySchool"
-                                                            name="country">
+                                                            name="country" required>
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="pinSchool">Pin</label>
@@ -436,7 +444,7 @@
                                             <div class="row form-group mb-4">
                                                 <label for="curriculumSchool" class="text-dark">Curriculum</label>
                                                 <select id="curriculumSchool" name="curriculum" class="selectpicker form-control"
-                                                    data-style="btn btn-link">
+                                                    data-style="btn btn-link" required>
                                                     <option disabled selected>Choose your option</option>
                                                     <option value="CBSE">CBSE</option>
                                                     <option value="ICSE">ICSE</option>
@@ -452,7 +460,7 @@
                                             <div class="row form-group mb-4">
                                                 <label for="grades" class="text-dark">Grades</label>
                                                 <select id="grades" name="grades" class="selectpicker form-control"
-                                                    data-style="btn btn-link" multiple>
+                                                    data-style="btn btn-link" multiple required>
                                                     <option disabled>Choose multiple</option>
                                                     <option value="Nursery">Nursery</option>
                                                     <option value="Kindergarten">Kindergarten</option>
@@ -474,7 +482,7 @@
                                             <div class="row form-group mb-4">
                                                 <label for="type" class="text-dark">Type Of Schooling</label>
                                                 <select id="type" name="type" class="selectpicker form-control"
-                                                    data-style="btn btn-link">
+                                                    data-style="btn btn-link" required>
                                                     <option disabled selected>Choose your option</option>
                                                     <option value="Day">Day School</option>
                                                     <option value="Day Boarding">Day Boarding</option>
@@ -640,7 +648,7 @@
                                         <h2 class="card-title h3">Category</h2>
                                         <div id="cateContainerSchool">
                                             <select id="categorySchool" name="category" class="selectpicker form-control"
-                                                data-style="btn btn-link" multiple>
+                                                data-style="btn btn-link" multiple required>
                                                 <option disabled>Choose your option</option>
                                                 <option value="Pre/Play School">Pre/Play School</option>
                                                 <option value="Day Care">Day Care</option>
@@ -689,13 +697,14 @@
                                                     <h6>Event Name</h6>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <input id="eName" class="form-control" type="text" name="name">
+                                                    <input id="eName" class="form-control" type="text" name="name"
+                                                        required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleFormControlTextarea1">Description</label>
                                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                                    name="description"></textarea>
+                                                    name="description" required></textarea>
                                             </div>
                                             <div class="row">
                                                 <h6>For Age Group</h6>
@@ -717,11 +726,12 @@
                                                 <div class="col-md-6 form-group">
                                                     <label for="fromDate">From Date</label>
                                                     <input class="form-control text-gray" type="date" id="fromDate"
-                                                        name="fromDate">
+                                                        name="fromDate" required>
                                                 </div>
                                                 <div class="col-md-6 form-group">
                                                     <label for="toDate">To Date</label>
-                                                    <input class="form-control text-gray" type="date" id="toDate" name="toDate">
+                                                    <input class="form-control text-gray" type="date" id="toDate" name="toDate"
+                                                        required>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -752,7 +762,8 @@
                                                 </div>
                                                 <div class="col-md-6 form-group">
                                                     <label for="organiserPhone">Contact Person Phone Number</label>
-                                                    <input class="form-control" type="number" id="organiserPhone" name="organiserPhone">
+                                                    <input class="form-control" type="number" id="organiserPhone" name="organiserPhone"
+                                                        required>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -762,7 +773,8 @@
                                                 </div>
                                                 <div class="col-md-6 form-group">
                                                     <label for="website">Event Official Website</label>
-                                                    <input class="form-control" type="text" id="website" name="website">
+                                                    <input class="form-control" type="text" id="website" name="website"
+                                                        required>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -772,15 +784,18 @@
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="al1Event">Address Line 1</label>
-                                                        <input class="form-control" type="text" id="al1Event" name="addressLine1">
+                                                        <input class="form-control" type="text" id="al1Event" name="addressLine1"
+                                                            required>
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="al2Event">Address Line 2</label>
-                                                        <input class="form-control" type="text" id="al2Event" name="addressLine2">
+                                                        <input class="form-control" type="text" id="al2Event" name="addressLine2"
+                                                            required>
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="inputCityEvent">City</label>
-                                                        <select id="inputCityEvent" name="city" class="form-control inputCity">
+                                                        <select id="inputCityEvent" name="city" class="form-control inputCity"
+                                                            required>
                                                             <option selected>Choose...</option>
                                                         </select>
                                                     </div>
@@ -791,12 +806,12 @@
                                                     <div class="row form-group">
                                                         <label for="inputStateEvent">State</label>
                                                         <input class="form-control inputState" type="text" id="inputStateEvent"
-                                                            name="state">
+                                                            name="state" required>
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="countryEvent">Country</label>
                                                         <input class="form-control" value="India" type="text" id="countryEvent"
-                                                            name="country">
+                                                            name="country" required>
                                                     </div>
                                                     <div class="row form-group">
                                                         <label for="pinEvent">Pin</label>
@@ -807,7 +822,7 @@
                                             <h3 class="card-title">Category :</h3>
                                             <label for="categoryEvent">Category</label>
                                             <select id="categoryEvent" name="category" class="selectpicker" data-style="btn btn-link"
-                                                multiple>
+                                                multiple required>
                                                 <option disabled>Choose your option</option>
                                                 <option value="Cultural">Cultural</option>
                                                 <option value="Annual Day">Annual Day</option>
@@ -850,11 +865,11 @@
                                 <button class="btn btn-info btn-round" type="submit">Save Event</button>
                             </form>
                         </div>
-                        <div class="tab-pane" id="testprdt">                            
+                        <div class="tab-pane" id="testprdt">
                             <div class="tab-pane" id="tab{{tabNumber}}">
                                 <div class="card bg-info mt-1">
                                     <div class="card-body px-3">
-                                        <h3 class="card-title text-dark" data-id="{{_id}}" data-tabNumber="{{tabNumber}}">                                            
+                                        <h3 class="card-title text-dark" data-id="{{_id}}" data-tabNumber="{{tabNumber}}">
                                         </h3>
                                         <h5 class="card-title">
                                             Study Monitor
@@ -873,10 +888,14 @@
                                         <div class="row m-0">
                                             <div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
                                                 <ul class="nav nav-pills nav-pills-rose flex-column">
-                                                    <li class="nav-item"><a class="nav-link active" href="#innertab1" data-toggle="tab">Courses</a></li>
-                                                    <li class="nav-item"><a class="nav-link" href="#innertab2" data-toggle="tab">Students</a></li>
-                                                    <li class="nav-item"><a class="nav-link" href="#innertab3" data-toggle="tab">Batches</a></li>
-                                                    <li class="nav-item"><a class="nav-link" href="#innertab4" data-toggle="tab">Active
+                                                    <li class="nav-item"><a class="nav-link active" href="#innertab1"
+                                                            data-toggle="tab">Courses</a></li>
+                                                    <li class="nav-item"><a class="nav-link" href="#innertab2"
+                                                            data-toggle="tab">Students</a></li>
+                                                    <li class="nav-item"><a class="nav-link" href="#innertab3"
+                                                            data-toggle="tab">Batches</a></li>
+                                                    <li class="nav-item"><a class="nav-link" href="#innertab4"
+                                                            data-toggle="tab">Active
                                                             Batches</a></li>
                                                 </ul>
                                             </div>
@@ -889,30 +908,32 @@
                                                                     <div class="row card-body">
                                                                         <div class="col-md-6">
                                                                             <div class="form-group label-floating is-empty has-rose bmd-form-group">
-                                                                                <input type="text" name="name" class="form-control" placeholder="Course Name">
+                                                                                <input type="text" name="name" class="form-control"
+                                                                                    placeholder="Course Name">
                                                                                 <span class="material-input"></span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group label-floating is-empty has-rose bmd-form-group">
-                                                                                <input type="number" name="fees" class="form-control" placeholder="Course Fee">
+                                                                                <input type="number" name="fees" class="form-control"
+                                                                                    placeholder="Course Fee">
                                                                                 <span class="material-input"></span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group label-floating has-rose is-empty bmd-form-group">
-                                                                                <textarea name="description" class="form-control" rows="4"
-                                                                                    placeholder="Description(Optional)"></textarea>
+                                                                                <textarea name="description" class="form-control"
+                                                                                    rows="4" placeholder="Description(Optional)"></textarea>
                                                                                 <span class="material-input"></span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6">
-                                                                           
-                                                                                <label for="active-till">Active Till</label>
-                                                                                <input id="active-till" name="email" class="form-control" type="date"
-                                                                                    placeholder="Active Till(Date)">
-                                                                                <span class="material-input"></span>
-                                                                           
+
+                                                                            <label for="active-till">Active Till</label>
+                                                                            <input id="active-till" name="email" class="form-control"
+                                                                                type="date" placeholder="Active Till(Date)">
+                                                                            <span class="material-input"></span>
+
                                                                             <button type="submit" class="btn btn-round btn-rose pull-right">
                                                                                 ADD Courses
                                                                                 <div class="ripple-container"></div>
@@ -927,7 +948,7 @@
                                                                 Active Courses
                                                             </div>
                                                             <div class="col-12">
-                                                                <div class="row">                                                                   
+                                                                <div class="row">
                                                                     <div class="col-md-4">
                                                                         <div class="card">
                                                                             <div class="card-body ">
@@ -949,7 +970,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    
+
                                                                 </div>
                                                                 <div id="active_course_container{{tabNumber}}" class="row">
                                                                 </div>
@@ -986,7 +1007,8 @@
                                                             <div class="row card-body">
                                                                 <div class="col-md-6">
                                                                     <h4 class="card-title text-left">Bulk Upload</h4>
-                                                                    <p class="description text-left">use the excel template
+                                                                    <p class="description text-left">use the excel
+                                                                        template
                                                                         to bulk
                                                                         Upload your student data please do not edit
                                                                         template</p>
@@ -994,39 +1016,46 @@
                                                                 <div class="col-md-6">
                                                                     <button class="btn btn-round btn-rose float-right">Download
                                                                         Template</button>
-                                                                    <button class="btn btn-round btn-rose float-right">Upload Template</button>
+                                                                    <button class="btn btn-round btn-rose float-right">Upload
+                                                                        Template</button>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <br>                            
-                            
+                                                        <br>
+
                                                         <div class="card card-profile main-raised m-0">
                                                             <div class="card-body text-left has-rose">
                                                                 <div class="row">
                                                                     <div class="col-md-12">
                                                                         <h4 class="card-title">Auto Fields</h4>
-                                                                        <input type="text" value="" placeholder="-EA Membership number" class="form-control" />
+                                                                        <input type="text" value="" placeholder="-EA Membership number"
+                                                                            class="form-control" />
                                                                         <h4 class="card-title">Compulsory Fields</h4>
                                                                         <div class="row">
                                                                             <div class="col-md-4">
-                                                                                <input type="text" value="" placeholder="Student Roll No." class="form-control" />
+                                                                                <input type="text" value="" placeholder="Student Roll No."
+                                                                                    class="form-control" />
                                                                             </div>
                                                                             <div class="col-md-4">
-                                                                                <input type="text" value="" placeholder="Student Name" class="form-control" />
+                                                                                <input type="text" value="" placeholder="Student Name"
+                                                                                    class="form-control" />
                                                                             </div>
-                                                                      <div class="col-md-4">
-                                                                   <input type="text" value="" placeholder="Student E-mail" class="form-control" />
-                                                             </div>
-                                                        </div>                            
-                                                         </div>
+                                                                            <div class="col-md-4">
+                                                                                <input type="text" value="" placeholder="Student E-mail"
+                                                                                    class="form-control" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                     <div class="col-md-12">
                                                                         <h4 class="card-title">Additional Fields</h4>
                                                                         <div class="row">
                                                                             <div class="col-md-6">
-                                                                                <input type="text" value="" placeholder="Address" class="form-control" />
+                                                                                <input type="text" value="" placeholder="Address"
+                                                                                    class="form-control" />
                                                                             </div>
                                                                             <div class="col-md-6">
-                                                                                <input type="text" value="" placeholder="Contact No." class="form-control" />
+                                                                                <input type="text" value="" placeholder="Contact No."
+                                                                                    class="form-control" />
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1034,39 +1063,48 @@
                                                                         <h4 class="card-title">Payment Details</h4>
                                                                         <div class="row">
                                                                             <div class="col-md-4">
-                                                                                <input type="text" value="" placeholder="-Product Name" class="form-control" />
+                                                                                <input type="text" value="" placeholder="-Product Name"
+                                                                                    class="form-control" />
                                                                             </div>
                                                                             <div class="col-md-4">
-                                                                                <input type="text" value="" placeholder="-Products Fees" class="form-control" />
+                                                                                <input type="text" value="" placeholder="-Products Fees"
+                                                                                    class="form-control" />
                                                                             </div>
                                                                             <div class="col-md-4">
                                                                                 <input type="text" value="" placeholder="-Discount Amount Given"
                                                                                     class="form-control" />
                                                                             </div>
                                                                             <div class="col-md-4">
-                                                                                <input type="text" value="" placeholder="-Discount Reason" class="form-control" />
+                                                                                <input type="text" value="" placeholder="-Discount Reason"
+                                                                                    class="form-control" />
                                                                             </div>
                                                                             <div class="col-md-4">
-                                                                                <input type="text" value="" placeholder="-Net Fee" class="form-control" />
+                                                                                <input type="text" value="" placeholder="-Net Fee"
+                                                                                    class="form-control" />
                                                                             </div>
                                                                             <div class="col-md-4">
-                                                                                <input type="text" value="" placeholder="-Fee Collected" class="form-control" />
+                                                                                <input type="text" value="" placeholder="-Fee Collected"
+                                                                                    class="form-control" />
                                                                             </div>
                                                                             <div class="col-md-4">
-                                                                                <input type="text" value="" placeholder="-Mode Of Payment" class="form-control" />
+                                                                                <input type="text" value="" placeholder="-Mode Of Payment"
+                                                                                    class="form-control" />
                                                                             </div>
                                                                             <div class="col-md-4">
-                                                                                <input type="text" value="" placeholder="-Balance Pending" class="form-control" />
+                                                                                <input type="text" value="" placeholder="-Balance Pending"
+                                                                                    class="form-control" />
                                                                             </div>
                                                                             <div class="col-md-4">
                                                                                 <input type="text" value="" placeholder="-next installment details"
                                                                                     class="form-control" />
                                                                             </div>
                                                                             <div class="col-md-4">
-                                                                                <input type="text" value="" placeholder="-print receipt" class="form-control" />
+                                                                                <input type="text" value="" placeholder="-print receipt"
+                                                                                    class="form-control" />
                                                                             </div>
                                                                             <div class="col-md-4">
-                                                                                <input type="text" value="" placeholder="-add to batch code" class="form-control" />
+                                                                                <input type="text" value="" placeholder="-add to batch code"
+                                                                                    class="form-control" />
                                                                             </div>
                                                                             <div class="col-md-12 mt-3">
                                                                                 <button class="btn btn-round btn-rose float-right">ADD
@@ -1089,7 +1127,8 @@
                                                                                 <div class="media">
                                                                                     <a class="float-left" href="#pablo">
                                                                                         <div class="avatar">
-                                                                                            <img class="media-object" src="../assets/img/logo.png"
+                                                                                            <img class="media-object"
+                                                                                                src="../assets/img/logo.png"
                                                                                                 alt="...">
                                                                                         </div>
                                                                                     </a>
@@ -1107,7 +1146,8 @@
                                                                                 <div class="media">
                                                                                     <a class="float-left" href="#pablo">
                                                                                         <div class="avatar">
-                                                                                            <img class="media-object" src="../assets/img/logo.png"
+                                                                                            <img class="media-object"
+                                                                                                src="../assets/img/logo.png"
                                                                                                 alt="...">
                                                                                         </div>
                                                                                     </a>
@@ -1120,13 +1160,14 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                            
+
                                                                         <div class="col-md-4">
                                                                             <div class="media-area main-raised m-0">
                                                                                 <div class="media">
                                                                                     <a class="float-left" href="#pablo">
                                                                                         <div class="avatar">
-                                                                                            <img class="media-object" src="../assets/img/logo.png"
+                                                                                            <img class="media-object"
+                                                                                                src="../assets/img/logo.png"
                                                                                                 alt="...">
                                                                                         </div>
                                                                                     </a>
@@ -1151,23 +1192,25 @@
                                                                     <div class="row card-body">
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
-                                                                                <label for="courseIdSelect">Choose Course for your batch</label>
-                                                                                <select class="form-control selectpicker courseIdSelect" data-style="btn btn-link"
-                                                                                    name="courseId">                                                                                    
-                                                                                    <option value=""></option>                                                                                   
+                                                                                <label for="courseIdSelect">Choose
+                                                                                    Course for your batch</label>
+                                                                                <select class="form-control selectpicker courseIdSelect"
+                                                                                    data-style="btn btn-link" name="courseId">
+                                                                                    <option value=""></option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group label-floating is-empty has-rose bmd-form-group">
-                                                                                <input type="text" name="name" class="form-control" placeholder="Batch Name">
+                                                                                <input type="text" name="name" class="form-control"
+                                                                                    placeholder="Batch Name">
                                                                                 <span class="material-input"></span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group label-floating has-rose is-empty bmd-form-group">
-                                                                                <textarea name="description" class="form-control" rows="4"
-                                                                                    placeholder="Description(Optional)"></textarea>
+                                                                                <textarea name="description" class="form-control"
+                                                                                    rows="4" placeholder="Description(Optional)"></textarea>
                                                                                 <span class="material-input"></span>
                                                                             </div>
                                                                         </div>
@@ -1185,7 +1228,7 @@
                                                                 Active Batches
                                                             </div>
                                                             <div class="col-12">
-                                                                <div class="row">                                                                   
+                                                                <div class="row">
                                                                     <div class="col-md-4" id="#">
                                                                         <div class="card">
                                                                             <div class="card-body ">
@@ -1202,13 +1245,14 @@
                                                                             </div>
                                                                             <div class="card-footer ">
                                                                                 <div class="stats ml-auto">
-                                                                                    <i class="material-icons delete-batch-btn" style="top: 0%; cursor: pointer;"
+                                                                                    <i class="material-icons delete-batch-btn"
+                                                                                        style="top: 0%; cursor: pointer;"
                                                                                         data-id="{{_id}}">delete</i>
                                                                                     <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>                                                                 
+                                                                    </div>
                                                                 </div>
                                                                 <div id="active_batch_container{{tabNumber}}" class="row">
                                                                 </div>
@@ -1243,9 +1287,11 @@
                                                     <div class="tab-pane" id="innertab4">
                                                         Completely synergize resource taxing relationships via premier
                                                         niche markets.
-                                                        Professionally cultivate one-to-one customer service with robust
+                                                        Professionally cultivate one-to-one customer service with
+                                                        robust
                                                         ideas.
-                                                        <br><br>Dynamically innovate resource-leveling customer service for
+                                                        <br><br>Dynamically innovate resource-leveling customer service
+                                                        for
                                                         state of the art
                                                         customer service.
                                                     </div>
@@ -1256,7 +1302,7 @@
                                     </div>
                                     <div class="tab-pane" id="pill2">
                                         <ul class="nav nav-pills nav-pills-rose nav-pills-icons" role="tablist">
-                                            <li class="nav-item col-3">                                               
+                                            <li class="nav-item col-3">
                                                 <a class="nav-link active" href="#dashboard-1" role="tab" data-toggle="tab">
                                                     <i class="material-icons" style="font-size: 48px">
                                                         home
@@ -1264,7 +1310,7 @@
                                                     Ad Stats for
                                                     <h4 class="info-title">
                                                         HOMEPAGE</h4>
-                                                </a>                                               
+                                                </a>
                                                 <a class="nav-link" href="#dashboard-1" data-toggle="modal" data-target="#promoterModal">
                                                     <span class="badge badge-pill badge-danger">Not purchased</span>
                                                     <i class="material-icons" style="font-size: 48px">
@@ -1273,18 +1319,20 @@
                                                     Ad Stats for
                                                     <h4 class="info-title">
                                                         HOMEPAGE</h4>
-                                                </a>                                         
+                                                </a>
                                             </li>
-                                            <li class="nav-item col-3">                                                
-                                                <a class="nav-link" href="#schedule-1{{tabNumber}}" role="tab" data-toggle="tab">
+                                            <li class="nav-item col-3">
+                                                <a class="nav-link" href="#schedule-1{{tabNumber}}" role="tab"
+                                                    data-toggle="tab">
                                                     <i class="material-icons" style="font-size: 48px">
                                                         search
                                                     </i>
                                                     Ad Stats for
                                                     <h4 class="info-title">
                                                         SEARCHPAGE</h4>
-                                                </a>                                               
-                                                <a class="nav-link" href="#schedule-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
+                                                </a>
+                                                <a class="nav-link" href="#schedule-1{{tabNumber}}" data-toggle="modal"
+                                                    data-target="#promoterModal">
                                                     <span class="badge badge-pill badge-danger">Not purchased</span>
                                                     <i class="material-icons" style="font-size: 48px">
                                                         search
@@ -1292,9 +1340,9 @@
                                                     Ad Stats for
                                                     <h4 class="info-title">
                                                         SEARCHPAGE</h4>
-                                                </a>                                                
+                                                </a>
                                             </li>
-                                            <li class="nav-item col-3">                                                
+                                            <li class="nav-item col-3">
                                                 <a class="nav-link" href="#tasks-1{{tabNumber}}" role="tab" data-toggle="tab">
                                                     <span class="badge badge-pill badge-danger">Not purchased</span>
                                                     <i class="material-icons" style="font-size: 48px">
@@ -1303,8 +1351,9 @@
                                                     Ad Stats for
                                                     <h4 class="info-title">
                                                         RELATED LISTING</h4>
-                                                </a>                                                
-                                                <a class="nav-link" href="##tasks-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
+                                                </a>
+                                                <a class="nav-link" href="##tasks-1{{tabNumber}}" data-toggle="modal"
+                                                    data-target="#promoterModal">
                                                     <span class="badge badge-pill badge-danger">Not purchased</span>
                                                     <i class="material-icons" style="font-size: 48px">
                                                         format_list_bulleted
@@ -1312,11 +1361,11 @@
                                                     Ad Stats for
                                                     <h4 class="info-title">
                                                         RELATED LISTING</h4>
-                                                </a>                                               
+                                                </a>
                                             </li>
                                         </ul>
                                         <div class="tab-content tab-space">
-                                            <div class="tab-pane active" id="dashboard-1tabNumber">                                                
+                                            <div class="tab-pane active" id="dashboard-1tabNumber">
                                                 <div class="row mx-3 justify-content-around">
                                                     <div class="col-md-6">
                                                         <div class="card">
@@ -1336,12 +1385,13 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>                                              
+                                                </div>
                                                 <div class="row mx-3">
-                                                    <small>You Don't have promoter subscription, click on above buttons to activate promoter</small>
-                                                </div>                                               
+                                                    <small>You Don't have promoter subscription, click on above buttons
+                                                        to activate promoter</small>
+                                                </div>
                                             </div>
-                                            <div class="tab-pane" id="schedule-1tabNumber">                                              
+                                            <div class="tab-pane" id="schedule-1tabNumber">
                                                 <div class="row mx-3 justify-content-around">
                                                     <div class="col-md-6">
                                                         <div class="card">
@@ -1361,9 +1411,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>                                               
+                                                </div>
                                             </div>
-                                            <div class="tab-pane" id="tasks-1">                                                
+                                            <div class="tab-pane" id="tasks-1">
                                                 <div class="row mx-3 justify-content-around">
                                                     <div class="col-md-6">
                                                         <div class="card">
@@ -1383,19 +1433,22 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>                                                
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="pill3">
-                                         <div class="row m-0">
+                                        <div class="row m-0">
                                             <div class="col-md-3">
                                                 <ul class="nav nav-pills nav-pills-rose flex-column">
-                                                    <li class="nav-item"><a class="nav-link" href="#sendmessage" data-toggle="tab">Send
+                                                    <li class="nav-item"><a class="nav-link" href="#sendmessage"
+                                                            data-toggle="tab">Send
                                                             Messages</a></li>
-                                                    <li class="nav-item"><a class="nav-link active" href="#groupchats" data-toggle="tab">Group
+                                                    <li class="nav-item"><a class="nav-link active" href="#groupchats"
+                                                            data-toggle="tab">Group
                                                             Chats</a></li>
-                                                    <li class="nav-item"><a class="nav-link" href="#messagehistory" data-toggle="tab">Message
+                                                    <li class="nav-item"><a class="nav-link" href="#messagehistory"
+                                                            data-toggle="tab">Message
                                                             History</a></li>
                                                 </ul>
                                             </div>
@@ -1406,12 +1459,13 @@
                                                             <form class="card-body">
                                                                 <div class="form-group">
                                                                     <div class="form-group">
-                                                                        <textarea class="form-control"  placeholder="Type Message"
+                                                                        <textarea class="form-control" placeholder="Type Message"
                                                                             rows="3"></textarea>
                                                                     </div>
                                                                     <div class="form-check">
                                                                         <label class="form-check-label">
-                                                                            <input class="form-check-input" type="checkbox" value="">
+                                                                            <input class="form-check-input" type="checkbox"
+                                                                                value="">
                                                                             Broadcast To Entire Institute
                                                                             <span class="form-check-sign">
                                                                                 <span class="check"></span>
@@ -1430,35 +1484,40 @@
                                                                     <div class="media-area main-raised">
                                                                         <div class="media">
                                                                             <div class="media-body">
-                                                                                <input class="form-check-input" type="checkbox" value="">
+                                                                                <input class="form-check-input" type="checkbox"
+                                                                                    value="">
                                                                                 <span class="media-heading">Student-1
                                                                                     <span class="form-check-sign">
                                                                                         <span class="check"></span>
                                                                                     </span>
                                                                                 </span><br>
-                            
-                                                                                <input class="form-check-input" type="checkbox" value="">
+
+                                                                                <input class="form-check-input" type="checkbox"
+                                                                                    value="">
                                                                                 <span class="media-heading">Student-2
                                                                                     <span class="form-check-sign">
                                                                                         <span class="check"></span>
                                                                                     </span>
                                                                                 </span><br>
-                            
-                                                                                <input class="form-check-input" type="checkbox" value="">
+
+                                                                                <input class="form-check-input" type="checkbox"
+                                                                                    value="">
                                                                                 <span class="media-heading">Student-3
                                                                                     <span class="form-check-sign">
                                                                                         <span class="check"></span>
                                                                                     </span>
                                                                                 </span><br>
-                            
-                                                                                <input class="form-check-input" type="checkbox" value="">
+
+                                                                                <input class="form-check-input" type="checkbox"
+                                                                                    value="">
                                                                                 <span class="media-heading">Student-4
                                                                                     <span class="form-check-sign">
                                                                                         <span class="check"></span>
                                                                                     </span>
                                                                                 </span><br>
-                            
-                                                                                <input class="form-check-input" type="checkbox" value="">
+
+                                                                                <input class="form-check-input" type="checkbox"
+                                                                                    value="">
                                                                                 <span class="media-heading">Student-5
                                                                                     <span class="form-check-sign">
                                                                                         <span class="check"></span>
@@ -1475,35 +1534,40 @@
                                                                     <div class="media-area main-raised">
                                                                         <div class="media">
                                                                             <div class="media-body">
-                                                                                <input class="form-check-input" type="checkbox" value="">
+                                                                                <input class="form-check-input" type="checkbox"
+                                                                                    value="">
                                                                                 <span class="media-heading">Batch-1
                                                                                     <span class="form-check-sign">
                                                                                         <span class="check"></span>
                                                                                     </span>
                                                                                 </span><br>
-                            
-                                                                                <input class="form-check-input" type="checkbox" value="">
+
+                                                                                <input class="form-check-input" type="checkbox"
+                                                                                    value="">
                                                                                 <span class="media-heading">Batch-2
                                                                                     <span class="form-check-sign">
                                                                                         <span class="check"></span>
                                                                                     </span>
                                                                                 </span><br>
-                            
-                                                                                <input class="form-check-input" type="checkbox" value="">
+
+                                                                                <input class="form-check-input" type="checkbox"
+                                                                                    value="">
                                                                                 <span class="media-heading">Batch-3
                                                                                     <span class="form-check-sign">
                                                                                         <span class="check"></span>
                                                                                     </span>
                                                                                 </span><br>
-                            
-                                                                                <input class="form-check-input" type="checkbox" value="">
+
+                                                                                <input class="form-check-input" type="checkbox"
+                                                                                    value="">
                                                                                 <span class="media-heading">Batch-4
                                                                                     <span class="form-check-sign">
                                                                                         <span class="check"></span>
                                                                                     </span>
                                                                                 </span><br>
-                            
-                                                                                <input class="form-check-input" type="checkbox" value="">
+
+                                                                                <input class="form-check-input" type="checkbox"
+                                                                                    value="">
                                                                                 <span class="media-heading">Batch-5
                                                                                     <span class="form-check-sign">
                                                                                         <span class="check"></span>
@@ -1512,7 +1576,8 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <button type="button" class="btn btn-primary float-right m-4">Add Student</button>
+                                                                    <button type="button" class="btn btn-primary float-right m-4">Add
+                                                                        Student</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1523,31 +1588,14 @@
                                                         <div class="card">
                                                             <div class="container">
                                                                 <div class="section section-comments">
-                                                                    <div class="row">                                                                      
-                                                                            <div class="col-md-6">
-                                                                                    <div class="media-area main-raised">
-                                                                                        <div class="media">
-                                                                                            <a class="float-left" href="#pablo">
-                                                                                                <div class="avatar">
-                                                                                                    <img class="media-object" src="assets/img/card-profile4-square.jpg"
-                                                                                                        alt="...">
-                                                                                                </div>
-                                                                                            </a>
-                                                                                            <div class="media-body">
-                                                                                                <h4 class="media-heading">Group2
-                                                                                                    <span class="badge badge-default float-right">4</span><br>
-                                                                                                    <small>Latest Message Text</small>
-                                                                                                </h4>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
+                                                                    <div class="row">
                                                                         <div class="col-md-6">
                                                                             <div class="media-area main-raised">
                                                                                 <div class="media">
                                                                                     <a class="float-left" href="#pablo">
                                                                                         <div class="avatar">
-                                                                                            <img class="media-object" src="assets/img/card-profile4-square.jpg"
+                                                                                            <img class="media-object"
+                                                                                                src="assets/img/card-profile4-square.jpg"
                                                                                                 alt="...">
                                                                                         </div>
                                                                                     </a>
@@ -1559,391 +1607,466 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>                                                                       
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="media-area main-raised">
+                                                                                <div class="media">
+                                                                                    <a class="float-left" href="#pablo">
+                                                                                        <div class="avatar">
+                                                                                            <img class="media-object"
+                                                                                                src="assets/img/card-profile4-square.jpg"
+                                                                                                alt="...">
+                                                                                        </div>
+                                                                                    </a>
+                                                                                    <div class="media-body">
+                                                                                        <h4 class="media-heading">Group2
+                                                                                            <span class="badge badge-default float-right">4</span><br>
+                                                                                            <small>Latest Message Text</small>
+                                                                                        </h4>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="card-body card card-profile card-plaina main-raised m-1">
-                                                            <div class="card-title col-12 float-left h3">
-                                                                    Create New Group
+                                                        <div class="card-title col-12 float-left h3">
+                                                            Create New Group
+                                                        </div><br><br>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="card-title col-12 h5">
+                                                                    Add Students
                                                                 </div><br><br>
-                                                            <div class="row">                                        
-                                                                <div class="col-md-6">
-                                                                    <div class="card-title col-12 h5">
-                                                                        Add Students
-                                                                    </div><br><br>
-                                                                    <div class="media-area main-raised">
-                                                                        <div class="media groupchats">
-                                                                            <div class="media-body">
-                                                                                <input  type="checkbox" value="">
-                                                                                <span class="media-heading">Student-1
-                                                                                    <span class="form-check-sign">
-                                                                                        <span class="check"></span>
-                                                                                    </span>
-                                                                                </span><br>
+                                                                <div class="media-area main-raised">
+                                                                    <div class="media groupchats">
+                                                                        <div class="media-body">
+                                                                            <input type="checkbox" value="">
+                                                                            <span class="media-heading">Student-1
+                                                                                <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                </span>
+                                                                            </span><br>
 
-                                                                                <input  type="checkbox" value="">
-                                                                                <span class="media-heading">Student-1
-                                                                                    <span class="form-check-sign">
-                                                                                        <span class="check"></span>
-                                                                                    </span>
-                                                                                </span><br>
+                                                                            <input type="checkbox" value="">
+                                                                            <span class="media-heading">Student-1
+                                                                                <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                </span>
+                                                                            </span><br>
 
-                                                                                <input  type="checkbox" value="">
-                                                                                <span class="media-heading">Student-2
-                                                                                    <span class="form-check-sign">
-                                                                                        <span class="check"></span>
-                                                                                    </span>
-                                                                                </span><br>
-                            
-                                                                                <input  type="checkbox" value="">
-                                                                                <span class="media-heading">Student-3
-                                                                                    <span class="form-check-sign">
-                                                                                        <span class="check"></span>
-                                                                                    </span>
-                                                                                </span><br>
-                            
-                                                                                <input  type="checkbox" value="">
-                                                                                <span class="media-heading">Student-4
-                                                                                    <span class="form-check-sign">
-                                                                                        <span class="check"></span>
-                                                                                    </span>
-                                                                                </span><br>
-                            
-                                                                                <input  type="checkbox" value="">
-                                                                                <span class="media-heading">Student-5
-                                                                                    <span class="form-check-sign">
-                                                                                        <span class="check"></span>
-                                                                                    </span>
-                                                                                </span><br>
+                                                                            <input type="checkbox" value="">
+                                                                            <span class="media-heading">Student-2
+                                                                                <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                </span>
+                                                                            </span><br>
+
+                                                                            <input type="checkbox" value="">
+                                                                            <span class="media-heading">Student-3
+                                                                                <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                </span>
+                                                                            </span><br>
+
+                                                                            <input type="checkbox" value="">
+                                                                            <span class="media-heading">Student-4
+                                                                                <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                </span>
+                                                                            </span><br>
+
+                                                                            <input type="checkbox" value="">
+                                                                            <span class="media-heading">Student-5
+                                                                                <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                </span>
+                                                                            </span><br>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="card-title col-12 h5">
+                                                                    Select Batches
+                                                                </div><br><br>
+                                                                <div class="media-area main-raised">
+                                                                    <div class="media groupchats">
+                                                                        <div class="media-body">
+                                                                            <input type="checkbox" value="">
+                                                                            <span class="media-heading">Batch-1
+                                                                                <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                </span>
+                                                                            </span><br>
+
+                                                                            <input type="checkbox" value="">
+                                                                            <span class="media-heading">Batch-1
+                                                                                <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                </span>
+                                                                            </span><br>
+
+                                                                            <input type="checkbox" value="">
+                                                                            <span class="media-heading">Batch-2
+                                                                                <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                </span>
+                                                                            </span><br>
+
+                                                                            <input type="checkbox" value="">
+                                                                            <span class="media-heading">Batch-3
+                                                                                <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                </span>
+                                                                            </span><br>
+                                                                            <input type="checkbox" value="">
+                                                                            <span class="media-heading">Batch-4
+                                                                                <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                </span>
+                                                                            </span><br>
+                                                                            <input type="checkbox" value="">
+                                                                            <span class="media-heading">Batch-5
+                                                                                <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                </span>
+                                                                            </span><br>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <button type="button" class="btn btn-primary float-right m-4">Create
+                                                                    Group</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pill4">
+                                    <div class="section-blog-info">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card-plain">
+                                                    <div class="card-body ">
+                                                        <div class="tab-content text-center">
+                                                            <div class="tab-pane active" id="home">
+                                                                <div class="card">
+                                                                    <div class="card-body row">
+                                                                        <div class="col-md-2">
+                                                                            <div class="card-avatar">
+                                                                                <a href="#pablo">
+                                                                                    <img class="img f-img" src="assets/img/card-profile4-square.jpg">
+                                                                                </a>
+                                                                                <div class="ripple-container"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-10 text-left">
+                                                                            <a class="row card-link" href="#">
+                                                                                <h3 class="card-heading font-weight-bold">Announcement
+                                                                                    Thread</h3>
+                                                                            </a>
+                                                                            <div class="row">
+                                                                                <small><span class="text-secondary">submitted</span>
+                                                                                    3 days ago <span class="text-secondary">by</span>
+                                                                                    Principal</small>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <small class="text-secondary">326
+                                                                                    comments</small>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="card-title col-12 h5">
-                                                                        Select Batches
-                                                                    </div><br><br>
-                                                                    <div class="media-area main-raised">
-                                                                        <div class="media groupchats">
-                                                                            <div class="media-body">
-                                                                                <input  type="checkbox" value="">
-                                                                                <span class="media-heading">Batch-1
-                                                                                    <span class="form-check-sign">
-                                                                                        <span class="check"></span>
-                                                                                    </span>
-                                                                                </span><br>
-
-                                                                                <input  type="checkbox" value="">
-                                                                                <span class="media-heading">Batch-1
-                                                                                    <span class="form-check-sign">
-                                                                                        <span class="check"></span>
-                                                                                    </span>
-                                                                                </span><br>
-                            
-                                                                                <input  type="checkbox" value="">
-                                                                                <span class="media-heading">Batch-2
-                                                                                    <span class="form-check-sign">
-                                                                                        <span class="check"></span>
-                                                                                    </span>
-                                                                                </span><br>
-                            
-                                                                                <input  type="checkbox" value="">
-                                                                                <span class="media-heading">Batch-3
-                                                                                    <span class="form-check-sign">
-                                                                                        <span class="check"></span>
-                                                                                    </span>
-                                                                                </span><br>                            
-                                                                                <input  type="checkbox" value="">
-                                                                                <span class="media-heading">Batch-4
-                                                                                    <span class="form-check-sign">
-                                                                                        <span class="check"></span>
-                                                                                    </span>
-                                                                                </span><br>                            
-                                                                                <input  type="checkbox" value="">
-                                                                                <span class="media-heading">Batch-5
-                                                                                    <span class="form-check-sign">
-                                                                                        <span class="check"></span>
-                                                                                    </span>
-                                                                                </span><br>
+                                                            </div>
+                                                            <div class="tab-pane" id="updates">
+                                                                <div class="card">
+                                                                    <div class="card-body row">
+                                                                        <div class="col-md-2">
+                                                                            <div class="card-avatar">
+                                                                                <a href="#pablo">
+                                                                                    <img class="img f-img" src="assets/img/card-profile4-square.jpg">
+                                                                                </a>
+                                                                                <div class="ripple-container"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-10 text-left">
+                                                                            <a class="row card-link" href="#">
+                                                                                <h3 class="card-heading font-weight-bold">Announcement
+                                                                                    Thread</h3>
+                                                                            </a>
+                                                                            <div class="row">
+                                                                                <small><span class="text-secondary">submitted</span>
+                                                                                    3 days ago <span class="text-secondary">by</span>
+                                                                                    Principal</small>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <small class="text-secondary">326
+                                                                                    comments</small>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <button type="button" class="btn btn-primary float-right m-4">Create Group</button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="tab-pane" id="history">
+                                                                <div class="card">
+                                                                    <div class="card-body row">
+                                                                        <div class="col-md-2">
+                                                                            <div class="card-avatar">
+                                                                                <a href="#pablo">
+                                                                                    <img class="img f-img" src="assets/img/card-profile4-square.jpg">
+                                                                                </a>
+                                                                                <div class="ripple-container"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-10 text-left">
+                                                                            <a class="row card-link" href="#">
+                                                                                <h3 class="card-heading font-weight-bold">Announcement
+                                                                                    Thread</h3>
+                                                                            </a>
+                                                                            <div class="row">
+                                                                                <small><span class="text-secondary">submitted</span>
+                                                                                    3 days ago <span class="text-secondary">by</span>
+                                                                                    Principal</small>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <small class="text-secondary">326
+                                                                                    comments</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                </div>                                                    
+                                                    </div>
                                                 </div>
-                                            </div>
-                                    </div>
-                                </div>
-                                    <div class="tab-pane" id="pill4">
-                                        <div class="section-blog-info">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                        <div class="card-plain">
-                                                                <div class="card-body ">
-                                                                    <div class="tab-content text-center">
-                                                                        <div class="tab-pane active" id="home">
-                                                                                <div class="card">
-                                                                                        <div class="card-body row">
-                                                                                            <div class="col-md-2">
-                                                                                                <div class="card-avatar">
-                                                                                                    <a href="#pablo">
-                                                                                                        <img class="img f-img" src="assets/img/card-profile4-square.jpg">
-                                                                                                    </a>
-                                                                                                    <div class="ripple-container"></div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="col-10 text-left">
-                                                                                                <a class="row card-link" href="#">
-                                                                                                    <h3 class="card-heading font-weight-bold">Announcement Thread</h3>
-                                                                                                </a>
-                                                                                                <div class="row">
-                                                                                                    <small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
-                                                                                                </div>
-                                                                                                <div class="row">
-                                                                                                    <small class="text-secondary">326 comments</small>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                        </div>
-                                                                        <div class="tab-pane" id="updates">
-                                                                                <div class="card">
-                                                                                        <div class="card-body row">
-                                                                                            <div class="col-md-2">
-                                                                                                <div class="card-avatar">
-                                                                                                    <a href="#pablo">
-                                                                                                        <img class="img f-img" src="assets/img/card-profile4-square.jpg">
-                                                                                                    </a>
-                                                                                                    <div class="ripple-container"></div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="col-10 text-left">
-                                                                                                <a class="row card-link" href="#">
-                                                                                                    <h3 class="card-heading font-weight-bold">Announcement Thread</h3>
-                                                                                                </a>
-                                                                                                <div class="row">
-                                                                                                    <small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
-                                                                                                </div>
-                                                                                                <div class="row">
-                                                                                                    <small class="text-secondary">326 comments</small>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                        </div>
-                                                                        <div class="tab-pane" id="history">
-                                                                                <div class="card">
-                                                                                        <div class="card-body row">
-                                                                                            <div class="col-md-2">
-                                                                                                <div class="card-avatar">
-                                                                                                    <a href="#pablo">
-                                                                                                        <img class="img f-img" src="assets/img/card-profile4-square.jpg">
-                                                                                                    </a>
-                                                                                                    <div class="ripple-container"></div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="col-10 text-left">
-                                                                                                <a class="row card-link" href="#">
-                                                                                                    <h3 class="card-heading font-weight-bold">Announcement Thread</h3>
-                                                                                                </a>
-                                                                                                <div class="row">
-                                                                                                    <small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
-                                                                                                </div>
-                                                                                                <div class="row">
-                                                                                                    <small class="text-secondary">326 comments</small>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                              </div>
-                                                        <hr>               
-                                                   
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="card-plain">
-                                                            <div class="card-body ">
-                                                                <div class="tab-content text-center">
-                                                                    <div class="tab-pane active" id="home">
-                                                                            <div class="card">
-                                                                                    <div class="card-body row">
-                                                                                        <div class="col-md-2">
-                                                                                            <div class="card-avatar">
-                                                                                                <a href="#pablo">
-                                                                                                    <img class="img f-img" src="assets/img/card-profile4-square.jpg">
-                                                                                                </a>
-                                                                                                <div class="ripple-container"></div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-10 text-left">
-                                                                                            <a class="row card-link" href="#">
-                                                                                                <h3 class="card-heading font-weight-bold">Announcement Thread</h3>
-                                                                                            </a>
-                                                                                            <div class="row">
-                                                                                                <small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
-                                                                                            </div>
-                                                                                            <div class="row">
-                                                                                                <small class="text-secondary">326 comments</small>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="updates">
-                                                                            <div class="card">
-                                                                                    <div class="card-body row">
-                                                                                        <div class="col-md-2">
-                                                                                            <div class="card-avatar">
-                                                                                                <a href="#pablo">
-                                                                                                    <img class="img f-img" src="assets/img/card-profile4-square.jpg">
-                                                                                                </a>
-                                                                                                <div class="ripple-container"></div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-10 text-left">
-                                                                                            <a class="row card-link" href="#">
-                                                                                                <h3 class="card-heading font-weight-bold">Announcement Thread</h3>
-                                                                                            </a>
-                                                                                            <div class="row">
-                                                                                                <small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
-                                                                                            </div>
-                                                                                            <div class="row">
-                                                                                                <small class="text-secondary">326 comments</small>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="history">
-                                                                            <div class="card">
-                                                                                    <div class="card-body row">
-                                                                                        <div class="col-md-2">
-                                                                                            <div class="card-avatar">
-                                                                                                <a href="#pablo">
-                                                                                                    <img class="img f-img" src="assets/img/card-profile4-square.jpg">
-                                                                                                </a>
-                                                                                                <div class="ripple-container"></div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-10 text-left">
-                                                                                            <a class="row card-link" href="#">
-                                                                                                <h3 class="card-heading font-weight-bold">Announcement Thread</h3>
-                                                                                            </a>
-                                                                                            <div class="row">
-                                                                                                <small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
-                                                                                            </div>
-                                                                                            <div class="row">
-                                                                                                <small class="text-secondary">326 comments</small>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                          </div>
-                                                    <hr>               
-                                               
+                                                <hr>
+
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="card-plain">
-                                                        <div class="card-body ">
-                                                            <div class="tab-content text-center">
-                                                                <div class="tab-pane active" id="home">
-                                                                        <div class="card">
-                                                                                <div class="card-body row">
-                                                                                    <div class="col-md-2">
-                                                                                        <div class="card-avatar">
-                                                                                            <a href="#pablo">
-                                                                                                <img class="img f-img" src="assets/img/card-profile4-square.jpg">
-                                                                                            </a>
-                                                                                            <div class="ripple-container"></div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-10 text-left">
-                                                                                        <a class="row card-link" href="#">
-                                                                                            <h3 class="card-heading font-weight-bold">Announcement Thread</h3>
-                                                                                        </a>
-                                                                                        <div class="row">
-                                                                                            <small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
-                                                                                        </div>
-                                                                                        <div class="row">
-                                                                                            <small class="text-secondary">326 comments</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
+                                                    <div class="card-body ">
+                                                        <div class="tab-content text-center">
+                                                            <div class="tab-pane active" id="home">
+                                                                <div class="card">
+                                                                    <div class="card-body row">
+                                                                        <div class="col-md-2">
+                                                                            <div class="card-avatar">
+                                                                                <a href="#pablo">
+                                                                                    <img class="img f-img" src="assets/img/card-profile4-square.jpg">
+                                                                                </a>
+                                                                                <div class="ripple-container"></div>
                                                                             </div>
+                                                                        </div>
+                                                                        <div class="col-10 text-left">
+                                                                            <a class="row card-link" href="#">
+                                                                                <h3 class="card-heading font-weight-bold">Announcement
+                                                                                    Thread</h3>
+                                                                            </a>
+                                                                            <div class="row">
+                                                                                <small><span class="text-secondary">submitted</span>
+                                                                                    3 days ago <span class="text-secondary">by</span>
+                                                                                    Principal</small>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <small class="text-secondary">326
+                                                                                    comments</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="tab-pane" id="updates">
-                                                                        <div class="card">
-                                                                                <div class="card-body row">
-                                                                                    <div class="col-md-2">
-                                                                                        <div class="card-avatar">
-                                                                                            <a href="#pablo">
-                                                                                                <img class="img" src="assets/img/card-profile4-square.jpg">
-                                                                                            </a>
-                                                                                            <div class="ripple-container"></div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-10 text-left">
-                                                                                        <a class="row card-link" href="#">
-                                                                                            <h3 class="card-heading font-weight-bold">Announcement Thread</h3>
-                                                                                        </a>
-                                                                                        <div class="row">
-                                                                                            <small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
-                                                                                        </div>
-                                                                                        <div class="row">
-                                                                                            <small class="text-secondary">326 comments</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
+                                                            </div>
+                                                            <div class="tab-pane" id="updates">
+                                                                <div class="card">
+                                                                    <div class="card-body row">
+                                                                        <div class="col-md-2">
+                                                                            <div class="card-avatar">
+                                                                                <a href="#pablo">
+                                                                                    <img class="img f-img" src="assets/img/card-profile4-square.jpg">
+                                                                                </a>
+                                                                                <div class="ripple-container"></div>
                                                                             </div>
+                                                                        </div>
+                                                                        <div class="col-10 text-left">
+                                                                            <a class="row card-link" href="#">
+                                                                                <h3 class="card-heading font-weight-bold">Announcement
+                                                                                    Thread</h3>
+                                                                            </a>
+                                                                            <div class="row">
+                                                                                <small><span class="text-secondary">submitted</span>
+                                                                                    3 days ago <span class="text-secondary">by</span>
+                                                                                    Principal</small>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <small class="text-secondary">326
+                                                                                    comments</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="tab-pane" id="history">
-                                                                        <div class="card">
-                                                                                <div class="card-body row">
-                                                                                    <div class="col-md-2">
-                                                                                        <div class="card-avatar">
-                                                                                            <a href="#pablo">
-                                                                                                <img class="img" src="assets/img/card-profile4-square.jpg">
-                                                                                            </a>
-                                                                                            <div class="ripple-container"></div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-10 text-left">
-                                                                                        <a class="row card-link" href="#">
-                                                                                            <h3 class="card-heading font-weight-bold">Announcement Thread</h3>
-                                                                                        </a>
-                                                                                        <div class="row">
-                                                                                            <small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
-                                                                                        </div>
-                                                                                        <div class="row">
-                                                                                            <small class="text-secondary">326 comments</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
+                                                            </div>
+                                                            <div class="tab-pane" id="history">
+                                                                <div class="card">
+                                                                    <div class="card-body row">
+                                                                        <div class="col-md-2">
+                                                                            <div class="card-avatar">
+                                                                                <a href="#pablo">
+                                                                                    <img class="img f-img" src="assets/img/card-profile4-square.jpg">
+                                                                                </a>
+                                                                                <div class="ripple-container"></div>
                                                                             </div>
+                                                                        </div>
+                                                                        <div class="col-10 text-left">
+                                                                            <a class="row card-link" href="#">
+                                                                                <h3 class="card-heading font-weight-bold">Announcement
+                                                                                    Thread</h3>
+                                                                            </a>
+                                                                            <div class="row">
+                                                                                <small><span class="text-secondary">submitted</span>
+                                                                                    3 days ago <span class="text-secondary">by</span>
+                                                                                    Principal</small>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <small class="text-secondary">326
+                                                                                    comments</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                      </div>
-                                                <hr>               
-                                           
-                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="card-plain">
+                                                    <div class="card-body ">
+                                                        <div class="tab-content text-center">
+                                                            <div class="tab-pane active" id="home">
+                                                                <div class="card">
+                                                                    <div class="card-body row">
+                                                                        <div class="col-md-2">
+                                                                            <div class="card-avatar">
+                                                                                <a href="#pablo">
+                                                                                    <img class="img f-img" src="assets/img/card-profile4-square.jpg">
+                                                                                </a>
+                                                                                <div class="ripple-container"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-10 text-left">
+                                                                            <a class="row card-link" href="#">
+                                                                                <h3 class="card-heading font-weight-bold">Announcement
+                                                                                    Thread</h3>
+                                                                            </a>
+                                                                            <div class="row">
+                                                                                <small><span class="text-secondary">submitted</span>
+                                                                                    3 days ago <span class="text-secondary">by</span>
+                                                                                    Principal</small>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <small class="text-secondary">326
+                                                                                    comments</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="tab-pane" id="updates">
+                                                                <div class="card">
+                                                                    <div class="card-body row">
+                                                                        <div class="col-md-2">
+                                                                            <div class="card-avatar">
+                                                                                <a href="#pablo">
+                                                                                    <img class="img" src="assets/img/card-profile4-square.jpg">
+                                                                                </a>
+                                                                                <div class="ripple-container"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-10 text-left">
+                                                                            <a class="row card-link" href="#">
+                                                                                <h3 class="card-heading font-weight-bold">Announcement
+                                                                                    Thread</h3>
+                                                                            </a>
+                                                                            <div class="row">
+                                                                                <small><span class="text-secondary">submitted</span>
+                                                                                    3 days ago <span class="text-secondary">by</span>
+                                                                                    Principal</small>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <small class="text-secondary">326
+                                                                                    comments</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="tab-pane" id="history">
+                                                                <div class="card">
+                                                                    <div class="card-body row">
+                                                                        <div class="col-md-2">
+                                                                            <div class="card-avatar">
+                                                                                <a href="#pablo">
+                                                                                    <img class="img" src="assets/img/card-profile4-square.jpg">
+                                                                                </a>
+                                                                                <div class="ripple-container"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-10 text-left">
+                                                                            <a class="row card-link" href="#">
+                                                                                <h3 class="card-heading font-weight-bold">Announcement
+                                                                                    Thread</h3>
+                                                                            </a>
+                                                                            <div class="row">
+                                                                                <small><span class="text-secondary">submitted</span>
+                                                                                    3 days ago <span class="text-secondary">by</span>
+                                                                                    Principal</small>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <small class="text-secondary">326
+                                                                                    comments</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="claim_modal_container">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="claimOrNotModal"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="claimOrNotModal">Claim Newly Added Institute/Event</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1988,8 +2111,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
     <script src="assets/cities/seed.js"></script>
 
+    <script src="assets/js/ajax-calls/user-api-calls.js"></script>
     <script src="assets/js/ajax-calls/courses-api-calls.js"></script>
     <script src="assets/js/ajax-calls/tuition-api-calls.js"></script>
+    <script src="assets/js/ajax-calls/school-api-calls.js"></script>
+    <script src="assets/js/ajax-calls/event-api-calls.js"></script>
     <script src="assets/js/ajax-calls/batches-api-calls.js"></script>
     <script src="assets/js/ajax-calls/promoter-homepage-api-calls.js"></script>
     <script src="assets/js/ajax-calls/promoter-search-api-calls.js"></script>

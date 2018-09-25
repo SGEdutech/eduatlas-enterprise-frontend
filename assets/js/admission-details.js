@@ -23,8 +23,7 @@ const admissionDetails = (() => {
         $sessionStartDateInput = $('#session_start_date');
     }
 
-    function cacheDynamic() {
-    }
+    function cacheDynamic() {}
 
     function render(school) {
         $feeInput.val(school.fee);
@@ -34,12 +33,10 @@ const admissionDetails = (() => {
             if (obj.title === 'Admission Start Date') {
                 obj.date = obj.date.split('T')[0];
                 $admissionStartDateInput.val(obj.date);
-            }
-            else if (obj.title === 'Admission End Date') {
+            } else if (obj.title === 'Admission End Date') {
                 obj.date = obj.date.split('T')[0];
                 $admissionEndDateInput.val(obj.date);
-            }
-            else if (obj.title === 'Session Start Date') {
+            } else if (obj.title === 'Session Start Date') {
                 obj.date = obj.date.split('T')[0];
                 $sessionStartDateInput.val(obj.date);
             }
@@ -60,24 +57,12 @@ const admissionDetails = (() => {
         dataArr.push(new FormData($admissionStartDateForm[0]));
         dataArr.push(new FormData($admissionEndDateForm[0]));
         dataArr.push(new FormData($sessionStartDateForm[0]));
-
-        $.ajax({
-            url: `/school/empty/importantDates`,
-            type: 'DELETE',
-            data: {
-                _id: instituteId
-            }
+        schoolApiCalls.deleteArrayInSchool("importantDates", {
+            _id: instituteId
         }).then(() => {
             dataArr.forEach(formData => {
                 promiseArr.push(
-                    $.ajax({
-                        url: `/school/add/importantDates/${instituteId}`,
-                        type: 'POST',
-                        data: formData,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                    })
+                    schoolApiCalls.putInArrayInSchool(instituteId, "importantDates", formData)
                 )
             });
         });
@@ -91,5 +76,7 @@ const admissionDetails = (() => {
         bindEvents(school._id);
     }
 
-    return {init};
+    return {
+        init
+    };
 })();

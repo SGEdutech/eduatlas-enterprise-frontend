@@ -13,7 +13,7 @@ const helperScripts = {
 
     openDetailsPage(typeOfInfo, id) {
         let upperCaseTypeOfInfo = typeOfInfo.charAt(0).toUpperCase() + typeOfInfo.slice(1);
-        window.location.assign(`https://eduatlas.com/${upperCaseTypeOfInfo}Details2.0.html?_id=${id}`)
+        window.location.assign(`/${upperCaseTypeOfInfo}Details2.0.html?_id=${id}`)
     },
 
     calcAverageRating(reviewArray) {
@@ -130,17 +130,18 @@ const helperScripts = {
 
     saveDetails(typeOfInfo, $form, $nextTab, instituteId) {
         const formData = new FormData($form[0]);
+        console.log($form);
+        let Promise;
+        if (typeOfInfo === "tuition") {
+            Promise = tuitionApiCalls.updateInTuition(instituteId, formData, true);
+        } else if (typeOfInfo === "school") {
+            Promise = schoolApiCalls.updateInSchool(instituteId, formData, true);
+        } else {
+            Promise = eventApiCalls.updateInEvent(instituteId, formData, true);
+        }
 
-        const Promise = $.ajax({
-            url: `/${typeOfInfo}/${instituteId}`,
-            type: 'PUT',
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-        });
-
-        Promise.then(() => {
+        Promise.then((data) => {
+            // console.log(data);
             this.showNextTab($nextTab);
         }).catch((err) => {
             alert('Fail!');

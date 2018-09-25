@@ -1,25 +1,24 @@
-{{#each results}}
+{{#each images}}
 <div class="col-4" id="{{_id}}">
     <div class="card">
         <span style="position: absolute;left: 92%;top: -6%;">
             <!-- send (_id of result obj received , id of card) as arguments for function deleteResult()-->
-            <button class="btn btn-danger btn-fab btn-fab-mini btn-round deleteBtn delete-result-button" data-result-id="{{_id}}"
-                data-title="{{title}}">
+            <button class="btn btn-danger btn-fab btn-fab-mini btn-round deleteBtn delete-image-button" data-image-id="{{_id}}"
+                data-album="{{album}}">
                 <i class="material-icons">
                     delete
                 </i>
             </button>
         </span>
         {{#if eagerLoad}}
-        <img class="card-img-top" src="{{img_cover}}" alt="">
+        <img class="card-img-top" src="{{img_path}}" alt="">
         {{else}}
-        <img class="card-img-top" src="images/{{img_cover}}" alt="">
+        <img class="card-img-top" src="images/{{img_path}}" alt="">
         {{/if}}
         <div class="card-body">
             <div class="card-title">
-                {{title}}
+                {{album}}
             </div>
-            <p class="card-text">{{description}}</p>
         </div>
     </div>
 </div>

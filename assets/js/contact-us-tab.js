@@ -149,19 +149,17 @@ const contactUs = (() => {
     function addAllTimes(typeOfInfo, instituteId) {
         // temporary - let's delete the time and operation first and add new
         if (typeOfInfo === 'tuition') {
-            $.ajax({
-                url: `/${typeOfInfo}/empty/dayAndTimeOfOperation`,
-                type: 'DELETE',
-                data: {_id: instituteId}
+            tuitionApiCalls.deleteArrayInSchool("dayAndTimeOfOperation", {
+                _id: instituteId
             }).then((data) => {
                 return Promise.all([
-                    addDayAndTimeOfOperation(typeOfInfo, $monForm, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $tueForm, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $wedForm, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $thuForm, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $friForm, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $satForm, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $sunForm, instituteId)
+                    addDayAndTimeOfOperation(typeOfInfo, $monForm, instituteId, "dayAndTimeOfOperation"),
+                    addDayAndTimeOfOperation(typeOfInfo, $tueForm, instituteId, "dayAndTimeOfOperation"),
+                    addDayAndTimeOfOperation(typeOfInfo, $wedForm, instituteId, "dayAndTimeOfOperation"),
+                    addDayAndTimeOfOperation(typeOfInfo, $thuForm, instituteId, "dayAndTimeOfOperation"),
+                    addDayAndTimeOfOperation(typeOfInfo, $friForm, instituteId, "dayAndTimeOfOperation"),
+                    addDayAndTimeOfOperation(typeOfInfo, $satForm, instituteId, "dayAndTimeOfOperation"),
+                    addDayAndTimeOfOperation(typeOfInfo, $sunForm, instituteId, "dayAndTimeOfOperation")
                 ])
             }).then(() => console.log('Time save successful')).catch(err => {
                 console.log(err);
@@ -170,38 +168,34 @@ const contactUs = (() => {
         }
 
         if (typeOfInfo === 'school') {
-            $.ajax({
-                url: `/${typeOfInfo}/empty/schoolTiming`,
-                type: 'DELETE',
-                data: {_id: instituteId}
+            schoolApiCalls.deleteArrayInSchool("schoolTiming", {
+                _id: instituteId
             }).then((data) => {
                 return Promise.all([
-                    addDayAndTimeOfOperation(typeOfInfo, $monFormSchool, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $tueFormSchool, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $wedFormSchool, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $thuFormSchool, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $friFormSchool, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $satFormSchool, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $sunFormSchool, instituteId)
+                    addDayAndTimeOfOperation(typeOfInfo, $monFormSchool, instituteId, "schoolTiming"),
+                    addDayAndTimeOfOperation(typeOfInfo, $tueFormSchool, instituteId, "schoolTiming"),
+                    addDayAndTimeOfOperation(typeOfInfo, $wedFormSchool, instituteId, "schoolTiming"),
+                    addDayAndTimeOfOperation(typeOfInfo, $thuFormSchool, instituteId, "schoolTiming"),
+                    addDayAndTimeOfOperation(typeOfInfo, $friFormSchool, instituteId, "schoolTiming"),
+                    addDayAndTimeOfOperation(typeOfInfo, $satFormSchool, instituteId, "schoolTiming"),
+                    addDayAndTimeOfOperation(typeOfInfo, $sunFormSchool, instituteId, "schoolTiming")
                 ])
             }).then(() => console.log('school Time save successful')).catch(err => {
                 console.log(err);
                 alert("time addition failed")
             });
 
-            $.ajax({
-                url: `/${typeOfInfo}/empty/officeTiming`,
-                type: 'DELETE',
-                data: {_id: instituteId}
+            schoolApiCalls.deleteArrayInSchool("officeTiming", {
+                _id: instituteId
             }).then((data) => {
                 return Promise.all([
-                    addDayAndTimeOfOperation(typeOfInfo, $monFormSchoolOffice, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $tueFormSchoolOffice, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $wedFormSchoolOffice, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $thuFormSchoolOffice, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $friFormSchoolOffice, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $satFormSchoolOffice, instituteId),
-                    addDayAndTimeOfOperation(typeOfInfo, $sunFormSchoolOffice, instituteId)
+                    addDayAndTimeOfOperation(typeOfInfo, $monFormSchoolOffice, instituteId, "officeTiming"),
+                    addDayAndTimeOfOperation(typeOfInfo, $tueFormSchoolOffice, instituteId, "officeTiming"),
+                    addDayAndTimeOfOperation(typeOfInfo, $wedFormSchoolOffice, instituteId, "officeTiming"),
+                    addDayAndTimeOfOperation(typeOfInfo, $thuFormSchoolOffice, instituteId, "officeTiming"),
+                    addDayAndTimeOfOperation(typeOfInfo, $friFormSchoolOffice, instituteId, "officeTiming"),
+                    addDayAndTimeOfOperation(typeOfInfo, $satFormSchoolOffice, instituteId, "officeTiming"),
+                    addDayAndTimeOfOperation(typeOfInfo, $sunFormSchoolOffice, instituteId, "officeTiming")
                 ])
             }).then(() => console.log('school office Time save successful')).catch(err => {
                 console.log(err);
@@ -210,14 +204,14 @@ const contactUs = (() => {
         }
     }
 
-    function addDayAndTimeOfOperation(typeOfInfo, $form, tuitionId) {
+    function addDayAndTimeOfOperation(typeOfInfo, $form, tuitionId, arrayName) {
         // data is in $form
         // get the data and send it in post request
-        return $.ajax({
-            url: `/${typeOfInfo}/add/dayAndTimeOfOperation/${tuitionId}`,
-            type: 'POST',
-            data: $form.serialize()
-        });
+        if (typeOfInfo === "tuition") {
+            return tuitionApiCalls.putInArrayInTuition(tuitionId, arrayName, $form.serialize())
+        } else if (typeOfInfo === "school") {
+            return schoolApiCalls.putInArrayInSchool(tuitionId, arrayName, $form.serialize())
+        }
     }
 
     function init(typeOfInfo, instituteInfo) {
@@ -227,5 +221,7 @@ const contactUs = (() => {
         bindEvents(typeOfInfo, instituteInfo._id);
     }
 
-    return {init};
+    return {
+        init
+    };
 })();

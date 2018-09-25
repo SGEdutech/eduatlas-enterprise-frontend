@@ -1,69 +1,54 @@
 const dashboardAddTuition = (() => {
-    let $addTuitionForm;
-    let $claimedByInput;
+	let $addTuitionForm;
+	let $claimedByInput;
 
-    function cache() {
-        $addTuitionForm = $('#addTuition');
-        $claimedByInput = $('#claimedByInput');
-    }
+	function cache() {
+		$addTuitionForm = $('#addTuition');
+		$claimedByInput = $('#claimedByInput');
+	}
 
-    function bindEvents(user) {
-        $addTuitionForm.submit(function (e) {
-            e.preventDefault();
-            let tuitionSavedPromise = submitTuition(user);
-            updateUser(user, tuitionSavedPromise);
-        });
-    }
+	function bindEvents(user) {
+		$addTuitionForm.submit(function(e) {
+			e.preventDefault();
+			let tuitionSavedPromise = submitTuition(user);
+			updateUser(user, tuitionSavedPromise);
+		});
+	}
 
-    function submitTuition(user) {
-        $claimedByInput.val(user._id);
-        const formData = new FormData($addTuitionForm[0]);
-        // console.log(formData);
-        return $.ajax({
-            type: $addTuitionForm.attr('method'),
-            url: $addTuitionForm.attr('action'),
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: formData,
-        })
-    }
+	function submitTuition(user) {
+		$claimedByInput.val(user._id);
+		const formData = new FormData($addTuitionForm[0]);
+		// console.log(formData);
+		return tuitionApiCalls.putNewTuition(formData, true)
+	}
 
-    function updateUser(user, tuitionSavedPromise) {
-        // console.log('tuition saved');
-        tuitionSavedPromise.then((data) => {
-            const tuitionIdCreated = data._id;
-            const userUpdatedPromise = $.ajax({
-                url: '/user/add/claims/' + user._id,
-                method: 'POST',
-                data: {
-                    category: "tuition",
-                    objectId: data._id
-                }
-            });
+	function updateUser(user, tuitionSavedPromise) {
+		// console.log('tuition saved');
+		tuitionSavedPromise.then((data) => {
+			const tuitionIdCreated = data._id;
+			const userUpdatedPromise = userApiCalls.addClaim("tuition", data._id);
 
-            redirectToEditTuition(userUpdatedPromise, tuitionIdCreated);
+			redirectToEditTuition(userUpdatedPromise, tuitionIdCreated);
+		}).catch(err => {
+			console.log(err);
+		});
+	}
 
-        }).catch(err => {
-            console.log(err);
-        });
-    }
+	function redirectToEditTuition(userUpdatedPromise, tuitionId) {
+		userUpdatedPromise.then((data) => {
+			// console.log('user updated');
+			window.location.assign('./user-edit-tuition.html?a=' + tuitionId)
+		}).catch(err => {
+			console.log(err);
+		});
+	}
 
-    function redirectToEditTuition(userUpdatedPromise, tuitionId) {
-        userUpdatedPromise.then((data) => {
-            // console.log('user updated');
-            window.location.assign('./user-edit-tuition.html?a=' + tuitionId)
-        }).catch(err => {
-            console.log(err);
-        });
-    }
+	function init(user) {
+		cache();
+		bindEvents(user);
+	}
 
-    function init(user) {
-        cache();
-        bindEvents(user);
-    }
-
-    return {
-        init
-    };
+	return {
+		init
+	};
 })();

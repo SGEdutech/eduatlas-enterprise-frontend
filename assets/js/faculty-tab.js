@@ -6,6 +6,8 @@ const faculty = (() => {
     let $galleryTab;
     let $newFacultyModal;
     let $deleteButtons;
+    let $facultyImgInp;
+    let imgPath;
 
     function cache() {
         $facultyContainer = $("#facultyContainer");
@@ -14,6 +16,7 @@ const faculty = (() => {
         $galleryTabButton = $('#next_Tab_Button3');
         $galleryTab = $(`[href = "#tab6"]`);
         $newFacultyModal = $('#new_faculty_modal');
+        $facultyImgInp = $('#facultyImageInp')
     }
 
     function cacheDynamic() {
@@ -28,31 +31,43 @@ const faculty = (() => {
     function bindEvents(typeOfInfo, tuitionId) {
         $addNewFacultyButton.click(() => addFaculty(typeOfInfo, tuitionId));
         $galleryTabButton.click(() => helperScripts.showNextTab($galleryTab));
+        $facultyImgInp.change(function() {
+			let reader = new FileReader();
+			reader.onload = function(e) {
+				// get loaded data and render thumbnail.
+				imgPath = e.target.result;
+			};
+			// read the image file as a data URL.
+			reader.readAsDataURL(this.files[0]);
+		});
         $deleteButtons.click(function () {
             deleteFaculty(typeOfInfo, this, tuitionId)
         });
     }
 
-    function cacheNBindDeleteButtons(instituteId) {
+    function cacheNBindDeleteButtons(typeOfInfo, instituteId) {
         cacheDynamic();
         $deleteButtons.click(function () {
-            deleteFaculty(this, instituteId)
+            deleteFaculty(typeOfInfo, this, instituteId)
         });
     }
 
-    function deleteFaculty(typeOfInfo, element, tuitionId) {
+    function deleteFaculty(typeOfInfo, element, instituteId) {
         const $element = $(element);
         let name = $element.attr('data-name');
         let cardId = $element.attr('data-faculty-id');
         eagerRemoveCard(cardId);
-
-        $.ajax({
-            url: `/${typeOfInfo}/delete/${tuitionId}/team`,
-            type: 'DELETE',
-            data: {
+        let tempPromise;
+        if (typeOfInfo === "tuition") {
+            tempPromise = tuitionApiCalls.deleteInArrayInTuition(instituteId, "team", {
                 name: name
-            }
-        }).then((data) => {
+            })
+        } else if (typeOfInfo === "school") {
+            tempPromise = schoolApiCalls.deleteInArrayInSchool(instituteId, "team", {
+                name: name
+            })
+        }
+        tempPromise.then((data) => {
             // alert("faculty deleted successfully")
         }).catch((err) => {
             console.log(err);
@@ -72,7 +87,9 @@ const faculty = (() => {
         serializedForm.forEach(obj => contextInner[obj.name] = obj.value);
         //give _id to contextInner
         contextInner._id = Math.floor(Math.random() * (50000 - 100) + 100);
-
+        contextInner.img_path = imgPath;
+        contextInner.eagerLoad = true;
+        
         let contextOuter = {
             faculty: [contextInner]
         };
@@ -85,17 +102,15 @@ const faculty = (() => {
 
         const formData = new FormData(form[0]);
         // get the data and send it in post request
-        const promise = $.ajax({
-            url: `/${typeOfInfo}/add/team/${instituteId}`,
-            type: 'POST',
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-        });
+        let promise;
+        if (typeOfInfo === "tuition") {
+            promise = tuitionApiCalls.putInArrayInTuition(instituteId, "team", formData, true)
+        } else if (typeOfInfo === "school") {
+            promise = schoolApiCalls.putInArrayInSchool(instituteId, "team", formData, true)
+        }
 
         promise.then((data) => {
-            cacheNBindDeleteButtons(instituteId);
+            cacheNBindDeleteButtons(typeOfInfo, instituteId);
             // alert("result added successfully");
         }).catch((err) => {
             console.log(err);
@@ -127,5 +142,7 @@ const faculty = (() => {
         bindEvents(typeOfInfo, institute._id);
     }
 
-    return {init};
+    return {
+        init
+    };
 })();
