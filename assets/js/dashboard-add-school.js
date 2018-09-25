@@ -1,10 +1,8 @@
 const dashboardAddSchool = (() => {
     let $addSchoolForm;
-    let $claimedByInput;
 
     function cache() {
         $addSchoolForm = $('#addSchool');
-        $claimedByInput = $('#claimedByInputSchool');
     }
 
     function bindEvents(user) {
@@ -16,7 +14,6 @@ const dashboardAddSchool = (() => {
     }
 
     function submitTuition(user) {
-        $claimedByInput.val(user._id);
         const formData = new FormData($addSchoolForm[0]);
         return schoolApiCalls.putNewSchool(formData, true)
     }
