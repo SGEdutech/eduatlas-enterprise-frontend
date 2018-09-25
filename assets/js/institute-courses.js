@@ -1,99 +1,165 @@
 const instituteCourses = (() => {
-    let $coursesContainer;
-    let $newCourseForm;
-    let $activeCourseContainer;
-    let $deleteButtons;
+	let $coursesContainer;
+	let $newCourseForm;
+	let $activeCourseContainer;
+	let $deleteButtons;
+	let $gstInput;
+	let $gstCheckbox;
+	let $feeInput;
+	let $totalFee;
 
-    function cache() {
-        $coursesContainer = $("#coursesContainer");
-        $newCourseForm = $('.new_course_form');
-    }
+	function cache() {
+		$coursesContainer = $("#coursesContainer");
+		$newCourseForm = $('.new_course_form');
+		$gstInput = $('.gst-inp');
+		$gstCheckbox = $('.gst-checkbox');
+		$feeInput = $('.fee-inp');
+		$totalFee = $('.total-fee');
+	}
 
-    function cacheNewCourseContainer(tabNumber) {
-        $activeCourseContainer = $(`#active_course_container${tabNumber}`);
-    }
+	function cacheNewCourseContainer(tabNumber) {
+		$activeCourseContainer = $(`#active_course_container${tabNumber}`);
+	}
 
-    function cacheDynamic() {
-        $deleteButtons = $('.delete-course-btn');
-    }
+	function cacheDynamic() {
+		$deleteButtons = $('.delete-course-btn');
+	}
 
-    function render() {
-        /* let html = getHtml();
-        $coursesContainer.append(html); */
-    }
+	function render() {
+		/* let html = getHtml();
+		$coursesContainer.append(html); */
+	}
 
-    function bindEvents() {
-        $newCourseForm.submit(function (e) {
-            e.preventDefault();
-            addCourse($(this));
-        });
+	function bindEvents() {
+		$newCourseForm.submit(function(e) {
+			e.preventDefault();
+			addCourse($(this));
+		});
 
-        $deleteButtons.click(function (e) {
-            e.preventDefault();
-            deleteCourse($(this))
-        });
-    }
+		$deleteButtons.click(function(e) {
+			e.preventDefault();
+			deleteCourse($(this))
+		});
 
-    function cacheNBindDeleteButtons(tuitionId) {
-        cacheDynamic();
-        $deleteButtons.click(function (e) {
-            e.preventDefault();
-            deleteCourse($(this));
-        });
-    }
+		bindFeeEvents();
+	}
 
-    function deleteCourse($element) {
-        let cardId = $element.attr('data-id');
+	function bindFeeEvents() {
+		// FIXME: - memory leak
+		// disable GST on checkbox click
+		$gstCheckbox.click(function(e) {
+			const tabNumber = $(e.target).attr('data-tabNumber');
+			if ($(this).is(":checked")) {
+				$.each($gstInput, function(indexInArray, jsElement) {
+					if ($(jsElement).attr('data-tabNumber') === tabNumber) {
+						$(jsElement).prop('disabled', true);
+					}
+				});
+			} else {
+				$.each($gstInput, function(indexInArray, jsElement) {
+					if ($(jsElement).attr('data-tabNumber') === tabNumber) {
+						$(jsElement).prop('disabled', false);
+					}
+				});
+			}
+		});
 
-        courseApiCalls.deleteCourse(cardId).then(data => {
-            eagerRemoveCard(cardId);
-        }).catch(err => console.error(err));
+		// copy total fee according to GS
+		$feeInput.change(function(e) {
+			const tabNumber = $(e.target).attr('data-tabNumber');
+			let value = parseInt($(e.target).val());
+			//check if GST inp disabled
+			let gstValue;
+			$.each($gstInput, function(indexInArray, jsElement) {
+				if ($(jsElement).attr('data-tabNumber') === tabNumber) {
+					if ($(jsElement).prop("disabled")) {
+						gstValue = 0;
+					} else {
+						gstValue = parseInt($(jsElement).val());
+					}
+				}
+			});
+			// console.log(typeof gstValue);
+			$.each($totalFee, function(indexInArray, jsElement) {
+				if ($(jsElement).attr('data-tabNumber') === tabNumber) {
+					value = value + (value * gstValue) / 100;
+					$(jsElement).val(value);
+				}
+			});
+		});
+	}
 
-    }
+	function cacheNBindDeleteButtons(tuitionId) {
+		cacheDynamic();
+		$deleteButtons.click(function(e) {
+			e.preventDefault();
+			deleteCourse($(this));
+		});
+	}
 
-    function eagerRemoveCard(cardId) {
-        //todo - cache properly
-        $('#' + cardId).remove()
-    }
+	function deleteCourse($element) {
+		let cardId = $element.attr('data-id');
+		let idOfTuition = $element.attr('data-parent');
+		tuitionApiCalls.deleteCourseInTuition(idOfTuition, cardId).then(data => {
+			eagerRemoveCard(cardId);
+		}).catch(err => console.error(err));
+	}
 
-    function eagerLoadCourse(context) {
-        context.col4 = true;
-        $activeCourseContainer.append(template.instituteCourseCard(context))
-        cacheNBindDeleteButtons();
-    }
+	function eagerRemoveCard(cardId) {
+		//todo - cache properly
+		$('#' + cardId).remove()
+	}
 
-    function addCourse(form) {
-        if (!form) {
-            return
-        }
-        const tabNumber = form.attr("data-tabNumber");
-        cacheNewCourseContainer(tabNumber);
+	function eagerLoadCourse(context) {
+		context.col4 = true;
+		$activeCourseContainer.append(template.instituteCourseCard(context))
+		cacheNBindDeleteButtons();
+	}
 
-        const serializedArrayForm = form.serializeArray()
-        let bodyObj = {};
-        serializedArrayForm.forEach(obj => {
-            bodyObj[obj.name] = obj.value;
-        })
+	function addCourse(form) {
+		if (!form) {
+			return
+		}
+		const tabNumber = form.attr("data-tabNumber");
+		const tuitionId = form.attr("data-id");
+		cacheNewCourseContainer(tabNumber);
 
-        courseApiCalls.putNewCourse(bodyObj).then(data => {
-                bodyObj._id = data._id;
-                eagerLoadCourse(bodyObj)
-            })
-            .catch(err => console.error(err));
-    }
+		const serializedArrayForm = form.serializeArray()
+		let bodyObj = {};
+		bodyObj.parentId = tuitionId;
 
-    function getHtml() {
-        // return template.userEditTuitionCourses(context);
-    }
+		serializedArrayForm.forEach(obj => {
+			bodyObj[obj.name] = obj.value;
+		})
 
-    function init() {
-        cache();
-        render();
-        cacheDynamic();
-        bindEvents();
-    }
+		tuitionApiCalls.putCourseInTuition(tuitionId, bodyObj).then(data => {
+				tuitionApiCalls.getSpecificTuition({ _id: data._id }).then(data => {
+					console.log(bodyObj);
+					bodyObj._id = undefined;
+					data.courses.forEach(courseObj => {
+						if (bodyObj.code === courseObj.code) {
+							bodyObj._id = courseObj._id;
+						}
+					})
+					eagerLoadCourse(bodyObj)
+				})
 
-    return {
-        init
-    };
+			})
+			.catch(err => console.error(err));
+	}
+
+	function getHtml() {
+		// return template.userEditTuitionCourses(context);
+	}
+
+	function init() {
+		cache();
+		render();
+		cacheDynamic();
+		bindEvents();
+	}
+
+	return {
+		init
+	};
 })();

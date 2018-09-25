@@ -22,8 +22,8 @@ const userClaimed = (() => {
 		let tuitionId = $(event.target).attr('data-id');
 		let typeOfInfo = $(event.target).attr('data-category');
 		let promise = userApiCalls.removeClaim(typeOfInfo, tuitionId);
-
-		promise.then(() => window.location.assign('User-dashboard.html')).catch(err => console.error(err))
+		console.log("unlaim function hit");
+		promise.then(() => window.location.assign('Dashboard-pro.html')).catch(err => console.error(err))
 	}
 
 	function getTuitionsInfo(typeOfInfo, tuitionId) {

@@ -4,18 +4,18 @@
     <div class="card">
         <div class="card-body ">
             <h4 class="card-title">
-                <a href="#pablo">{{name}}</a>
+                <a href="#pablo">{{code}}</a>
             </h4>
         </div>
         <div class="card-footer ">
             <div class="author">
                 <h6 class="card-category text-danger">
-                    <i class="material-icons">trending_up</i>
+                    {{!-- <i class="material-icons">trending_up</i> --}}
                     Price {{fees}}/-
                 </h6>
             </div>
             <div class="stats ml-auto">
-                <i class="material-icons delete-course-btn" style="top: 0%; cursor: pointer;" data-id="{{_id}}">delete</i>
+                <i class="material-icons delete-course-btn" style="top: 0%; cursor: pointer;" data-id="{{_id}}" data-parent="{{parentId}}">delete</i>
                 <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
             </div>
         </div>

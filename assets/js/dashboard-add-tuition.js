@@ -1,10 +1,8 @@
 const dashboardAddTuition = (() => {
 	let $addTuitionForm;
-	let $claimedByInput;
 
 	function cache() {
 		$addTuitionForm = $('#addTuition');
-		$claimedByInput = $('#claimedByInput');
 	}
 
 	function bindEvents(user) {
@@ -16,7 +14,6 @@ const dashboardAddTuition = (() => {
 	}
 
 	function submitTuition(user) {
-		$claimedByInput.val(user._id);
 		const formData = new FormData($addTuitionForm[0]);
 		// console.log(formData);
 		return tuitionApiCalls.putNewTuition(formData, true)

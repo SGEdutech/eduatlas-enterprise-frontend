@@ -18,7 +18,7 @@ user.getInfo().then(userInfo => {
         colorOnScroll: false
     });
     userClaimed.init(userInfo);
-    // institutePills.init(userInfo);
+    instituteInfo.init(userInfo);
     dashboardEditProfile.init(userInfo);
     dashboardAddTuition.init(userInfo);
     dashboardAddSchool.init(userInfo);

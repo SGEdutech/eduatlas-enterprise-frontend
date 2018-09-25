@@ -10,7 +10,7 @@
         </div>
     </div>
     <ul class="nav nav-pills nav-pills-rose">
-        <li class="nav-item"><a class="nav-link active" href="#pill1{{tabNumber}}" data-toggle="tab">Settings</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#pill1{{tabNumber}}" data-toggle="tab">Configure</a></li>
         <li class="nav-item"><a class="nav-link" href="#pill2{{tabNumber}}" data-toggle="tab">Promoter</a></li>
         <li class="nav-item"><a class="nav-link" href="#pill3{{tabNumber}}" data-toggle="tab">Messages</a></li>
         <li class="nav-item"><a class="nav-link" href="#pill4{{tabNumber}}" data-toggle="tab">Options</a></li>
@@ -19,81 +19,42 @@
     <div class="tab-content tab-space">
         <div class="tab-pane active" id="pill1{{tabNumber}}">
             <div class="row m-0">
-                <div class="col-md-3" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
+                <div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
                     <ul class="nav nav-pills nav-pills-rose flex-column">
                         <li class="nav-item"><a class="nav-link active" href="#innertab1{{tabNumber}}" data-toggle="tab">Courses</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#innertab2{{tabNumber}}" data-toggle="tab">Students</a></li>
                         <li class="nav-item"><a class="nav-link" href="#innertab3{{tabNumber}}" data-toggle="tab">Batches</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#innertab2{{tabNumber}}" data-toggle="tab">Students</a></li>
                         <li class="nav-item"><a class="nav-link" href="#innertab4{{tabNumber}}" data-toggle="tab">Active
                                 Batches</a></li>
                     </ul>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-10">
                     <div class="tab-content">
                         <div class="tab-pane active" id="innertab1{{tabNumber}}">
                             <div class="row m-0">
-                                <div class="card m-0 mb-4">
-                                    <form class="new_course_form" data-tabNumber="{{tabNumber}}">
-                                        <div class="row card-body">
-                                            <div class="col-md-6">
-                                                <div class="form-group label-floating is-empty has-rose bmd-form-group">
-                                                    <input type="text" name="name" class="form-control" placeholder="Course Name">
-                                                    <span class="material-input"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group label-floating is-empty has-rose bmd-form-group">
-                                                    <input type="number" name="fees" class="form-control" placeholder="Course Fee">
-                                                    <span class="material-input"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group label-floating has-rose is-empty bmd-form-group">
-                                                    <textarea name="description" class="form-control" rows="4"
-                                                        placeholder="Description(Optional)"></textarea>
-                                                    <span class="material-input"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                {{!-- <div class="form-group label-floating is-empty has-rose bmd-form-group">
-                                                    <label for="active-till">Active Till</label>
-                                                    <input id="active-till" name="email" class="form-control" type="date"
-                                                        placeholder="Active Till(Date)">
-                                                    <span class="material-input"></span>
-                                                </div> --}}
-                                                <button type="submit" class="btn btn-round btn-rose pull-right">
-                                                    ADD Courses
-                                                    <div class="ripple-container"></div>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <input type="hidden" name="listingId" value="{{_id}}">
-                                        <input type="hidden" name="listingCategory" value="{{category}}">
-                                    </form>
-                                </div>
                                 <div class="card-title col-12 h3">
                                     Active Courses
                                 </div>
                                 <div class="col-12">
                                     <div class="row">
-                                        {{#each courses}}
-                                        <div class="col-md-4" id="{{_id}}">
+                                        {{#each courses as |course|}}
+                                        <div class="col-md-4" id="{{course._id}}">
                                             <div class="card">
                                                 <div class="card-body ">
                                                     <h4 class="card-title">
-                                                        <a href="#pablo">{{name}}</a>
+                                                        <a href="#pablo">{{course.code}}</a>
                                                     </h4>
                                                 </div>
                                                 <div class="card-footer ">
                                                     <div class="author">
                                                         <h6 class="card-category text-danger">
-                                                            <i class="material-icons">trending_up</i>
-                                                            Price {{fees}}/-
+                                                            {{!-- <i class="material-icons">trending_up</i> --}}
+                                                            Price {{course.fees}}/-
                                                         </h6>
                                                     </div>
                                                     <div class="stats ml-auto">
                                                         <i class="material-icons delete-course-btn" style="top: 0%; cursor: pointer;"
-                                                            data-id="{{_id}}">delete</i>
+                                                            data-id="{{course._id}}" data-parent="{{course.parentId}}">delete</i>
                                                         <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
                                                     </div>
                                                 </div>
@@ -127,6 +88,72 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="card m-0 mb-4">
+                                    <form class="new_course_form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}">
+                                        <div class="row card-body">
+                                            <div class="card-title h3 col-12">
+                                                Add New Course/Product
+                                            </div>
+                                            <div class="col-md-6">
+                                                {{!-- <div class="form-group label-floating is-empty has-rose bmd-form-group">
+                                                    <input type="text" name="code" class="form-control" placeholder="Course Name"
+                                                        required>
+                                                    <span class="material-input"></span>
+                                                </div> --}}
+                                                <div class="form-group label-floating is-empty has-rose bmd-form-group">
+                                                    <input id="course-code" name="code" class="form-control" type="text"
+                                                        placeholder="Course Code (unique)" required>
+                                                    <span class="material-input"></span>
+                                                </div>
+                                                <div class="form-group label-floating has-rose is-empty bmd-form-group">
+                                                    <textarea name="description" class="form-control" rows="4"
+                                                        placeholder="Description (optional)"></textarea>
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating is-empty has-rose bmd-form-group">
+                                                    <input type="number" class="form-control fee-inp" placeholder="Course Fee"
+                                                        required data-tabNumber="{{tabNumber}}">
+                                                    <span class="material-input"></span>
+                                                </div>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input gst-checkbox" type="checkbox"
+                                                            value="true" data-tabNumber="{{tabNumber}}">
+                                                        insclusive of taxes
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-group label-floating has-rose is-empty bmd-form-group">
+                                                    <input type="number" class="form-control gst-inp" placeholder="GST (%)"
+                                                        data-tabNumber="{{tabNumber}}">
+                                                    <span class="material-input"></span>
+                                                </div>
+                                                <div class="form-group label-floating has-rose is-empty bmd-form-group">
+                                                    <label>Total Fee</label>
+                                                    <input type="number" class="form-control total-fee" placeholder=""
+                                                        data-tabNumber="{{tabNumber}}" name="fees" required>
+                                                    <span class="material-input"></span>
+                                                </div>
+                                                {{!-- <p class="font-weight-bold">Total Fee = <span class="total-fee"
+                                                        data-tabNumber="{{tabNumber}}"></span></p> --}}
+                                            </div>
+                                            <div class="col-md-6">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="submit" class="btn btn-round btn-rose pull-right">
+                                                    ADD Course
+                                                    <div class="ripple-container"></div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {{!-- <input type="hidden" name="listingId" value="{{_id}}">
+                                        <input type="hidden" name="listingCategory" value="{{category}}"> --}}
+                                    </form>
                                 </div>
                             </div>
                             <br><br>
@@ -298,43 +325,6 @@
                         </div>
                         <div class="tab-pane" id="innertab3{{tabNumber}}">
                             <div class="row m-0">
-                                <div class="card m-0 mb-4">
-                                    <form class="new_batch_form" data-tabNumber="{{tabNumber}}">
-                                        <div class="row card-body">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="courseIdSelect">Choose Course for your batch</label>
-                                                    <select class="form-control selectpicker courseIdSelect" data-style="btn btn-link"
-                                                        name="courseId">
-                                                        {{#each courses}}
-                                                        <option value="{{_id}}">{{name}}</option>
-                                                        {{/each}}
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group label-floating is-empty has-rose bmd-form-group">
-                                                    <input type="text" name="name" class="form-control" placeholder="Batch Name">
-                                                    <span class="material-input"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group label-floating has-rose is-empty bmd-form-group">
-                                                    <textarea name="description" class="form-control" rows="4"
-                                                        placeholder="Description(Optional)"></textarea>
-                                                    <span class="material-input"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <button type="submit" class="btn btn-round btn-rose pull-right">
-                                                    ADD Batch
-                                                    <div class="ripple-container"></div>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        {{!-- <input type="hidden" name="courseId" value="{{_id}}"> --}}
-                                    </form>
-                                </div>
                                 <div class="card-title col-12 h3">
                                     Active Batches
                                 </div>
@@ -393,6 +383,100 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="card m-0 mb-4">
+                                    <div class="card-title h3">
+                                        Add New Batch
+                                    </div>
+                                    <form class="new_batch_form" data-tabNumber="{{tabNumber}}">
+                                        <div class="row card-body">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="courseIdSelect">Choose Course for your batch</label>
+                                                    <select class="form-control selectpicker courseIdSelect" data-style="btn btn-link"
+                                                        name="courseId">
+                                                        {{#each courses}}
+                                                        <option value="{{_id}}">{{code}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating is-empty has-rose bmd-form-group">
+                                                    <input type="text" name="name" class="form-control" placeholder="Batch Name">
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating is-empty has-rose bmd-form-group">
+                                                    <input type="text" name="name" class="form-control" placeholder="Batch Code (unique)"
+                                                        required>
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="col-md-6">
+                                                    <div class="card-title">
+                                                        Add Students
+                                                    </div><br><br>
+                                                    <div class="media-area main-raised">
+                                                        <div class="media groupchats">
+                                                            <div class="media-body">
+                                                                <input type="checkbox" value="">
+                                                                <span class="media-heading">Student-1
+                                                                    <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </span><br>
+
+                                                                <input type="checkbox" value="">
+                                                                <span class="media-heading">Student-1
+                                                                    <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </span><br>
+
+                                                                <input type="checkbox" value="">
+                                                                <span class="media-heading">Student-2
+                                                                    <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </span><br>
+
+                                                                <input type="checkbox" value="">
+                                                                <span class="media-heading">Student-3
+                                                                    <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </span><br>
+
+                                                                <input type="checkbox" value="">
+                                                                <span class="media-heading">Student-4
+                                                                    <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </span><br>
+
+                                                                <input type="checkbox" value="">
+                                                                <span class="media-heading">Student-5
+                                                                    <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </span><br>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-round btn-rose pull-right mt-5">
+                                                    ADD Batch
+                                                    <div class="ripple-container"></div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {{!-- <input type="hidden" name="courseId" value="{{_id}}"> --}}
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -561,7 +645,7 @@
             </div>
         </div>
         <div class="tab-pane" id="pill3{{tabNumber}}">
-             <div class="row m-0">
+            <div class="row m-0">
                 <div class="col-md-3">
                     <ul class="nav nav-pills nav-pills-rose flex-column">
                         <li class="nav-item"><a class="nav-link" href="#sendmessage" data-toggle="tab">Send
@@ -697,25 +781,7 @@
                                 <div class="container">
                                     <div class="section section-comments">
                                         <div class="row">
-                                          
-                                                <div class="col-md-4">
-                                                        <div class="media-area main-raised">
-                                                            <div class="media">
-                                                                <a class="float-left" href="#pablo">
-                                                                    <div class="avatar">
-                                                                        <img class="media-object" src="../assets/img/faces/card-profile4-square.jpg"
-                                                                            alt="...">
-                                                                    </div>
-                                                                </a>
-                                                                <div class="media-body">
-                                                                    <h4 class="media-heading">Group2
-                                                                        <span class="badge badge-default float-right">4</span><br>
-                                                                        <small>Latest Message Text</small>
-                                                                    </h4>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+
                                             <div class="col-md-4">
                                                 <div class="media-area main-raised">
                                                     <div class="media">
@@ -735,135 +801,153 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                    <div class="media-area main-raised">
-                                                        <div class="media">
-                                                            <a class="float-left" href="#pablo">
-                                                                <div class="avatar">
-                                                                    <img class="media-object" src="../assets/img/faces/card-profile4-square.jpg"
-                                                                        alt="...">
-                                                                </div>
-                                                            </a>
-                                                            <div class="media-body">
-                                                                <h4 class="media-heading">Group2
-                                                                    <span class="badge badge-default float-right">4</span><br>
-                                                                    <small>Latest Message Text</small>
-                                                                </h4>
+                                                <div class="media-area main-raised">
+                                                    <div class="media">
+                                                        <a class="float-left" href="#pablo">
+                                                            <div class="avatar">
+                                                                <img class="media-object" src="../assets/img/faces/card-profile4-square.jpg"
+                                                                    alt="...">
                                                             </div>
+                                                        </a>
+                                                        <div class="media-body">
+                                                            <h4 class="media-heading">Group2
+                                                                <span class="badge badge-default float-right">4</span><br>
+                                                                <small>Latest Message Text</small>
+                                                            </h4>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="media-area main-raised">
+                                                    <div class="media">
+                                                        <a class="float-left" href="#pablo">
+                                                            <div class="avatar">
+                                                                <img class="media-object" src="../assets/img/faces/card-profile4-square.jpg"
+                                                                    alt="...">
+                                                            </div>
+                                                        </a>
+                                                        <div class="media-body">
+                                                            <h4 class="media-heading">Group2
+                                                                <span class="badge badge-default float-right">4</span><br>
+                                                                <small>Latest Message Text</small>
+                                                            </h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body card card-profile card-plaina main-raised m-1">
-                                <div class="card-title col-12 float-left h3">
-                                        Create New Group
+                            <div class="card-title col-12 float-left h3">
+                                Create New Group
+                            </div><br><br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card-title col-12 h5">
+                                        Add Students
                                     </div><br><br>
-                                <div class="row">                                        
-                                    <div class="col-md-6">
-                                        <div class="card-title col-12 h5">
-                                            Add Students
-                                        </div><br><br>
-                                        <div class="media-area main-raised">
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <input class="form-check-input" type="checkbox" value="">
-                                                    <span class="media-heading">Student-1
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
+                                    <div class="media-area main-raised">
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <input class="form-check-input" type="checkbox" value="">
+                                                <span class="media-heading">Student-1
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </span><br>
 
-                                                    <input class="form-check-input" type="checkbox" value="">
-                                                    <span class="media-heading">Student-2
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
+                                                <input class="form-check-input" type="checkbox" value="">
+                                                <span class="media-heading">Student-2
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </span><br>
 
-                                                    <input class="form-check-input" type="checkbox" value="">
-                                                    <span class="media-heading">Student-3
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
+                                                <input class="form-check-input" type="checkbox" value="">
+                                                <span class="media-heading">Student-3
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </span><br>
 
-                                                    <input class="form-check-input" type="checkbox" value="">
-                                                    <span class="media-heading">Student-4
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
+                                                <input class="form-check-input" type="checkbox" value="">
+                                                <span class="media-heading">Student-4
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </span><br>
 
-                                                    <input class="form-check-input" type="checkbox" value="">
-                                                    <span class="media-heading">Student-5
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-                                                </div>
+                                                <input class="form-check-input" type="checkbox" value="">
+                                                <span class="media-heading">Student-5
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </span><br>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="card-title col-12 h5">
-                                            Select Batches
-                                        </div><br><br>
-                                        <div class="media-area main-raised">
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <input class="form-check-input" type="checkbox" value="">
-                                                    <span class="media-heading">Batch-1
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-
-                                                    <input class="form-check-input" type="checkbox" value="">
-                                                    <span class="media-heading">Batch-2
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-
-                                                    <input class="form-check-input" type="checkbox" value="">
-                                                    <span class="media-heading">Batch-3
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-
-                                                    <input class="form-check-input" type="checkbox" value="">
-                                                    <span class="media-heading">Batch-4
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-
-                                                    <input class="form-check-input" type="checkbox" value="">
-                                                    <span class="media-heading">Batch-5
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-primary float-right m-4">Create Group</button>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="card-title col-12 h5">
+                                        Select Batches
+                                    </div><br><br>
+                                    <div class="media-area main-raised">
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <input class="form-check-input" type="checkbox" value="">
+                                                <span class="media-heading">Batch-1
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </span><br>
+
+                                                <input class="form-check-input" type="checkbox" value="">
+                                                <span class="media-heading">Batch-2
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </span><br>
+
+                                                <input class="form-check-input" type="checkbox" value="">
+                                                <span class="media-heading">Batch-3
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </span><br>
+
+                                                <input class="form-check-input" type="checkbox" value="">
+                                                <span class="media-heading">Batch-4
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </span><br>
+
+                                                <input class="form-check-input" type="checkbox" value="">
+                                                <span class="media-heading">Batch-5
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </span><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary float-right m-4">Create Group</button>
+                                </div>
                             </div>
-                    </div>
-                        <div class="tab-pane" id="messagehistory">
-                            Completely synergize resource taxing relationships via premier niche markets.
-                            Professionally cultivate one-to-one customer service with robust ideas.
-                            <br><br>Dynamically innovate resource-leveling customer service for state of the art
-                            customer service.
                         </div>
                     </div>
+                    <div class="tab-pane" id="messagehistory">
+                        Completely synergize resource taxing relationships via premier niche markets.
+                        Professionally cultivate one-to-one customer service with robust ideas.
+                        <br><br>Dynamically innovate resource-leveling customer service for state of the art
+                        customer service.
+                    </div>
                 </div>
+            </div>
         </div>
         <div class="tab-pane" id="pill4{{tabNumber}}">
             Completely synergize resource taxing relationships via premier niche markets.
