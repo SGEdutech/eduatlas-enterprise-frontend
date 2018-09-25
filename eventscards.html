@@ -1,0 +1,241 @@
+<html>
+        <head>
+                <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-121945570-1"></script>
+                <script>
+                    window.dataLayer = window.dataLayer || [];            
+                    function gtag() {
+                        dataLayer.push(arguments);
+                    }            
+                    gtag('js', new Date());
+                    gtag('config', 'UA-121945570-1');
+                </script>
+                <link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet">            
+                <meta charset="utf-8">                
+                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+                <link rel="apple-touch-icon" href="assets/img/favicon.png">
+                <link rel="icon" type="image/png" href="assets/img/favicon.png">
+                <title>
+                    Search Details
+                </title>
+                <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport">
+                <!--     Fonts and icons     -->
+                <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+                <!-- CSS Files -->
+                <link href="./assets/css/material-kit.css?v=2.1.0" rel="stylesheet">
+                <link href="./assets/css/plugins.min.css" rel="stylesheet">
+                <link href="./assets/css/searchdetails.css" rel="stylesheet">
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" rel="stylesheet">
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" rel="stylesheet">
+                <link rel="stylesheet" href="assets/css/material-kit.css">
+                <!-- overriding material kit nav links color -->
+                <link rel="stylesheet" href="assets/css/nav-links.css">
+                <!-- overriding material kit input underline color -->
+                <link rel="stylesheet" href="assets/css/input-color.css">
+                <link rel="stylesheet" href="assets/css/eventcards.css">
+            </head>
+            <div class="row">
+                    <div class="col-12 col-xl-3 py-5 order-xl-1 order-1 left-sidebar z-index-99">
+                        <!-- <div class="lis-relative">
+                            <h5 class="mb-2 mt-md-5" style="font-weight: bold;">What are you looking for?</h5>
+                            <p>Search by Category</p>
+                            <span class="bmd-form-group"><div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-search lis-primary lis-left-0"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control border-top-0 border-left-0 border-right-0 rounded-0 pl-4 searchInput" placeholder="What are you looking for?" id="searchBox">
+                            </div></span>
+                            <div id="suggestions" class="position-absolute col-12 text-center">
+                            </div>
+                            <br>
+                            <span class="bmd-form-group"><div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-map-o lis-primary lis-left-0"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control border-top-0 border-left-0 border-right-0 rounded-0 pl-4" placeholder="City" id="citySearch">
+                            </div></span>
+                            <br>
+                            <div class="input-group row">
+                                <div class="input-group-prepend col-3">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-sliders lis-primary lis-left-0"></i>
+                                    </span>
+                                </div>
+                                <div class="btn-group bootstrap-select input-group-btn form-control col-9 text-uppercase"><button type="button" class="dropdown-toggle bs-placeholder btn btn-link" data-toggle="dropdown" role="button" data-id="sortByInput" title="Sort-By"><span class="filter-option pull-left">Sort-By</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="0" class="disabled selected"><a tabindex="-1" class="" data-tokens="null" role="option" href="#" aria-disabled="true" aria-selected="true"><span class="text">Sort-By</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Reviews</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="2"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Popularity</span><span class="material-icons  check-mark"> done </span></a></li></ul></div><select id="sortByInput" class="selectpicker form-control col-9 text-uppercase" data-style="btn btn-link" tabindex="-98">
+                                    <option selected="" disabled="" value="default">Sort-By</option>
+                                    <option value="rating">Reviews</option>
+                                    <option value="views">Popularity</option>
+                                </select></div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group lis-relative">
+                        </div>
+                        <p class="lis-dark">More Filters</p>
+                        <div class="row mt-3">
+                            <div class="col-12 col-xl-12">
+                                <div class="form-check form-check-radio">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" style="background-color: #00bcd4" type="radio" name="typeOfInfo" id="exampleRadios1" value="tuition" checked=""> Tuition/Coaching Institutes
+                                        <span class="circle" style="border-color: #00bcd4">
+                                            <span class="check" style="background-color: #00bcd4"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-radio">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="typeOfInfo" id="exampleRadios2" value="school"> Schools
+                                        <span class="circle" style="border-color: #00bcd4">
+                                            <span class="check" style="background-color: #00bcd4"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-radio">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="typeOfInfo" id="exampleRadios3" value="event"> Events
+                                        <span class="circle" style="border-color: #00bcd4">
+                                            <span class="check" style="background-color: #00bcd4"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div id="category_container">
+                                    <p class="lis-dark mt-4 mb-0">Sub Category</p>
+                                    <div id="tuition_category_container" style="display: none">
+                                        <div class="btn-group bootstrap-select form-control text-uppercase"><button type="button" class="dropdown-toggle bs-placeholder btn btn-link" data-toggle="dropdown" role="button" data-id="category" title="Tuition Subcategory"><span class="filter-option pull-left">Tuition Subcategory</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="0" class="disabled selected"><a tabindex="-1" class="" data-tokens="null" role="option" href="#" aria-disabled="true" aria-selected="true"><span class="text">Tuition Subcategory</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Tuition Centers</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="2"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Coaching Centers</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="3"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Enhanced Learning</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="4"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Hobby Centers</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="5"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sports Center</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="6"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Education Companies</span><span class="material-icons  check-mark"> done </span></a></li></ul></div><select id="category" name="category" class="selectpicker form-control text-uppercase" data-style="btn btn-link" tabindex="-98">
+                                            <option disabled="" selected="">Tuition Subcategory</option>
+                                            <option value="Tuition Centers">Tuition Centers</option>
+                                            <option value="Coaching Centers">Coaching Centers</option>
+                                            <option value="Enhanced Learning">Enhanced Learning</option>
+                                            <option value="Hobby Centers">Hobby Centers</option>
+                                            <option value="Sports Center">Sports Center</option>
+                                            <option value="Education Companies">Education Companies</option>
+                                        </select></div>
+                                    </div>
+                                    <div id="school_category_container" style="display: none">
+                                        <div class="btn-group bootstrap-select form-control"><button type="button" class="dropdown-toggle bs-placeholder btn btn-link" data-toggle="dropdown" role="button" data-id="categorySchool" title="school subcategory"><span class="filter-option pull-left">school subcategory</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="0" class="disabled selected"><a tabindex="-1" class="" data-tokens="null" role="option" href="#" aria-disabled="true" aria-selected="true"><span class="text">school subcategory</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Pre/Play School</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="2"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Day Care</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="3"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Formal School</span><span class="material-icons  check-mark"> done </span></a></li></ul></div><select id="categorySchool" name="category" class="selectpicker form-control" data-style="btn btn-link" tabindex="-98">
+                                            <option disabled="" selected="">school subcategory</option>
+                                            <option value="Pre/Play School">Pre/Play School</option>
+                                            <option value="Day Care">Day Care</option>
+                                            <option value="Formal School">Formal School</option>
+                                        </select></div>
+                                    </div>
+                                    <div id="event_category_container" style="display: block;">
+                                        <div class="btn-group bootstrap-select form-control"><button type="button" class="dropdown-toggle bs-placeholder btn btn-link" data-toggle="dropdown" role="button" data-id="categoryEvent" title="event subcategory"><span class="filter-option pull-left">event subcategory</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="0" class="disabled selected"><a tabindex="-1" class="" data-tokens="null" role="option" href="#" aria-disabled="true" aria-selected="true"><span class="text">event subcategory</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Cultural</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="2"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Annual Day</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="3"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Music</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="4"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Programming</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="5"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Fest</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="6"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Educational</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="7"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Comedy</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="8"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Food and Drink</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="9"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Exhibition</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="10"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Travel n Activities</span><span class="material-icons  check-mark"> done </span></a></li><li data-original-index="11"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">others</span><span class="material-icons  check-mark"> done </span></a></li></ul></div><select id="categoryEvent" name="category" class="selectpicker form-control" data-style="btn btn-link" tabindex="-98">
+                                            <option disabled="" selected="">event subcategory</option>
+                                            <option value="Cultural">Cultural</option>
+                                            <option value="Annual Day">Annual Day</option>
+                                            <option value="Music">Music</option>
+                                            <option value="Programming">Programming</option>
+                                            <option value="Fest">Fest</option>
+                                            <option value="Educational">Educational</option>
+                                            <option value="Comedy">Comedy</option>
+                                            <option value="Food and Drink">Food and Drink</option>
+                                            <option value="Exhibition">Exhibition</option>
+                                            <option value="Travel n Activities">Travel n Activities</option>
+                                            <option value="others">others</option>
+                                        </select></div>
+                                    </div>
+                                </div>
+                                <!-- <label id="tuition_checkbox" class="custom-control custom-checkbox d-block">
+                                 <input type="checkbox" class="custom-control-input" checked="checked">
+                                 <span class="custom-control-indicator"></span>
+                                 <span class="custom-control-description">Institute/Tuition </span> </label>
+                             <label id="school_checkbox" class="custom-control custom-checkbox d-block">
+                                 <input type="checkbox" class="custom-control-input">
+                                 <span class="custom-control-indicator"></span>
+                                 <span class="custom-control-description">Schools</span> </label>-->                           
+                    </div>
+                    <div class="col-12 col-xl-9 order-xl-2 order-2 px-0">
+                        <section class="py-5 px-3" id="showresults">
+                            <div class="container">
+                                <div class="row mt-md-5">
+                                    <div class="col-sm-12 align-self-center">
+                                        <p id="showingResultsContainer">Showing results:
+                                            <span id="search_query_display" class="badge badge-info"></span>
+                                            <span id="city_query_display" class="badge badge-info"></span>
+                                        </p>
+                                    </div>
+                                </div>
+        
+            <div class="row" id="content-placeholder">
+            <div class="col-md-4 col-xs-12" id="5b961f6f47100119ee783f64">
+            <div class="card newFont">
+            <div class=" tuition-cards" style="cursor: pointer" onclick="helperScripts.openDetailsPage('event','5b961f6f47100119ee783f64')">
+            <div class="card p-0 m-0 rounded-0 rounded-top" style="overflow: hidden;text-overflow: ellipsis">
+            <img class="card-img-top" src="assets/img/fourgirls.jpg" alt="Tuition Image" style="height: 218px;width: 100%;">
+            <div class="card-img-overlay">    
+                <div>
+                <p  class="ml-2 paragraph">DRONE WORKSHOP</p>
+                <button class="btn btn-danger p-0 verify">2.5/5</button>
+                <button class="btn btn-danger p-0 verify" style="left:30%;!important;background: #00bcd4;">Verified</button>
+                </div>      
+            <button class="btn btn-danger eventbtn">20<br><small style="color:black;font-size:9px;"> October</small></button>
+            </div>
+            </div>
+            </div>                
+                <div class="card-body pb-0">
+                    <div class="" style="overflow: hidden;margin: -5%">
+                        <P class="m-0 mt-2 p-0" style="font-size: 12px;">SOME DESCRIPTION COME HERE WHICH IS ONLY TWO LINES
+                            LONG.IN CASE IT LONG.IN CASE IT ....
+                        </P>                        
+                    </div>
+                    <br>
+                    <div class="row mt-2" style="text-overflow: ellipsis;
+                    overflow: hidden; ">
+                        <div class="col-1 px-0">
+                                <i class="fas fa-stopwatch" style="color: #00bcd4"></i>                                
+                        </div>
+                        <div class="col-11">
+                            <p id="address" class="my-0 font-weight-bold">20 October 2018 - 22 October 2018</p>
+                        </div>
+                    </div>
+                    <div class="row mt-2" style="text-overflow: ellipsis;overflow: hidden;">
+                        <div class="col-1 px-0">
+                            <i class="material-icons md-18" style="color: #00bcd4">
+                                phone
+                            </i>
+                        </div>
+                        <div class="col-11">
+                            <p id="phone" class="my-0" style="font-weight: bold;">10:00 A.M - 5:00 P.M</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-2" style="text-overflow: ellipsis;overflow: hidden">
+                            <div class="col-1 px-0">
+                                <i class="material-icons md-18" style="color: #00bcd4">
+                                    location_on
+                                </i>
+                            </div>
+                    <div class="col-11">
+                            <p id="phone" class="my-0" style="font-weight: bold;">16 Vaishali,Opp Metro Pillar 
+                                    347,Pitampura,Delhi-110034
+                                </p>
+                            </div>
+                        </div>
+                </div>
+                <div class="pb-0 pt-0 rounded-0 card-footer justify-content-center mt-1 m-0 p-0 pt-2 pb-2" style="border-top: 1px solid #00bcd4;">         
+                    <div class="col-6" style="border-right: 1px solid #00bcd4;">                       
+                        <i class="material-icons bookmark-button" style="cursor: pointer" data-id="5b961f6f47100119ee783f64" data-category="event" data-bookmarked="">
+                             bookmark_border 
+                        </i>
+                        <a href="#" style="color: black;">BOOKMARK</a>
+                    </div>                    
+                    <div class="col-6 mt-1">
+                            <i class="material-icons share" style="cursor: pointer">
+                                    share
+                            </i>
+                            <a href="#" style="color: black;">SHARE</a>     
+                    </div>        
+                    </div>
+            </div>
+        </div>       
+        </div>                                
+        </div>
+        </section>
+        </div>
+        </div>
+</html>
