@@ -159,6 +159,39 @@
                             <br><br>
                         </div>
                         <div class="tab-pane" id="innertab2{{tabNumber}}">
+                            <div class=" card-title col-12 h3 mt-4">
+                                Active Students
+                            </div>
+                            <div class="container">
+                                <div class="section section-comments">
+                                    <div class="row">
+                                        {{#each students}}
+                                        <div class="col-md-4" id="{{_id}}">
+                                            <div class="media-area main-raised m-0">
+                                                <div class="media">
+                                                    <a class="float-left" href="#pablo">
+                                                        <div class="avatar">
+                                                            <img class="media-object" src="../assets/img/logo.png" alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <h5 class="media-heading">{{name}}
+                                                            <br>
+                                                            <div class="stats ml-auto">
+                                                                <i class="material-icons delete-student-btn" style="top: 0%; cursor: pointer;"
+                                                                    data-id="{{_id}}" data-tuition="{{tuitionId}}">delete</i>
+                                                                <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+                                                            </div>
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                    <div id="active_students_container{{tabNumber}}"></div>
+                                </div>
+                            </div>
                             <div class="card card-profile card-plaina main-raised m-0">
                                 <div class="row card-body">
                                     <div class="col-md-6">
@@ -180,147 +213,86 @@
                             <br>
 
                             <div class="card card-profile main-raised m-0">
-                                <div class="card-body text-left has-rose">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h4 class="card-title">Auto Fields</h4>
-                                            <input type="text" value="" placeholder="-EA Membership number" class="form-control" />
-                                            <h4 class="card-title">Compulsory Fields</h4>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <input type="text" value="" placeholder="Student Roll No." class="form-control" />
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" value="" placeholder="Student Name" class="form-control" />
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" value="" placeholder="Student E-mail" class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <h4 class="card-title">Additional Fields</h4>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <input type="text" value="" placeholder="Address" class="form-control" />
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="text" value="" placeholder="Contact No." class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <h4 class="card-title">Payment Details</h4>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <input type="text" value="" placeholder="-Product Name" class="form-control" />
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" value="" placeholder="-Products Fees" class="form-control" />
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" value="" placeholder="-Discount Amount Given"
-                                                        class="form-control" />
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" value="" placeholder="-Discount Reason" class="form-control" />
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" value="" placeholder="-Net Fee" class="form-control" />
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" value="" placeholder="-Fee Collected" class="form-control" />
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" value="" placeholder="-Mode Of Payment" class="form-control" />
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" value="" placeholder="-Balance Pending" class="form-control" />
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" value="" placeholder="-next installment details"
-                                                        class="form-control" />
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" value="" placeholder="-print receipt" class="form-control" />
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" value="" placeholder="-add to batch code" class="form-control" />
-                                                </div>
-                                                <div class="col-md-12 mt-3">
-                                                    <button class="btn btn-round btn-rose float-right">ADD
-                                                        STUDENTS</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class=" card-title col-12 h3">
-                                    Active Students(143)
-                                </div>
-                                <div class="container">
-                                    <div class="section section-comments">
+                                <form class="new_student_form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}">
+                                    <div class="card-body text-left has-rose">
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="media-area main-raised m-0">
-                                                    <div class="media">
-                                                        <a class="float-left" href="#pablo">
-                                                            <div class="avatar">
-                                                                <img class="media-object" src="../assets/img/logo.png"
-                                                                    alt="...">
-                                                            </div>
-                                                        </a>
-                                                        <div class="media-body">
-                                                            <h5 class="media-heading">Prashant
-                                                                Gupta<br>
-                                                                <small>joined on 2017</small>
-                                                            </h5>
-                                                        </div>
+                                            <div class="col-md-12">
+                                                <h4 class="card-title">Auto Fields</h4>
+                                                <input name="eduatlasId" type="text" placeholder="EA Membership number"
+                                                    class="form-control" disabled>
+                                                <h4 class="card-title">Compulsory Fields</h4>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <input name="rollNumber" type="text" placeholder="Student Roll No."
+                                                            class="form-control" required>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input name="name" type="text" placeholder="Student Name" class="form-control"
+                                                            required>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input name="email" type="text" placeholder="Student E-mail"
+                                                            class="form-control" required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="media-area main-raised m-0">
-                                                    <div class="media">
-                                                        <a class="float-left" href="#pablo">
-                                                            <div class="avatar">
-                                                                <img class="media-object" src="../assets/img/logo.png"
-                                                                    alt="...">
-                                                            </div>
-                                                        </a>
-                                                        <div class="media-body">
-                                                            <h5 class="media-heading">Prashant
-                                                                Gupta<br>
-                                                                <small>joined on 2017</small>
-                                                            </h5>
-                                                        </div>
+                                            <div class="col-md-12">
+                                                <h4 class="card-title">Additional Fields</h4>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input name="address" type="text" placeholder="Address" class="form-control" />
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input name="contactNumber" type="text" placeholder="Contact No."
+                                                            class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="col-md-4">
-                                                <div class="media-area main-raised m-0">
-                                                    <div class="media">
-                                                        <a class="float-left" href="#pablo">
-                                                            <div class="avatar">
-                                                                <img class="media-object" src="../assets/img/logo.png"
-                                                                    alt="...">
-                                                            </div>
-                                                        </a>
-                                                        <div class="media-body">
-                                                            <h5 class="media-heading">Prashant
-                                                                Gupta <br>
-                                                                <small>joined on 2017</small>
-                                                            </h5>
-                                                        </div>
+                                            <div class="col-md-12">
+                                                <h4 class="card-title">Payment Details</h4>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <input type="text" placeholder="-Product Name" class="form-control" />
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" placeholder="Products Fees" class="form-control" />
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" placeholder="Discount Amount Given" class="form-control" />
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" placeholder="Discount Reason" class="form-control" />
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" placeholder="Net Fee" class="form-control" />
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" placeholder="Fee Collected" class="form-control" />
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" placeholder="Mode Of Payment" class="form-control" />
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" placeholder="Balance Pending" class="form-control" />
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" placeholder="next installment details" class="form-control" />
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" placeholder="print receipt" class="form-control" />
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" placeholder="add to batch code" class="form-control" />
+                                                    </div>
+                                                    <div class="col-md-12 mt-3">
+                                                        <button class="btn btn-round btn-rose float-right">ADD
+                                                            STUDENTS</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                         <div class="tab-pane" id="innertab3{{tabNumber}}">
@@ -429,42 +401,42 @@
                                                     <div class="media-area main-raised">
                                                         <div class="media groupchats">
                                                             <div class="media-body">
-                                                                <input type="checkbox" value="">
+                                                                <input type="checkbox">
                                                                 <span class="media-heading">Student-1
                                                                     <span class="form-check-sign">
                                                                         <span class="check"></span>
                                                                     </span>
                                                                 </span><br>
 
-                                                                <input type="checkbox" value="">
+                                                                <input type="checkbox">
                                                                 <span class="media-heading">Student-1
                                                                     <span class="form-check-sign">
                                                                         <span class="check"></span>
                                                                     </span>
                                                                 </span><br>
 
-                                                                <input type="checkbox" value="">
+                                                                <input type="checkbox">
                                                                 <span class="media-heading">Student-2
                                                                     <span class="form-check-sign">
                                                                         <span class="check"></span>
                                                                     </span>
                                                                 </span><br>
 
-                                                                <input type="checkbox" value="">
+                                                                <input type="checkbox">
                                                                 <span class="media-heading">Student-3
                                                                     <span class="form-check-sign">
                                                                         <span class="check"></span>
                                                                     </span>
                                                                 </span><br>
 
-                                                                <input type="checkbox" value="">
+                                                                <input type="checkbox">
                                                                 <span class="media-heading">Student-4
                                                                     <span class="form-check-sign">
                                                                         <span class="check"></span>
                                                                     </span>
                                                                 </span><br>
 
-                                                                <input type="checkbox" value="">
+                                                                <input type="checkbox">
                                                                 <span class="media-heading">Student-5
                                                                     <span class="form-check-sign">
                                                                         <span class="check"></span>
@@ -675,7 +647,7 @@
                                         </div>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="">
+                                                <input class="form-check-input" type="checkbox">
                                                 Broadcast To Entire Institute
                                                 <span class="form-check-sign">
                                                     <span class="check"></span>
@@ -694,35 +666,35 @@
                                         <div class="media-area main-raised">
                                             <div class="media">
                                                 <div class="media-body">
-                                                    <input class="form-check-input" type="checkbox" value="">
+                                                    <input class="form-check-input" type="checkbox">
                                                     <span class="media-heading">Student-1
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
                                                     </span><br>
 
-                                                    <input class="form-check-input" type="checkbox" value="">
+                                                    <input class="form-check-input" type="checkbox">
                                                     <span class="media-heading">Student-2
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
                                                     </span><br>
 
-                                                    <input class="form-check-input" type="checkbox" value="">
+                                                    <input class="form-check-input" type="checkbox">
                                                     <span class="media-heading">Student-3
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
                                                     </span><br>
 
-                                                    <input class="form-check-input" type="checkbox" value="">
+                                                    <input class="form-check-input" type="checkbox">
                                                     <span class="media-heading">Student-4
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
                                                     </span><br>
 
-                                                    <input class="form-check-input" type="checkbox" value="">
+                                                    <input class="form-check-input" type="checkbox">
                                                     <span class="media-heading">Student-5
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
@@ -739,35 +711,35 @@
                                         <div class="media-area main-raised">
                                             <div class="media">
                                                 <div class="media-body">
-                                                    <input class="form-check-input" type="checkbox" value="">
+                                                    <input class="form-check-input" type="checkbox">
                                                     <span class="media-heading">Batch-1
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
                                                     </span><br>
 
-                                                    <input class="form-check-input" type="checkbox" value="">
+                                                    <input class="form-check-input" type="checkbox">
                                                     <span class="media-heading">Batch-2
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
                                                     </span><br>
 
-                                                    <input class="form-check-input" type="checkbox" value="">
+                                                    <input class="form-check-input" type="checkbox">
                                                     <span class="media-heading">Batch-3
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
                                                     </span><br>
 
-                                                    <input class="form-check-input" type="checkbox" value="">
+                                                    <input class="form-check-input" type="checkbox">
                                                     <span class="media-heading">Batch-4
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
                                                     </span><br>
 
-                                                    <input class="form-check-input" type="checkbox" value="">
+                                                    <input class="form-check-input" type="checkbox">
                                                     <span class="media-heading">Batch-5
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
@@ -860,35 +832,35 @@
                                     <div class="media-area main-raised">
                                         <div class="media">
                                             <div class="media-body">
-                                                <input class="form-check-input" type="checkbox" value="">
+                                                <input class="form-check-input" type="checkbox">
                                                 <span class="media-heading">Student-1
                                                     <span class="form-check-sign">
                                                         <span class="check"></span>
                                                     </span>
                                                 </span><br>
 
-                                                <input class="form-check-input" type="checkbox" value="">
+                                                <input class="form-check-input" type="checkbox">
                                                 <span class="media-heading">Student-2
                                                     <span class="form-check-sign">
                                                         <span class="check"></span>
                                                     </span>
                                                 </span><br>
 
-                                                <input class="form-check-input" type="checkbox" value="">
+                                                <input class="form-check-input" type="checkbox">
                                                 <span class="media-heading">Student-3
                                                     <span class="form-check-sign">
                                                         <span class="check"></span>
                                                     </span>
                                                 </span><br>
 
-                                                <input class="form-check-input" type="checkbox" value="">
+                                                <input class="form-check-input" type="checkbox">
                                                 <span class="media-heading">Student-4
                                                     <span class="form-check-sign">
                                                         <span class="check"></span>
                                                     </span>
                                                 </span><br>
 
-                                                <input class="form-check-input" type="checkbox" value="">
+                                                <input class="form-check-input" type="checkbox">
                                                 <span class="media-heading">Student-5
                                                     <span class="form-check-sign">
                                                         <span class="check"></span>
@@ -905,35 +877,35 @@
                                     <div class="media-area main-raised">
                                         <div class="media">
                                             <div class="media-body">
-                                                <input class="form-check-input" type="checkbox" value="">
+                                                <input class="form-check-input" type="checkbox">
                                                 <span class="media-heading">Batch-1
                                                     <span class="form-check-sign">
                                                         <span class="check"></span>
                                                     </span>
                                                 </span><br>
 
-                                                <input class="form-check-input" type="checkbox" value="">
+                                                <input class="form-check-input" type="checkbox">
                                                 <span class="media-heading">Batch-2
                                                     <span class="form-check-sign">
                                                         <span class="check"></span>
                                                     </span>
                                                 </span><br>
 
-                                                <input class="form-check-input" type="checkbox" value="">
+                                                <input class="form-check-input" type="checkbox">
                                                 <span class="media-heading">Batch-3
                                                     <span class="form-check-sign">
                                                         <span class="check"></span>
                                                     </span>
                                                 </span><br>
 
-                                                <input class="form-check-input" type="checkbox" value="">
+                                                <input class="form-check-input" type="checkbox">
                                                 <span class="media-heading">Batch-4
                                                     <span class="form-check-sign">
                                                         <span class="check"></span>
                                                     </span>
                                                 </span><br>
 
-                                                <input class="form-check-input" type="checkbox" value="">
+                                                <input class="form-check-input" type="checkbox">
                                                 <span class="media-heading">Batch-5
                                                     <span class="form-check-sign">
                                                         <span class="check"></span>

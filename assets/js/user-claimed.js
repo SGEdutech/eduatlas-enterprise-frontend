@@ -23,7 +23,7 @@ const userClaimed = (() => {
 		let typeOfInfo = $(event.target).attr('data-category');
 		let promise = userApiCalls.removeClaim(typeOfInfo, tuitionId);
 		console.log("unlaim function hit");
-		promise.then(() => window.location.assign('Dashboard-pro.html')).catch(err => console.error(err))
+		promise.then(() => window.location.assign('/Dashboard-pro.html')).catch(err => console.error(err))
 	}
 
 	function getTuitionsInfo(typeOfInfo, tuitionId) {
