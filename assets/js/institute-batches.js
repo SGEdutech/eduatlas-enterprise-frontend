@@ -1,98 +1,111 @@
 const instituteBatches = (() => {
-    let $batchesContainer;
-    let $newBatchForm;
-    let $activeBatchContainer;
-    let $deleteButtons;
+	let $batchesContainer;
+	let $newBatchForm;
+	let $activeBatchContainer;
+	let $deleteButtons;
 
-    function cache() {
-        $BatchesContainer = $("#batchesContainer");
-        $newBatchForm = $('.new_batch_form');
-    }
+	function cache() {
+		$batchesContainer = $("#batchesContainer");
+		$newBatchForm = $('.new_batch_form');
+	}
 
-    function cacheNewBatchContainer(tabNumber) {
-        $activeBatchContainer = $(`#active_batch_container${tabNumber}`);
-    }
+	function cacheNewBatchContainer(tabNumber) {
+		$activeBatchContainer = $(`#active_batch_container${tabNumber}`);
+	}
 
-    function cacheDynamic() {
-        $deleteButtons = $('.delete-batch-btn');
-    }
+	function cacheDynamic() {
+		$deleteButtons = $('.delete-batch-btn');
+	}
 
-    function render() {
-        /* let html = getHtml();
-        $batchesContainer.append(html); */
-    }
+	function render() {
+		/* let html = getHtml();
+		$batchesContainer.append(html); */
+	}
 
-    function bindEvents() {
-        $newBatchForm.submit(function (e) {
-            e.preventDefault();
-            addBatch($(this));
-        });
+	function bindEvents() {
+		$newBatchForm.submit(function(e) {
+			e.preventDefault();
+			addBatch($(this));
+		});
 
-        $deleteButtons.click(function (e) {
-            e.preventDefault();
-            deleteBatch($(this))
-        });
-    }
+		$deleteButtons.click(function(e) {
+			e.preventDefault();
+			deleteBatch($(this))
+		});
+	}
 
-    function cacheNBindDeleteButtons() {
-        cacheDynamic();
-        $deleteButtons.click(function (e) {
-            e.preventDefault();
-            deleteBatch($(this));
-        });
-    }
+	function cacheNBindDeleteButtons() {
+		cacheDynamic();
+		$deleteButtons.click(function(e) {
+			e.preventDefault();
+			deleteBatch($(this));
+		});
+	}
 
-    function deleteBatch($element) {
-        let cardId = $element.attr('data-id');
+	function deleteBatch($element) {
+		let cardId = $element.attr('data-id');
+		let idOfTuition = $element.attr('data-tuition');
+		let idOfCourse = $element.attr('data-course');
+		tuitionApiCalls.deleteBatchInCourseInTuition(idOfTuition, idOfCourse, cardId).then(data => {
+			eagerRemoveCard(cardId);
+		}).catch(err => console.error(err));
+	}
 
-        batchApiCalls.deleteBatch(cardId).then(data => {
-            eagerRemoveCard(cardId);
-        }).catch(err => console.error(err));
+	function eagerRemoveCard(cardId) {
+		//todo - cache properly
+		$('#' + cardId).remove()
+	}
 
-    }
+	function eagerLoadBatch(context) {
+		context.col4 = true;
+		$activeBatchContainer.append(template.instituteBatchCard(context))
+		cacheNBindDeleteButtons();
+	}
 
-    function eagerRemoveCard(cardId) {
-        //todo - cache properly
-        $('#' + cardId).remove()
-    }
+	function addBatch(form) {
+		if (!form) { return }
+		const tabNumber = form.attr("data-tabNumber");
+		const idOfTuition = form.attr("data-id");
+		cacheNewBatchContainer(tabNumber);
 
-    function eagerLoadBatch(context) {
-        context.col4 = true;
-        $activeBatchContainer.append(template.instituteBatchCard(context))
-        cacheNBindDeleteButtons();
-    }
+		const serializedArrayForm = form.serializeArray()
+		let bodyObj = {};
+		bodyObj.tuitionId = idOfTuition;
+		serializedArrayForm.forEach(obj => {
+			bodyObj[obj.name] = obj.value;
+		})
+		const idOfCourse = bodyObj.courseId;
+		tuitionApiCalls.putBatchInCourseInTuition(idOfTuition, idOfCourse, bodyObj).then(data => {
+			tuitionApiCalls.getSpecificTuition({ _id: data._id }).then(data => {
+				console.log(data);
+				bodyObj._id = undefined;
+				data.courses.forEach(courseObj => {
+					if (bodyObj.courseId === courseObj._id) {
+						bodyObj.parentCourse = courseObj.code;
+						courseObj.batches.forEach(batchObj => {
+							if (bodyObj.code === batchObj.code) {
+								bodyObj._id = batchObj._id;
+							}
+						})
+					}
+				})
+				if (bodyObj._id) {
+					alert("succcess")
+					console.log(bodyObj._id);
+				}
+				eagerLoadBatch(bodyObj)
+			})
+		}).catch(err => console.error(err));
+	}
 
-    function addBatch(form) {
-        if (!form) {
-            return
-        }
-        const tabNumber = form.attr("data-tabNumber");
-        cacheNewBatchContainer(tabNumber);
+	function getHtml() {}
 
-        const serializedArrayForm = form.serializeArray()
-        let bodyObj = {};
-        serializedArrayForm.forEach(obj => {
-            bodyObj[obj.name] = obj.value;
-        })
+	function init() {
+		cache();
+		render();
+		cacheDynamic();
+		bindEvents();
+	}
 
-        batchApiCalls.putNewBatch(bodyObj).then(data => {
-                bodyObj._id = data._id;
-                eagerLoadBatch(bodyObj)
-            })
-            .catch(err => console.error(err));
-    }
-
-    function getHtml() {
-    }
-
-    function init() {
-        cache();
-        render();
-        cacheDynamic();
-        bindEvents();
-    }
-    
-    return {
-        init
-    };
+	return { init };
 })();

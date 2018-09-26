@@ -6,7 +6,7 @@ const instituteInfo = (() => {
 	function cache() {
 		$navPillsList = $('#nav-pills-list');
 		$tabContainer = $('#tab-container');
-    }
+	}
 
 	function renderPills(userInfo) {
 		const maxLength = userInfo.claims.length;
@@ -15,9 +15,9 @@ const instituteInfo = (() => {
 				if (instituteData[0]) {
 					instituteData = instituteData[0];
 				}
-                let tabNumber = (index + 1) * 10;
-                
-                const shortName = instituteData.name.substr(0,7) + "..";
+				let tabNumber = (index + 1) * 10;
+
+				const shortName = instituteData.name.substr(0, 7) + "..";
 
 				$navPillsList.append(`<li class="nav-item">
                 <a class="nav-link" href="#tab${tabNumber}" data-toggle="tab">${shortName}</a>
@@ -62,7 +62,9 @@ const instituteInfo = (() => {
 							course.parentId = instituteData._id;
 							if (course.batches) {
 								course.batches.forEach(batch => {
-									batch.parentCourse = course.name;
+									batch.tuitionId = instituteData._id;
+									batch.courseId = course._id;
+									batch.parentCourse = course.code;
 									allBatches.push(batch);
 								})
 							}

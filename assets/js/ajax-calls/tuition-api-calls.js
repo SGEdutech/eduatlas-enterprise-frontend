@@ -206,12 +206,42 @@ const tuitionApiCalls = (() => {
 		if (!checkForHexRegExp.test(idOfTuition)) {
 			console.error("Not a valid idOfTuition");
 		}
-		if (!checkForHexRegExp.test(idOfTuition)) {
+		if (!checkForHexRegExp.test(idOfCourse)) {
 			console.error("Not a valid idOfCourse");
 		}
 		return $.ajax({
 			type: "DELETE",
 			url: `tuition/${idOfTuition}/course/${idOfCourse}`,
+		});
+	}
+
+	function putBatchInCourseInTuition(idOfTuition, idOfCourse, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		if (!checkForHexRegExp.test(idOfCourse)) {
+			console.error("Not a valid idOfCourse");
+		}
+		return $.ajax({
+			type: "POST",
+			url: `tuition/${idOfTuition}/course/${idOfCourse}/batch`,
+			data: bodyObj,
+		});
+	}
+
+	function deleteBatchInCourseInTuition(idOfTuition, idOfCourse, idOfBatch) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		if (!checkForHexRegExp.test(idOfCourse)) {
+			console.error("Not a valid idOfCourse");
+		}
+		if (!checkForHexRegExp.test(idOfBatch)) {
+			console.error("Not a valid idOfBatch");
+		}
+		return $.ajax({
+			type: "DELETE",
+			url: `tuition/${idOfTuition}/course/${idOfCourse}/batch/${idOfBatch}`,
 		});
 	}
 
@@ -229,6 +259,8 @@ const tuitionApiCalls = (() => {
 		deleteInArrayInTuition,
 		deleteTuition,
 		putCourseInTuition,
-		deleteCourseInTuition
+		deleteCourseInTuition,
+		putBatchInCourseInTuition,
+		deleteBatchInCourseInTuition
 	};
 })();

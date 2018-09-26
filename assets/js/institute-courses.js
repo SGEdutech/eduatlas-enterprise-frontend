@@ -117,9 +117,7 @@ const instituteCourses = (() => {
 	}
 
 	function addCourse(form) {
-		if (!form) {
-			return
-		}
+		if (!form) { return }
 		const tabNumber = form.attr("data-tabNumber");
 		const tuitionId = form.attr("data-id");
 		cacheNewCourseContainer(tabNumber);
@@ -133,19 +131,17 @@ const instituteCourses = (() => {
 		})
 
 		tuitionApiCalls.putCourseInTuition(tuitionId, bodyObj).then(data => {
-				tuitionApiCalls.getSpecificTuition({ _id: data._id }).then(data => {
-					console.log(bodyObj);
-					bodyObj._id = undefined;
-					data.courses.forEach(courseObj => {
-						if (bodyObj.code === courseObj.code) {
-							bodyObj._id = courseObj._id;
-						}
-					})
-					eagerLoadCourse(bodyObj)
+			tuitionApiCalls.getSpecificTuition({ _id: data._id }).then(data => {
+				// console.log(bodyObj);
+				bodyObj._id = undefined;
+				data.courses.forEach(courseObj => {
+					if (bodyObj.code === courseObj.code) {
+						bodyObj._id = courseObj._id;
+					}
 				})
-
+				eagerLoadCourse(bodyObj)
 			})
-			.catch(err => console.error(err));
+		}).catch(err => console.error(err));
 	}
 
 	function getHtml() {

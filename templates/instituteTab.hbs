@@ -163,20 +163,21 @@
                                 <div class="row card-body">
                                     <div class="col-md-6">
                                         <h4 class="card-title text-left">Bulk Upload</h4>
-                                        <p class="description text-left">use the excel template
+                                        <p class="description text-left">use the excel
+                                            template
                                             to bulk
                                             Upload your student data please do not edit
                                             template</p>
                                     </div>
-                                    <div class="col-md-5">
-                                        <button class="btn btn-round btn-rose">Download
+                                    <div class="col-md-6">
+                                        <button class="btn btn-round btn-rose float-right">Download
                                             Template</button>
-                                        <button class="btn btn-round btn-rose">Upload Template</button>
+                                        <button class="btn btn-round btn-rose float-right">Upload
+                                            Template</button>
                                     </div>
                                 </div>
                             </div>
                             <br>
-
 
                             <div class="card card-profile main-raised m-0">
                                 <div class="card-body text-left has-rose">
@@ -196,7 +197,6 @@
                                                     <input type="text" value="" placeholder="Student E-mail" class="form-control" />
                                                 </div>
                                             </div>
-
                                         </div>
                                         <div class="col-md-12">
                                             <h4 class="card-title">Additional Fields</h4>
@@ -248,7 +248,7 @@
                                                     <input type="text" value="" placeholder="-add to batch code" class="form-control" />
                                                 </div>
                                                 <div class="col-md-12 mt-3">
-                                                    <button class="btn btn-round btn-rose">ADD
+                                                    <button class="btn btn-round btn-rose float-right">ADD
                                                         STUDENTS</button>
                                                 </div>
                                             </div>
@@ -264,7 +264,7 @@
                                     <div class="section section-comments">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <div class="media-area main-raised">
+                                                <div class="media-area main-raised m-0">
                                                     <div class="media">
                                                         <a class="float-left" href="#pablo">
                                                             <div class="avatar">
@@ -273,16 +273,16 @@
                                                             </div>
                                                         </a>
                                                         <div class="media-body">
-                                                            <h4 class="media-heading">Prashant
+                                                            <h5 class="media-heading">Prashant
                                                                 Gupta<br>
                                                                 <small>joined on 2017</small>
-                                                            </h4>
+                                                            </h5>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="media-area main-raised">
+                                                <div class="media-area main-raised m-0">
                                                     <div class="media">
                                                         <a class="float-left" href="#pablo">
                                                             <div class="avatar">
@@ -291,17 +291,17 @@
                                                             </div>
                                                         </a>
                                                         <div class="media-body">
-                                                            <h4 class="media-heading">Prashant
+                                                            <h5 class="media-heading">Prashant
                                                                 Gupta<br>
                                                                 <small>joined on 2017</small>
-                                                            </h4>
+                                                            </h5>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-4">
-                                                <div class="media-area main-raised">
+                                                <div class="media-area main-raised m-0">
                                                     <div class="media">
                                                         <a class="float-left" href="#pablo">
                                                             <div class="avatar">
@@ -310,10 +310,10 @@
                                                             </div>
                                                         </a>
                                                         <div class="media-body">
-                                                            <h4 class="media-heading">Prashant
-                                                                Gupta<br>
+                                                            <h5 class="media-heading">Prashant
+                                                                Gupta <br>
                                                                 <small>joined on 2017</small>
-                                                            </h4>
+                                                            </h5>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -335,7 +335,7 @@
                                             <div class="card">
                                                 <div class="card-body ">
                                                     <h4 class="card-title">
-                                                        <a href="#pablo">{{name}}</a>
+                                                        <a href="#pablo">{{code}}</a>
                                                     </h4>
                                                     <p class="card-text">
                                                         {{description}}
@@ -348,7 +348,7 @@
                                                 <div class="card-footer ">
                                                     <div class="stats ml-auto">
                                                         <i class="material-icons delete-batch-btn" style="top: 0%; cursor: pointer;"
-                                                            data-id="{{_id}}">delete</i>
+                                                            data-id="{{_id}}" data-tuition="{{tuitionId}}" data-course="{{courseId}}">delete</i>
                                                         <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
                                                     </div>
                                                 </div>
@@ -385,32 +385,39 @@
                                     </div>
                                 </div>
                                 <div class="card m-0 mb-4">
-                                    <div class="card-title h3">
-                                        Add New Batch
-                                    </div>
-                                    <form class="new_batch_form" data-tabNumber="{{tabNumber}}">
+                                    <form class="new_batch_form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}">
                                         <div class="row card-body">
+                                            <div class="card-title h3 col-12">
+                                                Add New Batch
+                                            </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="courseIdSelect">Choose Course for your batch</label>
                                                     <select class="form-control selectpicker courseIdSelect" data-style="btn btn-link"
-                                                        name="courseId">
+                                                        name="courseId" required>
                                                         {{#each courses}}
                                                         <option value="{{_id}}">{{code}}</option>
                                                         {{/each}}
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            {{!-- <div class="col-md-6">
                                                 <div class="form-group label-floating is-empty has-rose bmd-form-group">
                                                     <input type="text" name="name" class="form-control" placeholder="Batch Name">
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div> --}}
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating is-empty has-rose bmd-form-group">
+                                                    <input type="text" name="code" class="form-control" placeholder="Batch Code (unique)"
+                                                        required>
                                                     <span class="material-input"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating is-empty has-rose bmd-form-group">
-                                                    <input type="text" name="name" class="form-control" placeholder="Batch Code (unique)"
-                                                        required>
+                                                    <input type="text" name="description" class="form-control"
+                                                        placeholder="Description (optional)">
                                                     <span class="material-input"></span>
                                                 </div>
                                             </div>
