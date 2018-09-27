@@ -7,6 +7,7 @@ const instituteCourses = (() => {
 	let $gstCheckbox;
 	let $feeInput;
 	let $totalFee;
+	let $editCourseForm;
 
 	function cache() {
 		$coursesContainer = $("#coursesContainer");
@@ -15,6 +16,7 @@ const instituteCourses = (() => {
 		$gstCheckbox = $('.gst-checkbox');
 		$feeInput = $('.fee-inp');
 		$totalFee = $('.total-fee');
+		$editCourseForm = $('.edit_course_form');
 	}
 
 	function cacheNewCourseContainer(tabNumber) {
@@ -34,6 +36,11 @@ const instituteCourses = (() => {
 		$newCourseForm.submit(function(e) {
 			e.preventDefault();
 			addCourse($(this));
+		});
+
+		$editCourseForm.submit(function(e) {
+			e.preventDefault();
+			editCourse($(this));
 		});
 
 		$deleteButtons.click(function(e) {
@@ -141,6 +148,25 @@ const instituteCourses = (() => {
 				})
 				eagerLoadCourse(bodyObj)
 			})
+		}).catch(err => console.error(err));
+	}
+
+	function editCourse(form) {
+		if (!form) { return }
+		const tabNumber = form.attr("data-tabNumber");
+		const tuitionId = form.attr("data-tuition");
+		const courseId = form.attr("data-course");
+		const modalId = form.attr("data-modal");
+
+		const serializedArrayForm = form.serializeArray()
+		let bodyObj = {};
+		serializedArrayForm.forEach(obj => {
+			bodyObj[obj.name] = obj.value;
+		})
+
+		tuitionApiCalls.editCourseInTuition(tuitionId, courseId, bodyObj).then(data => {
+			$('#' + modalId).modal('toggle');
+			alert("success");
 		}).catch(err => console.error(err));
 	}
 

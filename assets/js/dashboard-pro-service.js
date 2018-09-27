@@ -6,6 +6,7 @@ PubSub.subscribe('user', (msg, userInfo) => {
 PubSub.subscribe('instituteTabs.load', (msg) => {
     instituteCourses.init();
     instituteBatches.init();
+    instituteStudents.init();
     refreshSelectInput.init();
 });
 

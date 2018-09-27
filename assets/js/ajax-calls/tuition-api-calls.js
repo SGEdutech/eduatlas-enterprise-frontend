@@ -6,6 +6,7 @@ const tuitionApiCalls = (() => {
 		bragging: true,
 		courses: true,
 		reviews: true,
+		students: true,
 	};
 	const checkForHexRegExp = new RegExp("^[0-9a-fA-F]{24}$");
 
@@ -202,6 +203,20 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
+	function editCourseInTuition(idOfTuition, idOfCourse, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		if (!checkForHexRegExp.test(idOfCourse)) {
+			console.error("Not a valid idOfCourse");
+		}
+		return $.ajax({
+			type: "PUT",
+			url: `tuition/${idOfTuition}/course/${idOfCourse}`,
+			data: bodyObj,
+		});
+	}
+
 	function deleteCourseInTuition(idOfTuition, idOfCourse) {
 		if (!checkForHexRegExp.test(idOfTuition)) {
 			console.error("Not a valid idOfTuition");
@@ -245,6 +260,49 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
+	function putStudentInBatch(idOfTuition, idOfCourse, idOfBatch, studentArr) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		if (!checkForHexRegExp.test(idOfCourse)) {
+			console.error("Not a valid idOfCourse");
+		}
+		if (!checkForHexRegExp.test(idOfBatch)) {
+			console.error("Not a valid idOfBatch");
+		}
+		if (!studentArr) {
+			console.error("studentArr illegal");
+		} else {
+			if (studentArr.lenght === 0) {
+				console.error("studentArr empty");
+			}
+		}
+		return $.ajax({
+			type: "POST",
+			url: `tuition/${idOfTuition}/course/${idOfCourse}/batch/${idOfBatch}/student`,
+			data: { string: studentArr },
+		});
+	}
+
+	function deleteStudentInBatch(idOfTuition, idOfCourse, idOfBatch, idOfStudent) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		if (!checkForHexRegExp.test(idOfCourse)) {
+			console.error("Not a valid idOfCourse");
+		}
+		if (!checkForHexRegExp.test(idOfBatch)) {
+			console.error("Not a valid idOfBatch");
+		}
+		if (!checkForHexRegExp.test(idOfStudent)) {
+			console.error("Not a valid idOfStudent");
+		}
+		return $.ajax({
+			type: "DELETE",
+			url: `tuition/${idOfTuition}/course/${idOfCourse}/batch/${idOfBatch}/student/${idOfStudent}`,
+		});
+	}
+
 	return {
 		getAllTuitions,
 		getSpecificTuition,
@@ -259,8 +317,11 @@ const tuitionApiCalls = (() => {
 		deleteInArrayInTuition,
 		deleteTuition,
 		putCourseInTuition,
+		editCourseInTuition,
 		deleteCourseInTuition,
 		putBatchInCourseInTuition,
-		deleteBatchInCourseInTuition
+		deleteBatchInCourseInTuition,
+		putStudentInBatch,
+		deleteStudentInBatch
 	};
 })();

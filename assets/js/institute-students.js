@@ -25,7 +25,7 @@ const instituteStudents = (() => {
 
 		$deleteButtons.click(function(e) {
 			e.preventDefault();
-			deleteBatch($(this))
+			deleteStudent($(this))
 		});
 	}
 
@@ -33,15 +33,15 @@ const instituteStudents = (() => {
 		cacheDynamic();
 		$deleteButtons.click(function(e) {
 			e.preventDefault();
-			deleteBatch($(this));
+			deleteStudent($(this));
 		});
 	}
 
-	function deleteBatch($element) {
+	function deleteStudent($element) {
 		let cardId = $element.attr('data-id');
 		let idOfTuition = $element.attr('data-tuition');
-		let idOfCourse = $element.attr('data-course');
-		tuitionApiCalls.deleteBatchInCourseInTuition(idOfTuition, idOfCourse, cardId).then(data => {
+		tuitionApiCalls.deleteInArrayInTuition(idOfTuition, "students", { _id: cardId }).then(data => {
+            console.log(data);
 			eagerRemoveCard(cardId);
 		}).catch(err => console.error(err));
 	}
@@ -53,7 +53,7 @@ const instituteStudents = (() => {
 
 	function eagerLoadBatch(context) {
 		context.col4 = true;
-		$activeStudentContainer.append(template.instituteBatchCard(context))
+		$activeStudentContainer.append(template.instituteStudentCard(context))
 		cacheNBindDeleteButtons();
 	}
 
@@ -70,7 +70,12 @@ const instituteStudents = (() => {
 			bodyObj[obj.name] = obj.value;
 		})
 		tuitionApiCalls.putInArrayInTuition(idOfTuition, "students", bodyObj).then(data => {
-            console.log(data);
+			// console.log(data);
+			data.students.forEach(studentObj => {
+				if (bodyObj.email === studentObj.email) {
+					bodyObj._id = studentObj._id;
+				}
+			})
 			eagerLoadBatch(bodyObj)
 		}).catch(err => console.error(err));
 	}

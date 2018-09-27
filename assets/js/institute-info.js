@@ -70,6 +70,11 @@ const instituteInfo = (() => {
 							}
 						});
 					}
+					if (instituteData.students) {
+						instituteData.students.forEach(studentObj => {
+							studentObj.tuitionId = instituteData._id;
+						})
+					}
 					instituteData.batches = allBatches;
 
 					renderCorrespondingTabs(instituteData);

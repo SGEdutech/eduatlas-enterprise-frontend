@@ -69,15 +69,20 @@ const instituteBatches = (() => {
 		cacheNewBatchContainer(tabNumber);
 
 		const serializedArrayForm = form.serializeArray()
+		console.log(serializedArrayForm);
 		let bodyObj = {};
+		bodyObj.students = [];
 		bodyObj.tuitionId = idOfTuition;
 		serializedArrayForm.forEach(obj => {
-			bodyObj[obj.name] = obj.value;
+			if (obj.name === "students") {
+				bodyObj.students.push(obj.value);
+			} else {
+				bodyObj[obj.name] = obj.value;
+			}
 		})
 		const idOfCourse = bodyObj.courseId;
 		tuitionApiCalls.putBatchInCourseInTuition(idOfTuition, idOfCourse, bodyObj).then(data => {
 			tuitionApiCalls.getSpecificTuition({ _id: data._id }).then(data => {
-				console.log(data);
 				bodyObj._id = undefined;
 				data.courses.forEach(courseObj => {
 					if (bodyObj.courseId === courseObj._id) {
@@ -91,7 +96,6 @@ const instituteBatches = (() => {
 				})
 				if (bodyObj._id) {
 					alert("succcess")
-					console.log(bodyObj._id);
 				}
 				eagerLoadBatch(bodyObj)
 			})
