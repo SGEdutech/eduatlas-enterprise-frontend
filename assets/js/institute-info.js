@@ -57,6 +57,7 @@ const instituteInfo = (() => {
 					console.log("rendered one tab");
 					instituteData.category = obj.category;
 					let allBatches = [];
+					const allStudentsArr = instituteData.students;
 					if (instituteData.courses) {
 						instituteData.courses.forEach(course => {
 							course.parentId = instituteData._id;
@@ -65,6 +66,21 @@ const instituteInfo = (() => {
 									batch.tuitionId = instituteData._id;
 									batch.courseId = course._id;
 									batch.parentCourse = course.code;
+									batch.allstudents = allStudentsArr;
+									// lets replace all studentsId in batches with their real info
+									let newStudentsArr = [];
+									if (batch.students) {
+										batch.students.forEach(studentId => {
+											allStudentsArr.forEach(studentObj => {
+												if (studentObj._id === studentId) {
+													// FIXME: time wasted here = 1 hour
+													studentObj.batchId = batch._id;
+													newStudentsArr.push(studentObj);
+												}
+											})
+										})
+									}
+									batch.students = newStudentsArr;
 									allBatches.push(batch);
 								})
 							}

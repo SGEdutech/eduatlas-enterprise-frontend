@@ -244,6 +244,23 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
+	function editBatchInCourseInTuition(idOfTuition, idOfCourse, idOfBatch, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		if (!checkForHexRegExp.test(idOfCourse)) {
+			console.error("Not a valid idOfCourse");
+		}
+		if (!checkForHexRegExp.test(idOfBatch)) {
+			console.error("Not a valid idOfBatch");
+		}
+		return $.ajax({
+			type: "PUT",
+			url: `tuition/${idOfTuition}/course/${idOfCourse}/batch/${idOfBatch}`,
+			data: bodyObj,
+		});
+	}
+
 	function deleteBatchInCourseInTuition(idOfTuition, idOfCourse, idOfBatch) {
 		if (!checkForHexRegExp.test(idOfTuition)) {
 			console.error("Not a valid idOfTuition");
@@ -320,6 +337,7 @@ const tuitionApiCalls = (() => {
 		editCourseInTuition,
 		deleteCourseInTuition,
 		putBatchInCourseInTuition,
+		editBatchInCourseInTuition,
 		deleteBatchInCourseInTuition,
 		putStudentInBatch,
 		deleteStudentInBatch

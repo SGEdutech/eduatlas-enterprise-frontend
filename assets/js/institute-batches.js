@@ -3,10 +3,14 @@ const instituteBatches = (() => {
 	let $newBatchForm;
 	let $activeBatchContainer;
 	let $deleteButtons;
+	let $editBatchForm;
+	let $removeStudentBtn;
 
 	function cache() {
 		$batchesContainer = $("#batchesContainer");
 		$newBatchForm = $('.new_batch_form');
+		$editBatchForm = $('.edit_batch_form');
+		$removeStudentBtn = $('.remove-student-btn');
 	}
 
 	function cacheNewBatchContainer(tabNumber) {
@@ -28,9 +32,20 @@ const instituteBatches = (() => {
 			addBatch($(this));
 		});
 
+		$editBatchForm.submit(function(e) {
+			e.preventDefault();
+			editBatch($(this));
+		});
+
 		$deleteButtons.click(function(e) {
 			e.preventDefault();
 			deleteBatch($(this))
+		});
+
+		$removeStudentBtn.click(function(e) {
+			alert("btn pressed")
+			// e.preventDefault();
+			removeStudentEntry($(this))
 		});
 	}
 
@@ -49,6 +64,11 @@ const instituteBatches = (() => {
 		tuitionApiCalls.deleteBatchInCourseInTuition(idOfTuition, idOfCourse, cardId).then(data => {
 			eagerRemoveCard(cardId);
 		}).catch(err => console.error(err));
+	}
+
+	function removeStudentEntry($element) {
+		let entryId = $element.attr('data-entry');
+		eagerRemoveCard(entryId);
 	}
 
 	function eagerRemoveCard(cardId) {
@@ -99,6 +119,31 @@ const instituteBatches = (() => {
 				}
 				eagerLoadBatch(bodyObj)
 			})
+		}).catch(err => console.error(err));
+	}
+
+	function editBatch(form) {
+		if (!form) { return }
+		const tabNumber = form.attr("data-tabNumber");
+		const tuitionId = form.attr("data-tuition");
+		const courseId = form.attr("data-course");
+		const batchId = form.attr("data-batch");
+		const modalId = form.attr("data-modal");
+
+		const serializedArrayForm = form.serializeArray()
+		let bodyObj = {};
+		bodyObj.students = [];
+		serializedArrayForm.forEach(obj => {
+			if (obj.name === "students") {
+				bodyObj.students.push(obj.value);
+			} else {
+				bodyObj[obj.name] = obj.value;
+			}
+		})
+
+		tuitionApiCalls.editBatchInCourseInTuition(tuitionId, courseId, batchId, bodyObj).then(data => {
+			$('#' + modalId).modal('toggle');
+			alert("success");
 		}).catch(err => console.error(err));
 	}
 

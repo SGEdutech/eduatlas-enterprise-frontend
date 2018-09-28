@@ -52,32 +52,35 @@
 					<div class="card-subtitle text-muted h5" id="userIdContainer"></div>
 					<button class="btn btn-outline-info btn-round" onclick="logout()">Logout</button>
 				</div>
-
 			</div>
-
 			<div class="card">
 				<div class="card-body p-1 p-md-3">
 					<ul class="nav nav-pills nav-pills-info flex-column" id="nav-pills-list">
 						<li class="nav-item">
-							<a class="nav-link active" href="#tab2" data-toggle="tab"> Dashboard</a>
+							<a class="nav-link active" href="#tab2" data-toggle="tab">Dashboard</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#tab3" data-toggle="tab"> Edit Profile</a>
+							<a class="nav-link" href="#tab3" data-toggle="tab">My Listing</a>
+							<ul class="nav nav-pills nav-pills-info flex-column">
+								<li class="nav-item">
+									<a class="nav-link text-right" href="#tab2" data-toggle="tab">IMS PP</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-right" href="#tab2" data-toggle="tab">IMS KC</a>
+								</li>
+							</ul>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#tab6" data-toggle="tab"> Add Tuition</a>
+							<a class="nav-link" href="#tab6" data-toggle="tab">Resources</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#tab7" data-toggle="tab"> Add School</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#tab8" data-toggle="tab"> Add Event</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link disabled" href="#" data-toggle="tab"> My Listings</a>
+							<a class="nav-link" href="#tab7" data-toggle="tab">My Shop</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="#testprdt" data-toggle="tab">Test Item</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#testitem2" data-toggle="tab">Test Item2</a>
 						</li>
 						<hr>
 					</ul>
@@ -132,7 +135,7 @@
 								</div>
 								<div class="tab-pane" id="link4" aria-expanded="false">
 									<div class="container">
-										<div class="row" id="notification-container">
+										<div class="row">
 											<div class="card text-center">
 												<div class="card-body">
 													<h4 class="card-title">No Notifications</h4>
@@ -193,15 +196,15 @@
 												<div class="col">
 													<div class="row form-group">
 														<label for="al1">Address Line 1</label>
-														<input class="form-control" type="text" id="al1" name="addressLine1" required>
+														<input class="form-control" type="text" id="al1" name="addressLine1">
 													</div>
 													<div class="row form-group">
 														<label for="al2">Address Line 2</label>
-														<input class="form-control" type="text" id="al2" name="addressLine2" required>
+														<input class="form-control" type="text" id="al2" name="addressLine2">
 													</div>
 													<div class="row form-group">
 														<label for="inputCity">City</label>
-														<select id="inputCity" name="city" class="form-control inputCity" required>
+														<select id="inputCity" name="city" class="form-control inputCity">
 															<option selected>Choose...</option>
 														</select>
 													</div>
@@ -211,11 +214,11 @@
 													</div>
 													<div class="row form-group">
 														<label for="inputState">State</label>
-														<input class="form-control inputState" type="text" id="inputState" name="state" required>
+														<input class="form-control inputState" type="text" id="inputState" name="state">
 													</div>
 													<div class="row form-group">
 														<label for="country">Country</label>
-														<input class="form-control" value="India" type="text" id="country" name="country" required>
+														<input class="form-control" value="India" type="text" id="country" name="country">
 													</div>
 													<div class="row form-group">
 														<label for="pin">Pin</label>
@@ -226,11 +229,9 @@
 										</div>
 									</div>
 								</div>
-
 								<div class="card">
 									<div class="card-body">
 										<h2 class="card-title h3">Facilities:</h2>
-
 										<div id="facilityContainer">
 											<!--todo - fix backend to support array in facilities-->
 											<div class="form-check form-check-inline">
@@ -310,7 +311,7 @@
 									<div class="card-body">
 										<h2 class="card-title h3">Category</h2>
 										<div id="cateContainer">
-											<select id="category" name="category" class="selectpicker form-control" data-style="btn btn-link" multiple required>
+											<select id="category" name="category" class="selectpicker form-control" data-style="btn btn-link" multiple>
 												<option value="Tuition Centers">Tuition Centers</option>
 												<option value="Coaching Centers">Coaching Centers</option>
 												<option value="Enhanced Learning">Enhanced Learning</option>
@@ -369,7 +370,7 @@
 													<h6>School Name</h6>
 												</div>
 												<div class="col-md-9">
-													<input id="sName" class="form-control" type="text" name="name" required>
+													<input id="sName" class="form-control" type="text" name="name">
 												</div>
 
 											</div>
@@ -377,15 +378,15 @@
 												<div class="col">
 													<div class="row form-group">
 														<label for="al1School">Address Line 1</label>
-														<input class="form-control" type="text" id="al1School" name="addressLine1" required>
+														<input class="form-control" type="text" id="al1School" name="addressLine1">
 													</div>
 													<div class="row form-group">
 														<label for="al2School">Address Line 2</label>
-														<input class="form-control" type="text" id="al2School" name="addressLine2" required>
+														<input class="form-control" type="text" id="al2School" name="addressLine2">
 													</div>
 													<div class="row form-group">
 														<label for="inputCitySchool">City</label>
-														<select id="inputCitySchool" name="city" class="form-control inputCity" required>
+														<select id="inputCitySchool" name="city" class="form-control inputCity">
 															<option selected>Choose...</option>
 														</select>
 													</div>
@@ -395,11 +396,11 @@
 													</div>
 													<div class="row form-group">
 														<label for="inputStateSchool">State</label>
-														<input class="form-control inputState" type="text" id="inputStateSchool" name="state" required>
+														<input class="form-control inputState" type="text" id="inputStateSchool" name="state">
 													</div>
 													<div class="row form-group">
 														<label for="countrySchool">Country</label>
-														<input class="form-control" value="India" type="text" id="countrySchool" name="country" required>
+														<input class="form-control" value="India" type="text" id="countrySchool" name="country">
 													</div>
 													<div class="row form-group">
 														<label for="pinSchool">Pin</label>
@@ -418,7 +419,7 @@
 										<div id="otherDetailsContainerSchool">
 											<div class="row form-group mb-4">
 												<label for="curriculumSchool" class="text-dark">Curriculum</label>
-												<select id="curriculumSchool" name="curriculum" class="selectpicker form-control" data-style="btn btn-link" required>
+												<select id="curriculumSchool" name="curriculum" class="selectpicker form-control" data-style="btn btn-link">
 													<option disabled selected>Choose your option</option>
 													<option value="CBSE">CBSE</option>
 													<option value="ICSE">ICSE</option>
@@ -433,7 +434,7 @@
 
 											<div class="row form-group mb-4">
 												<label for="grades" class="text-dark">Grades</label>
-												<select id="grades" name="grades" class="selectpicker form-control" data-style="btn btn-link" multiple required>
+												<select id="grades" name="grades" class="selectpicker form-control" data-style="btn btn-link" multiple>
 													<option disabled>Choose multiple</option>
 													<option value="Nursery">Nursery</option>
 													<option value="Kindergarten">Kindergarten</option>
@@ -454,7 +455,7 @@
 
 											<div class="row form-group mb-4">
 												<label for="type" class="text-dark">Type Of Schooling</label>
-												<select id="type" name="type" class="selectpicker form-control" data-style="btn btn-link" required>
+												<select id="type" name="type" class="selectpicker form-control" data-style="btn btn-link">
 													<option disabled selected>Choose your option</option>
 													<option value="Day">Day School</option>
 													<option value="Day Boarding">Day Boarding</option>
@@ -471,16 +472,12 @@
 												<input id="yearFounded" class="form-control" type="number" name="yearFounded">
 											</div>
 										</div>
-
 									</div>
 								</div>
-
 								<div class="card">
 									<div class="card-body">
 										<h2 class="card-title h3">Facilities:</h2>
-
 										<div id="facilityContainerSchool">
-											<!--todo - fix backend to support array in facilities-->
 											<div class="form-check form-check-inline">
 												<label class="form-check-label">
 													<input class="form-check-input" type="checkbox" name="facilities" id="inlineRadio1School" value="Library/Study Area">
@@ -606,7 +603,7 @@
 									<div class="card-body">
 										<h2 class="card-title h3">Category</h2>
 										<div id="cateContainerSchool">
-											<select id="categorySchool" name="category" class="selectpicker form-control" data-style="btn btn-link" multiple required>
+											<select id="categorySchool" name="category" class="selectpicker form-control" data-style="btn btn-link" multiple>
 												<option disabled>Choose your option</option>
 												<option value="Pre/Play School">Pre/Play School</option>
 												<option value="Day Care">Day Care</option>
@@ -620,7 +617,6 @@
 								<div class="card">
 									<div class="card-body">
 										<h2 class="card-title h3">Add/Change Cover Pic</h2>
-
 										<div class="fileinput fileinput-new text-center" data-provides="fileinput">
 											<div class="fileinput-new thumbnail img-raised">
 												<img src="assets/img/preview.jpg" ; style="-webkit-filter: grayscale(100%);
@@ -654,12 +650,12 @@
 													<h6>Event Name</h6>
 												</div>
 												<div class="col-md-9">
-													<input id="eName" class="form-control" type="text" name="name" required>
+													<input id="eName" class="form-control" type="text" name="name">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="exampleFormControlTextarea1">Description</label>
-												<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" required></textarea>
+												<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
 											</div>
 											<div class="row">
 												<h6>For Age Group</h6>
@@ -680,11 +676,11 @@
 											<div class="row">
 												<div class="col-md-6 form-group">
 													<label for="fromDate">From Date</label>
-													<input class="form-control text-gray" type="date" id="fromDate" name="fromDate" required>
+													<input class="form-control text-gray" type="date" id="fromDate" name="fromDate">
 												</div>
 												<div class="col-md-6 form-group">
 													<label for="toDate">To Date</label>
-													<input class="form-control text-gray" type="date" id="toDate" name="toDate" required>
+													<input class="form-control text-gray" type="date" id="toDate" name="toDate">
 												</div>
 											</div>
 											<div class="row">
@@ -713,7 +709,7 @@
 												</div>
 												<div class="col-md-6 form-group">
 													<label for="organiserPhone">Contact Person Phone Number</label>
-													<input class="form-control" type="number" id="organiserPhone" name="organiserPhone" required>
+													<input class="form-control" type="number" id="organiserPhone" name="organiserPhone">
 												</div>
 											</div>
 											<div class="row">
@@ -723,7 +719,7 @@
 												</div>
 												<div class="col-md-6 form-group">
 													<label for="website">Event Official Website</label>
-													<input class="form-control" type="text" id="website" name="website" required>
+													<input class="form-control" type="text" id="website" name="website">
 												</div>
 											</div>
 											<div class="row">
@@ -733,15 +729,15 @@
 													</div>
 													<div class="row form-group">
 														<label for="al1Event">Address Line 1</label>
-														<input class="form-control" type="text" id="al1Event" name="addressLine1" required>
+														<input class="form-control" type="text" id="al1Event" name="addressLine1">
 													</div>
 													<div class="row form-group">
 														<label for="al2Event">Address Line 2</label>
-														<input class="form-control" type="text" id="al2Event" name="addressLine2" required>
+														<input class="form-control" type="text" id="al2Event" name="addressLine2">
 													</div>
 													<div class="row form-group">
 														<label for="inputCityEvent">City</label>
-														<select id="inputCityEvent" name="city" class="form-control inputCity" required>
+														<select id="inputCityEvent" name="city" class="form-control inputCity">
 															<option selected>Choose...</option>
 														</select>
 													</div>
@@ -751,11 +747,11 @@
 													</div>
 													<div class="row form-group">
 														<label for="inputStateEvent">State</label>
-														<input class="form-control inputState" type="text" id="inputStateEvent" name="state" required>
+														<input class="form-control inputState" type="text" id="inputStateEvent" name="state">
 													</div>
 													<div class="row form-group">
 														<label for="countryEvent">Country</label>
-														<input class="form-control" value="India" type="text" id="countryEvent" name="country" required>
+														<input class="form-control" value="India" type="text" id="countryEvent" name="country">
 													</div>
 													<div class="row form-group">
 														<label for="pinEvent">Pin</label>
@@ -765,7 +761,7 @@
 											</div>
 											<h3 class="card-title">Category :</h3>
 											<label for="categoryEvent">Category</label>
-											<select id="categoryEvent" name="category" class="selectpicker" data-style="btn btn-link" multiple required>
+											<select id="categoryEvent" name="category" class="selectpicker" data-style="btn btn-link" multiple>
 												<option disabled>Choose your option</option>
 												<option value="Cultural">Cultural</option>
 												<option value="Annual Day">Annual Day</option>
@@ -819,10 +815,14 @@
 									</div>
 								</div>
 								<ul class="nav nav-pills nav-pills-rose">
-									<li class="nav-item"><a class="nav-link active" href="#pill1" data-toggle="tab">Configure</a></li>
-									<li class="nav-item"><a class="nav-link" href="#pill2" data-toggle="tab">Promoter</a></li>
+									<li class="nav-item"><a class="nav-link active" href="#pill1" data-toggle="tab">Dashboard</a></li>
+									<li class="nav-item"><a class="nav-link" href="#pill2" data-toggle="tab">Configure</a></li>
 									<li class="nav-item"><a class="nav-link" href="#pill3" data-toggle="tab">Messages</a></li>
-									<li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Form</a></li>
+									<li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Schedules</a></li>
+									<li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Attendence</a></li>
+									<li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Report Cards</a></li>
+									<li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Finance</a></li>
+									<li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Utilities</a></li>
 								</ul>
 								<hr>
 								<div class="tab-content tab-space">
@@ -830,9 +830,1210 @@
 										<div class="row m-0">
 											<div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
 												<ul class="nav nav-pills nav-pills-rose flex-column">
+													<li class="nav-item"><a class="nav-link active" href="#innertab1" data-toggle="tab">Stats</a></li>
+													<li class="nav-item"><a class="nav-link" href="#innertab2" data-toggle="tab">Leads</a></li>
+													<li class="nav-item"><a class="nav-link" href="#innertab3" data-toggle="tab">Promote</a></li>
+													<li class="nav-item"><a class="nav-link p-0" href="#innertab3" data-toggle="tab">Edit Institute</a></li>
+												</ul>
+											</div>
+											<div class="col-md-10">
+												<div class="tab-content">
+													<div class="tab-pane active" id="innertab1">
+														<div class="row m-0">
+															<div class="card m-0 mb-4">
+																<form class="new_course_form" data-tabNumber="tabNumber">
+																	<div class="row card-body">
+																		<div class="col-md-6">
+																			<div class="form-group label-floating is-empty has-rose bmd-form-group">
+																				<input type="text" name="name" class="form-control" placeholder="Course Name">
+																				<span class="material-input"></span>
+																			</div>
+																		</div>
+																		<div class="col-md-6">
+																			<div class="form-group label-floating is-empty has-rose bmd-form-group">
+																				<input type="number" name="fees" class="form-control" placeholder="Course Fee">
+																				<span class="material-input"></span>
+																			</div>
+																		</div>
+																		<div class="col-md-6">
+																			<div class="form-group label-floating has-rose is-empty bmd-form-group">
+																				<textarea name="description" class="form-control" rows="4" placeholder="Description(Optional)"></textarea>
+																				<span class="material-input"></span>
+																			</div>
+																		</div>
+																		<div class="col-md-6">
+
+																			<label for="active-till">Active Till</label>
+																			<input id="active-till" name="email" class="form-control" type="date" placeholder="Active Till(Date)">
+																			<span class="material-input"></span>
+
+																			<button type="submit" class="btn btn-round btn-rose pull-right">
+																				ADD Courses
+																				<div class="ripple-container"></div>
+																			</button>
+																		</div>
+																	</div>
+																	<input type="hidden" name="listingId" value="{{_id}}">
+																	<input type="hidden" name="listingCategory" value="{{category}}">
+																</form>
+															</div>
+
+															<div class="card-profile card-plaina  m-0">
+																<div class="card">
+																	<div class="container">
+																		<div class="section section-comments">
+																			<div class="row">
+																				<div class="col-md-4">
+																					<p class="font-weight-bold"> NEW LEADS </p>
+																					<div class="media-area main-raised m-0">
+																						<div class="media">
+																							<a class="float-left" href="#pablo">
+																								<div class="avatar">
+																									<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+																								</div>
+																							</a>
+																							<div class="media-body">
+																								<h4 class="media-heading">Parshant Gupta
+																									<small>Joined On 23-Jan-18</small>
+																								</h4>
+																							</div>
+																						</div>
+																					</div>
+																					<div class="media-area main-raised m-0">
+																						<div class="media">
+																							<a class="float-left" href="#pablo">
+																								<div class="avatar">
+																									<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+																								</div>
+																							</a>
+																							<div class="media-body">
+																								<h4 class="media-heading">Parshant Gupta
+																									<small>Joined On 23-Jan-18</small>
+																								</h4>
+																							</div>
+																						</div>
+																					</div>
+																					<div class="media-area main-raised m-0">
+																						<div class="media">
+																							<a class="float-left" href="#pablo">
+																								<div class="avatar">
+																									<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+																								</div>
+																							</a>
+																							<div class="media-body">
+																								<h4 class="media-heading">Parshant Gupta
+																									<small>Joined On 23-Jan-18</small>
+																								</h4>
+																							</div>
+																						</div>
+																					</div>
+																					<div class="media-area main-raised m-0">
+																						<div class="media">
+																							<a class="float-left" href="#pablo">
+																								<div class="avatar">
+																									<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+																								</div>
+																							</a>
+																							<div class="media-body">
+																								<h4 class="media-heading">Parshant Gupta
+																									<small>Joined On 23-Jan-18</small>
+																								</h4>
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="col-md-4">
+																					<p class="font-weight-bold text-danger"> ALERTS/REMINDERS </p>
+																					<div class="media-area main-raised m-0">
+																						<div class="media">
+																							<a class="float-left" href="#pablo">
+																								<div class="avatar">
+																									<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+																								</div>
+																							</a>
+																							<div class="media-body">
+																								<h4 class="media-heading">Parshant Gupta
+																									<small>Joined On 23-Jan-18</small>
+																								</h4>
+																							</div>
+																						</div>
+																					</div>
+
+																					<div class="media-area main-raised m-0">
+																						<div class="media">
+																							<a class="float-left" href="#pablo">
+																								<div class="avatar">
+																									<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+																								</div>
+																							</a>
+																							<div class="media-body">
+																								<h4 class="media-heading">Parshant Gupta
+																									<small>Joined On 23-Jan-18</small>
+																								</h4>
+																							</div>
+																						</div>
+																					</div>
+
+																					<div class="media-area main-raised m-0">
+																						<div class="media">
+																							<a class="float-left" href="#pablo">
+																								<div class="avatar">
+																									<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+																								</div>
+																							</a>
+																							<div class="media-body">
+																								<h4 class="media-heading">Parshant Gupta
+																									<small>Joined On 23-Jan-18</small>
+																								</h4>
+																							</div>
+																						</div>
+																					</div>
+
+
+
+																					<div class="media-area main-raised m-0">
+																						<div class="media">
+																							<a class="float-left" href="#pablo">
+																								<div class="avatar">
+																									<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+																								</div>
+																							</a>
+																							<div class="media-body">
+																								<h4 class="media-heading">Parshant Gupta
+																									<small>Joined On 23-Jan-18</small>
+																								</h4>
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="col-md-4">
+																					<p class="font-weight-bold text-danger"> LATEST REVIEWS </p>
+																					<div class="media-area main-raised m-0">
+																						<div class="media">
+																							<a class="float-left" href="#pablo">
+																								<div class="avatar">
+																									<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+																								</div>
+																							</a>
+																							<div class="media-body">
+																								<h4 class="media-heading">Parshant Gupta
+																									<small>Joined On 23-Jan-18</small>
+																								</h4>
+																							</div>
+																						</div>
+																					</div>
+																					<div class="media-area main-raised m-0">
+																						<div class="media">
+																							<a class="float-left" href="#pablo">
+																								<div class="avatar">
+																									<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+																								</div>
+																							</a>
+																							<div class="media-body">
+																								<h4 class="media-heading">Parshant Gupta
+																									<small>Joined On 23-Jan-18</small>
+																								</h4>
+																							</div>
+																						</div>
+																					</div>
+																					<div class="media-area main-raised m-0">
+																						<div class="media">
+																							<a class="float-left" href="#pablo">
+																								<div class="avatar">
+																									<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+																								</div>
+																							</a>
+																							<div class="media-body">
+																								<h4 class="media-heading">Parshant Gupta
+																									<small>Joined On 23-Jan-18</small>
+																								</h4>
+																							</div>
+																						</div>
+																					</div>
+																					<div class="media-area main-raised m-0">
+																						<div class="media">
+																							<a class="float-left" href="#pablo">
+																								<div class="avatar">
+																									<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+																								</div>
+																							</a>
+																							<div class="media-body">
+																								<h4 class="media-heading">Parshant Gupta
+																									<small>Joined On 23-Jan-18</small>
+																								</h4>
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+														</div>
+														<br><br>
+													</div>
+													<div class="tab-pane" id="innertab2">
+														<div class="card card-profile card-plaina main-raised m-0">
+															<div class="row card-body">
+																<div class="col-md-6">
+																	<h4 class="card-title text-left">Bulk Upload</h4>
+																	<p class="description text-left">use the excel template
+																		to bulk
+																		Upload your student data please do not edit
+																		template</p>
+																</div>
+																<div class="col-md-5">
+																	<button class="btn btn-round btn-rose">Download
+																		Template</button>
+																	<button class="btn btn-round btn-rose">Upload Template</button>
+																</div>
+															</div>
+														</div>
+														<br>
+
+
+														<div class="card card-profile main-raised m-0">
+															<div class="card-body text-left has-rose">
+																<div class="row">
+																	<div class="col-md-12">
+																		<h4 class="card-title">Auto Fields</h4>
+																		<input type="text" value="" placeholder="-EA Membership number" class="form-control" />
+																		<h4 class="card-title">Compulsory Fields</h4>
+																		<div class="row">
+																			<div class="col-md-4">
+																				<input type="text" value="" placeholder="Student Roll No." class="form-control" />
+																			</div>
+																			<div class="col-md-4">
+																				<input type="text" value="" placeholder="Student Name" class="form-control" />
+																			</div>
+																			<div class="col-md-4">
+																				<input type="text" value="" placeholder="Student E-mail" class="form-control" />
+																			</div>
+																		</div>
+
+																	</div>
+																	<div class="col-md-12">
+																		<h4 class="card-title">Additional Fields</h4>
+																		<div class="row">
+																			<div class="col-md-6">
+																				<input type="text" value="" placeholder="Address" class="form-control" />
+																			</div>
+																			<div class="col-md-6">
+																				<input type="text" value="" placeholder="Contact No." class="form-control" />
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col-md-12">
+																		<h4 class="card-title">Payment Details</h4>
+																		<div class="row">
+																			<div class="col-md-4">
+																				<input type="text" value="" placeholder="-Product Name" class="form-control" />
+																			</div>
+																			<div class="col-md-4">
+																				<input type="text" value="" placeholder="-Products Fees" class="form-control" />
+																			</div>
+																			<div class="col-md-4">
+																				<input type="text" value="" placeholder="-Discount Amount Given" class="form-control" />
+																			</div>
+																			<div class="col-md-4">
+																				<input type="text" value="" placeholder="-Discount Reason" class="form-control" />
+																			</div>
+																			<div class="col-md-4">
+																				<input type="text" value="" placeholder="-Net Fee" class="form-control" />
+																			</div>
+																			<div class="col-md-4">
+																				<input type="text" value="" placeholder="-Fee Collected" class="form-control" />
+																			</div>
+																			<div class="col-md-4">
+																				<input type="text" value="" placeholder="-Mode Of Payment" class="form-control" />
+																			</div>
+																			<div class="col-md-4">
+																				<input type="text" value="" placeholder="-Balance Pending" class="form-control" />
+																			</div>
+																			<div class="col-md-4">
+																				<input type="text" value="" placeholder="-next installment details" class="form-control" />
+																			</div>
+																			<div class="col-md-4">
+																				<input type="text" value="" placeholder="-print receipt" class="form-control" />
+																			</div>
+																			<div class="col-md-4">
+																				<input type="text" value="" placeholder="-add to batch code" class="form-control" />
+																			</div>
+																			<div class="col-md-12 mt-3">
+																				<button class="btn btn-round btn-rose">ADD
+																					STUDENTS</button>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="card">
+															<div class=" card-title col-12 h3">
+																Active Students(143)
+															</div>
+															<div class="container">
+																<div class="section section-comments">
+																	<div class="row">
+																		<div class="col-md-4">
+																			<div class="media-area main-raised">
+																				<div class="media">
+																					<a class="float-left" href="#pablo">
+																						<div class="avatar">
+																							<img class="media-object" src="../assets/img/logo.png" alt="...">
+																						</div>
+																					</a>
+																					<div class="media-body">
+																						<h4 class="media-heading">Prashant
+																							Gupta<br>
+																							<small>joined on 2017</small>
+																						</h4>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-md-4">
+																			<div class="media-area main-raised">
+																				<div class="media">
+																					<a class="float-left" href="#pablo">
+																						<div class="avatar">
+																							<img class="media-object" src="../assets/img/logo.png" alt="...">
+																						</div>
+																					</a>
+																					<div class="media-body">
+																						<h4 class="media-heading">Prashant
+																							Gupta<br>
+																							<small>joined on 2017</small>
+																						</h4>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+
+																		<div class="col-md-4">
+																			<div class="media-area main-raised">
+																				<div class="media">
+																					<a class="float-left" href="#pablo">
+																						<div class="avatar">
+																							<img class="media-object" src="../assets/img/logo.png" alt="...">
+																						</div>
+																					</a>
+																					<div class="media-body">
+																						<h4 class="media-heading">Prashant
+																							Gupta<br>
+																							<small>joined on 2017</small>
+																						</h4>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="tab-pane" id="innertab3">
+														<div class="row m-0">
+															<div class="card m-0 mb-4">
+																<form class="new_batch_form" data-tabNumber="tabNumber">
+																	<div class="row card-body">
+																		<div class="col-md-6">
+																			<div class="form-group">
+																				<label for="courseIdSelect">Choose Course for your batch</label>
+																				<select class="form-control selectpicker courseIdSelect" data-style="btn btn-link" name="courseId">
+																					<option value="{{_id}}"></option>
+																				</select>
+																			</div>
+																		</div>
+																		<div class="col-md-6">
+																			<div class="form-group label-floating is-empty has-rose bmd-form-group">
+																				<input type="text" name="name" class="form-control" placeholder="Batch Name">
+																				<span class="material-input"></span>
+																			</div>
+																		</div>
+																		<div class="col-md-6">
+																			<div class="form-group label-floating has-rose is-empty bmd-form-group">
+																				<textarea name="description" class="form-control" rows="4" placeholder="Description(Optional)"></textarea>
+																				<span class="material-input"></span>
+																			</div>
+																		</div>
+																		<div class="col-md-6">
+																			<button type="submit" class="btn btn-round btn-rose pull-right">
+																				ADD Batch
+																				<div class="ripple-container"></div>
+																			</button>
+																		</div>
+																	</div>
+																	{{!-- <input type="hidden" name="courseId" value="{{_id}}"> --}}
+																</form>
+															</div>
+															<div class="card-title col-12 h3">
+																Active Batches
+															</div>
+															<div class="col-12">
+																<div class="row">
+																	<div class="col-md-4" id="#">
+																		<div class="card">
+																			<div class="card-body ">
+																				<h4 class="card-title">
+																					<a href="#pablo">{{name}}</a>
+																				</h4>
+																				<p class="card-text">
+																					{{description}}
+																				</p>
+																				<p class="card-text">
+																					<small class="text-secondary">Course:</small>
+																					<small class="text-danger">{{parentCourse}}</small>
+																				</p>
+																			</div>
+																			<div class="card-footer ">
+																				<div class="stats ml-auto">
+																					<i class="material-icons delete-batch-btn" style="top: 0%; cursor: pointer;" data-id="{{_id}}">delete</i>
+																					<i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div id="active_batch_container{{tabNumber}}" class="row">
+																</div>
+															</div>
+															<div class="card-title col-12 h3">
+																Inactive Batches
+															</div>
+															<div class="col-md-4">
+																<div class="card">
+																	<div class="card-body ">
+																		<h4 class="card-title">
+																			<a href="#pablo">Jul17</a>
+																		</h4>
+																		<p class="card-text">
+																			morning batch
+																		</p>
+																		<p class="card-text">
+																			<small class="text-secondary">Course:</small>
+																			<small class="text-danger">MBA Prep 18</small>
+																		</p>
+																	</div>
+																	<div class="card-footer ">
+																		<div class="stats ml-auto">
+																			<i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
+																			<i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="tab-pane" id="innertab4">
+														Completely synergize resource taxing relationships via premier
+														niche markets.
+														Professionally cultivate one-to-one customer service with robust
+														ideas.
+														<br><br>Dynamically innovate resource-leveling customer service for
+														state of the art
+														customer service.
+													</div>
+												</div>
+											</div>
+										</div>
+										<br><br>
+									</div>
+									<div class="tab-pane" id="pill2">
+										<ul class="nav nav-pills nav-pills-rose nav-pills-icons" role="tablist">
+											<li class="nav-item col-3">
+												<a class="nav-link active" href="#dashboard-1" role="tab" data-toggle="tab">
+													<i class="material-icons" style="font-size: 48px">
+														home
+													</i>
+													Ad Stats for
+													<h4 class="info-title">
+														HOMEPAGE</h4>
+												</a>
+												<a class="nav-link" href="#dashboard-1" data-toggle="modal" data-target="#promoterModal">
+													<span class="badge badge-pill badge-danger">Not purchased</span>
+													<i class="material-icons" style="font-size: 48px">
+														home
+													</i>
+													Ad Stats for
+													<h4 class="info-title">
+														HOMEPAGE</h4>
+												</a>
+											</li>
+											<li class="nav-item col-3">
+												<a class="nav-link" href="#schedule-1{{tabNumber}}" role="tab" data-toggle="tab">
+													<i class="material-icons" style="font-size: 48px">
+														search
+													</i>
+													Ad Stats for
+													<h4 class="info-title">
+														SEARCHPAGE</h4>
+												</a>
+												<a class="nav-link" href="#schedule-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
+													<span class="badge badge-pill badge-danger">Not purchased</span>
+													<i class="material-icons" style="font-size: 48px">
+														search
+													</i>
+													Ad Stats for
+													<h4 class="info-title">
+														SEARCHPAGE</h4>
+												</a>
+											</li>
+											<li class="nav-item col-3">
+												<a class="nav-link" href="#tasks-1{{tabNumber}}" role="tab" data-toggle="tab">
+													<span class="badge badge-pill badge-danger">Not purchased</span>
+													<i class="material-icons" style="font-size: 48px">
+														format_list_bulleted
+													</i>
+													Ad Stats for
+													<h4 class="info-title">
+														RELATED LISTING</h4>
+												</a>
+												<a class="nav-link" href="##tasks-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
+													<span class="badge badge-pill badge-danger">Not purchased</span>
+													<i class="material-icons" style="font-size: 48px">
+														format_list_bulleted
+													</i>
+													Ad Stats for
+													<h4 class="info-title">
+														RELATED LISTING</h4>
+												</a>
+											</li>
+										</ul>
+										<div class="tab-content tab-space">
+											<div class="tab-pane active" id="dashboard-1tabNumber">
+												<div class="row mx-3 justify-content-around">
+													<div class="col-md-6">
+														<div class="card">
+															<div class="card-body">
+																<div class="card-stats justify-content-around">
+																	<canvas id="myCharttabNumber"></canvas>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-6 ">
+														<div class="card">
+															<div class="card-body">
+																<div class="card-stats justify-content-around">
+																	<canvas id="myChart2tabNumber"></canvas>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="row mx-3">
+													<small>You Don't have promoter subscription, click on above buttons to activate promoter</small>
+												</div>
+											</div>
+											<div class="tab-pane" id="schedule-1tabNumber">
+												<div class="row mx-3 justify-content-around">
+													<div class="col-md-6">
+														<div class="card">
+															<div class="card-body">
+																<div class="card-stats justify-content-around">
+																	<canvas id="myCharttabNumbe1"></canvas>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-6 ">
+														<div class="card">
+															<div class="card-body">
+																<div class="card-stats justify-content-around">
+																	<canvas id="myChart2tabNumbe1"></canvas>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="tab-pane" id="tasks-1">
+												<div class="row mx-3 justify-content-around">
+													<div class="col-md-6">
+														<div class="card">
+															<div class="card-body">
+																<div class="card-stats justify-content-around">
+																	<canvas id="myCharttabNumber2"></canvas>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-6 ">
+														<div class="card">
+															<div class="card-body">
+																<div class="card-stats justify-content-around">
+																	<canvas id="myChart2tabNumber2"></canvas>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="pill3">
+										<div class="row m-0">
+											<div class="col-md-3">
+												<ul class="nav nav-pills nav-pills-rose flex-column">
+													<li class="nav-item"><a class="nav-link active" href="#newmessage" data-toggle="tab">New
+															Messages</a></li>
+													<li class="nav-item"><a class="nav-link" href="#groupchats" data-toggle="tab">
+															Chats</a></li>
+													<li class="nav-item"><a class="nav-link" href="#messagehistory" data-toggle="tab">
+															Forums</a></li>
+													<li class="nav-item"><a class="nav-link" href="#messagehistory" data-toggle="tab">
+															Logs</a></li>
+												</ul>
+											</div>
+											<div class="col-md-9">
+												<div class="tab-content">
+													<div class="tab-pane active" id="newmessage">
+														<div class="card-body card card-profile card-plaina main-raised m-1">
+															<div class="card-title col-12 text-left h4" style="color: #00bcd4;">
+																NEW ANNOUNCEMENT
+															</div>
+														</div>
+														<br><br>
+														<div class="card-body card card-profile card-plaina main-raised m-1">
+															<form class="card-body">
+																<div class="form-group">
+																	<label for="exampleInputEmail1">Select Student/Batch</label>
+																	<div class="px-2" style="height:299px;background-color:rgb(255, 255, 255);overflow-y: auto;max-height:100px;">
+																		<table class="table">
+																			<thead>
+																				<tr>
+																					<th class="text-center">#</th>
+																					<th>Name</th>
+																					<th>Roll Number</th>
+																					<th>Email</th>
+																					<th>Select</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+																				<tr id="">
+																					<td class="text-center">0</td>
+																					<td>Monu Singh</td>
+																					<td>342343</td>
+																					<td>mannvender@yahoo.com</td>
+																					<td>
+																						<input type="checkbox" name="students">
+																					</td>
+																					<input type="hidden" name="students" value="5bab5cf48ed4fc42a4826fb7">
+																				</tr>
+																				<tr id="">
+																					<td class="text-center">1</td>
+																					<td>test</td>
+																					<td>435353</td>
+																					<td>dfsfs</td>
+																					<td>
+																						<input type="checkbox" name="students">
+																					</td>
+																					<input type="hidden" name="students" value="5bab5fd38ed4fc42a4826fb8">
+																				</tr>
+																				<tr id="">
+																					<td class="text-center">2</td>
+																					<td>test2</td>
+																					<td>535</td>
+																					<td>wadad</td>
+																					<td>
+																						<input type="checkbox" name="students">
+																					</td>
+																					<input type="hidden" name="students" value="5bab60ae8ed4fc42a4826fb9">
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+																<div class="card-body card card-profile card-plaina main-raised m-1 p-0">
+																	<div class="form-check">
+																		<label class="form-check-label">
+																			<input class="form-check-input float-right" type="checkbox" value="">
+																			SELECT ALL STUDENTS
+																			<span class="form-check-sign float-right">
+																				<span class="check"></span>
+																			</span>
+																		</label>
+																	</div>
+																</div><br>
+																<div class="form-group">
+																	<label for="exampleInputEmail1">TYPE YOUR MESSAGE/NOTICE/ANNOUNCEMENT HERE</label>
+																	<textarea class="form-control" placeholder="TYPE YOUR MESSAGE/NOTICE/ANNOUNCEMENT HERE" rows="5"></textarea>
+																</div>
+																<button class="btn btn-primary">NOTIFY</button>
+																<button class="btn btn-danger">SEND SMS</button>
+															</form>
+														</div>
+													</div>
+
+													<div class="tab-pane" id="groupchats">
+														<div class="card-profile card-plaina  m-0">
+															<div class="card">
+																<div class="container">
+																	<div class="section section-comments">
+																		<div class="row">
+																			<div class="col-md-6">
+																				<div class="media-area main-raised">
+																					<div class="media">
+																						<a class="float-left" href="#pablo">
+																							<div class="avatar">
+																								<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+																							</div>
+																						</a>
+																						<div class="media-body">
+																							<h4 class="media-heading">Group2
+																								<span class="badge badge-default float-right">4</span><br>
+																								<small>Latest Message Text</small>
+																							</h4>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="col-md-6">
+																				<div class="media-area main-raised">
+																					<div class="media">
+																						<a class="float-left" href="#pablo">
+																							<div class="avatar">
+																								<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
+																							</div>
+																						</a>
+																						<div class="media-body">
+																							<h4 class="media-heading">Group2
+																								<span class="badge badge-default float-right">4</span><br>
+																								<small>Latest Message Text</small>
+																							</h4>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="card-body card card-profile card-plaina main-raised m-1">
+															<div class="card-title col-12 float-left h3">
+																Create New Group
+															</div><br><br>
+															<div class="row">
+																<div class="col-md-6">
+																	<div class="card-title col-12 h5">
+																		Add Students
+																	</div><br><br>
+																	<div class="media-area main-raised">
+																		<div class="media groupchats">
+																			<div class="media-body">
+																				<input type="checkbox" value="">
+																				<span class="media-heading">Student-1
+																					<span class="form-check-sign">
+																						<span class="check"></span>
+																					</span>
+																				</span><br>
+
+																				<input type="checkbox" value="">
+																				<span class="media-heading">Student-1
+																					<span class="form-check-sign">
+																						<span class="check"></span>
+																					</span>
+																				</span><br>
+
+																				<input type="checkbox" value="">
+																				<span class="media-heading">Student-2
+																					<span class="form-check-sign">
+																						<span class="check"></span>
+																					</span>
+																				</span><br>
+
+																				<input type="checkbox" value="">
+																				<span class="media-heading">Student-3
+																					<span class="form-check-sign">
+																						<span class="check"></span>
+																					</span>
+																				</span><br>
+
+																				<input type="checkbox" value="">
+																				<span class="media-heading">Student-4
+																					<span class="form-check-sign">
+																						<span class="check"></span>
+																					</span>
+																				</span><br>
+
+																				<input type="checkbox" value="">
+																				<span class="media-heading">Student-5
+																					<span class="form-check-sign">
+																						<span class="check"></span>
+																					</span>
+																				</span><br>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-md-6">
+																	<div class="card-title col-12 h5">
+																		Select Batches
+																	</div><br><br>
+																	<div class="media-area main-raised">
+																		<div class="media groupchats">
+																			<div class="media-body">
+																				<input type="checkbox" value="">
+																				<span class="media-heading">Batch-1
+																					<span class="form-check-sign">
+																						<span class="check"></span>
+																					</span>
+																				</span><br>
+
+																				<input type="checkbox" value="">
+																				<span class="media-heading">Batch-1
+																					<span class="form-check-sign">
+																						<span class="check"></span>
+																					</span>
+																				</span><br>
+
+																				<input type="checkbox" value="">
+																				<span class="media-heading">Batch-2
+																					<span class="form-check-sign">
+																						<span class="check"></span>
+																					</span>
+																				</span><br>
+
+																				<input type="checkbox" value="">
+																				<span class="media-heading">Batch-3
+																					<span class="form-check-sign">
+																						<span class="check"></span>
+																					</span>
+																				</span><br>
+																				<input type="checkbox" value="">
+																				<span class="media-heading">Batch-4
+																					<span class="form-check-sign">
+																						<span class="check"></span>
+																					</span>
+																				</span><br>
+																				<input type="checkbox" value="">
+																				<span class="media-heading">Batch-5
+																					<span class="form-check-sign">
+																						<span class="check"></span>
+																					</span>
+																				</span><br>
+																			</div>
+																		</div>
+																	</div>
+																	<button type="button" class="btn btn-primary float-right m-4">Create Group</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="pill4">
+										<div class="section-blog-info">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="card-plain">
+														<div class="card-body ">
+															<div class="tab-content text-center">
+																<div class="tab-pane active" id="home">
+																	<div class="card">
+																		<div class="card-body row">
+																			<div class="col-md-2">
+																				<div class="card-avatar">
+																					<a href="#pablo">
+																						<img class="img f-img" src="assets/img/card-profile4-square.jpg">
+																					</a>
+																					<div class="ripple-container"></div>
+																				</div>
+																			</div>
+																			<div class="col-10 text-left">
+																				<a class="row card-link" href="#">
+																					<h3 class="card-heading font-weight-bold">Announcement Thread</h3>
+																				</a>
+																				<div class="row">
+																					<small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
+																				</div>
+																				<div class="row">
+																					<small class="text-secondary">326 comments</small>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="tab-pane" id="updates">
+																	<div class="card">
+																		<div class="card-body row">
+																			<div class="col-md-2">
+																				<div class="card-avatar">
+																					<a href="#pablo">
+																						<img class="img f-img" src="assets/img/card-profile4-square.jpg">
+																					</a>
+																					<div class="ripple-container"></div>
+																				</div>
+																			</div>
+																			<div class="col-10 text-left">
+																				<a class="row card-link" href="#">
+																					<h3 class="card-heading font-weight-bold">Announcement Thread</h3>
+																				</a>
+																				<div class="row">
+																					<small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
+																				</div>
+																				<div class="row">
+																					<small class="text-secondary">326 comments</small>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="tab-pane" id="history">
+																	<div class="card">
+																		<div class="card-body row">
+																			<div class="col-md-2">
+																				<div class="card-avatar">
+																					<a href="#pablo">
+																						<img class="img f-img" src="assets/img/card-profile4-square.jpg">
+																					</a>
+																					<div class="ripple-container"></div>
+																				</div>
+																			</div>
+																			<div class="col-10 text-left">
+																				<a class="row card-link" href="#">
+																					<h3 class="card-heading font-weight-bold">Announcement Thread</h3>
+																				</a>
+																				<div class="row">
+																					<small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
+																				</div>
+																				<div class="row">
+																					<small class="text-secondary">326 comments</small>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<hr>
+
+												</div>
+												<div class="col-md-12">
+													<div class="card-plain">
+														<div class="card-body ">
+															<div class="tab-content text-center">
+																<div class="tab-pane active" id="home">
+																	<div class="card">
+																		<div class="card-body row">
+																			<div class="col-md-2">
+																				<div class="card-avatar">
+																					<a href="#pablo">
+																						<img class="img f-img" src="assets/img/card-profile4-square.jpg">
+																					</a>
+																					<div class="ripple-container"></div>
+																				</div>
+																			</div>
+																			<div class="col-10 text-left">
+																				<a class="row card-link" href="#">
+																					<h3 class="card-heading font-weight-bold">Announcement Thread</h3>
+																				</a>
+																				<div class="row">
+																					<small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
+																				</div>
+																				<div class="row">
+																					<small class="text-secondary">326 comments</small>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="tab-pane" id="updates">
+																	<div class="card">
+																		<div class="card-body row">
+																			<div class="col-md-2">
+																				<div class="card-avatar">
+																					<a href="#pablo">
+																						<img class="img f-img" src="assets/img/card-profile4-square.jpg">
+																					</a>
+																					<div class="ripple-container"></div>
+																				</div>
+																			</div>
+																			<div class="col-10 text-left">
+																				<a class="row card-link" href="#">
+																					<h3 class="card-heading font-weight-bold">Announcement Thread</h3>
+																				</a>
+																				<div class="row">
+																					<small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
+																				</div>
+																				<div class="row">
+																					<small class="text-secondary">326 comments</small>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="tab-pane" id="history">
+																	<div class="card">
+																		<div class="card-body row">
+																			<div class="col-md-2">
+																				<div class="card-avatar">
+																					<a href="#pablo">
+																						<img class="img f-img" src="assets/img/card-profile4-square.jpg">
+																					</a>
+																					<div class="ripple-container"></div>
+																				</div>
+																			</div>
+																			<div class="col-10 text-left">
+																				<a class="row card-link" href="#">
+																					<h3 class="card-heading font-weight-bold">Announcement Thread</h3>
+																				</a>
+																				<div class="row">
+																					<small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
+																				</div>
+																				<div class="row">
+																					<small class="text-secondary">326 comments</small>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<hr>
+
+												</div>
+												<div class="col-md-12">
+													<div class="card-plain">
+														<div class="card-body ">
+															<div class="tab-content text-center">
+																<div class="tab-pane active" id="home">
+																	<div class="card">
+																		<div class="card-body row">
+																			<div class="col-md-2">
+																				<div class="card-avatar">
+																					<a href="#pablo">
+																						<img class="img f-img" src="assets/img/card-profile4-square.jpg">
+																					</a>
+																					<div class="ripple-container"></div>
+																				</div>
+																			</div>
+																			<div class="col-10 text-left">
+																				<a class="row card-link" href="#">
+																					<h3 class="card-heading font-weight-bold">Announcement Thread</h3>
+																				</a>
+																				<div class="row">
+																					<small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
+																				</div>
+																				<div class="row">
+																					<small class="text-secondary">326 comments</small>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="tab-pane" id="updates">
+																	<div class="card">
+																		<div class="card-body row">
+																			<div class="col-md-2">
+																				<div class="card-avatar">
+																					<a href="#pablo">
+																						<img class="img" src="assets/img/card-profile4-square.jpg">
+																					</a>
+																					<div class="ripple-container"></div>
+																				</div>
+																			</div>
+																			<div class="col-10 text-left">
+																				<a class="row card-link" href="#">
+																					<h3 class="card-heading font-weight-bold">Announcement Thread</h3>
+																				</a>
+																				<div class="row">
+																					<small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
+																				</div>
+																				<div class="row">
+																					<small class="text-secondary">326 comments</small>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="tab-pane" id="history">
+																	<div class="card">
+																		<div class="card-body row">
+																			<div class="col-md-2">
+																				<div class="card-avatar">
+																					<a href="#pablo">
+																						<img class="img" src="assets/img/card-profile4-square.jpg">
+																					</a>
+																					<div class="ripple-container"></div>
+																				</div>
+																			</div>
+																			<div class="col-10 text-left">
+																				<a class="row card-link" href="#">
+																					<h3 class="card-heading font-weight-bold">Announcement Thread</h3>
+																				</a>
+																				<div class="row">
+																					<small><span class="text-secondary">submitted</span> 3 days ago <span class="text-secondary">by</span> Principal</small>
+																				</div>
+																				<div class="row">
+																					<small class="text-secondary">326 comments</small>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<hr>
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="tab-pane" id="testitem2">
+							<div class="tab-pane" id="tab{{tabNumber}}">
+								<div class="card bg-info mt-1">
+									<div class="card-body px-3">
+										<h3 class="card-title text-dark" data-id="{{_id}}" data-tabNumber="{{tabNumber}}">
+										</h3>
+										<h5 class="card-title">
+											Study Monitor
+										</h5>
+									</div>
+								</div>
+								<ul class="nav nav-pills nav-pills-rose">
+									<li class="nav-item"><a class="nav-link active" href="#setting" data-toggle="tab">Settings</a></li>
+									<li class="nav-item"><a class="nav-link" href="#promoter" data-toggle="tab">Promoter</a></li>
+									<li class="nav-item"><a class="nav-link" href="#messages" data-toggle="tab">Messages</a></li>
+									<li class="nav-item"><a class="nav-link" href="#form" data-toggle="tab">Form</a></li>
+								</ul>
+								<hr>
+								<div class="tab-content tab-space">
+									<div class="tab-pane active" id="setting">
+										<div class="row m-0">
+											<div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
+												<ul class="nav nav-pills nav-pills-rose flex-column">
 													<li class="nav-item"><a class="nav-link active" href="#innertab1" data-toggle="tab">Courses</a></li>
-													<li class="nav-item"><a class="nav-link" href="#innertab3" data-toggle="tab">Batches</a></li>
 													<li class="nav-item"><a class="nav-link" href="#innertab2" data-toggle="tab">Students</a></li>
+													<li class="nav-item"><a class="nav-link" href="#innertab3" data-toggle="tab">Batches</a></li>
 													<li class="nav-item"><a class="nav-link" href="#innertab4" data-toggle="tab">Active
 															Batches</a></li>
 												</ul>
@@ -841,6 +2042,43 @@
 												<div class="tab-content">
 													<div class="tab-pane active" id="innertab1">
 														<div class="row m-0">
+															<div class="card m-0 mb-4">
+																<form class="new_course_form" data-tabNumber="tabNumber">
+																	<div class="row card-body">
+																		<div class="col-md-6">
+																			<div class="form-group label-floating is-empty has-rose bmd-form-group">
+																				<input type="text" name="name" class="form-control" placeholder="Course Name">
+																				<span class="material-input"></span>
+																			</div>
+																		</div>
+																		<div class="col-md-6">
+																			<div class="form-group label-floating is-empty has-rose bmd-form-group">
+																				<input type="number" name="fees" class="form-control" placeholder="Course Fee">
+																				<span class="material-input"></span>
+																			</div>
+																		</div>
+																		<div class="col-md-6">
+																			<div class="form-group label-floating has-rose is-empty bmd-form-group">
+																				<textarea name="description" class="form-control" rows="4" placeholder="Description(Optional)"></textarea>
+																				<span class="material-input"></span>
+																			</div>
+																		</div>
+																		<div class="col-md-6">
+
+																			<label for="active-till">Active Till</label>
+																			<input id="active-till" name="email" class="form-control" type="date" placeholder="Active Till(Date)">
+																			<span class="material-input"></span>
+
+																			<button type="submit" class="btn btn-round btn-rose pull-right">
+																				ADD Courses
+																				<div class="ripple-container"></div>
+																			</button>
+																		</div>
+																	</div>
+																	<input type="hidden" name="listingId" value="{{_id}}">
+																	<input type="hidden" name="listingCategory" value="{{category}}">
+																</form>
+															</div>
 															<div class="card-title col-12 h3">
 																Active Courses
 															</div>
@@ -895,62 +2133,6 @@
 																		</div>
 																	</div>
 																</div>
-															</div>
-															<div class="card m-0 mb-4">
-																<div class="card-title col-12 h3">
-																	Add New Course/Product
-																</div>
-																<form class="new_course_form" data-tabNumber="tabNumber">
-																	<div class="row card-body">
-																		<div class="col-md-6">
-																			<div class="form-group label-floating is-empty has-rose bmd-form-group">
-																				<input type="text" name="name" class="form-control" placeholder="Course Name" required>
-																				<span class="material-input"></span>
-																			</div>
-																			<div class="form-group label-floating is-empty has-rose bmd-form-group">
-																				<input id="course-code" name="courseCode" class="form-control" type="text" placeholder="Course Code (unique)" required>
-																				<span class="material-input"></span>
-																			</div>
-																			<div class="form-group label-floating has-rose is-empty bmd-form-group">
-																				<textarea name="description" class="form-control" rows="4" placeholder="Description (optional)"></textarea>
-																				<span class="material-input"></span>
-																			</div>
-																		</div>
-																		<div class="col-md-6">
-																			<div class="form-group label-floating is-empty has-rose bmd-form-group">
-																				<input type="text" name="fees" class="form-control" placeholder="Course Fee" required>
-																				<span class="material-input"></span>
-																			</div>
-																			<div class="form-check">
-																				<label class="form-check-label">
-																					<input id="gst-checkbox" class="form-check-input" type="checkbox" value="true">
-																					insclusive of taxes
-																					<span class="form-check-sign">
-																						<span class="check"></span>
-																					</span>
-																				</label>
-																			</div>
-																			<div class="form-group label-floating has-rose is-empty bmd-form-group">
-																				<input id="gst-inp" type="number" name="GST" class="form-control" placeholder="GST (%)" required>
-																				<span class="material-input"></span>
-																			</div>
-																			<div class="form-group label-floating has-rose is-empty bmd-form-group">
-																				<input type="number" name="totalFee" class="form-control" placeholder="Total Fee" required>
-																				<span class="material-input"></span>
-																			</div>
-																		</div>
-																		<div class="col-md-6">
-																		</div>
-																		<div class="col-md-6">
-																			<button type="submit" class="btn btn-round btn-rose pull-right">
-																				ADD Course
-																				<div class="ripple-container"></div>
-																			</button>
-																		</div>
-																	</div>
-																	<input type="hidden" name="listingId" value="{{_id}}">
-																	<input type="hidden" name="listingCategory" value="{{category}}">
-																</form>
 															</div>
 														</div>
 														<br><br>
@@ -1117,7 +2299,40 @@
 													</div>
 													<div class="tab-pane" id="innertab3">
 														<div class="row m-0">
-
+															<div class="card m-0 mb-4">
+																<form class="new_batch_form" data-tabNumber="tabNumber">
+																	<div class="row card-body">
+																		<div class="col-md-6">
+																			<div class="form-group">
+																				<label for="courseIdSelect">Choose
+																					Course for your batch</label>
+																				<select class="form-control selectpicker courseIdSelect" data-style="btn btn-link" name="courseId">
+																					<option value=""></option>
+																				</select>
+																			</div>
+																		</div>
+																		<div class="col-md-6">
+																			<div class="form-group label-floating is-empty has-rose bmd-form-group">
+																				<input type="text" name="name" class="form-control" placeholder="Batch Name">
+																				<span class="material-input"></span>
+																			</div>
+																		</div>
+																		<div class="col-md-6">
+																			<div class="form-group label-floating has-rose is-empty bmd-form-group">
+																				<textarea name="description" class="form-control" rows="4" placeholder="Description(Optional)"></textarea>
+																				<span class="material-input"></span>
+																			</div>
+																		</div>
+																		<div class="col-md-6">
+																			<button type="submit" class="btn btn-round btn-rose pull-right mt-5">
+																				ADD Batch
+																				<div class="ripple-container"></div>
+																			</button>
+																		</div>
+																	</div>
+																	<input type="hidden" name="courseId" value="{{_id}}">
+																</form>
+															</div>
 															<div class="card-title col-12 h3">
 																Active Batches
 															</div>
@@ -1174,95 +2389,6 @@
 																	</div>
 																</div>
 															</div>
-															<div class="card m-0 mb-4">
-																<div class="card-title col-12 h3">
-																	Add New Batch
-																</div>
-																<form class="new_batch_form" data-tabNumber="tabNumber">
-																	<div class="row card-body">
-																		<div class="col-md-6">
-																			<div class="form-group">
-																				<label for="courseIdSelect">Choose
-																					Course for your batch</label>
-																				<select class="form-control selectpicker courseIdSelect" data-style="btn btn-link" name="courseId">
-																					<option value=""></option>
-																				</select>
-																			</div>
-																		</div>
-																		<div class="col-md-6">
-																			<div class="form-group label-floating is-empty has-rose bmd-form-group">
-																				<input type="text" name="name" class="form-control" placeholder="Batch Code (unique)" required>
-																				<span class="material-input"></span>
-																			</div>
-																		</div>
-																		<div class="col-md-6">
-																			<!-- <div class="form-group label-floating has-rose is-empty bmd-form-group">
-																				<textarea name="description" class="form-control" rows="4" placeholder="Description(Optional)"></textarea>
-																				<span class="material-input"></span>
-                                                                            </div> -->
-																			<div class="col-md-6">
-																				<div class="card-title">
-																					Add Students
-																				</div><br><br>
-																				<div class="media-area main-raised">
-																					<div class="media groupchats">
-																						<div class="media-body">
-																							<input type="checkbox" value="">
-																							<span class="media-heading">Student-1
-																								<span class="form-check-sign">
-																									<span class="check"></span>
-																								</span>
-																							</span><br>
-
-																							<input type="checkbox" value="">
-																							<span class="media-heading">Student-1
-																								<span class="form-check-sign">
-																									<span class="check"></span>
-																								</span>
-																							</span><br>
-
-																							<input type="checkbox" value="">
-																							<span class="media-heading">Student-2
-																								<span class="form-check-sign">
-																									<span class="check"></span>
-																								</span>
-																							</span><br>
-
-																							<input type="checkbox" value="">
-																							<span class="media-heading">Student-3
-																								<span class="form-check-sign">
-																									<span class="check"></span>
-																								</span>
-																							</span><br>
-
-																							<input type="checkbox" value="">
-																							<span class="media-heading">Student-4
-																								<span class="form-check-sign">
-																									<span class="check"></span>
-																								</span>
-																							</span><br>
-
-																							<input type="checkbox" value="">
-																							<span class="media-heading">Student-5
-																								<span class="form-check-sign">
-																									<span class="check"></span>
-																								</span>
-																							</span><br>
-																						</div>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																		<div class="col-md-6">
-																			<button type="submit" class="btn btn-round btn-rose pull-right mt-5">
-																				ADD Batch
-																				<div class="ripple-container"></div>
-																			</button>
-																		</div>
-																	</div>
-																	<input type="hidden" name="courseId" value="{{_id}}">
-																</form>
-															</div>
 														</div>
 													</div>
 													<div class="tab-pane" id="innertab4">
@@ -1281,7 +2407,7 @@
 										</div>
 										<br><br>
 									</div>
-									<div class="tab-pane" id="pill2">
+									<div class="tab-pane" id="promoter">
 										<ul class="nav nav-pills nav-pills-rose nav-pills-icons" role="tablist">
 											<li class="nav-item col-3">
 												<a class="nav-link active" href="#dashboard-1" role="tab" data-toggle="tab">
@@ -1415,7 +2541,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="tab-pane" id="pill3">
+									<div class="tab-pane" id="messages">
 										<div class="row m-0">
 											<div class="col-md-3">
 												<ul class="nav nav-pills nav-pills-rose flex-column">
@@ -1707,8 +2833,23 @@
 										</div>
 									</div>
 								</div>
-								<div class="tab-pane" id="pill4">
+								<div class="tab-pane" id="for">
 									<div class="section-blog-info">
+										<div class="card-title col-12 h3">
+											Add New Thread
+										</div>
+										<div class="row card ml-1 p-1">
+
+											<div class="col-md-12">
+												<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title">
+											</div>
+											<div class="col-md-12">
+												<textarea class="form-control" id="exampleFormControlTextarekl" rows="5" placeholder="Enter Content"></textarea>
+											</div>
+											<div class="col-md-12">
+												<button type="button" class="btn btn-primary float-right">ADD<div class="ripple-container"></div></button>
+											</div>
+										</div>
 										<div class="row">
 											<div class="col-md-12">
 												<div class="card-plain">
@@ -1739,6 +2880,8 @@
 																				<small class="text-secondary">326
 																					comments</small>
 																			</div>
+																			<button type="button" class="btn btn-info float-right">DELETE</button>
+																			<button type="button" class="btn btn-primary float-right">EDIT</button>
 																		</div>
 																	</div>
 																</div>
@@ -2006,101 +3149,76 @@
 								</div>
 							</div>
 						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div id="claim_modal_container">
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="claimOrNotModal" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="claimOrNotModal">Claim Newly Added Institute/Event</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="login_modal_container"></div>
-	<div id="promoter_modal_container"></div>
-	<!--   Core JS Files   -->
-	<script src="assets/js/core/jquery.min.js"></script>
-	<script src="assets/js/core/popper.min.js"></script>
-	<script src="assets/js/bootstrap-material-design.js"></script>
-	<!-- Plugin for Date Time Picker and Full Calendar Plugin-->
-	<script src="assets/js/plugins/moment.min.js"></script>
+		<div id="login_modal_container"></div>
+		<div id="promoter_modal_container"></div>
+		<!--   Core JS Files   -->
+		<script src="assets/js/core/jquery.min.js"></script>
+		<script src="assets/js/core/popper.min.js"></script>
+		<script src="assets/js/bootstrap-material-design.js"></script>
+		<!-- Plugin for Date Time Picker and Full Calendar Plugin-->
+		<script src="assets/js/plugins/moment.min.js"></script>
 
-	<!-- Plugin for Select, full documentation here: https://silviomoreto.github.io/bootstrap-select -->
-	<script src="assets/js/plugins/bootstrap-selectpicker.js"></script>
+		<!-- Plugin for Select, full documentation here: https://silviomoreto.github.io/bootstrap-select -->
+		<script src="assets/js/plugins/bootstrap-selectpicker.js"></script>
 
-	<!-- Plugin for Tags, full documentation here: https://xoxco.com/projects/code/tagsinput/  -->
-	<script src="assets/js/plugins/bootstrap-tagsinput.js"></script>
+		<!-- Plugin for Tags, full documentation here: https://xoxco.com/projects/code/tagsinput/  -->
+		<script src="assets/js/plugins/bootstrap-tagsinput.js"></script>
 
-	<!-- Plugin for Fileupload, full documentation here: https://www.jasny.net/bootstrap/javascript/#fileinput -->
-	<script src="assets/js/plugins/jasny-bootstrap.min.js"></script>
+		<!-- Plugin for Fileupload, full documentation here: https://www.jasny.net/bootstrap/javascript/#fileinput -->
+		<script src="assets/js/plugins/jasny-bootstrap.min.js"></script>
 
-	<!-- Plugin for Small Gallery in Product Page -->
-	<script src="assets/js/plugins/jquery.flexisel.js"></script>
+		<!-- Plugin for Small Gallery in Product Page -->
+		<script src="assets/js/plugins/jquery.flexisel.js"></script>
 
-	<!-- Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
-	<script src="assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+		<!-- Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+		<script src="assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
 
-	<!-- Plugin for the Sliders, full documentation here: https://refreshless.com/nouislider/ -->
-	<script src="assets/js/plugins/nouislider.min.js"></script>
+		<!-- Plugin for the Sliders, full documentation here: https://refreshless.com/nouislider/ -->
+		<script src="assets/js/plugins/nouislider.min.js"></script>
 
-	<!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
-	<script src="assets/js/material-kit.js?v=2.0.0"></script>
+		<!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
+		<script src="assets/js/material-kit.js?v=2.0.0"></script>
 
-	<!--HandleBars for templating-->
-	<script src="assets/js/handlebars-v4.0.11.js"></script>
-	<script src="assets/js/templates.js"></script>
+		<!--HandleBars for templating-->
+		<script src="assets/js/handlebars-v4.0.11.js"></script>
+		<script src="assets/js/templates.js"></script>
 
-	<!--seed cities-->
-	<!--Docs at: https://github.com/mroderick/PubSubJS-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pubsub-js/1.6.0/pubsub.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
-	<script src="assets/cities/seed.js"></script>
+		<!--seed cities-->
+		<!--Docs at: https://github.com/mroderick/PubSubJS-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pubsub-js/1.6.0/pubsub.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 
-	<script src="assets/js/ajax-calls/user-api-calls.js"></script>
-	<script src="assets/js/ajax-calls/tuition-api-calls.js"></script>
-	<script src="assets/js/ajax-calls/school-api-calls.js"></script>
-	<script src="assets/js/ajax-calls/event-api-calls.js"></script>
-	<script src="assets/js/ajax-calls/notification-api-calls.js"></script>
-	<script src="assets/js/ajax-calls/promoter-homepage-api-calls.js"></script>
-	<script src="assets/js/ajax-calls/promoter-search-api-calls.js"></script>
-	<script src="assets/js/ajax-calls/promoter-related-api-calls.js"></script>
-	<script src="assets/js/active-products.js"></script>
-	<script src="assets/js/user-claimed.js"></script>
-	<script src="assets/js/user-notification.js"></script>
-	<script src="assets/js/scripts.js"></script>
-	<script src="assets/js/user.js"></script>
-	<script src="assets/js/refresh-select-options.js"></script>
-	<script src="assets/js/login-modal.js"></script>
-	<script src="assets/js/promoter-modal.js"></script>
-	<!-- <script src="assets/js/query-string.js"></script>
-	<script src="assets/js/redirect-tabs.js"></script> -->
-	<script src="assets/js/navbar.js"></script>
-	<script src="assets/js/promoter.js"></script>
-	<script src="assets/js/chart.js"></script>
-	<script src="assets/js/institute-courses.js"></script>
-	<script src="assets/js/institute-batches.js"></script>
-	<script src="assets/js/institute-info.js"></script>
-	<script src="assets/js/institute-students.js"></script>
-	<script src="assets/js/institute-announcement.js"></script>
-	<script src="assets/js/dashboard-edit-profile.js"></script>
-	<script src="assets/js/dashboard-add-tuition.js"></script>
-	<script src="assets/js/dashboard-add-school.js"></script>
-	<script src="assets/js/dashboard-add-event.js"></script>
-	<script src="assets/js/test.js"></script>
-	<script src="assets/js/dashboard-pro-service.js"></script>
+		<script src="assets/js/courses-api-calls.js"></script>
+		<script src="assets/js/tuition-api-calls.js"></script>
+		<script src="assets/js/batches-api-calls.js"></script>
+		<script src="assets/js/promoter-homepage-api-calls.js"></script>
+		<script src="assets/js/promoter-search-api-calls.js"></script>
+		<script src="assets/js/promoter-related-api-calls.js"></script>
+		<script src="assets/js/active-products.js"></script>
+		<script src="assets/js/user-claimed.js"></script>
+		<script src="assets/js/scripts.js"></script>
+		<script src="assets/js/user.js"></script>
+		<script src="assets/js/refresh-select-options.js"></script>
+		<script src="assets/js/login-modal.js"></script>
+		<script src="assets/js/promoter-modal.js"></script>
+		<script src="assets/js/institute-pills.js"></script>
+		<script src="assets/js/query-string.js"></script>
+		<script src="assets/js/redirect-tabs.js"></script>
+		<script src="assets/js/navbar.js"></script>
+		<script src="assets/js/promoter.js"></script>
+		<script src="assets/js/chart.js"></script>
+		<script src="assets/js/institute-courses.js"></script>
+		<script src="assets/js/institute-batches.js"></script>
+		<script src="assets/js/dashboard-edit-profile.js"></script>
+		<script src="assets/js/dashboard-add-tuition.js"></script>
+		<script src="assets/js/dashboard-add-school.js"></script>
+		<script src="assets/js/dashboard-add-event.js"></script>
+		<script src="assets/js/dashboard-pro-service.js"></script>
 
 </body>
 
