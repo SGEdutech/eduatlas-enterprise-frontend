@@ -119,8 +119,9 @@
                                                                                 </div>
                                                                                 <div class="col-md-8 p-0">
                                                                                     <input name="fees" type="text"
-                                                                                        class="form-control bg-white"
-                                                                                        placeholder="COURSE FEE" value="{{fees}}">
+                                                                                        class="form-control bg-white fee-inp"
+                                                                                        placeholder="COURSE FEE" value="{{course.fees}}"
+                                                                                        data-tabNumber="{{course._id}}">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -136,9 +137,9 @@
                                                                                         <div class="col-md-6">
                                                                                             <div class="form-check">
                                                                                                 <label class="form-check-label">
-                                                                                                    <input class="form-check-input"
+                                                                                                    <input class="form-check-input gst-checkbox"
                                                                                                         type="checkbox"
-                                                                                                        value="">
+                                                                                                        data-tabNumber="{{course._id}}">
                                                                                                     INCLUSIVE OF GST
                                                                                                     <span class="form-check-sign">
                                                                                                         <span class="check"></span>
@@ -151,9 +152,10 @@
                                                                                                 <div class="col-md-3 pl-0 pr-0">
                                                                                                     <input name="gst"
                                                                                                         type="text"
-                                                                                                        class="form-control bg-white border rounded  mt-3"
+                                                                                                        class="form-control bg-white border rounded  mt-3 gst-inp"
                                                                                                         style="height:24px;"
-                                                                                                        value="{{course.gst}}">
+                                                                                                        value="{{course.gst}}"
+                                                                                                        data-tabNumber="{{course._id}}">
                                                                                                 </div>
                                                                                                 <div class="col-md-9 pl-0 pr-0 mt-3">
                                                                                                     <p>GST PERCENTAGE</p>
@@ -175,8 +177,9 @@
                                                                                     </span>
                                                                                 </div>
                                                                                 <div class="col-md-8 p-0">
-                                                                                    <input type="text" class="form-control bg-white"
-                                                                                        placeholder="TOTAL FEE" value="{{course.fees}}">
+                                                                                    <input type="text" class="form-control bg-white total-fee"
+                                                                                        placeholder="TOTAL FEE"
+                                                                                        data-tabNumber="{{course._id}}">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -267,8 +270,8 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating is-empty has-rose bmd-form-group">
-                                                    <input type="number" class="form-control fee-inp" placeholder="Course Fee"
-                                                        required data-tabNumber="{{tabNumber}}">
+                                                    <input name="fees" type="number" class="form-control fee-inp"
+                                                        placeholder="Course Fee" required data-tabNumber="{{tabNumber}}">
                                                     <span class="material-input"></span>
                                                 </div>
                                                 <div class="form-check">
@@ -282,14 +285,14 @@
                                                     </label>
                                                 </div>
                                                 <div class="form-group label-floating has-rose is-empty bmd-form-group">
-                                                    <input type="number" class="form-control gst-inp" placeholder="GST (%)"
-                                                        data-tabNumber="{{tabNumber}}">
+                                                    <input name="gst" type="number" class="form-control gst-inp"
+                                                        placeholder="GST (%)" data-tabNumber="{{tabNumber}}">
                                                     <span class="material-input"></span>
                                                 </div>
                                                 <div class="form-group label-floating has-rose is-empty bmd-form-group">
                                                     <label>Total Fee</label>
                                                     <input type="number" class="form-control total-fee" placeholder=""
-                                                        data-tabNumber="{{tabNumber}}" name="fees" required>
+                                                        data-tabNumber="{{tabNumber}}">
                                                     <span class="material-input"></span>
                                                 </div>
                                                 {{!-- <p class="font-weight-bold">Total Fee = <span class="total-fee"
