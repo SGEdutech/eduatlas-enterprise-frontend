@@ -322,7 +322,6 @@ const tuitionApiCalls = (() => {
 	}
 
 	function putPostInForum(idOfTuition, bodyObj) {
-		console.log(bodyObj);
 		if (!checkForHexRegExp.test(idOfTuition)) {
 			console.error("Not a valid idOfTuition");
 		}
@@ -330,6 +329,63 @@ const tuitionApiCalls = (() => {
 			type: "POST",
 			url: `tuition/${idOfTuition}/forum`,
 			data: bodyObj
+		});
+	}
+
+	function editPostInForum(idOfTuition, idOfPost, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		if (!checkForHexRegExp.test(idOfPost)) {
+			console.error("Not a valid idOfPost");
+		}
+		return $.ajax({
+			type: "PUT",
+			url: `tuition/${idOfTuition}/forum/${idOfPost}`,
+			data: bodyObj,
+		});
+	}
+
+	function deletePostInForum(idOfTuition, idOfPost) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		if (!checkForHexRegExp.test(idOfPost)) {
+			console.error("Not a valid idOfPost");
+		}
+		return $.ajax({
+			type: "DELETE",
+			url: `tuition/${idOfTuition}/forum/${idOfPost}`,
+		});
+	}
+
+	function putCommentInPost(idOfTuition, idOfPost, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		if (!checkForHexRegExp.test(idOfPost)) {
+			console.error("Not a valid idOfPost");
+		}
+		return $.ajax({
+			type: "POST",
+			url: `tuition/${idOfTuition}/forum/${idOfPost}/comment`,
+			data: bodyObj
+		});
+	}
+
+	function deleteCommentInPost(idOfTuition, idOfPost, idOfComment) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		if (!checkForHexRegExp.test(idOfPost)) {
+			console.error("Not a valid idOfPost");
+		}
+		if (!checkForHexRegExp.test(idOfComment)) {
+			console.error("Not a valid idOfComment");
+		}
+		return $.ajax({
+			type: "DELETE",
+			url: `tuition/${idOfTuition}/forum/${idOfPost}/comment/${idOfComment}`,
 		});
 	}
 
@@ -354,6 +410,10 @@ const tuitionApiCalls = (() => {
 		deleteBatchInCourseInTuition,
 		putStudentInBatch,
 		deleteStudentInBatch,
-		putPostInForum
+		putPostInForum,
+		editPostInForum,
+		deletePostInForum,
+		putCommentInPost,
+		deleteCommentInPost
 	};
 })();

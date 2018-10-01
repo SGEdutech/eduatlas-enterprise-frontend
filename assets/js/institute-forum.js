@@ -1,18 +1,28 @@
 const instituteForum = (() => {
 	let $newPostForm;
-	// let $recentAnnouncementsContainer;
-	// let $deleteButtons;
+	let $postsContainer;
+	let $deleteButton;
+	let $editPostForm;
+	let $addCommentForm;
+	let $deleteCommentForm;
 
 	function cache() {
 		$newPostForm = $('.new_post_form');
+		$deleteButton = $('.delete-post-btn');
+		$editPostForm = $('.edit-post-form');
+		$addCommentForm = $('.add-comment-form');
+		$deleteCommentForm = $('.delete-comment-form');
 	}
 
-	function cacheNewStudentContainer(tabNumber) {
-		// $recentAnnouncementsContainer = $(`#recent_announcemnt_container${tabNumber}`);
+	function cachePostContainer(tabNumber) {
+		$postsContainer = $(`#post-container-${tabNumber}`);
 	}
 
 	function cacheDynamic() {
-		// $deleteButtons = $('.delete-announcement-btn');
+		$deleteButton = $('.delete-post-btn');
+		$editPostForm = $('.edit-post-form');
+		$addCommentForm = $('.add-comment-form');
+		$deleteCommentForm = $('.delete-comment-form');
 	}
 
 	function render() {}
@@ -23,27 +33,85 @@ const instituteForum = (() => {
 			addPost($(this));
 		});
 
-		// $deleteButtons.click(function(e) {
-		// 	e.preventDefault();
-		// 	deleteStudent($(this))
-		// });
+		$editPostForm.submit(function(e) {
+			e.preventDefault();
+			editPost($(this));
+		});
+
+		$addCommentForm.submit(function(e) {
+			e.preventDefault();
+			addComment($(this));
+		});
+
+		$deleteCommentForm.submit(function(e) {
+			e.preventDefault();
+			deleteComment($(this));
+		});
+
+		$deleteButton.click(function(e) {
+			e.preventDefault();
+			deletePost($(this));
+		});
 	}
 
 	function cacheNBindDeleteButtons() {
-		/* cacheDynamic();
-		$deleteButtons.click(function(e) {
+		cacheDynamic();
+		$deleteButton.click(function(e) {
 			e.preventDefault();
-			deleteStudent($(this));
-		}); */
+			deletePost($(this));
+		});
 	}
 
-	function deleteAnnouncement($element) {
-		// let cardId = $element.attr('data-id');
-		// let idOfTuition = $element.attr('data-tuition');
-		// tuitionApiCalls.deleteInArrayInTuition(idOfTuition, "students", { _id: cardId }).then(data => {
-		//     console.log(data);
-		// 	eagerRemoveCard(cardId);
-		// }).catch(err => console.error(err));
+	function editPost($form) {
+		let cardId = $form.attr('data-post');
+		let idOfTuition = $form.attr('data-tuition');
+		let idOfModal =  $form.attr('data-modal');
+		const serializedArrayForm = $form.serializeArray()
+		let bodyObj = {};
+		serializedArrayForm.forEach(obj => {
+			bodyObj[obj.name] = obj.value;
+		})
+		tuitionApiCalls.editPostInForum(idOfTuition, cardId, bodyObj).then(data => {
+			// console.log(data);
+			$('#' + idOfModal).modal('toggle');
+			alert("successfully updated, changes will appear after refreshing");
+		}).catch(err => console.error(err));
+	}
+
+	function addComment($form) {
+		let idOfPost = $form.attr('data-post');
+		let idOfTuition = $form.attr('data-tuition');
+		const serializedArrayForm = $form.serializeArray()
+		let bodyObj = {};
+		serializedArrayForm.forEach(obj => {
+			bodyObj[obj.name] = obj.value;
+		})
+		console.log(bodyObj);
+		tuitionApiCalls.putCommentInPost(idOfTuition, idOfPost, bodyObj).then(data => {
+			// console.log(data);
+			alert("successfully added comment, changes will appear after refreshing");
+		}).catch(err => console.error(err));
+	}
+
+	function deleteComment($form) {
+		let idOfPost = $form.attr('data-post');
+		let idOfTuition = $form.attr('data-tuition');
+		let idOfComment = $form.attr('data-comment');
+		tuitionApiCalls.deleteCommentInPost(idOfTuition, idOfPost, idOfComment).then(data => {
+			// console.log(data);
+			eagerRemoveCard(idOfComment);
+			alert("successfully deleted comment, changes will appear after refreshing");
+		}).catch(err => console.error(err));
+	}
+
+	function deletePost($element) {
+		let cardId = $element.attr('data-post');
+		let idOfTuition = $element.attr('data-tuition');
+		tuitionApiCalls.deletePostInForum(idOfTuition, cardId).then(data => {
+			// console.log(data);
+			eagerRemoveCard(cardId);
+			alert("success");
+		}).catch(err => console.error(err));
 	}
 
 	function eagerRemoveCard(cardId) {
@@ -51,22 +119,38 @@ const instituteForum = (() => {
 		$('#' + cardId).remove()
 	}
 
-	function eagerLoadAnnouncement(context) {
-		/* context.col4 = true;
-		$activeStudentContainer.append(template.instituteStudentCard(context))
-		cacheNBindDeleteButtons(); */
+	function eagerLoadPost(context) {
+		context.col4 = false;
+		$postsContainer.append(template.institutePostCard(context))
+		cacheNBindDeleteButtons();
 	}
 
 	function addPost($form) {
 		if (!$form) { return }
+		const tabNumber = $form.attr("data-tabNumber");
 		const idOfTuition = $form.attr("data-id");
 		const serializedArrayForm = $form.serializeArray()
 		let bodyObj = {};
+		bodyObj.tuitionId = idOfTuition;
+		bodyObj.numComments = 0;
 		serializedArrayForm.forEach(obj => {
 			bodyObj[obj.name] = obj.value;
 		})
 		// cacheNewStudentContainer(tabNumber);
 		tuitionApiCalls.putPostInForum(idOfTuition, bodyObj).then((result) => {
+			bodyObj.tuitionName = result.name;
+			let idOfNewPost;
+			// FIXME: result received is old data
+			result.forums.forEach(postObj => {
+				if (bodyObj.title === postObj.title && bodyObj.body === postObj.body) {
+					idOfNewPost = postObj._id;
+				}
+			})
+			console.log(result.forums);
+			console.log(idOfNewPost);
+			bodyObj._id = idOfNewPost;
+			cachePostContainer(tabNumber);
+			eagerLoadPost(bodyObj);
 			alert("success")
 		}).catch((err) => console.error(err));
 	}

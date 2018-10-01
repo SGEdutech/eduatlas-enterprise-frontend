@@ -1,0 +1,81 @@
+{{#if col4}}
+<div class="col-4">
+    {{/if}}
+    <div class="card m-1" id="{{_id}}">
+        <div class="card-body">
+            <a class="row nav nav-item nav-link p-0" data-toggle="modal" data-target="#editPostModal{{_id}}" style="cursor: pointer">
+                <h3 class="card-heading font-weight-bold m-0">{{title}}</h3>
+            </a>
+            <div class="row">
+                <small><span class="text-secondary">posted</span>
+                    {{createdAt}} days ago <span class="text-secondary">by </span> {{tuitionName}}
+                </small>
+            </div>
+            <div class="row">
+                <small class="text-secondary">
+                    {{numComments}} comments
+                </small>
+            </div>
+            <div class="card-footer p-0">
+                <div class="stats ml-auto">
+                    <i class="material-icons delete-post-btn" style="top: 0%; cursor: pointer;" data-tuition="{{tuitionId}}"
+                        data-post="{{_id}}">delete</i>
+                    <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{#if col4}}
+</div>
+{{/if}}
+<div class="modal fade bd-example-modal-lg" id="editPostModal{{_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="col-12">
+                    <h3 class="card-title">{{title}}</h3>
+                    <p class="card-text">
+                        {{body}}
+                    </p>
+                </div>
+                <div class="col-12">
+                    <div class="media">
+                        <a class="float-left" href="#pablo">
+                            <div class="avatar">
+                                <img class="media-object" src="../assets/img/logo.png" alt="...">
+                            </div>
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">Raghu Singh<small>· 7 minutes
+                                    ago</small></h4>
+                            <h6 class="text-muted"></h6>
+
+                            <p>Chance too good. God level bars. I'm so proud of
+                                @LifeOfDesiigner #1 song in the country. Panda! Don't
+                                humility. We are so blessed!</p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <a class="float-left" href="#pablo">
+                            <div class="avatar">
+                                <img class="media-object" src="../assets/img/logo.png" alt="...">
+                            </div>
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">Raghu Singh<small>· 7 minutes
+                                    ago</small></h4>
+                            <h6 class="text-muted"></h6>
+
+                            <p>Chance too good. God level bars. I'm so proud of
+                                humility. We are so blessed!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xs-12 mt-3 ml-3 text-right">
+                    <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

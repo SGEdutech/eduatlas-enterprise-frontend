@@ -91,6 +91,13 @@ const instituteInfo = (() => {
 							studentObj.tuitionId = instituteData._id;
 						})
 					}
+					if (instituteData.forums) {
+						instituteData.forums.forEach(postObj => {
+							postObj.tuitionId = instituteData._id;
+							postObj.tuitionName = instituteData.name;
+							postObj.numComments = postObj.comments.length;
+						})
+					}
 					instituteData.batches = allBatches;
 
 					renderCorrespondingTabs(instituteData);
