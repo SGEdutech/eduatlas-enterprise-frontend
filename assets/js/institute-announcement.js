@@ -1,4 +1,4 @@
-const instituteAnnouncemnt = (() => {
+const instituteAnnouncement = (() => {
 	let $newAnnouncementForm;
 	// let $recentAnnouncementsContainer;
 	// let $deleteButtons;
@@ -66,20 +66,42 @@ const instituteAnnouncemnt = (() => {
 		const serializedArrayForm = form.serializeArray()
 		let bodyObj = {};
 		let newReceiversArr = [];
+		let batchArr = [];
 		serializedArrayForm.forEach(obj => {
 			if (obj.name === "receivers") {
 				newReceiversArr.push(obj.value);
+			} else if (obj.name === "batchId") {
+				batchArr.push(obj.value);
 			} else {
 				bodyObj[obj.name] = obj.value;
 			}
 		})
 		bodyObj.receivers = newReceiversArr;
-        console.log(bodyObj);
-		notificationApiCalls.putNewNotification(idOfTuition, bodyObj.message, bodyObj.receivers).then(data => {
-			alert("success");
-			// console.log(data);
-			// eagerLoadAnnouncement(bodyObj)
-		}).catch(err => console.error(err));
+		bodyObj.batchArr = batchArr;
+		// console.log(bodyObj);
+		if (bodyObj.instituteId) {
+			// highest priority to all students
+			notificationApiCalls.putNewNotification(idOfTuition, bodyObj.message, null, null, bodyObj.instituteId).then(data => {
+				alert("successfully sent to all students of your institute");
+			}).catch(err => console.error(err));
+		} else {
+			if (bodyObj.batchArr.length > 0) {
+				// high priority to batches
+				bodyObj.batchArr.forEach(batchId => {
+					notificationApiCalls.putNewNotification(idOfTuition, bodyObj.message, null, batchId).then(data => {})
+				})
+				alert("successfully sent to selected batches of your institute");
+			} else {
+				if (bodyObj.receivers.length > 0) {
+					// low priority to students
+					notificationApiCalls.putNewNotification(idOfTuition, bodyObj.message, bodyObj.receivers).then(data => {
+						alert("successfully sent to selected students of your institute");
+					}).catch(err => console.error(err));
+				} else {
+					alert("choose atleast one receiver");
+				}
+			}
+		}
 	}
 
 	function getHtml() {}

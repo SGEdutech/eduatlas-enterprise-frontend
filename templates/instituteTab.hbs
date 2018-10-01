@@ -12,7 +12,8 @@
     <ul class="nav nav-pills nav-pills-rose">
         <li class="nav-item"><a class="nav-link active" href="#pill1{{tabNumber}}" data-toggle="tab">Configure</a></li>
         <li class="nav-item"><a class="nav-link" href="#pill2{{tabNumber}}" data-toggle="tab">Promoter</a></li>
-        <li class="nav-item"><a class="nav-link" href="#pill3{{tabNumber}}" data-toggle="tab">Messages</a></li>
+        <li class="nav-item"><a class="nav-link" href="#pill3{{tabNumber}}" data-toggle="tab">Communicator</a></li>
+        <li class="nav-item"><a class="nav-link" href="#pill4{{tabNumber}}" data-toggle="tab">Schedule</a></li>
     </ul>
     <hr>
     <div class="tab-content tab-space">
@@ -221,30 +222,10 @@
                                     <div id="active_course_container{{tabNumber}}" class="row">
                                     </div>
                                 </div>
-                                <div class="card-title col-12 h3">
+                                {{!-- <div class="card-title col-12 h3">
                                     Inactive Courses
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card">
-                                        <div class="card-body ">
-                                            <h4 class="card-title">
-                                                <a href="#pablo">MBA Prep 18</a>
-                                            </h4>
-                                        </div>
-                                        <div class="card-footer ">
-                                            <div class="author">
-                                                <h6 class="card-category text-danger">
-                                                    <i class="material-icons">trending_up</i>
-                                                    Price 50000/-
-                                                </h6>
-                                            </div>
-                                            <div class="stats ml-auto">
-                                                <i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
-                                                <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> --}}
+                                <div class="inactive-course-container"></div>
                                 <div class="card m-0 mb-4">
                                     <form class="new_course_form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}">
                                         <div class="row card-body">
@@ -656,31 +637,10 @@
                                     <div id="active_batch_container{{tabNumber}}" class="row">
                                     </div>
                                 </div>
-                                <div class="card-title col-12 h3">
+                                {{!-- <div class="card-title col-12 h3">
                                     Inactive Batches
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card">
-                                        <div class="card-body ">
-                                            <h4 class="card-title">
-                                                <a href="#pablo">Jul17</a>
-                                            </h4>
-                                            <p class="card-text">
-                                                morning batch
-                                            </p>
-                                            <p class="card-text">
-                                                <small class="text-secondary">Course:</small>
-                                                <small class="text-danger">MBA Prep 18</small>
-                                            </p>
-                                        </div>
-                                        <div class="card-footer ">
-                                            <div class="stats ml-auto">
-                                                <i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
-                                                <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> --}}
+                                <div class="inactive-batches-container"></div>
                                 <div class="card m-0 mb-4">
                                     <form class="new_batch_form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}"
                                         enctype="multipart/form-data">
@@ -692,7 +652,7 @@
                                                 <div class="form-group">
                                                     <label for="courseIdSelect">Choose Course for your batch</label>
                                                     <select class="form-control selectpicker courseIdSelect" data-style="btn btn-link"
-                                                        name="courseId" required>
+                                                        name="courseId" data-tabnumber="{{tabNumber}}" required>
                                                         {{#each courses}}
                                                         <option value="{{_id}}">{{code}}</option>
                                                         {{/each}}
@@ -910,7 +870,7 @@
                         <li class="nav-item"><a class="nav-link active" href="#announce{{tabNumber}}" data-toggle="tab">Announcement</a></li>
                         <li class="nav-item"><a class="nav-link" href="#sendmessage{{tabNumber}}" data-toggle="tab">SendMessages</a></li>
                         <li class="nav-item"><a class="nav-link" href="#groupchats{{tabNumber}}" data-toggle="tab">GroupChats</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#messagehistory{{tabNumber}}" data-toggle="tab">MessageHistory</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#forums{{tabNumber}}" data-toggle="tab">Forums</a></li>
                     </ul>
                 </div>
                 <div class="col-md-10">
@@ -918,12 +878,12 @@
                         <div class="tab-pane active" id="announce{{tabNumber}}">
                             <div class="card-body card m-1">
                                 <div class="card-title h3">
-                                    NEW ANNOUNCEMENT
+                                    New Announcement
                                 </div>
                                 <form class="new_announcement_form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1" class="text-dark">Select Students</label>
-                                        <div class="px-2" style="height:299px;background-color:rgb(255, 255, 255);overflow-y: auto;max-height:150px;">
+                                        <div class="px-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:150px;">
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -948,6 +908,42 @@
                                                     {{/each}}
                                                 </tbody>
                                             </table>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1" class="text-dark"><small class="text-danger">OR</small>
+                                            Select A Batch</label>
+                                        <div class="px-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:150px;">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">#</th>
+                                                        <th>Batch Code</th>
+                                                        <th>Select</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#each batches as |batch|}}
+                                                    <tr>
+                                                        <td class="text-center">{{@index}}</td>
+                                                        <td>{{batch.code}}</td>
+                                                        <td>
+                                                            <input type="checkbox" name="batchId" value="{{batch._id}}">
+                                                        </td>
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1" class="text-dark"><small class="text-danger">OR</small>
+                                            Send To All Students</label>
+                                        <div class="togglebutton">
+                                            <label>
+                                                <input type="checkbox" name="instituteId" value="{{_id}}">
+                                                <span class="toggle"></span>
+                                            </label>
                                         </div>
                                     </div>
                                     {{!-- <div class="form-check">
@@ -1243,9 +1239,278 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="tab-pane" id="forums{{tabNumber}}">
+                            <form class="new_post_form" enctype="multipart/form-data" data-id="{{_id}}">
+                                <div class="card mt-0">
+                                    <div class="row card-body">
+                                        <div class="card-title col-12 h3">
+                                            Add New Thread
+                                        </div>
+                                        <div class="col-md-12">
+                                            <input type="text" class="form-control" name="title" placeholder="Enter Title">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <textarea class="form-control" rows="5" placeholder="Enter Content" name="body"></textarea>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-round btn-rose float-right">ADD</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div id="active-post-container">
+                                {{#each forums as |post|}}
+                                <div class="card m-1">
+                                    <div class="card-body">
+                                        <a class="row nav-link" data-toggle="tab" href="#post{{post._id}}"
+                                            style="cursor: pointer">
+                                            <h3 class="card-heading font-weight-bold m-0">{{post.title}}</h3>
+                                        </a>
+                                        <div class="row">
+                                            <small><span class="text-secondary">posted</span>
+                                                3 days ago <span class="text-secondary">by</span>
+                                                Principal</small>
+                                        </div>
+                                        <div class="row">
+                                            <small class="text-secondary">326
+                                                comments</small>
+                                        </div>
+                                        <div class="card-footer p-0">
+                                            <div class="stats ml-auto">
+                                                <i class="material-icons delete-course-btn" style="top: 0%; cursor: pointer;"
+                                                    data-id="5baf239e845df71a3404393f" data-parent="5b9a4dab6573ea1b74f270a4">delete</i>
+                                                <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form class="edit_post_form" data-tabNumber="{{tabNumber}}" data-tuition="{{tuitionId}}"
+                                    data-modal="editPostModal{{post._id}}" enctype="multipart/form-data">
+                                    <div class="modal fade bd-example-modal-lg" id="editPostModal{{post._id}}" tabindex="-1"
+                                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body p-0">
+                                                    <div class="card my-0 bg-info">
+                                                        <div class="card-body pt-0 pb-0">
+                                                            <h3 class="card-title my-2">
+                                                                <a href="#pablo" class="text-dark">{{post.title}}</a>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card my-0">
+                                                        <div class="card-body ">
+                                                            <div class="col-sm-12 col-xs-12 mt-3 pl-0">
+                                                                <p class="card-text">
+                                                                    {{post.body}}
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-sm-12 col-xs-12 mt-3 ml-3 text-right">
+                                                                <button type="button" class="btn btn-round btn-secondary"
+                                                                    data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                {{/each}}
+                            </div>
+                        </div>
+                        {{#each forums as |post|}}
+                        <div class="tab-pane" id="post{{post._id}}">
+                            <div class="card-title col-12 h3">
+                                {{post.title}}
+                            </div>
+                            <p class="card-text">{{post.body}}</p>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="pill4{{tabNumber}}">
+            <div class="row m-0">
+                <div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
+                    <ul class="nav nav-pills nav-pills-rose flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#addSchedule{{tabNumber}}" data-toggle="tab">Add Schedule</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#scheduleReports{{tabNumber}}" data-toggle="tab">Reports</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-10">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="addSchedule{{tabNumber}}">
+                            <div class="row m-0">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row m-0">
+                                            <div class="card-title col-12 h3 p-0">Add New Schedule</div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="week-number">Week Number</label>
+                                                    <input type="number" name="week-number" id="week-number" class="form-control"
+                                                        value="1">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="from-date">From Date</label>
+                                                    <input type="date" name="from-date" id="from-date" class="form-control"
+                                                        required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="to-dat">To Date</label>
+                                                    <input type="date" name="to-dat" id="to-dat" class="form-control"
+                                                        required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <table class="table mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Day</th>
+                                                            <th>From Time</th>
+                                                            <th>To Time</th>
+                                                            <th>Topic</th>
+                                                            <th>Faculty</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><input type="text" name="class-day" id="class-day"></td>
+                                                            <td><input type="time" name="class-from-time" id="class-from-time"></td>
+                                                            <td><input type="time" name="class-to-time" id="class-to-time"></td>
+                                                            <td><input type="text" name="class-topic" id="class-topic"></td>
+                                                            <td><input type="text" name="class-faculty" id="class-faculty"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="row justify-content-end mx-2">
+                                                    <button class="btn btn-round btn-rose">Add More Class</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="card-title">Select Batches For This Schedule</div>
+                                                <div class="p-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
+                                                    <input name="students" type="checkbox" value="5bab5cf48ed4fc42a4826fb7">
+                                                    <span class="media-heading">mba-17
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </span><br>
+                                                    <input name="students" type="checkbox" value="5bab5cf48ed4fc42a4826fb7">
+                                                    <span class="media-heading">mba-17
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </span><br>
+                                                    <input name="students" type="checkbox" value="5bab5cf48ed4fc42a4826fb7">
+                                                    <span class="media-heading">mba-17
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </span><br>
+                                                    <input name="students" type="checkbox" value="5bab5cf48ed4fc42a4826fb7">
+                                                    <span class="media-heading">mba-17
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </span><br>
+                                                    <input name="students" type="checkbox" value="5bab5cf48ed4fc42a4826fb7">
+                                                    <span class="media-heading">mba-17
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </span><br>
+                                                </div>
+                                                <div class="row justify-content-end mt-2">
+                                                    <button class="btn btn-round btn-rose">Notify</button>
+                                                    <button class="btn btn-round btn-rose">Save Schedule</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-0">
+                                <div class="card-title col-12 h3 p-0">Active Schedules</div>
+                                <div class="active-schedule-container">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-title">MM1</div>
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            From: 1-Oct-2018 To: 7-Oct-2018
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <table class="table mb-0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Day</th>
+                                                                        <th>From Time</th>
+                                                                        <th>To Time</th>
+                                                                        <th>Topic</th>
+                                                                        <th>Faculty</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>mon</td>
+                                                                        <td>2 pm</td>
+                                                                        <td>7 pm</td>
+                                                                        <td>regression</td>
+                                                                        <td>ram manohar</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>tue</td>
+                                                                        <td>2 pm</td>
+                                                                        <td>7 pm</td>
+                                                                        <td>regression</td>
+                                                                        <td>ram manohar</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>wed</td>
+                                                                        <td>2 pm</td>
+                                                                        <td>7 pm</td>
+                                                                        <td>regression</td>
+                                                                        <td>ram manohar</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="row">
+                                                        <div class="col-12"><button class="btn btn-round btn-rose">edit</button></div>
+                                                        <div class="col-12"><button class="btn btn-round btn-rose">dulpicate</button></div>
+                                                        <div class="col-12"><button class="btn btn-round btn-rose">next
+                                                                week</button></div>
+                                                        <div class="col-12"><button class="btn btn-round btn-rose">delete</button></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="scheduleReports{{tabNumber}}">
+                            gtsghsjuhsdjd
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

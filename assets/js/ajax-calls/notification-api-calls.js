@@ -11,7 +11,7 @@ const notificationApiCalls = (() => {
 		});
 	}
 
-	function putNewNotification(idOfSender, message, receiversArr) {
+	function putNewNotification(idOfSender, message, receiversArr, batchId = null, instituteId = null) {
 		if (!checkForHexRegExp.test(idOfSender)) {
 			console.error("Not a valid idOfSender");
 		}
@@ -26,7 +26,24 @@ const notificationApiCalls = (() => {
 			data: {
 				senderId: idOfSender,
 				message: message,
-				receivers: receiversArr
+				receivers: receiversArr,
+				batchId: batchId,
+				instituteId : instituteId,
+			},
+		});
+	}
+
+	function markNotificationsAsRead(idsArr) {
+		if (idsArr) {
+			if (idsArr.length === 0) {
+				console.error("idsArr empty");
+			}
+		}
+		return $.ajax({
+			type: "PUT",
+			url: `/notification/user-read`,
+			data: {
+				ids: idsArr,
 			},
 		});
 	}
@@ -35,5 +52,6 @@ const notificationApiCalls = (() => {
 	return {
 		getUserNotifications,
 		putNewNotification,
+		markNotificationsAsRead
 	};
 })();

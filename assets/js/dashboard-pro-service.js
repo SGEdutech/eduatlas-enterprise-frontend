@@ -7,8 +7,17 @@ PubSub.subscribe('instituteTabs.load', (msg) => {
 	setTimeout(instituteCourses.init());
 	setTimeout(instituteBatches.init());
 	setTimeout(instituteStudents.init());
-	setTimeout(instituteAnnouncemnt.init());
+	setTimeout(instituteAnnouncement.init());
+	setTimeout(instituteForum.init());
 	// TODO: check if this working properly after adding setTimeOut to above 3 module calls
+	setTimeout(refreshSelectInput.init());
+});
+
+PubSub.subscribe('newCourse.load', (msg, courseObj) => {
+	setTimeout(instituteBatches.addNewCourse(courseObj));
+});
+
+PubSub.subscribe('refreshCourseSelect', (msg) => {
 	setTimeout(refreshSelectInput.init());
 });
 

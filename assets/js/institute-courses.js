@@ -118,9 +118,11 @@ const instituteCourses = (() => {
 	}
 
 	function eagerLoadCourse(context) {
+		PubSub.publish('newCourse.load', context);
 		context.col4 = true;
 		$activeCourseContainer.append(template.instituteCourseCard(context))
 		cacheNBindDeleteButtons();
+		alert("course added successfully")
 	}
 
 	function addCourse(form) {
@@ -132,6 +134,7 @@ const instituteCourses = (() => {
 		const serializedArrayForm = form.serializeArray()
 		let bodyObj = {};
 		bodyObj.parentId = tuitionId;
+		bodyObj.tabNumber = tabNumber;
 
 		serializedArrayForm.forEach(obj => {
 			bodyObj[obj.name] = obj.value;

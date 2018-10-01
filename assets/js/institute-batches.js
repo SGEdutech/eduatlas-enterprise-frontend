@@ -5,12 +5,14 @@ const instituteBatches = (() => {
 	let $deleteButtons;
 	let $editBatchForm;
 	let $removeStudentBtn;
+	let $courseDropdown;
 
 	function cache() {
 		$batchesContainer = $("#batchesContainer");
 		$newBatchForm = $('.new_batch_form');
 		$editBatchForm = $('.edit_batch_form');
 		$removeStudentBtn = $('.remove-student-btn');
+		$courseDropdown = $('select.courseIdSelect');
 	}
 
 	function cacheNewBatchContainer(tabNumber) {
@@ -24,6 +26,22 @@ const instituteBatches = (() => {
 	function render() {
 		/* let html = getHtml();
 		$batchesContainer.append(html); */
+	}
+
+	function addNewCourse(courseObj) {
+		let addedCourseTabNumber = courseObj.tabNumber;
+		console.log($courseDropdown);
+		$courseDropdown.each((index, element) => {
+			let tempTabNumber = $(element).attr('data-tabnumber');
+			/* console.log(tempTabNumber);
+			console.log(addedCourseTabNumber); */
+			if (tempTabNumber === addedCourseTabNumber) {
+				console.log("option added");
+				$(element).append(`<option value="${courseObj._id}">${courseObj.code}</option>`)
+			}
+		})
+		// refresh select
+		PubSub.publish('refreshCourseSelect');
 	}
 
 	function bindEvents() {
@@ -156,5 +174,5 @@ const instituteBatches = (() => {
 		bindEvents();
 	}
 
-	return { init };
+	return { init, addNewCourse };
 })();

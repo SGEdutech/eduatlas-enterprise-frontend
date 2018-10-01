@@ -301,6 +301,7 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
+	// FIXME: route changed
 	function deleteStudentInBatch(idOfTuition, idOfCourse, idOfBatch, idOfStudent) {
 		if (!checkForHexRegExp.test(idOfTuition)) {
 			console.error("Not a valid idOfTuition");
@@ -317,6 +318,18 @@ const tuitionApiCalls = (() => {
 		return $.ajax({
 			type: "DELETE",
 			url: `tuition/${idOfTuition}/course/${idOfCourse}/batch/${idOfBatch}/student/${idOfStudent}`,
+		});
+	}
+
+	function putPostInForum(idOfTuition, bodyObj) {
+		console.log(bodyObj);
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		return $.ajax({
+			type: "POST",
+			url: `tuition/${idOfTuition}/forum`,
+			data: bodyObj
 		});
 	}
 
@@ -340,6 +353,7 @@ const tuitionApiCalls = (() => {
 		editBatchInCourseInTuition,
 		deleteBatchInCourseInTuition,
 		putStudentInBatch,
-		deleteStudentInBatch
+		deleteStudentInBatch,
+		putPostInForum
 	};
 })();
