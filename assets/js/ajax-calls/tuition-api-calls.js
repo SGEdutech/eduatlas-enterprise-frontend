@@ -290,7 +290,7 @@ const tuitionApiCalls = (() => {
 		if (!studentArr) {
 			console.error("studentArr illegal");
 		} else {
-			if (studentArr.lenght === 0) {
+			if (studentArr.length === 0) {
 				console.error("studentArr empty");
 			}
 		}
@@ -389,6 +389,49 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
+	function putScheduleInBatch(idOfTuition, idOfCourse, idOfBatch, schedulesArr) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		if (!checkForHexRegExp.test(idOfCourse)) {
+			console.error("Not a valid idOfCourse");
+		}
+		if (!checkForHexRegExp.test(idOfBatch)) {
+			console.error("Not a valid idOfBatch");
+		}
+		if (!schedulesArr) {
+			console.error("schedulesArr illegal");
+		} else {
+			if (schedulesArr.length === 0) {
+				console.error("schedulesArr empty");
+			}
+		}
+		return $.ajax({
+			type: "POST",
+			url: `tuition/${idOfTuition}/course/${idOfCourse}/batch/${idOfBatch}/schedule`,
+			data: { schedules: schedulesArr }
+		});
+	}
+
+	function deleteScheduleInBatch(idOfTuition, idOfCourse, idOfBatch, idOfSchedule) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		if (!checkForHexRegExp.test(idOfCourse)) {
+			console.error("Not a valid idOfCourse");
+		}
+		if (!checkForHexRegExp.test(idOfBatch)) {
+			console.error("Not a valid idOfBatch");
+		}
+		if (!checkForHexRegExp.test(idOfSchedule)) {
+			console.error("Not a valid idOfSchedule");
+		}
+		return $.ajax({
+			type: "DELETE",
+			url: `tuition/${idOfTuition}/course/${idOfCourse}/batch/${idOfBatch}/schedule/${idOfSchedule}`,
+		});
+	}
+
 	return {
 		getAllTuitions,
 		getSpecificTuition,
@@ -414,6 +457,8 @@ const tuitionApiCalls = (() => {
 		editPostInForum,
 		deletePostInForum,
 		putCommentInPost,
-		deleteCommentInPost
+		deleteCommentInPost,
+		putScheduleInBatch,
+		deleteScheduleInBatch
 	};
 })();

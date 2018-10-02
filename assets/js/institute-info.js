@@ -67,6 +67,19 @@ const instituteInfo = (() => {
 									batch.courseId = course._id;
 									batch.parentCourse = course.code;
 									batch.allstudents = allStudentsArr;
+
+									// fix schedules date and time format
+									if (batch.schedules) {
+										batch.schedules.forEach(schdeuleObj => {
+											const dateObj = helperScripts.getDateObj(schdeuleObj.date);
+											schdeuleObj.date = dateObj.date + " " + dateObj.monthName + " " + dateObj.year;
+											const fromTime = helperScripts.getTimeFromMinutes(schdeuleObj.fromTime);
+											schdeuleObj.fromTime = fromTime.hour + " hours " + fromTime.minute + " minutes";
+											const toTime = helperScripts.getTimeFromMinutes(schdeuleObj.toTime);
+											schdeuleObj.toTime = toTime.hour + " hours " + toTime.minute + " minutes";
+										})
+									}
+
 									// lets replace all studentsId in batches with their real info
 									let newStudentsArr = [];
 									if (batch.students) {
