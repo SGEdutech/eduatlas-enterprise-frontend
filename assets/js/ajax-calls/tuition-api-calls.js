@@ -432,6 +432,33 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
+	function putAttendanceInSchedule(idOfTuition, idOfCourse, idOfBatch, idOfSchedule, absentArr) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		if (!checkForHexRegExp.test(idOfCourse)) {
+			console.error("Not a valid idOfCourse");
+		}
+		if (!checkForHexRegExp.test(idOfBatch)) {
+			console.error("Not a valid idOfBatch");
+		}
+		if (!checkForHexRegExp.test(idOfSchedule)) {
+			console.error("Not a valid idOfSchedule");
+		}
+		if (!absentArr) {
+			console.error("absentArr illegal");
+		} else {
+			if (absentArr.length === 0) {
+				console.error("absentArr empty");
+			}
+		}
+		return $.ajax({
+			type: "POST",
+			url: `tuition/${idOfTuition}/course/${idOfCourse}/batch/${idOfBatch}/schedule/${idOfSchedule}/student-absent`,
+			data: { absentees: absentArr }
+		});
+	}
+
 	return {
 		getAllTuitions,
 		getSpecificTuition,
@@ -459,6 +486,7 @@ const tuitionApiCalls = (() => {
 		putCommentInPost,
 		deleteCommentInPost,
 		putScheduleInBatch,
-		deleteScheduleInBatch
+		deleteScheduleInBatch,
+		putAttendanceInSchedule
 	};
 })();

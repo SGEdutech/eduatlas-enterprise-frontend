@@ -1,5 +1,5 @@
 <div class="tab-pane" id="tab{{tabNumber}}">
-    <div class="card bg-info mt-1">
+    <div class="card bg-info mt-2">
         <div class="card-body px-3">
             <h3 class="card-title text-dark" data-id="{{_id}}" data-tabNumber="{{tabNumber}}">
                 {{name}}
@@ -14,6 +14,7 @@
         <li class="nav-item"><a class="nav-link" href="#pill2{{tabNumber}}" data-toggle="tab">Promoter</a></li>
         <li class="nav-item"><a class="nav-link" href="#pill3{{tabNumber}}" data-toggle="tab">Communicator</a></li>
         <li class="nav-item"><a class="nav-link" href="#pill4{{tabNumber}}" data-toggle="tab">Schedule</a></li>
+        <li class="nav-item"><a class="nav-link" href="#pill5{{tabNumber}}" data-toggle="tab">Attendance</a></li>
     </ul>
     <hr>
     <div class="tab-content tab-space">
@@ -1422,8 +1423,8 @@
                                                         required data-tabNumber="{{tabNumber}}" disabled>
                                                 </div>
                                             </div>
-                                            <form class="new-schedule-form row" data-tabNumber="{{tabNumber}}" data-tuition="{{_id}}"
-                                                enctype="multipart/form-data">
+                                            <form class="new-schedule-form row" data-tabNumber="{{tabNumber}}"
+                                                data-tuition="{{_id}}" enctype="multipart/form-data">
                                                 <div class="col-md-12">
                                                     <table class="table mb-0">
                                                         <thead>
@@ -1555,4 +1556,80 @@
                 </div>
             </div>
         </div>
+        <div class="tab-pane" id="pill5{{tabNumber}}">
+            <div class="row m-0">
+                <div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
+                    <ul class="nav nav-pills nav-pills-rose flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#attandance{{tabNumber}}" data-toggle="tab">Mark
+                                Attendance</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-10">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="attandance{{tabNumber}}">
+                            <div class="card">
+                                <form class="mark-attendance-form" data-tuition="{{_id}}">
+                                    <div class="card-body">
+                                        <div class="card-title h3">
+                                            Mark Attendence
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="batchDropdown">Select Batch n Schedule</label>
+                                            <select id="batchDropdown" name="courseBatchSchedule" class="form-control attendance-batch-dropdown"
+                                                data-style="btn btn-link" data-tabNumber="{{tabNumber}}">
+                                                {{#each schedules as |schedule|}}
+                                                <option value="{{schedule.courseId}}-{{schedule.batchId}}-{{schedule._id}}">
+                                                    {{schedule.batchCode}} - {{schedule.topic}} - {{schedule.date}}
+                                                </option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                        <div style="overflow-y: scroll;max-height: 279px;">
+                                            <table class="table border border-light">
+                                                <thead class="bg-info">
+                                                    <tr>
+                                                        <th class="text-light">Student Name</th>
+                                                        <th class="text-light">Email</th>
+                                                        <th class="text-light">Roll No.</th>
+                                                        <th class="text-light">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <thead class="border bg-info border-light">
+                                                    <tr>
+                                                        <th class="text-light"></th>
+                                                        <th class="text-light"></th>
+                                                        <th class="text-light"></th>
+                                                        <th class="text-light border border-light" colspan="1" style="font-size: 13px;">SELECT
+                                                            TO MARK ABSENT</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#each students as |student|}}
+                                                    <tr>
+                                                        <td>{{student.name}}</td>
+                                                        <td>{{student.email}}</td>
+                                                        <td>{{student.rollNumber}}</td>
+                                                        <td class="td-actions text-center">
+                                                            <input name="students" type="checkbox" value="{{student._id}}">
+                                                        </td>
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row justify-content-end m-2">
+                                            <button class="btn btn-rose btn-round" disabled>NOTIFY</button>
+                                            <button class="btn btn-rose btn-round" type="submit">Save Attendance</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>

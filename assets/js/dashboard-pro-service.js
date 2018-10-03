@@ -10,6 +10,7 @@ PubSub.subscribe('instituteTabs.load', (msg) => {
 	setTimeout(instituteAnnouncement.init());
 	setTimeout(instituteForum.init());
 	setTimeout(instituteSchedules.init());
+	setTimeout(instituteAttendance.init());
 	// TODO: check if this working properly after adding setTimeOut to above 3 module calls
 	setTimeout(refreshSelectInput.init());
 });

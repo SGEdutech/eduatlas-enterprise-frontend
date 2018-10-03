@@ -57,6 +57,7 @@ const instituteInfo = (() => {
 					console.log("rendered one tab");
 					instituteData.category = obj.category;
 					let allBatches = [];
+					let allSchedules = []
 					const allStudentsArr = instituteData.students;
 					if (instituteData.courses) {
 						instituteData.courses.forEach(course => {
@@ -71,15 +72,19 @@ const instituteInfo = (() => {
 									// fix schedules date and time format
 									if (batch.schedules) {
 										batch.schedules.forEach(schdeuleObj => {
+											schdeuleObj.batchCode = batch.code;
+											schdeuleObj.batchId = batch._id;
+											schdeuleObj.courseId = course._id;
+											schdeuleObj.tuitionId = instituteData._id;
 											const dateObj = helperScripts.getDateObj(schdeuleObj.date);
 											schdeuleObj.date = dateObj.date + " " + dateObj.monthName + " " + dateObj.year;
 											const fromTime = helperScripts.getTimeFromMinutes(schdeuleObj.fromTime);
 											schdeuleObj.fromTime = fromTime.hour + " hours " + fromTime.minute + " minutes";
 											const toTime = helperScripts.getTimeFromMinutes(schdeuleObj.toTime);
 											schdeuleObj.toTime = toTime.hour + " hours " + toTime.minute + " minutes";
+											allSchedules.push(schdeuleObj);
 										})
 									}
-
 									// lets replace all studentsId in batches with their real info
 									let newStudentsArr = [];
 									if (batch.students) {
@@ -112,7 +117,7 @@ const instituteInfo = (() => {
 						})
 					}
 					instituteData.batches = allBatches;
-
+					instituteData.schedules = allSchedules;
 					renderCorrespondingTabs(instituteData);
 					calculateViewsNHits(instituteData, tabNumber)
 					if (index === maxLength - 1) {
