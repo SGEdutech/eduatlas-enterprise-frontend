@@ -2,21 +2,20 @@
 <div class="col-md-4" id="{{course._id}}">
     <div class="card">
         <div class="card-body ">
-            <h4 class="card-title" data-toggle="modal" data-target="#editCourseModal{{course._id}}">
+            <h4 class="card-title">
                 <a href="#pablo">{{course.code}}</a>
             </h4>
         </div>
         <div class="card-footer ">
             <div class="author">
                 <h6 class="card-category text-danger">
-                    {{!-- <i class="material-icons">trending_up</i> --}}
                     Price {{course.fees}}/-
                 </h6>
             </div>
             <div class="stats ml-auto">
                 <i class="material-icons delete-course-btn" style="top: 0%; cursor: pointer;" data-id="{{course._id}}"
                     data-parent="{{course.parentId}}">delete</i>
-                <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+                <i class="material-icons course-edit" style="top: 0%; cursor: pointer;" data-course-id="{{course._id}}">edit</i>
             </div>
         </div>
     </div>
