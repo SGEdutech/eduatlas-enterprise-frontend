@@ -30,19 +30,18 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
-	function getSpecificTuitionWithCourses(identifierObj) {
+	function getMultipleTuitions(tuitionsArr) {
+		if (!tuitionsArr) {
+			console.error("tuitionsArr illegal");
+		} else {
+			if (tuitionsArr.length === 0) {
+				console.error("tuitionsArr empty");
+			}
+		}
 		return $.ajax({
 			type: "GET",
-			url: `/tuition/plus-courses`,
-			data: identifierObj,
-		});
-	}
-
-	function getSpecificTuitionWithCoursesNBatches(identifierObj) {
-		return $.ajax({
-			type: "GET",
-			url: `/tuition/plus-courses-and-batches`,
-			data: identifierObj,
+			url: "tuition/multiple",
+			data: { tuitions: tuitionsArr },
 		});
 	}
 
@@ -462,8 +461,7 @@ const tuitionApiCalls = (() => {
 	return {
 		getAllTuitions,
 		getSpecificTuition,
-		getSpecificTuitionWithCourses,
-		getSpecificTuitionWithCoursesNBatches,
+		getMultipleTuitions,
 		searchTuitions,
 		putInArrayInTuition,
 		putNewTuition,
