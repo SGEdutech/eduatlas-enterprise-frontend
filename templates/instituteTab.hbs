@@ -38,7 +38,8 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="row">
-                                        {{#each courses as |course|}}
+                                        {{!-- FIXME: moved to new hbs file --}}
+                                       {{!--  {{#each courses as |course|}}
                                         <div class="col-md-4" id="{{course._id}}">
                                             <div class="card">
                                                 <div class="card-body ">
@@ -218,7 +219,7 @@
                                                 </div>
                                             </div>
                                         </form>
-                                        {{/each}}
+                                        {{/each}} --}}
                                     </div>
                                     <div id="active_course_container{{tabNumber}}" class="row">
                                     </div>
@@ -303,7 +304,8 @@
                             <div class="container">
                                 <div class="section section-comments p-1">
                                     <div class="row">
-                                        {{#each students}}
+                                        {{!-- FIXME: moved to new hbs file --}}
+                                        {{!-- {{#each students}}
                                         <div class="col-md-4" id="{{_id}}">
                                             <div class="media-area main-raised m-3">
                                                 <div class="media">
@@ -325,7 +327,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{/each}}
+                                        {{/each}} --}}
                                     </div>
                                     <div class="row mt-2" id="active_students_container{{tabNumber}}"></div>
                                 </div>
@@ -440,7 +442,8 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="row">
-                                        {{#each batches}}
+                                        {{!-- FIXME: moved to new hbs file --}}
+                                        {{!-- {{#each batches}}
                                         <div class="col-md-4" id="{{_id}}">
                                             <div class="card">
                                                 <div class="card-body ">
@@ -633,7 +636,7 @@
                                                 </div>
                                             </div>
                                         </form>
-                                        {{/each}}
+                                        {{/each}} --}}
                                     </div>
                                     <div id="active_batch_container{{tabNumber}}" class="row">
                                     </div>
@@ -654,9 +657,10 @@
                                                     <label for="courseIdSelect">Choose Course for your batch</label>
                                                     <select class="form-control selectpicker courseIdSelect" data-style="btn btn-link"
                                                         name="courseId" data-tabnumber="{{tabNumber}}" required>
-                                                        {{#each courses}}
+                                                        {{!-- FIXME: moved to new hbs file --}}
+                                                        {{!-- {{#each courses}}
                                                         <option value="{{_id}}">{{code}}</option>
-                                                        {{/each}}
+                                                        {{/each}} --}}
                                                     </select>
                                                 </div>
                                             </div>
@@ -679,14 +683,15 @@
                                                     Add Students
                                                 </div><br>
                                                 <div class="px-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
-                                                    {{#each students}}
+                                                    {{!-- FIXME: moved to new hbs file --}}
+                                                    {{!-- {{#each students}}
                                                     <input name="students" type="checkbox" value="{{_id}}">
                                                     <span class="media-heading">{{name}}
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
                                                     </span><br>
-                                                    {{/each}}
+                                                    {{/each}} --}}
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -869,8 +874,6 @@
                 <div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
                     <ul class="nav nav-pills nav-pills-rose flex-column">
                         <li class="nav-item"><a class="nav-link active" href="#announce{{tabNumber}}" data-toggle="tab">Announcement</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#sendmessage{{tabNumber}}" data-toggle="tab">SendMessages</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#groupchats{{tabNumber}}" data-toggle="tab">GroupChats</a></li>
                         <li class="nav-item"><a class="nav-link" href="#forums{{tabNumber}}" data-toggle="tab">Forums</a></li>
                     </ul>
                 </div>
@@ -896,7 +899,8 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {{#each students as |student|}}
+                                                    {{!-- FIXME: moved to new hbs file --}}
+                                                    {{!-- {{#each students as |student|}}
                                                     <tr>
                                                         <td class="text-center">{{@index}}</td>
                                                         <td>{{name}}</td>
@@ -906,7 +910,7 @@
                                                             <input type="checkbox" name="receivers" value="{{email}}">
                                                         </td>
                                                     </tr>
-                                                    {{/each}}
+                                                    {{/each}} --}}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -924,7 +928,8 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {{#each batches as |batch|}}
+                                                    {{!-- FIXME: moved to new hbs file --}}
+                                                    {{!-- {{#each batches as |batch|}}
                                                     <tr>
                                                         <td class="text-center">{{@index}}</td>
                                                         <td>{{batch.code}}</td>
@@ -932,7 +937,7 @@
                                                             <input type="checkbox" name="batchId" value="{{batch._id}}">
                                                         </td>
                                                     </tr>
-                                                    {{/each}}
+                                                    {{/each}} --}}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -968,278 +973,6 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="tab-pane" id="sendmessage{{tabNumber}}">
-                            <div class="card-body card card-profile card-plaina main-raised m-1">
-                                <form class="card-body">
-                                    <div class="form-group">
-                                        <textarea class="form-control" placeholder="Type Message" rows="3"></textarea>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">
-                                            Broadcast To Entire Institute
-                                            <span class="form-check-sign">
-                                                <span class="check"></span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                </form>
-                            </div>
-                            <br><br>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="card-title col-12 h3">
-                                        Select Students
-                                    </div><br><br>
-                                    <div class="media-area main-raised">
-                                        <div class="media">
-                                            <div class="media-body">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <span class="media-heading">Student-1
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </span><br>
-
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <span class="media-heading">Student-2
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </span><br>
-
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <span class="media-heading">Student-3
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </span><br>
-
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <span class="media-heading">Student-4
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </span><br>
-
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <span class="media-heading">Student-5
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </span><br>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card-title col-12 h3">
-                                        Select Batches
-                                    </div><br><br>
-                                    <div class="media-area main-raised">
-                                        <div class="media">
-                                            <div class="media-body">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <span class="media-heading">Batch-1
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </span><br>
-
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <span class="media-heading">Batch-2
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </span><br>
-
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <span class="media-heading">Batch-3
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </span><br>
-
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <span class="media-heading">Batch-4
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </span><br>
-
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <span class="media-heading">Batch-5
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </span><br>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="button" class="btn btn-primary float-right m-4">Add
-                                        Student</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="groupchats{{tabNumber}}">
-                            <div class="card-profile card-plaina  m-0">
-                                <div class="card">
-                                    <div class="container">
-                                        <div class="section section-comments">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="media-area main-raised">
-                                                        <div class="media">
-                                                            <a class="float-left" href="#pablo">
-                                                                <div class="avatar">
-                                                                    <img class="media-object" src="assets/img/card-profile4-square.jpg"
-                                                                        alt="...">
-                                                                </div>
-                                                            </a>
-                                                            <div class="media-body">
-                                                                <h4 class="media-heading">Group2
-                                                                    <span class="badge badge-default float-right">4</span><br>
-                                                                    <small>Latest Message Text</small>
-                                                                </h4>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="media-area main-raised">
-                                                        <div class="media">
-                                                            <a class="float-left" href="#pablo">
-                                                                <div class="avatar">
-                                                                    <img class="media-object" src="assets/img/card-profile4-square.jpg"
-                                                                        alt="...">
-                                                                </div>
-                                                            </a>
-                                                            <div class="media-body">
-                                                                <h4 class="media-heading">Group2
-                                                                    <span class="badge badge-default float-right">4</span><br>
-                                                                    <small>Latest Message Text</small>
-                                                                </h4>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body card card-profile card-plaina main-raised m-1">
-                                <div class="card-title col-12 float-left h3">
-                                    Create New Group
-                                </div><br><br>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="card-title col-12 h5">
-                                            Add Students
-                                        </div><br><br>
-                                        <div class="media-area main-raised">
-                                            <div class="media groupchats">
-                                                <div class="media-body">
-                                                    <input type="checkbox" value="">
-                                                    <span class="media-heading">Student-1
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-
-                                                    <input type="checkbox" value="">
-                                                    <span class="media-heading">Student-1
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-
-                                                    <input type="checkbox" value="">
-                                                    <span class="media-heading">Student-2
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-
-                                                    <input type="checkbox" value="">
-                                                    <span class="media-heading">Student-3
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-
-                                                    <input type="checkbox" value="">
-                                                    <span class="media-heading">Student-4
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-
-                                                    <input type="checkbox" value="">
-                                                    <span class="media-heading">Student-5
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="card-title col-12 h5">
-                                            Select Batches
-                                        </div><br><br>
-                                        <div class="media-area main-raised">
-                                            <div class="media groupchats">
-                                                <div class="media-body">
-                                                    <input type="checkbox" value="">
-                                                    <span class="media-heading">Batch-1
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-
-                                                    <input type="checkbox" value="">
-                                                    <span class="media-heading">Batch-1
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-
-                                                    <input type="checkbox" value="">
-                                                    <span class="media-heading">Batch-2
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-
-                                                    <input type="checkbox" value="">
-                                                    <span class="media-heading">Batch-3
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-                                                    <input type="checkbox" value="">
-                                                    <span class="media-heading">Batch-4
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-                                                    <input type="checkbox" value="">
-                                                    <span class="media-heading">Batch-5
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </span><br>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-primary float-right m-4">Create
-                                            Group</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="tab-pane" id="forums{{tabNumber}}">
                             <form class="new_post_form" enctype="multipart/form-data" data-id="{{_id}}" data-tabNumber="{{tabNumber}}">
                                 <div class="card mt-0">
@@ -1260,7 +993,8 @@
                                 </div>
                             </form>
                             <div id="post-container-{{tabNumber}}">
-                                {{#each forums as |post|}}
+                                {{!-- FIXME: moved to new hbs file --}}
+                                {{!-- {{#each forums as |post|}}
                                 <div class="card m-1" id="{{post._id}}">
                                     <div class="card-body">
                                         <a class="row nav nav-item nav-link p-0" data-toggle="modal" data-target="#showPostModal{{post._id}}"
@@ -1375,7 +1109,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                {{/each}}
+                                {{/each}} --}}
                             </div>
                         </div>
                     </div>
@@ -1461,7 +1195,8 @@
                                                 <div class="col-md-12">
                                                     <div class="card-title">Select Batches For This Schedule</div>
                                                     <div class="p-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
-                                                        {{#each batches as |batch|}}
+                                                        {{!-- FIXME: moved to new hbs file --}}
+                                                        {{!-- {{#each batches as |batch|}}
                                                         <input name="batches" type="checkbox" value="{{batch._id}}">
                                                         <input name="courses" type="hidden" value="{{batch.courseId}}">
                                                         <input name="tuitions" type="hidden" value="{{batch.tuitionId}}">
@@ -1470,7 +1205,7 @@
                                                                 <span class="check"></span>
                                                             </span>
                                                         </span><br>
-                                                        {{/each}}
+                                                        {{/each}} --}}
                                                     </div>
                                                     <div class="row justify-content-end mt-2">
                                                         <button class="btn btn-round btn-rose" disabled>Notify</button>
@@ -1486,7 +1221,8 @@
                             <div class="row m-0">
                                 <div class="card-title col-12 h3 p-0">Active Schedules</div>
                                 <div class="active-schedule-container col-12">
-                                    {{#each batches as |batch|}}
+                                    {{!-- FIXME: moved to new hbs file --}}
+                                    {{!-- {{#each batches as |batch|}}
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="card-title">{{batch.code}}</div>
@@ -1545,7 +1281,7 @@
 
                                         </div>
                                     </div>
-                                    {{/each}}
+                                    {{/each}} --}}
                                 </div>
                             </div>
                         </div>
@@ -1579,11 +1315,12 @@
                                             <label for="batchDropdown">Select Batch n Schedule</label>
                                             <select id="batchDropdown" name="courseBatchSchedule" class="form-control attendance-batch-dropdown"
                                                 data-style="btn btn-link" data-tabNumber="{{tabNumber}}">
-                                                {{#each schedules as |schedule|}}
+                                                {{!-- FIXME: moved to new hbs file --}}
+                                                {{!-- {{#each schedules as |schedule|}}
                                                 <option value="{{schedule.courseId}}-{{schedule.batchId}}-{{schedule._id}}">
                                                     {{schedule.batchCode}} - {{schedule.topic}} - {{schedule.date}}
                                                 </option>
-                                                {{/each}}
+                                                {{/each}} --}}
                                             </select>
                                         </div>
                                         <div style="overflow-y: scroll;max-height: 279px;">
@@ -1606,7 +1343,8 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {{#each students as |student|}}
+                                                    {{!-- FIXME: not moved to new hbs file --}}
+                                                    {{!-- {{#each students as |student|}}
                                                     <tr>
                                                         <td>{{student.name}}</td>
                                                         <td>{{student.email}}</td>
@@ -1615,7 +1353,7 @@
                                                             <input name="students" type="checkbox" value="{{student._id}}">
                                                         </td>
                                                     </tr>
-                                                    {{/each}}
+                                                    {{/each}} --}}
                                                 </tbody>
                                             </table>
                                         </div>

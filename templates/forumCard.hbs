@@ -1,0 +1,26 @@
+{{#each forums as |post|}}
+<div class="card m-1" id="{{post._id}}">
+    <div class="card-body">
+        <a class="row nav nav-item nav-link p-0" data-toggle="modal" data-target="#showPostModal{{post._id}}" style="cursor: pointer">
+            <h3 class="card-heading font-weight-bold m-0">{{post.title}}</h3>
+        </a>
+        <div class="row">
+            <small><span class="text-secondary">posted</span>
+                {{post.createdAt}} days ago <span class="text-secondary">by </span>
+                {{post.tuitionName}}
+            </small>
+        </div>
+        <div class="row">
+            <small class="text-secondary">
+                {{post.numComments}} comments
+            </small>
+        </div>
+        <div class="card-footer p-0">
+            <div class="stats ml-auto">
+                <i class="material-icons delete-post-btn" style="top: 0%; cursor: pointer;" data-tuition="{{post.tuitionId}}"
+                    data-post="{{post._id}}">delete</i>
+                <i class="material-icons" style="top: 0%; cursor: pointer;" data-toggle="modal" data-target="#editPostModal{{post._id}}">edit</i>
+            </div>
+        </div>
+    </div>
+</div>

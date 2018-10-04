@@ -1,0 +1,11 @@
+{{#each students as |student|}}
+<tr>
+    <td class="text-center">{{@index}}</td>
+    <td>{{name}}</td>
+    <td>{{rollNumber}}</td>
+    <td>{{email}}</td>
+    <td>
+        <input type="checkbox" name="receivers" value="{{email}}">
+    </td>
+</tr>
+{{/each}}

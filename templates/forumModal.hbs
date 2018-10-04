@@ -1,0 +1,56 @@
+{{#each forums as |post|}}
+<div class="modal fade bd-example-modal-lg" id="showPostModal{{post._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="col-12">
+                    <h3 class="card-title">{{post.title}}</h3>
+                    <p class="card-text">
+                        {{post.body}}
+                    </p>
+                </div>
+                <div class="col-12">
+                    <small class="text-danger">COMMENTS</small>
+                    {{#each comments as |comment|}}
+                    <div class="media" id="{{comment._id}}" style="background-color:rgb(184, 184, 184)">
+                        <a class="float-left" href="#pablo">
+                            <div class="avatar">
+                                <img class="media-object" src="../assets/img/logo.png" alt="...">
+                            </div>
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">{{comment.userName}}testUser</h4>
+                            <p class="text-dark">{{comment.content}}</p>
+                            <div class="row justify-content-end mx-3">
+                                <form class="delete-comment-form" data-comment="{{comment._id}}" data-post="{{post._id}}"
+                                    data-tuition="{{post.tuitionId}}" enctype="multipart/form-data">
+                                    <button type="submit" class="btn btn-round">
+                                        <i class="material-icons text-danger" style="top: 0%; cursor: pointer;">delete</i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                <div class="col-12">
+                    <form enctype="multipart/form-data" class="add-comment-form" data-tuition="{{post.tuitionId}}"
+                        data-post="{{post._id}}">
+                        <div class="form-group label-floating bmd-form-group">
+                            <textarea name="content" class="form-control" rows="3" id="postComment" placeholder="write your comment here"></textarea>
+                        </div>
+                        <div class="row justify-content-end">
+                            <button class="btn btn-primary btn-round btn-wd" type="submit">Post
+                                Comment</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-12 col-xs-12 mt-3 ml-3 text-right">
+                    <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}

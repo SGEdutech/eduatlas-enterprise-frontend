@@ -1,0 +1,55 @@
+{{#each batches as |batch|}}
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">{{batch.code}}</div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>From Time</th>
+                                    <th>To Time</th>
+                                    <th>Topic</th>
+                                    <th>Faculty</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each schedules as |schedule|}}
+                                <tr id="{{schedule._id}}">
+                                    <td>{{schedule.date}}</td>
+                                    <td>{{schedule.fromTime}}</td>
+                                    <td>{{schedule.toTime}}</td>
+                                    <td>{{schedule.topic}}</td>
+                                    <td>{{schedule.faculty}}</td>
+                                    <td>
+                                        <i class="material-icons delete-schedule-btn" style="top: 0%; cursor: pointer;"
+                                            data-schedule="{{schedule._id}}" data-tuition="{{batch.tuitionId}}"
+                                            data-course="{{batch.courseId}}" data-batch="{{batch._id}}">delete</i>
+                                        <i class="material-icons" style="top: 0%; cursor: pointer;" data-schedule="{{schedule._id}}"
+                                            data-tuition="{{batch.tuitionId}}" data-course="{{batch.courseId}}">edit</i>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {{!-- <div class="col-md-2">
+                <div class="row">
+                    <div class="col-12"><button class="btn btn-round btn-rose">edit</button></div>
+                    <div class="col-12"><button class="btn btn-round btn-rose">dulpicate</button></div>
+                    <div class="col-12"><button class="btn btn-round btn-rose">next
+                            week</button></div>
+                    <div class="col-12"><button class="btn btn-round btn-rose">delete</button></div>
+                </div>
+            </div> --}}
+        </div>
+
+    </div>
+</div>
+{{/each}}

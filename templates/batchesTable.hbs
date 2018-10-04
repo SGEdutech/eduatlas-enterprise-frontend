@@ -1,0 +1,9 @@
+{{#each batches as |batch|}}
+<tr>
+    <td class="text-center">{{@index}}</td>
+    <td>{{batch.code}}</td>
+    <td>
+        <input type="checkbox" name="batchId" value="{{batch._id}}">
+    </td>
+</tr>
+{{/each}}
