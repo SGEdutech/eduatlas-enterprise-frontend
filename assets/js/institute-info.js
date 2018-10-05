@@ -11,13 +11,13 @@ const instituteInfo = (() => {
 	function renderPills(userInfo) {
 		const maxLength = userInfo.claims.length;
 		userInfo.claims.forEach((obj, index) => {
-			getName(obj).then((instituteData) => {
+			getName(obj).then(instituteData => {
 				if (instituteData[0]) {
 					instituteData = instituteData[0];
 				}
-				let tabNumber = (index + 1) * 10;
+				const tabNumber = (index + 1) * 10;
 
-				const shortName = instituteData.name.substr(0, 7) + "..";
+				const shortName = instituteData.name.substr(0, 7) + '..';
 
 				$navPillsList.append(`<li class="nav-item">
                 <a class="nav-link" href="#tab${tabNumber}" data-toggle="tab">${shortName}</a>
@@ -54,10 +54,10 @@ const instituteInfo = (() => {
 					if (relatedResult) {
 						instituteData.promotedRelated = true;
 					}
-					console.log("rendered one tab");
+					console.log('rendered one tab');
 					instituteData.category = obj.category;
-					let allBatches = [];
-					let allSchedules = []
+					const allBatches = [];
+					const allSchedules = []
 					const allStudentsArr = instituteData.students;
 					if (instituteData.courses) {
 						instituteData.courses.forEach(course => {
@@ -86,7 +86,7 @@ const instituteInfo = (() => {
 										})
 									}
 									// lets replace all studentsId in batches with their real info
-									let newStudentsArr = [];
+									const newStudentsArr = [];
 									if (batch.students) {
 										batch.students.forEach(studentId => {
 											allStudentsArr.forEach(studentObj => {
@@ -127,9 +127,7 @@ const instituteInfo = (() => {
 						}, 600);
 					}
 				})
-			}).catch((err) => {
-				console.error(err);
-			});
+			}).catch(err => console.error(err));
 		})
 	}
 
@@ -145,10 +143,10 @@ const instituteInfo = (() => {
 			return
 		}
 		const totalViewsArray = instituteData.views.total;
-		let date = new Date();
-		let currentYear = date.getFullYear();
-		let currentMonth = date.getMonth();
-		let viewsThisMonth = [];
+		const date = new Date();
+		const currentYear = date.getFullYear();
+		const currentMonth = date.getMonth();
+		const viewsThisMonth = [];
 		totalViewsArray.forEach(date => {
 			date = new Date(date);
 			if (date.getFullYear() === currentYear) {
@@ -158,12 +156,12 @@ const instituteInfo = (() => {
 			}
 		})
 
-		let map = {};
+		const map = {};
 		for (let index = 1; index < 32; index++) {
 			map[index] = 0;
 		}
 		viewsThisMonth.forEach(d => {
-			let temp = parseInt(d.getDate());
+			const temp = parseInt(d.getDate(), 10);
 			map[temp]++;
 		});
 
@@ -171,15 +169,15 @@ const instituteInfo = (() => {
 			createChartFor(tabNumber, map);
 		}
 		if (instituteData.promotedSearch) {
-			createChartFor(tabNumber + "1", map);
+			createChartFor(tabNumber + '1', map);
 		}
 		if (instituteData.promotedRelated) {
-			createChartFor(tabNumber + "2", map);
+			createChartFor(tabNumber + '2', map);
 		}
 	}
 
 	function getName(claimObj) {
-		if (claimObj.listingCategory === "tuition") {
+		if (claimObj.listingCategory === 'tuition') {
 			return tuitionApiCalls.getSpecificTuition({ _id: claimObj.listingId })
 		} else {
 			/* return $.ajax({

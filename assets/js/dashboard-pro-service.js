@@ -3,7 +3,7 @@ PubSub.subscribe('user', (msg, userInfo) => {
 	redirectOnLogout.init(userInfo);
 });
 
-PubSub.subscribe('instituteTabs.load', (msg) => {
+PubSub.subscribe('instituteTabs.load', msg => {
 	setTimeout(instituteCourses.init());
 	setTimeout(instituteBatches.init());
 	setTimeout(instituteStudents.init());
@@ -19,7 +19,7 @@ PubSub.subscribe('newCourse.load', (msg, courseObj) => {
 	setTimeout(instituteBatches.addNewCourse(courseObj));
 });
 
-PubSub.subscribe('refreshCourseSelect', (msg) => {
+PubSub.subscribe('refreshCourseSelect', msg => {
 	setTimeout(refreshSelectInput.init());
 });
 
@@ -28,9 +28,7 @@ PubSub.subscribeOnce('query.load', (msg, queryObject) => {
 });
 
 user.getInfo().then(userInfo => {
-	navigationBar.init(userInfo, {
-		colorOnScroll: false
-	});
+	navigationBar.init(userInfo, { colorOnScroll: false });
 	userClaimed.init(userInfo);
 	userNotification.init();
 	instituteInfo.init(userInfo);
