@@ -19,13 +19,25 @@ const course = (() => {
 		return tuitionApiCalls.putCourseInTuition(tuitionId, newCourseDetails);
 	}
 
-	function showEditModal(event) {
+	function hideEditModal() {
+		$editModal.modal('hide');
+	}
+
+	function showEditModal() {
+		$editModal.modal('show');
+	}
+
+	function renderEditModal(html) {
+		$editModal.html(html);
+	}
+
+	function editModalInit(event) {
 		const $editBtn = $(event.target);
 		const courseId = $editBtn.attr('data-course-id');
-		const courseInfo = coursesArr.find(course => course._id === courseId);
+		const courseInfo = coursesArr.find(courseToBeEdited => courseToBeEdited._id === courseId);
 		const editFormHTML = template.courseEditForm(courseInfo);
-		$editModal.append(editFormHTML);
-		$editModal.modal('show');
+		renderEditModal(editFormHTML);
+		showEditModal();
 	}
 
 	function submitForm(event) {
@@ -40,7 +52,7 @@ const course = (() => {
 	}
 
 	function bindDynamicEvents() {
-		$editButton.click(showEditModal);
+		$editButton.click(editModalInit);
 	}
 
 	function render() {

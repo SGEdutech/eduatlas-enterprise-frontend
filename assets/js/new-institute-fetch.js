@@ -2,6 +2,8 @@ const fetchTuitionData = (() => {
 	let claimsArr
 
 	function getClaimedInstitute() {
+		if (claimsArr === undefined) throw new Error('This module has not been initialised!');
+
 		return tuitionApiCalls.getMultipleTuitions(claimsArr);
 	}
 
