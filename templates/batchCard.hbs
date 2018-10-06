@@ -10,14 +10,15 @@
             </p>
             <p class="card-text">
                 <small class="text-secondary">Course:</small>
-                <small class="text-danger">{{parentCourse}}</small>
+                <small class="text-danger">{{courseCode}}</small>
             </p>
         </div>
         <div class="card-footer ">
             <div class="stats ml-auto">
-                <i class="material-icons delete-batch-btn" style="top: 0%; cursor: pointer;" data-id="{{_id}}"
-                    data-tuition="{{tuitionId}}" data-course="{{courseId}}">delete</i>
-                <i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
+                <i class="material-icons delete-batch-btn" style="top: 0%; cursor: pointer;" data-batch-id="{{_id}}"
+                    data-tuition-id="{{tuitionId}}" data-course-id="{{courseId}}">delete</i>
+                <i class="material-icons batch-edit" style="top: 0%; cursor: pointer;" data-batch-id="{{_id}}"
+                    data-tuition-id="{{tuitionId}}" data-course-id="{{courseId}}">edit</i>
             </div>
         </div>
     </div>

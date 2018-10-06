@@ -1,0 +1,70 @@
+<div class="text-left has-rose">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="card-title">Compulsory Fields</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="student_rollNumber">Roll Number</label>
+                    <input id="student_rollNumber" name="rollNumber" type="text" placeholder="Student Roll No." class="form-control"
+                        value="{{rollNumber}}" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="student_name">Name</label>
+                    <input id="student_name" name="name" type="text" placeholder="Student Name" class="form-control"
+                        value="{{name}}" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="student_email">Email</label>
+                    <input id="student_email" name="email" type="email" placeholder="Student E-mail" class="form-control"
+                        value="{{email}}" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h4 class="card-title">Additional Fields</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="student_address">Address</label>
+                    <input id="student_address" name="address" type="text" class="form-control" value="{{address}}" />
+                </div>
+                <div class="col-md-6">
+                    <label for="student_contact_number">Contact Number</label>
+                    <input id="student_contact_number" name="contactNumber" type="number" class="form-control" value="{{contactNumber}}" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h4 class="card-title">Payment Details</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="student_course">Course Id</label>
+                    <input id="student_course" name="courseId" type="text" class="form-control" value="{{courseId}}" />
+                </div>
+                <div class="col-md-4">
+                    <label for="student_fee_collected">Fee Collected</label>
+                    <input id="student_fee_collected" name="feeCollected" type="number" class="form-control" value="{{feeCollected}}" />
+                </div>
+                <div class="col-md-4">
+                    <label for="student_discount_amount">Discount Amount</label>
+                    <input id="student_discount_amount" name="discountAmount" type="number" class="form-control" value="{{discountAmount}}" />
+                </div>
+                <div class="col-md-4">
+                    <label for="student_discount_reason">Discount Reason</label>
+                    <input id="student_discount_reason" name="discountReason" type="text" class="form-control" value="{{discountReason}}" />
+                </div>
+                <div class="col-md-4">
+                    <label for="student_mode_payment">Mode Of Payment</label>
+                    <input id="student_mode_payment" name="modeOfPayment" type="text" class="form-control" value="{{modeOfPayment}}" />
+                </div>
+                <div class="col-md-4">
+                    <label for="student_next_installment">Next Installment Date</label>
+                    <input id="student_next_installment" name="nextInstallment" type="date" class="form-control" value="{{nextInstallment}}" />
+                </div>
+                <div class="col-md-12 mt-3">
+                    <button class="btn btn-round btn-rose float-right">ADD
+                        STUDENTS</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

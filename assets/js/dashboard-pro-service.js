@@ -1,42 +1,38 @@
-PubSub.subscribe('user', (msg, userInfo) => {
-	navigationBar.render(userInfo);
-	redirectOnLogout.init(userInfo);
-});
+// PubSub.subscribe('user', (msg, userInfo) => {
+// 	navigationBar.render(userInfo);
+// 	redirectOnLogout.init(userInfo);
+// });
 
-PubSub.subscribe('instituteTabs.load', msg => {
-	setTimeout(instituteCourses.init());
-	setTimeout(instituteBatches.init());
-	setTimeout(instituteStudents.init());
-	setTimeout(instituteAnnouncement.init());
-	setTimeout(instituteForum.init());
-	setTimeout(instituteSchedules.init());
-	setTimeout(instituteAttendance.init());
-	// TODO: check if this working properly after adding setTimeOut to above 3 module calls
-	setTimeout(refreshSelectInput.init());
-});
+// PubSub.subscribe('instituteTabs.load', instituteInfo => {
+// 	setTimeout(instituteCourses.init());
+// });
 
-PubSub.subscribe('newCourse.load', (msg, courseObj) => {
-	setTimeout(instituteBatches.addNewCourse(courseObj));
-});
+// user.getInfo().then(userInfo => {
+// 	const newClaimsArr = [];
+// 	newClaimsArr.push(userInfo.claims[0].listingId);
+// 	fetchTuitionData.init(newClaimsArr);
+// 	fetchTuitionData.getClaimedInstitute().then(tuitionArr => {
+// 		instituteInfo.init(tuitionArr);
+// 		student.init(tuitionArr[0].students);
+// 		tuitionApiCalls.getClaimedCourses().then(coursesArr => {
+// 			course.init(coursesArr);
+// 			tuitionApiCalls.getClaimedBatches().then(batchesArr => {
+// 				batch.init(batchesArr, coursesArr);
+// 			})
+// 		})
+// 	})
 
-PubSub.subscribe('refreshCourseSelect', msg => {
-	setTimeout(refreshSelectInput.init());
-});
+// 	modal.init();
+// 	navigationBar.init(userInfo, { colorOnScroll: false });
+// 	userClaimed.init(userInfo);
+// 	userNotification.init();
+// 	dashboardEditProfile.init(userInfo);
+// 	dashboardAddTuition.init(userInfo);
+// 	dashboardAddSchool.init(userInfo);
+// 	dashboardAddEvent.init(userInfo);
+// }).catch(err => console.error(err));
 
-PubSub.subscribeOnce('query.load', (msg, queryObject) => {
-	redirectTabs.init(queryObject);
-});
+// setTimeout(loginModal.init());
+// setTimeout(promoterModal.init());
 
-user.getInfo().then(userInfo => {
-	navigationBar.init(userInfo, { colorOnScroll: false });
-	userClaimed.init(userInfo);
-	userNotification.init();
-	instituteInfo.init(userInfo);
-	dashboardEditProfile.init(userInfo);
-	dashboardAddTuition.init(userInfo);
-	dashboardAddSchool.init(userInfo);
-	dashboardAddEvent.init(userInfo);
-});
-
-setTimeout(loginModal.init());
-setTimeout(promoterModal.init());
+course.init()

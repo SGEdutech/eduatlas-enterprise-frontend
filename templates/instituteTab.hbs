@@ -41,6 +41,7 @@
                                         {{!-- FIXME: moved to new hbs file --}}
                                     </div>
                                     <div id="active_course_container" class="row">
+
                                     </div>
                                 </div>
                                 <div class="inactive-course-container"></div>
@@ -79,7 +80,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="form-group label-floating has-rose is-empty bmd-form-group">
-                                                    <input name="gst" type="number" class="form-control gst-inp"
+                                                    <input name="gstPercentage" type="number" class="form-control gst-inp"
                                                         placeholder="GST (%)" data-tabNumber="{{tabNumber}}">
                                                     <span class="material-input"></span>
                                                 </div>
@@ -251,7 +252,7 @@
                                     <div class="row">
                                         {{!-- FIXME: moved to new hbs file --}}
                                     </div>
-                                    <div class="row mt-2" id="active_students_container{{tabNumber}}"></div>
+                                    <div class="row mt-2" id="student_container"></div>
                                 </div>
                             </div>
                             <div class="card card-profile card-plaina main-raised m-0">
@@ -275,11 +276,11 @@
                             <br>
 
                             <div class="card card-profile main-raised m-0">
-                                <form class="new_student_form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}">
+                                <form class="add-student-form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}">
                                     <div class="card-body text-left has-rose">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <h4 class="card-title">Auto Fields</h4>
+                                                <h4 class="card-title">EA Id</h4>
                                                 <input name="eduatlasId" type="text" placeholder="EA Membership number"
                                                     class="form-control" disabled>
                                                 <h4 class="card-title">Compulsory Fields</h4>
@@ -366,26 +367,27 @@
                                     <div class="row">
                                         {{!-- FIXME: moved to new hbs file --}}
                                     </div>
-                                    <div id="active_batch_container{{tabNumber}}" class="row">
+                                    <div id="active_batch_container" class="row">
                                     </div>
                                 </div>
                                 <div class="inactive-batches-container"></div>
                                 <div class="card m-0 mb-4">
-                                    <form class="new_batch_form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}"
-                                        enctype="multipart/form-data">
-                                        <div class="row card-body">
-                                            <div class="card-title h3 col-12">
-                                                Add New Batch
+                                    <div class="row card-body">
+                                        <div class="card-title h3 col-12">
+                                            Add New Batch
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="courseIdSelect">Choose Course for your batch</label>
+                                                <select id="course_select_menu" class="form-control selectpicker courseIdSelect"
+                                                    data-style="btn btn-link" name="courseId" data-tabnumber="{{tabNumber}}"
+                                                    required>
+                                                    {{!-- FIXME: moved to new hbs file --}}
+                                                </select>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="courseIdSelect">Choose Course for your batch</label>
-                                                    <select class="form-control selectpicker courseIdSelect" data-style="btn btn-link"
-                                                        name="courseId" data-tabnumber="{{tabNumber}}" required>
-                                                        {{!-- FIXME: moved to new hbs file --}}
-                                                    </select>
-                                                </div>
-                                            </div>
+                                        </div>
+                                        <form class="add_batch_form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}"
+                                            enctype="multipart/form-data">
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating is-empty has-rose bmd-form-group">
                                                     <input type="text" name="code" class="form-control" placeholder="Batch Code (unique)"
@@ -414,8 +416,9 @@
                                                     <div class="ripple-container"></div>
                                                 </button>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

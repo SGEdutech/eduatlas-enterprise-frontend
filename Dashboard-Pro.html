@@ -3,8 +3,6 @@
 
 <head>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121945570-1"></script>
-	<link rel="apple-touch-icon" href="assets/img/favicon.png">
-	<link rel="icon" type="image/png" href="assets/img/favicon.png">
 	<script>
 		window.dataLayer = window.dataLayer || [];
 
@@ -2026,8 +2024,21 @@
 			</div>
 		</div>
 	</div>
-	<div id="edit_course_modal_container">
-		<div class="modal fade bd-example-modal-lg" id="edit_course_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div id="edit_modal_container">
+		<div class="modal fade bd-example-modal-lg" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-body p-0">
+						<form id="edit_form" enctype="multipart/form-data">
+						</form>
+						<div class="row justify-content-end m-2">
+							<button id="submit_edit_form_btn" type="button" class="btn btn-round btn-primary">Save
+								changes</button>
+							<button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div id="login_modal_container"></div>
@@ -2090,23 +2101,27 @@
 	<!-- <script src="assets/js/query-string.js"></script>
 	<script src="assets/js/redirect-tabs.js"></script> -->
 	<script src="assets/js/navbar.js"></script>
+	<script src="assets/js/new-modal.js"></script>
 	<script src="assets/js/promoter.js"></script>
 	<script src="assets/js/chart.js"></script>
-	<script src="assets/js/institute-courses.js"></script>
-	<script src="assets/js/institute-batches.js"></script>
 	<script src="assets/js/institute-info.js"></script>
-	<script src="assets/js/institute-students.js"></script>
+	<!-- <script src="assets/js/institute-students.js"></script>
 	<script src="assets/js/institute-announcement.js"></script>
 	<script src="assets/js/institute-forum.js"></script>
 	<script src="assets/js/institute-schedule.js"></script>
-	<script src="assets/js/institute-attendance.js"></script>
+	<script src="assets/js/institute-attendance.js"></script> -->
 	<script src="assets/js/dashboard-edit-profile.js"></script>
 	<script src="assets/js/dashboard-add-tuition.js"></script>
 	<script src="assets/js/dashboard-add-school.js"></script>
 	<script src="assets/js/dashboard-add-event.js"></script>
 	<script src="assets/js/test.js"></script>
-	<script src="assets/js/dashboard-pro-service.js"></script>
 
+	<script src="assets/js/new-course-module.js"></script>
+	<script src="assets/js/new-student-module.js"></script>
+	<script src="assets/js/new-batch-module.js"></script>
+	<script src="assets/js/new-institute-fetch.js"></script>
+
+	<script src="assets/js/dashboard-pro-service.js"></script>
 </body>
 
 </html>

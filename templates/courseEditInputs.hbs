@@ -1,0 +1,118 @@
+
+            <div class="card my-0 bg-info">
+                <div class="card-body pt-0 pb-0">
+                    <h3 class="card-title my-2">
+                        <a href="#pablo" class="text-dark">{{code}}</a>
+                    </h3>
+                </div>
+            </div>
+            <div class="card my-0">
+                <div class="card-body ">
+                    <div class="row align-items-center justify-content-around">
+                        <div class="col-sm-12 col-xs-12 mt-1">
+                            <div class="row">
+                                <div class="col-md-4 pt-0 pb-0 border border-white">
+                                    <span class="input-group-addon" style="font-size: 12px;">
+                                        COURSE CODE
+                                    </span>
+                                </div>
+                                <div class="col-md-8 p-0">
+                                    <input name="code" type="text" class="form-control bg-white" placeholder="COURSE CODE"
+                                        value="{{code}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xs-12 mt-1">
+                            <div class="row">
+                                <div class="col-md-4 pt-0 pb-0">
+                                    <span class="input-group-addon" style="font-size: 12px;">
+                                        DESCRIPTION
+                                    </span>
+                                </div>
+                                <div class="col-md-8 p-0">
+                                    <input name="description" type="text" class="form-control bg-white" placeholder="DESCRIPTION"
+                                        value="{{description}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xs-12 mt-1">
+                            <div class="row">
+                                <div class="col-md-4 pt-0 pb-0 border border-white">
+                                    <span class="input-group-addon" style="font-size: 12px;">
+                                        COURSE FEE
+                                    </span>
+                                </div>
+                                <div class="col-md-8 p-0">
+                                    <input name="fees" type="text" class="form-control bg-white fee-inp" placeholder="COURSE FEE"
+                                        value="{{fees}}" data-tabNumber="{{_id}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xs-12 mt-1">
+                            <div class="row">
+                                <div class="col-md-4 pt-0 pb-0 border border-white">
+                                    <span class="input-group-addon" style="font-size: 12px;">
+                                    </span>
+                                </div>
+                                <div class="col-md-8 p-0">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input gst-checkbox" type="checkbox"
+                                                        data-tabNumber="{{_id}}">
+                                                    INCLUSIVE OF GST
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-3 pl-0 pr-0">
+                                                    <input name="gstPercentage" type="text" class="form-control bg-white border rounded  mt-3 gst-inp"
+                                                        style="height:24px;" value="{{gstPercentage}}" data-tabNumber="{{_id}}">
+                                                </div>
+                                                <div class="col-md-9 pl-0 pr-0 mt-3">
+                                                    <p>GST PERCENTAGE</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center justify-content-around">
+                        <div class="col-sm-12 col-xs-12 mt-1">
+                            <div class="row">
+                                <div class="col-md-4 pt-0 pb-0 border border-white">
+                                    <span class="input-group-addon" style="font-size: 12px;">
+                                        TOTAL FEE
+                                    </span>
+                                </div>
+                                <div class="col-md-8 p-0">
+                                    <input type="text" class="form-control bg-white total-fee" placeholder="TOTAL FEE"
+                                        data-tabNumber="{{_id}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xs-12 mt-1">
+                            <div class="row">
+                                <div class="col-md-4 pt-0 pb-0 border border-white">
+                                    <span class="input-group-addon" style="font-size: 12px;">
+                                        DEFINED BATCHES
+                                    </span>
+                                </div>
+                                <div class="col-md-8 p-0">
+                                    {{#each batches as |batch|}}
+                                    <span class="badge badge-info">{{batch.code}}</span>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        

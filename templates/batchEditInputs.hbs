@@ -1,0 +1,132 @@
+<div class="card my-0 bg-info">
+    <div class="card-body pt-0 pb-0">
+        <h3 class="card-title my-2">
+            <a href="#pablo" class="text-dark">{{code}}</a>
+        </h3>
+    </div>
+</div>
+<div class="card my-0">
+    <div class="card-body ">
+        <div class="row align-items-center justify-content-around">
+            <div class="col-sm-12 col-xs-12 mt-1">
+                <div class="row">
+                    <div class="col-md-4 pt-0 pb-0 border border-white">
+                        <span class="input-group-addon" style="font-size: 12px;">
+                            BATCH CODE
+                        </span>
+                    </div>
+                    <div class="col-md-8 p-0">
+                        <input name="code" type="text" class="form-control bg-white" placeholder="BATCH CODE" value="{{code}}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 mt-1">
+                <div class="row">
+                    <div class="col-md-4 pt-0 pb-0">
+                        <span class="input-group-addon" style="font-size: 12px;">
+                            DESCRIPTION
+                        </span>
+                    </div>
+                    <div class="col-md-8 p-0">
+                        <input name="description" type="text" class="form-control bg-white" placeholder="DESCRIPTION"
+                            value="{{description}}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 mt-1">
+                <div class="row">
+                    <div class="col-md-4 pt-0 pb-0">
+                        <span class="input-group-addon" style="font-size: 12px;">
+                            PARENT COURSE
+                        </span>
+                    </div>
+                    <div class="col-md-8 p-0">
+                        <p>{{parentCourse}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center justify-content-around">
+            <div class="col-sm-12 col-xs-12 mt-1">
+                <div class="row">
+                    <div class="col-md-4 pt-0 pb-0 border border-white">
+                        <span class="input-group-addon" style="font-size: 12px;">
+                            STUDENTS
+                        </span>
+                    </div>
+                    <div class="col-md-8 p-0">
+                        <div class="px-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th>Name</th>
+                                        <th>Roll Number</th>
+                                        <th>Email</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each students
+                                    as |student|}}
+                                    <tr id="{{randomId}}">
+                                        <td class="text-center">{{@index}}</td>
+                                        <td>{{student.name}}</td>
+                                        <td>{{student.rollNumber}}</td>
+                                        <td>{{student.email}}</td>
+                                        <td>
+                                            <i class="material-icons text-secondary remove-student-btn" style="cursor: pointer"
+                                                data-entry="{{randomId}}">
+                                                delete
+                                            </i>
+                                        </td>
+                                        <input type="hidden" name="students" value="{{student._id}}">
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 mt-1">
+                <div class="row">
+                    <div class="col-md-4 pt-0 pb-0">
+                        <span class="input-group-addon" style="font-size: 12px;">
+                            ADD MORE STUDENTS
+                        </span>
+                    </div>
+                    <div class="col-md-8 p-0">
+                        <div class="px-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th>Name</th>
+                                        <th>Roll Number</th>
+                                        <th>Email</th>
+                                        <th>Select</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each allstudents
+                                    as |student|}}
+                                    <tr>
+                                        <td class="text-center">{{@index}}</td>
+                                        <td>{{student.name}}</td>
+                                        <td>{{student.rollNumber}}</td>
+                                        <td>{{student.email}}</td>
+                                        <td>
+                                            <input type="checkbox" name="students" value="{{student._id}}">
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

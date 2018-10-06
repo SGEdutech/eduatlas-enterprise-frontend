@@ -6,7 +6,7 @@ const tuitionApiCalls = (() => {
 		bragging: true,
 		courses: true,
 		reviews: true,
-		students: true,
+		students: true
 	};
 	const checkForHexRegExp = new RegExp("^[0-9a-fA-F]{24}$");
 
@@ -40,7 +40,7 @@ const tuitionApiCalls = (() => {
 		}
 		return $.ajax({
 			type: "GET",
-			url: "tuition/multiple",
+			url: "/tuition/multiple",
 			data: { tuitions: tuitionsArr },
 		});
 	}
@@ -191,6 +191,13 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
+	function getClaimedCourses() {
+		return $.ajax({
+			type: "GET",
+			url: "/tuition/course/claimed",
+		});
+	}
+
 	function putCourseInTuition(idOfTuition, bodyObj) {
 		if (!checkForHexRegExp.test(idOfTuition)) {
 			console.error("Not a valid idOfTuition");
@@ -226,6 +233,13 @@ const tuitionApiCalls = (() => {
 		return $.ajax({
 			type: "DELETE",
 			url: `tuition/${idOfTuition}/course/${idOfCourse}`,
+		});
+	}
+
+	function getClaimedBatches() {
+		return $.ajax({
+			type: 'GET',
+			url: '/tuition/batch/claimed'
 		});
 	}
 
@@ -470,9 +484,11 @@ const tuitionApiCalls = (() => {
 		deleteArrayInTuition,
 		deleteInArrayInTuition,
 		deleteTuition,
+		getClaimedCourses,
 		putCourseInTuition,
 		editCourseInTuition,
 		deleteCourseInTuition,
+		getClaimedBatches,
 		putBatchInCourseInTuition,
 		editBatchInCourseInTuition,
 		deleteBatchInCourseInTuition,
