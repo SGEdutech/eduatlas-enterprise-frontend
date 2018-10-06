@@ -729,8 +729,8 @@
                                                         required data-tabNumber="{{tabNumber}}" disabled>
                                                 </div>
                                             </div>
-                                            <form class="new-schedule-form row" data-tabNumber="{{tabNumber}}"
-                                                data-tuition="{{_id}}" enctype="multipart/form-data">
+                                            <form class="add-schedule-form row" data-tabNumber="{{tabNumber}}"
+                                                data-id="{{_id}}" enctype="multipart/form-data">
                                                 <div class="col-md-12">
                                                     <table class="table mb-0">
                                                         <thead>
@@ -782,7 +782,7 @@
                             </div>
                             <div class="row m-0">
                                 <div class="card-title col-12 h3 p-0">Active Schedules</div>
-                                <div class="active-schedule-container col-12">
+                                <div id="active_schedule_container" class="col-12">
                                     {{!-- FIXME: moved to new hbs file --}}
                                 </div>
                             </div>

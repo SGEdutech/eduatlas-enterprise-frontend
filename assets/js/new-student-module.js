@@ -5,13 +5,27 @@ const student = (() => {
 	let $deleteButton;
 	let $studentContainer;
 
+	async function deleteStudent(event) {
+		try {
+			const $deleteBtn = $(event.target);
+			const tuitionId = $deleteBtn.attr('data-tuition-id');
+			const studentId = $deleteBtn.attr('data-student-id');
+			const deletedStudent = await tuitionApiCalls.deleteStudentInTuition(tuitionId, studentId);
+			newStudentsArr = studentsArr.filter(studentObj => studentObj._id !== studentId);
+			refresh(newStudentsArr);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
 	async function editStudent(tuitionId, studentId) {
 		try {
 			const editedData = modal.serializeForm();
 			// TODO: Replace with tuition API calls
-			const editedStudent = await tuitionApiCalls.updateInArrayInTuition(tuitionId, 'students', studentId, editedData);
+			console.log(tuitionId);
+			const editedStudent = await tuitionApiCalls.editStudentInTuition(tuitionId, studentId, editedData);
 			modal.hideModal();
-			console.log('Course was successfully edited');
+			console.log('Student was successfully edited');
 			editedStudent.tuitionId = tuitionId;
 			const newStudentArr = studentsArr.map(studentObj => studentObj._id === studentId ? editedStudent : studentObj)
 			refresh(newStudentArr);
@@ -24,21 +38,22 @@ const student = (() => {
 		const $editBtn = $(event.target);
 		const tuitionId = $editBtn.attr('data-tuition-id');
 		const studentId = $editBtn.attr('data-student-id');
-		const studentInfo = studentsArr.find(studedntToBeEdited => studedntToBeEdited._id === studentId);
+		const studentInfo = studentsArr.find(studentToBeEdited => studentToBeEdited._id === studentId);
 		const editStudentInputHTML = template.studentEditInputs(studentInfo);
 		modal.renderFormContent(editStudentInputHTML);
-		modal.bindSubmitEvent(() => editStudent(tuitionId, courseId));
+		modal.bindSubmitEvent(() => editStudent(tuitionId, studentId));
 		modal.showModal();
 	}
 
 	async function addStudent(event) {
 		try {
 			event.preventDefault();
-			const $form = $(e.target);
+			const $form = $(event.target);
 			const tuitionId = $form.attr('data-id');
-			const newStudent = await tuitionApiCalls.putInArrayInTuition(idOfTuition, 'students', $form.serialize());
+			const newStudent = await tuitionApiCalls.putStudentInTuition(tuitionId, $form.serialize());
 			studentsArr.push(newStudent);
 			refresh(studentsArr);
+			$form.trigger('reset');
 		} catch (err) {
 			console.error(err);
 		}
@@ -54,8 +69,8 @@ const student = (() => {
 	}
 
 	function cacheDynamic() {
-		$editButton = $('.batch-edit');
-		$deleteButton = $('.delete-batch-btn');
+		$editButton = $('.student-edit');
+		$deleteButton = $('.delete-student-btn');
 	}
 
 	function bindDynamic() {
@@ -64,8 +79,8 @@ const student = (() => {
 	}
 
 	function render() {
-		const cardsHtml = template.studentCard({ students: studentsArr });
-		$studentContainer.html(cardsHtml);
+		const studentCardsHtml = template.studentCard({ students: studentsArr });
+		$studentContainer.html(studentCardsHtml);
 	}
 
 	function refresh(newStudentsArray) {
@@ -76,7 +91,7 @@ const student = (() => {
 	}
 
 	function init(studentsArray) {
-		if (studentsArr === undefined) throw new Error('Students array not defined');
+		if (studentsArray === undefined) throw new Error('Students array not defined');
 		studentsArr = studentsArray;
 
 		cache();

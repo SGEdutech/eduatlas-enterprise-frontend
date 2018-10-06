@@ -191,6 +191,51 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
+	function getClaimedStudents() {
+		return $.ajax({
+			type: "GET",
+			url: "/tuition/student/claimed"
+		});
+	}
+
+	function putStudentInTuition(idOfTuition, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		return $.ajax({
+			type: 'POST',
+			url: `/tuition/${idOfTuition}/student`,
+			data: bodyObj
+		});
+	}
+
+	function editStudentInTuition(idOfTuition, idOfStudent, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		if (!checkForHexRegExp.test(idOfStudent)) {
+			console.error("Not a valid idOfStudent");
+		}
+		return $.ajax({
+			type: 'PUT',
+			url: `/tuition/${idOfTuition}/student/${idOfStudent}`,
+			data: bodyObj
+		});
+	}
+
+	function deleteStudentInTuition(idOfTuition, idOfStudent) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error("Not a valid idOfTuition");
+		}
+		if (!checkForHexRegExp.test(idOfStudent)) {
+			console.error("Not a valid idOfStudent");
+		}
+		return $.ajax({
+			type: 'DELETE',
+			url: `/tuition/${idOfTuition}/student/${idOfStudent}`
+		});
+	}
+
 	function getClaimedCourses() {
 		return $.ajax({
 			type: "GET",
@@ -484,6 +529,10 @@ const tuitionApiCalls = (() => {
 		deleteArrayInTuition,
 		deleteInArrayInTuition,
 		deleteTuition,
+		getClaimedStudents,
+		putStudentInTuition,
+		editStudentInTuition,
+		deleteStudentInTuition,
 		getClaimedCourses,
 		putCourseInTuition,
 		editCourseInTuition,

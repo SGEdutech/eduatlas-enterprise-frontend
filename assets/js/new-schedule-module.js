@@ -1,68 +1,67 @@
 const schedule = (() => {
-	let batchesArr;
-	let distinctCoursesArr;
-	let $batchContainer;
-	let $addBatchForm;
+	let schedulesArr;
+	let distinctBatchesArr;
+	let $scheduleContainer;
+	let $addscheduleForm;
 	let $editButton;
 	let $deleteButton;
-	let $courseSelectMenu;
 
-	function getCourseCode(courseId) {
-		let courseCode;
-		distinctCoursesArr.forEach(courseInfo => {
-			if (courseId === courseInfo._id) courseCode = courseInfo.code;
-		});
-		return courseCode;
-	}
+	// function getCourseCode(batchId) {
+	// 	let batchCode;
+	// 	distinctBatchesArr.forEach(batchInfo => {
+	// 		if (batchId === batchInfo._id) batchCode = batchInfo.code;
+	// 	});
+	// 	return batchCode;
+	// }
 
 	function cache() {
-		$addBatchForm = $('.add_batch_form');
-		$batchContainer = $('#active_batch_container');
-		$courseSelectMenu = $('#course_select_menu');
+		$addscheduleForm = $('.add-schedule-form');
+		$scheduleContainer = $('#active_schedule_container');
 	}
 
 	function cacheDynamic() {
-		$editButton = $('.batch-edit');
-		$deleteButton = $('.delete-batch-btn');
+		$editButton = $('.schedule-edit');
+		$deleteButton = $('.delete-schedule-btn');
 	}
 
-	function requestAddBatch(tuitionId, courseId, newCourseDetails) {
-		return tuitionApiCalls.putBatchInCourseInTuition(tuitionId, courseId, newCourseDetails);
+	function requestAddschedule(tuitionId, courseId, batchId, newScheduleDetails) {
+		return tuitionApiCalls.putscheduleInCourseInTuition(tuitionId, courseId, batchId, newScheduleDetails);
 	}
 
-	function submitEditRequest(tuitionId, courseId, batchId, editedData) {
-		return tuitionApiCalls.editBatchInCourseInTuition(tuitionId, courseId, batchId, editedData);
+	function submitEditRequest(tuitionId, courseId, batchId, scheduleId, editedData) {
+		return tuitionApiCalls.editscheduleInCourseInTuition(tuitionId, courseId, batchId, scheduleId, editedData);
 	}
 
-	async function editBatch(tuitionId, courseId, batchId) {
+	async function editschedule(tuitionId, courseId, batchId, scheduleId) {
 		try {
 			const editedData = modal.serializeForm();
-			const editedBatch = await submitEditRequest(tuitionId, courseId, batchId, editedData);
+			const editedschedule = await submitEditRequest(tuitionId, courseId, batchId, scheduleId, editedData);
 			modal.hideModal();
-			console.log('Batch was successfully edited');
-			editedBatch.tuitionId = tuitionId;
-			editedBatch.courseId = courseId;
-			editedBatch.courseCode = getCourseCode(courseId);
-			const newBatchArr = batchesArr.map(batchObj => batchObj._id === batchId ? editedBatch : batchObj)
-			refresh(newBatchArr);
+			console.log('schedule was successfully edited');
+			editedschedule.tuitionId = tuitionId;
+			editedschedule.courseId = courseId;
+			editedschedule.batchId = batchId;
+			const newscheduleArr = schedulesArr.map(scheduleObj => scheduleObj._id === scheduleId ? editedschedule : scheduleObj)
+			refresh(newscheduleArr);
 		} catch (err) {
 			console.error(err);
 		}
 	}
 
-	function submitDeleteRequest(tuitionId, courseId, batchId) {
-		return tuitionApiCalls.deleteBatchInCourseInTuition(tuitionId, courseId, batchId);
+	function submitDeleteRequest(tuitionId, courseId, batchId, scheduleId) {
+		return tuitionApiCalls.deletescheduleInCourseInTuition(tuitionId, courseId, batchId, scheduleId);
 	}
 
-	async function deleteBatch(event) {
+	async function deleteschedule(event) {
 		try {
 			const $deleteBtn = $(event.target);
 			const tuitionId = $deleteBtn.attr('data-tuition-id');
-			const courseId = $deleteBtn.attr('data-course-id');
 			const batchId = $deleteBtn.attr('data-batch-id');
-			const deletedTuition = await submitDeleteRequest(tuitionId, courseId, batchId);
-			console.log('Batch was successfully deleted');
-			newCourseArr = batchesArr.filter(batchObj => batchObj._id !== batchId);
+			const courseId = $deleteBtn.attr('data-course-id');
+			const scheduleId = $deleteBtn.attr('data-schedule-id');
+			const deletedTuition = await submitDeleteRequest(tuitionId, courseId, batchId, scheduleId);
+			console.log('schedule was successfully deleted');
+			newCourseArr = schedulesArr.filter(scheduleObj => scheduleObj._id !== scheduleId);
 			refresh(newCourseArr);
 		} catch (err) {
 			console.error(err);
@@ -72,29 +71,30 @@ const schedule = (() => {
 	function editModalInit(event) {
 		const $editBtn = $(event.target);
 		const tuitionId = $editBtn.attr('data-tuition-id');
-		const courseId = $editBtn.attr('data-course-id');
 		const batchId = $editBtn.attr('data-batch-id');
-		const batchInfo = batchesArr.find(batchToBeEdited => batchToBeEdited._id === batchId);
-		const editBatchInputHTML = template.batchEditInputs(batchInfo);
-		modal.renderFormContent(editBatchInputHTML);
-		modal.bindSubmitEvent(() => editBatch(tuitionId, courseId, batchId));
+		const courseId = $editBtn.attr('data-course-id');
+		const scheduleId = $editBtn.attr('data-schedule-id');
+		const scheduleInfo = schedulesArr.find(scheduleToBeEdited => scheduleToBeEdited._id === scheduleId);
+		const editscheduleInputHTML = template.scheduleEditInputs(scheduleInfo);
+		modal.renderFormContent(editscheduleInputHTML);
+		modal.bindSubmitEvent(() => editschedule(tuitionId, courseId, batchId, scheduleId));
 		modal.showModal();
 	}
 
-	async function addBatch(e) {
+	async function addschedule(e) {
 		try {
 			e.preventDefault();
 			const $form = $(e.target);
 			const tuitionId = $form.attr('data-id');
-			// FIXME: extract courseId for new batch
+			// FIXME: extract batchId for new schedule
 			const serializedForm = $form.serialize();
-			const courseId = $courseSelectMenu.val();
-			const courseCode = getCourseCode(courseId);
-			const newBatch = await requestAddBatch(tuitionId, courseId, serializedForm);
-			newBatch.courseId = courseId;
-			newBatch.courseCode = courseCode;
-			newBatch.tuitionId = tuitionId;
-			batchesArr.push(newBatch);
+			const batchId = $batchSelectMenu.val();
+			const batchCode = getCourseCode(batchId);
+			const newschedule = await requestAddschedule(tuitionId, courseId, batchId, serializedForm);
+			newschedule.batchId = batchId;
+			newschedule.batchCode = batchCode;
+			newschedule.tuitionId = tuitionId;
+			schedulesArr.push(newschedule);
 			$form.trigger('reset');
 			refresh();
 		} catch (err) {
@@ -102,52 +102,52 @@ const schedule = (() => {
 		}
 	}
 
-	function getUniqueCourses(coursesArr) {
-		if (Array.isArray(coursesArr) === false) throw new Error('Course provided is not an array');
+	function getUniqueBatches(batchsArr) {
+		if (Array.isArray(batchsArr) === false) throw new Error('Course provided is not an array');
 
 		const uniqueCourseIds = {};
 		const uniqueCourseArr = [];
-		for (const i in coursesArr) {
-			if (uniqueCourseIds[coursesArr[i]._id] !== true) {
-				uniqueCourseArr.push({ _id: coursesArr[i]._id, code: coursesArr[i].code });
-				uniqueCourseIds[coursesArr[i]._id] = true;
+		for (const i in batchsArr) {
+			if (uniqueCourseIds[batchsArr[i]._id] !== true) {
+				uniqueCourseArr.push({ _id: batchsArr[i]._id, code: batchsArr[i].code });
+				uniqueCourseIds[batchsArr[i]._id] = true;
 			}
 		}
 	}
 
 	function bindEvents() {
-		$addBatchForm.submit(addBatch);
+		$addscheduleForm.submit(addschedule);
 	}
 
 	function bindDynamicEvents() {
 		$editButton.click(editModalInit);
-		$deleteButton.click(deleteBatch);
+		$deleteButton.click(deleteschedule);
 	}
 
 	function render() {
-		const cardsHtml = template.batchCard({ batches: batchesArr });
-		$batchContainer.html(cardsHtml);
+		const cardsHtml = template.scheduleCard({ schedules: schedulesArr });
+		$scheduleContainer.html(cardsHtml);
 
-		const courseOptionsHTML = template.courseOptions({ courses: distinctCoursesArr });
-		$courseSelectMenu.html(courseOptionsHTML).selectpicker('refresh');
+		// const batchOptionsHTML = template.batchOptions({ batchs: distinctBatchesArr });
+		// $batchSelectMenu.html(batchOptionsHTML).selectpicker('refresh');
 	}
 
-	function refresh(batches) {
-		if (batches) batchesArr = batches;
+	function refresh(schedules) {
+		if (schedules) schedulesArr = schedules;
 		render();
 		cacheDynamic();
 		bindDynamicEvents();
 	}
 
-	function init(batches, courses) {
-		if (batches === undefined) throw new Error('Batches not provided');
-		if (Array.isArray(batches) === false) throw new Error('Batches not an array');
+	function init(schedules, batches) {
+		if (schedules === undefined) throw new Error('schedules not provided');
+		if (Array.isArray(schedules) === false) throw new Error('schedules not an array');
 
-		if (courses === undefined) throw new Error('Courses not provided');
-		if (Array.isArray(courses) === false) throw new Error('Courses not an array');
+		if (batches === undefined) throw new Error('batches not provided');
+		if (Array.isArray(batches) === false) throw new Error('batches not an array');
 
-		batchesArr = batches;
-		distinctCoursesArr = getUniqueCourses(courses);
+		schedulesArr = schedules;
+		// distinctBatchesArr = getUniqueBatches(batches);
 
 		cache();
 		bindEvents();

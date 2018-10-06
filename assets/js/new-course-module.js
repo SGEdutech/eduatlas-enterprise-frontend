@@ -100,9 +100,9 @@ const course = (() => {
 	}
 
 	function init(courses) {
-		if (Array.isArray(course) === false) throw new Error('Courses must be an array');
+		if (Array.isArray(courses) === false) throw new Error('Courses must be an array');
 		coursesArr = courses;
-		
+
 		cache();
 		bindEvents();
 		render();
