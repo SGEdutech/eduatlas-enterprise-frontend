@@ -386,7 +386,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <form class="add_batch_form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}"
+                                        <form class="add_batch_form col-12" data-tabNumber="{{tabNumber}}" data-id="{{_id}}"
                                             enctype="multipart/form-data">
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating is-empty has-rose bmd-form-group">
@@ -406,11 +406,9 @@
                                                 <div class="card-title">
                                                     Add Students
                                                 </div><br>
-                                                <div class="px-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
+                                                <div id="student_checkbox_container" class="px-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
                                                     {{!-- FIXME: moved to new hbs file --}}
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12">
                                                 <button type="submit" class="btn btn-round btn-rose pull-right mt-4">
                                                     ADD Batch
                                                     <div class="ripple-container"></div>
@@ -418,7 +416,6 @@
                                             </div>
                                         </form>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -729,8 +726,8 @@
                                                         required data-tabNumber="{{tabNumber}}" disabled>
                                                 </div>
                                             </div>
-                                            <form class="add-schedule-form row" data-tabNumber="{{tabNumber}}"
-                                                data-id="{{_id}}" enctype="multipart/form-data">
+                                            <form class="add-schedule-form row" data-tabNumber="{{tabNumber}}" data-id="{{_id}}"
+                                                enctype="multipart/form-data">
                                                 <div class="col-md-12">
                                                     <table class="table mb-0">
                                                         <thead>

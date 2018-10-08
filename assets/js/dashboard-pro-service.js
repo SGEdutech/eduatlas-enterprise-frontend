@@ -8,24 +8,6 @@ PubSub.subscribe('instituteTabs.load', instituteInfo => {
 });
 
 user.getInfo().then(userInfo => {
-	const newClaimsArr = [];
-	newClaimsArr.push(userInfo.claims[0].listingId);
-	fetchTuitionData.init(newClaimsArr);
-	fetchTuitionData.getClaimedInstitute().then(tuitionArr => {
-		instituteInfo.init(tuitionArr);
-		tuitionApiCalls.getClaimedCourses().then(coursesArr => {
-			course.init(coursesArr);
-			tuitionApiCalls.getClaimedBatches().then(batchesArr => {
-				batch.init(batchesArr, coursesArr);
-			}).catch(err => console.error(err))
-		}).catch(err => console.error(err))
-
-		tuitionApiCalls.getClaimedStudents().then(studentsArr => {
-			student.init(studentsArr);
-		}).catch(err => console.error(err))
-
-	}).catch(err => console.error(err))
-
 	modal.init();
 	navigationBar.init(userInfo, { colorOnScroll: false });
 	userClaimed.init(userInfo);
@@ -36,5 +18,27 @@ user.getInfo().then(userInfo => {
 	dashboardAddEvent.init(userInfo);
 }).catch(err => console.error(err));
 
+async function initModules() {
+	try {
+		const promiseArr = [];
+		promiseArr.push(tuitionApiCalls.getClaimedCourses());
+		promiseArr.push(tuitionApiCalls.getClaimedBatches());
+		promiseArr.push(tuitionApiCalls.getClaimedStudents());
+		promiseArr.push(tuitionApiCalls.getAllClaimedTuitions());
+
+		const [claimedCourses, claimedBatches, claimedStudents, claimedInstitute] =
+		await Promise.all(promiseArr);
+
+		instituteInfo.init(claimedInstitute);
+		course.init(claimedCourses);
+		batch.init(claimedBatches, claimedCourses, claimedStudents);
+		student.init(claimedStudents);
+	} catch (err) {
+		console.error(err);
+	}
+}
+
+initModules();
+
 setTimeout(loginModal.init());
-setTimeout(promoterModal.init());
+// setTimeout(promoterModal.init());

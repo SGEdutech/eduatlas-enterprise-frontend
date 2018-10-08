@@ -63,24 +63,20 @@
                                         <th>Name</th>
                                         <th>Roll Number</th>
                                         <th>Email</th>
-                                        <th>Actions</th>
+                                        <th>Add/Remove</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{#each students
-                                    as |student|}}
+                                    {{#each allStudents as |student|}}
                                     <tr id="{{randomId}}">
                                         <td class="text-center">{{@index}}</td>
                                         <td>{{student.name}}</td>
                                         <td>{{student.rollNumber}}</td>
                                         <td>{{student.email}}</td>
                                         <td>
-                                            <i class="material-icons text-secondary remove-student-btn" style="cursor: pointer"
-                                                data-entry="{{randomId}}">
-                                                delete
-                                            </i>
+                                            <input type="checkbox" name="students" value="{{student._id}}"
+                                                {{#if student.inThisBatch}}checked{{/if}}>
                                         </td>
-                                        <input type="hidden" name="students" value="{{student._id}}">
                                     </tr>
                                     {{/each}}
                                 </tbody>
@@ -89,7 +85,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-xs-12 mt-1">
+            {{!-- <div class="col-sm-12 col-xs-12 mt-1">
                 <div class="row">
                     <div class="col-md-4 pt-0 pb-0">
                         <span class="input-group-addon" style="font-size: 12px;">
@@ -126,7 +122,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

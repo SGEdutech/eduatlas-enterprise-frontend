@@ -22,6 +22,13 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
+	function getAllClaimedTuitions() {
+		return $.ajax({
+			type: "GET",
+			url: "/tuition/claimed"
+		});
+	}
+
 	function getSpecificTuition(identifierObj = {}) {
 		return $.ajax({
 			type: "GET",
@@ -519,6 +526,7 @@ const tuitionApiCalls = (() => {
 
 	return {
 		getAllTuitions,
+		getAllClaimedTuitions,
 		getSpecificTuition,
 		getMultipleTuitions,
 		searchTuitions,

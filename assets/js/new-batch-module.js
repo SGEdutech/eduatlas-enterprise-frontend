@@ -1,4 +1,5 @@
 const batch = (() => {
+	let studentsArr;
 	let batchesArr;
 	let distinctCoursesArr;
 	let $batchContainer;
@@ -6,6 +7,7 @@ const batch = (() => {
 	let $editButton;
 	let $deleteButton;
 	let $courseSelectMenu;
+	let $studentChekboxContainer;
 
 	function getCourseCode(courseId) {
 		let courseCode;
@@ -15,10 +17,29 @@ const batch = (() => {
 		return courseCode;
 	}
 
+	function getAllStudensWithInThisBatch(batchStudentArray) {
+		if (studentsArr === undefined) throw new Error('Module has not been initialised');
+		if (Array.isArray(studentsArr) === false) throw new Error('Students array not an array ');
+
+		if (batchStudentArray === undefined) throw new Error('Batch student array not provided');
+		if (Array.isArray(batchStudentArray) === false) throw new Error('Batch student is not an array');
+
+		// Doing this to prevent actual objects from being manipulated
+		// JSON meathod has been implemented for performance
+		const jsonString = JSON.stringify(studentsArr);
+		const duplicateStudentsArr = JSON.parse(jsonString);
+
+		duplicateStudentsArr.forEach(studentObj => {
+			studentObj.inThisBatch = batchStudentArray.indexOf(studentObj._id) !== -1;
+		});
+		return duplicateStudentsArr;
+	}
+
 	function cache() {
 		$addBatchForm = $('.add_batch_form');
 		$batchContainer = $('#active_batch_container');
 		$courseSelectMenu = $('#course_select_menu');
+		$studentChekboxContainer = $('#student_checkbox_container');
 	}
 
 	function cacheDynamic() {
@@ -75,6 +96,7 @@ const batch = (() => {
 		const courseId = $editBtn.attr('data-course-id');
 		const batchId = $editBtn.attr('data-batch-id');
 		const batchInfo = batchesArr.find(batchToBeEdited => batchToBeEdited._id === batchId);
+		batchInfo.allStudents = getAllStudensWithInThisBatch(batchInfo.students);
 		const editBatchInputHTML = template.batchEditInputs(batchInfo);
 		modal.renderFormContent(editBatchInputHTML);
 		modal.bindSubmitEvent(() => editBatch(tuitionId, courseId, batchId));
@@ -113,6 +135,7 @@ const batch = (() => {
 				uniqueCourseIds[coursesArr[i]._id] = true;
 			}
 		}
+		return uniqueCourseArr;
 	}
 
 	function bindEvents() {
@@ -130,6 +153,9 @@ const batch = (() => {
 
 		const courseOptionsHTML = template.courseOptions({ courses: distinctCoursesArr });
 		$courseSelectMenu.html(courseOptionsHTML).selectpicker('refresh');
+
+		const studentCheckboxesHTML = template.studentCheckboxes({ students: studentsArr });
+		$studentChekboxContainer.html(studentCheckboxesHTML);
 	}
 
 	function refresh(batches) {
@@ -139,15 +165,19 @@ const batch = (() => {
 		bindDynamicEvents();
 	}
 
-	function init(batches, courses) {
+	function init(batches, courses, students) {
 		if (batches === undefined) throw new Error('Batches not provided');
 		if (Array.isArray(batches) === false) throw new Error('Batches not an array');
 
 		if (courses === undefined) throw new Error('Courses not provided');
 		if (Array.isArray(courses) === false) throw new Error('Courses not an array');
 
+		if (students === undefined) throw new Error('Students not provided');
+		if (Array.isArray(students) === false) throw new Error('Students not an array');
+
 		batchesArr = batches;
 		distinctCoursesArr = getUniqueCourses(courses);
+		studentsArr = students;
 
 		cache();
 		bindEvents();
