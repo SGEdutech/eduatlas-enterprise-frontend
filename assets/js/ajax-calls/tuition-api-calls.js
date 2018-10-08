@@ -454,6 +454,13 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
+	function getClaimedSchedules() {
+		return $.ajax({
+			type: 'GET',
+			url: '/tuition/schedule/claimed'
+		});
+	}
+
 	function putScheduleInBatch(idOfTuition, idOfCourse, idOfBatch, schedulesArr) {
 		if (!checkForHexRegExp.test(idOfTuition)) {
 			console.error("Not a valid idOfTuition");
@@ -556,6 +563,7 @@ const tuitionApiCalls = (() => {
 		deletePostInForum,
 		putCommentInPost,
 		deleteCommentInPost,
+		getClaimedSchedules,
 		putScheduleInBatch,
 		deleteScheduleInBatch,
 		putAttendanceInSchedule

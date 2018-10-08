@@ -24,15 +24,17 @@ async function initModules() {
 		promiseArr.push(tuitionApiCalls.getClaimedCourses());
 		promiseArr.push(tuitionApiCalls.getClaimedBatches());
 		promiseArr.push(tuitionApiCalls.getClaimedStudents());
+		promiseArr.push(tuitionApiCalls.getClaimedSchedules());
 		promiseArr.push(tuitionApiCalls.getAllClaimedTuitions());
 
-		const [claimedCourses, claimedBatches, claimedStudents, claimedInstitute] =
+		const [claimedCourses, claimedBatches, claimedStudents, claimedSchedules, claimedInstitute] =
 		await Promise.all(promiseArr);
 
 		instituteInfo.init(claimedInstitute);
 		course.init(claimedCourses);
 		batch.init(claimedBatches, claimedCourses, claimedStudents);
 		student.init(claimedStudents);
+		schedule.init(claimedSchedules, claimedBatches);
 	} catch (err) {
 		console.error(err);
 	}
