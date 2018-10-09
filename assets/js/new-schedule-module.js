@@ -378,5 +378,23 @@ const schedule = (() => {
 		refresh();
 	});
 
+	PubSub.subscribe('batch.add', (msg, addedBatch) => {
+		distinctBatchesArr.push(addedBatch);
+		refresh();
+	});
+
+	PubSub.subscribe('batch.edit', (msg, editedBatch) => {
+		distinctBatchesArr = distinctBatchesArr.map(batchObj => {
+			if (batchObj._id === editedBatch._id) return editedBatch;
+			return batchObj;
+		});
+		refresh();
+	});
+
+	PubSub.subscribe('batch.delete', (msg, removedBatch) => {
+		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj._id !== removedBatch._id);
+		refresh();
+	});
+
 	return { init };
 })();
