@@ -20,7 +20,6 @@ const instituteAttendance = (() => {
 		// 	editPost($(this));
 		// });
 
-
 		// $deleteCommentForm.submit(function(e) {
 		// 	e.preventDefault();
 		// 	deleteComment($(this));

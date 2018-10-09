@@ -1,5 +1,5 @@
 {{#each schedules as |schedule|}}
-<option value="{{schedule.courseId}}-{{schedule.batchId}}-{{schedule._id}}">
-    {{schedule.batchCode}} - {{schedule.topic}} - {{schedule.date}}
+<option value="{{schedule._id}}">
+    {{schedule.topic}} - {{schedule.date}}
 </option>
 {{/each}}

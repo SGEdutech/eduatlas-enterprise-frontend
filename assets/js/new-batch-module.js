@@ -186,5 +186,23 @@ const batch = (() => {
 		bindDynamicEvents();
 	}
 
+	PubSub.subscribe('course.add', (msg, courseAdded) => {
+		const newCourse = { _id: courseAdded._id, code: courseAdded.code };
+		distinctCoursesArr.push(newCourse);
+		refresh();
+	});
+
+	PubSub.subscribe('course.edit', (msg, editedCourse) => {
+		distinctCoursesArr.forEach(courseObj => {
+			if (courseObj._id === editedCourse._id) courseObj.code = editedCourse.code;
+		})
+		refresh();
+	});
+
+	PubSub.subscribe('course.delete', (msg, deletedCourse) => {
+		distinctCoursesArr = distinctCoursesArr.filter(courseObj => courseObj._id !== deletedCourse._id);
+		refresh();
+	});
+
 	return { init };
 })();

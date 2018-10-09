@@ -804,25 +804,31 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="attandance{{tabNumber}}">
                             <div class="card">
-                                <form class="mark-attendance-form" data-tuition="{{_id}}">
-                                    <div class="card-body">
-                                        <div class="card-title h3">
-                                            Mark Attendence
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="batchDropdown">Select Batch n Schedule</label>
-                                            <select id="batchDropdown" name="courseBatchSchedule" class="form-control attendance-batch-dropdown"
-                                                data-style="btn btn-link" data-tabNumber="{{tabNumber}}">
-                                                {{!-- FIXME: moved to new hbs file --}}
-                                            </select>
-                                        </div>
-                                        <div style="overflow-y: scroll;max-height: 279px;">
+                                <div class="card-body">
+                                    <div class="card-title h3">
+                                        Mark Attendence
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="batchDropdown">Select Batch</label>
+                                        <select id="batchDropdown" class="form-control attendance-batch-dropdown"
+                                            data-style="btn btn-link" data-tabNumber="{{tabNumber}}">
+                                            {{!-- FIXME: moved to new hbs file --}}
+                                        </select>
+                                        <label for="scheduleDropdown">Select Schedule</label>
+                                        <select id="scheduleDropdown" class="form-control attendance-schedule-dropdown"
+                                            data-style="btn btn-link" data-tabNumber="{{tabNumber}}">
+                                            {{!-- FIXME: moved to new hbs file --}}
+                                        </select>
+                                    </div>
+                                    <div style="overflow-y: scroll;max-height: 279px;">
+                                        <form id="absent_student_form">
                                             <table class="table border border-light">
                                                 <thead class="bg-info">
                                                     <tr>
+                                                        <th class="text-light">#</th>
                                                         <th class="text-light">Student Name</th>
-                                                        <th class="text-light">Email</th>
                                                         <th class="text-light">Roll No.</th>
+                                                        <th class="text-light">Email</th>
                                                         <th class="text-light">Action</th>
                                                     </tr>
                                                 </thead>
@@ -835,17 +841,21 @@
                                                             TO MARK ABSENT</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+
+                                                <tbody id="students_container">
+
                                                     {{!-- FIXME: not moved to new hbs file --}}
+
                                                 </tbody>
                                             </table>
-                                        </div>
-                                        <div class="row justify-content-end m-2">
-                                            <button class="btn btn-rose btn-round" disabled>NOTIFY</button>
-                                            <button class="btn btn-rose btn-round" type="submit">Save Attendance</button>
-                                        </div>
+                                        </form>
                                     </div>
-                                </form>
+                                    <div class="row justify-content-end m-2">
+                                        <button class="btn btn-rose btn-round" disabled>NOTIFY</button>
+                                        <button id="save_attendance_btn" class="btn btn-rose btn-round" type="button">Save
+                                            Attendance</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

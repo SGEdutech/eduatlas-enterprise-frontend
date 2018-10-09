@@ -35,6 +35,7 @@ async function initModules() {
 		batch.init(claimedBatches, claimedCourses, claimedStudents);
 		student.init(claimedStudents);
 		schedule.init(claimedSchedules, claimedBatches);
+		attendance.init(claimedBatches, claimedStudents);
 	} catch (err) {
 		console.error(err);
 	}
