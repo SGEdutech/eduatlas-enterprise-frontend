@@ -7,7 +7,7 @@ const course = (() => {
 
 	function cache() {
 		$addCourseForm = $('.add_course_form');
-		$courseContainer = $('#active_course_container');
+		$courseContainer = $('.active-course-container');
 	}
 
 	function cacheDynamic() {

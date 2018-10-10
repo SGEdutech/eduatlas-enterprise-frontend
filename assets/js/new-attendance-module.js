@@ -78,8 +78,10 @@ const attendance = (() => {
 				batch.students.forEach(studentId => {
 					studentsArr.forEach(studentInfo => {
 						if (studentInfo._id === studentId) {
-							studentInfo.isAbsent = studentsAbsent.indexOf(studentInfo._id) !== -1;
-							batchStudentsInfo.push(studentInfo);
+							const jsonString = JSON.stringify(studentInfo);
+							const duplicateStudentInfo = JSON.stringify(jsonString);
+							duplicateStudentInfo.isAbsent = studentsAbsent.indexOf(duplicateStudentInfo._id) !== -1;
+							batchStudentsInfo.push(duplicateStudentInfo);
 						}
 					});
 				});
@@ -122,6 +124,41 @@ const attendance = (() => {
 		render();
 		cacheDynamic();
 	}
+
+	PubSub.subscribe('course.delete', (msg, courseAdded) => {
+		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj.courseId !== courseAdded._id);
+		refresh();
+	});
+
+	PubSub.subscribe('batch.add', (msg, batchAdded) => {
+		distinctBatchesArr.push(batchAdded);
+		refresh();
+	});
+
+	PubSub.subscribe('batch.edit', (msg, batchedited) => {
+		distinctBatchesArr = distinctBatchesArr.map(batchObj => batchObj.courseId === batchedited._id ? batchedited : batchObj);
+		refresh();
+	});
+
+	PubSub.subscribe('batch.delete', (msg, batchDeleted) => {
+		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj._id !== batchDeleted._id);
+		refresh();
+	});
+
+	PubSub.subscribe('students.add', (msg, studentAdded) => {
+		studentsArr.push(studentAdded);
+		refresh();
+	});
+
+	PubSub.subscribe('students.edit', (msg, studentEdited) => {
+		studentsArr = studentsArr.map(studentObj => studentObj._id === studentEdited._id ? studentEdited : studentObj);
+		refresh();
+	});
+
+	PubSub.subscribe('students.delete', (msg, studentDeleted) => {
+		studentsArr = studentsArr.filter(studentObj => studentObj._id !== studentDeleted._id);
+		refresh();
+	});
 
 	return { init };
 })();
