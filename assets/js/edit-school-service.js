@@ -3,6 +3,10 @@ PubSub.subscribe('user', (msg, userInfo) => {
     redirectOnLogout.init(userInfo);
 });
 
+PubSub.subscribeOnce('query', (msg, queryObj) => {
+	redirectTabs.init(queryObj);
+});
+
 PubSub.subscribeOnce('query.load', (msg, queryObject) => {
     getDetails.returnData('school', queryObject).then((schoolInfo) => {
         coverImage.init('school', schoolInfo);
