@@ -6,14 +6,13 @@ const attendance = (() => {
 	let $absentStudentForm;
 	let $saveAttendance;
 	let $studentsContainer;
+	let $checkboxInputs;
 
 	async function submitAttendance(event) {
 		try {
 			event.preventDefault();
 			cacheDynamic();
 			const absentArr = $absentStudentForm.serialize();
-			console.log($absentStudentForm);
-			console.log(absentArr);
 			const batchId = $batchDropDown.val();
 			const scheduleId = $scheduleDropDown.val();
 			let courseId;
@@ -24,21 +23,31 @@ const attendance = (() => {
 					tuitionId = batchInfo.tuitionId
 				}
 			});
-			tuitionApiCalls.replaceAttendanceInSchedule(tuitionId, courseId, batchId, scheduleId, absentArr);
+			const newAbsentArr = await tuitionApiCalls.replaceAttendanceInSchedule(tuitionId, courseId, batchId, scheduleId, absentArr);
+			distinctBatchesArr.forEach(batchObj => {
+				if (batchObj._id === batchId) {
+					batchObj.schedules.forEach(scheduleObj => {
+						if (scheduleObj._id === scheduleId) {
+							scheduleObj.studentsAbsent = newAbsentArr;
+						}
+					});
+				}
+			});
+			refresh();
 		} catch (error) {
 			console.error(error);
 		}
 	}
 
-	function renderScheduleDropDown(event) {
-		const $element = $(event.target);
-		const batchId = $element.val();
+	function renderScheduleDropDown() {
+		const batchId = $batchDropDown.val();
 		distinctBatchesArr.forEach(batch => {
 			if (batch._id === batchId) {
 				const scheduleOptionsHTML = template.scheduleOptions({ schedules: batch.schedules });
 				$scheduleDropDown.html(scheduleOptionsHTML);
 			}
-		})
+		});
+		renderStudentAttandencePallet();
 	}
 
 	function cache() {
@@ -51,19 +60,27 @@ const attendance = (() => {
 	}
 
 	function cacheDynamic() {
-		$studentsAbsent = $('.student-absent:checkbox:checked');
+		$checkboxInputs = $absentStudentForm.find('.student-absent');
 	}
 
 	function renderStudentAttandencePallet() {
 		const batchId = $batchDropDown.val();
-		// const scheduleId = $scheduleDropDown.val();
+		const scheduleId = $scheduleDropDown.val();
+		let studentsAbsent;
 		const batchStudentsInfo = [];
 
 		distinctBatchesArr.forEach(batch => {
 			if (batch._id === batchId) {
+				batch.schedules.forEach(scheduleObj => {
+					if (scheduleObj._id === scheduleId) studentsAbsent = scheduleObj.studentsAbsent;
+				});
+				if (studentsAbsent === undefined) throw new Error('No such schedule found');
 				batch.students.forEach(studentId => {
 					studentsArr.forEach(studentInfo => {
-						if (studentInfo._id === studentId) batchStudentsInfo.push(studentInfo);
+						if (studentInfo._id === studentId) {
+							studentInfo.isAbsent = studentsAbsent.indexOf(studentInfo._id) !== -1;
+							batchStudentsInfo.push(studentInfo);
+						}
 					});
 				});
 			}
@@ -84,8 +101,14 @@ const attendance = (() => {
 	}
 
 	function refresh() {
-		renderBatchDropdown();
+		renderStudentAttandencePallet();
 		cacheDynamic();
+	}
+
+	function render() {
+		renderBatchDropdown();
+		renderScheduleDropDown();
+		renderStudentAttandencePallet();
 	}
 
 	function init(batches, students) {
@@ -96,21 +119,9 @@ const attendance = (() => {
 		studentsArr = students;
 		cache();
 		bindEvents();
-		renderBatchDropdown();
+		render();
 		cacheDynamic();
 	}
-
-	PubSub.subscribe('course.edit', (msg, editedCourse) => {
-		distinctBatchesArr.forEach(batchObj => {
-			if (editedCourse._id === batchObj.courseId) batchObj.courseCode = editedCourse.code;
-		});
-		refresh();
-	});
-
-	PubSub.subscribe('course.delete', (msg, deletedCourse) => {
-		distinctBatchesArr = distinctBatchesArr.filter(batchObj => deletedCourse._id !== batchObj.courseId);
-		refresh();
-	});
 
 	return { init };
 })();
