@@ -3,8 +3,8 @@ PubSub.subscribe('user', (msg, userInfo) => {
 	redirectOnLogout.init(userInfo);
 });
 
-PubSub.subscribe('instituteTabs.load', instituteInfo => {
-	setTimeout(instituteCourses.init());
+PubSub.subscribeOnce('query', (msg, queryObj) => {
+	redirectTabs.init(queryObj);
 });
 
 user.getInfo().then(userInfo => {
@@ -24,17 +24,16 @@ async function initModules() {
 		promiseArr.push(tuitionApiCalls.getClaimedCourses());
 		promiseArr.push(tuitionApiCalls.getClaimedBatches());
 		promiseArr.push(tuitionApiCalls.getClaimedStudents());
-		promiseArr.push(tuitionApiCalls.getClaimedSchedules());
 		promiseArr.push(tuitionApiCalls.getAllClaimedTuitions());
 
-		const [claimedCourses, claimedBatches, claimedStudents, claimedSchedules, claimedInstitute] =
+		const [claimedCourses, claimedBatches, claimedStudents, claimedInstitute] =
 		await Promise.all(promiseArr);
 
 		instituteInfo.init(claimedInstitute);
 		course.init(claimedCourses);
 		batch.init(claimedBatches, claimedCourses, claimedStudents);
 		student.init(claimedStudents);
-		schedule.init(claimedSchedules, claimedBatches);
+		schedule.init(claimedBatches);
 		attendance.init(claimedBatches, claimedStudents);
 	} catch (err) {
 		console.error(err);
@@ -44,4 +43,5 @@ async function initModules() {
 initModules();
 
 setTimeout(loginModal.init());
+setTimeout(queryString.loadQueryString());
 // setTimeout(promoterModal.init());

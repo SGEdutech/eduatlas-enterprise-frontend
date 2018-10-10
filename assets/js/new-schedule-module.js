@@ -1,5 +1,4 @@
 const schedule = (() => {
-	let schedulesArr;
 	let distinctBatchesArr;
 	let $scheduleContainer;
 	let $scheduleRow;
@@ -151,26 +150,28 @@ const schedule = (() => {
 		return addDays(date, numberOfDayToBeAdded)
 	}
 
-	function updateTodate(fromDate) {
+	function updateTodate(fromDate, tuitionId) {
 		const nextSunday = getNextSunday(fromDate);
-		// update toDate Inp
-		$toDate.val(nextSunday.toISOString().split('T')[0]);
+		$toDate.filter(`[data-tuition-id="${tuitionId}"]`).val(nextSunday.toISOString().split('T')[0]);
 	}
 
-	function updateDays(fromDate) {
+	function updateDays(fromDate, tuitionId) {
 		const allDaysTillSunday = getDaysTillSunday(fromDate);
-		$dayDropdown.html(template.daySelectOptions({ days: allDaysTillSunday }));
+		$dayDropdown.filter(`[data-tuition-id="${tuitionId}"]`).html(template.daySelectOptions({ days: allDaysTillSunday }));
 	}
 
 	function updateTodateAndSelectDays(event) {
 		const $fromDateInp = $(event.target);
+		const tuitionId = $fromDate.attr('data-tuition-id');
 		const fromDate = new Date($fromDateInp.val());
-		updateTodate(fromDate)
-		updateDays(fromDate);
+		updateTodate(fromDate, tuitionId);
+		updateDays(fromDate, tuitionId);
 	}
 
-	function appendMoreAddScheduleInputs() {
-		$lastAddScheduleInputsGroup.clone().appendTo($addScheduleContainer);
+	function appendMoreAddScheduleInputs(event) {
+		const $button = $(event.target);
+		const tuitionId = $button.attr('data-tuition-id');
+		$scheduleRow.filter(`[data-tuition-id="${tuitionId}"]`).last().clone().appendTo($addScheduleContainer.filter(`[data-tuition-id="${tuitionId}"]`));
 		$timePicker.datetimepicker('destroy');
 		$datePicker.datetimepicker('destroy');
 		cacheDynamic();
@@ -179,18 +180,17 @@ const schedule = (() => {
 	}
 
 	function cache() {
-		$saveScheduleBtn = $('#save_schedule_btn');
-		$scheduleContainer = $('#active_schedule_container');
+		$saveScheduleBtn = $('.save-schedule-btn');
+		$scheduleContainer = $('.active-schedule-container');
 		$addClassEntryBtn = $('.add-class-entry');
-		$batchCheckboxContainer = $('#batch_checkbox_container');
+		$batchCheckboxContainer = $('.batch-checkbox-container');
 	}
 
 	function cacheDynamic() {
 		$editButton = $('.schedule-edit');
 		$deleteButton = $('.delete-schedule-btn');
-		$addScheduleContainer = $('#add-schedule-container');
+		$addScheduleContainer = $('.add-schedule-container');
 		$scheduleRow = $addScheduleContainer.find('.schedule-row');
-		$lastAddScheduleInputsGroup = $scheduleRow.last();
 		$fromDate = $('.from-date');
 		$toDate = $('.to-date');
 		$timePicker = $('.time-picker');
@@ -272,11 +272,14 @@ const schedule = (() => {
 		modal.showModal();
 	}
 
-	async function addschedule(e) {
+	async function addschedule(event) {
 		try {
+			event.preventDefault();
+			const $form = $(event.target);
+			const tuitionId = $form.attr('data-tuition-id');
 			const schedulesToBeAddedArr = [];
 			const batchIdsSequence = [];
-			$scheduleRow.each((__, inputsGroup) => {
+			$scheduleRow.filter(`[data-tuition-id="${tuitionId}"]`).each((__, inputsGroup) => {
 				const inputsValues = getInputsValues($(inputsGroup));
 				inputsValues.fromTime = twelveHourToMinutesFromMidnight(inputsValues.fromTime)
 				inputsValues.toTime = twelveHourToMinutesFromMidnight(inputsValues.toTime)
@@ -322,12 +325,27 @@ const schedule = (() => {
 		$fromDate.blur(updateTodateAndSelectDays);
 	}
 
+	//FIXME: Optimise
 	function render() {
-		const cardsHtml = template.scheduleCard({ batches: distinctBatchesArr });
-		$scheduleContainer.html(cardsHtml);
+		$scheduleContainer.each((index, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
 
-		const batchCheckBoxesHTML = template.batchesCheckbox({ batches: distinctBatchesArr });
-		$batchCheckboxContainer.html(batchCheckBoxesHTML);
+			const batchOfThisInstitute = distinctBatchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
+
+			const cardsHtml = template.scheduleCard({ batches: batchOfThisInstitute });
+			$container.html(cardsHtml);
+		});
+
+		$batchCheckboxContainer.each((index, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+
+			const batchOfThisInstitute = distinctBatchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
+
+			const batchCheckBoxesHTML = template.batchesCheckbox({ batches: batchOfThisInstitute });
+			$container.html(batchCheckBoxesHTML);
+		});
 	}
 
 	function refresh() {
@@ -336,14 +354,10 @@ const schedule = (() => {
 		bindDynamicEvents();
 	}
 
-	function init(schedules, batches) {
-		if (schedules === undefined) throw new Error('schedules not provided');
-		if (Array.isArray(schedules) === false) throw new Error('schedules not an array');
-
+	function init(batches) {
 		if (batches === undefined) throw new Error('Batches not provided');
 		if (Array.isArray(batches) === false) throw new Error('Batches not an array');
 
-		schedulesArr = schedules;
 		distinctBatchesArr = batches;
 
 		// Parsing time
@@ -363,9 +377,6 @@ const schedule = (() => {
 	}
 
 	PubSub.subscribe('course.edit', (msg, editedCourse) => {
-		schedulesArr.forEach(scheduleObj => {
-			if (editedCourse._id === scheduleObj.courseId) scheduleObj.courseCode = editedCourse.code;
-		});
 		distinctBatchesArr.forEach(batchObj => {
 			if (editedCourse._id === batchObj.courseId) batchObj.courseCode = editedCourse.code;
 		});
@@ -373,7 +384,6 @@ const schedule = (() => {
 	});
 
 	PubSub.subscribe('course.delete', (msg, deletedCourse) => {
-		schedulesArr = schedulesArr.filter(scheduleObj => deletedCourse._id !== scheduleObj.courseId);
 		distinctBatchesArr = distinctBatchesArr.filter(batchObj => deletedCourse._id !== batchObj.courseId);
 		refresh();
 	});

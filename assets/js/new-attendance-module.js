@@ -51,12 +51,12 @@ const attendance = (() => {
 	}
 
 	function cache() {
-		$batchDropDown = $('#batchDropdown');
-		$scheduleDropDown = $('#scheduleDropdown');
+		$batchDropDown = $('.attendance-batch-dropdown');
+		$scheduleDropDown = $('.attendance-schedule-dropdown');
 		$markAttendanceForm = $('.mark-attendance-form');
-		$absentStudentForm = $('#absent_student_form');
-		$saveAttendance = $('#save_attendance_btn');
-		$studentsContainer = $('#students_container');
+		$absentStudentForm = $('.absent-student-form');
+		$saveAttendance = $('.save-attendance-btn');
+		$studentsContainer = $('.students-container');
 	}
 
 	function cacheDynamic() {
@@ -74,7 +74,6 @@ const attendance = (() => {
 				batch.schedules.forEach(scheduleObj => {
 					if (scheduleObj._id === scheduleId) studentsAbsent = scheduleObj.studentsAbsent;
 				});
-				if (studentsAbsent === undefined) throw new Error('No such schedule found');
 				batch.students.forEach(studentId => {
 					studentsArr.forEach(studentInfo => {
 						if (studentInfo._id === studentId) {
@@ -98,8 +97,15 @@ const attendance = (() => {
 	}
 
 	function renderBatchDropdown() {
-		const batchDropDownHtml = template.batchOptions({ batches: distinctBatchesArr });
-		$batchDropDown.html(batchDropDownHtml);
+		$batchDropDown.each((__, dropdown) => {
+			const $dropdown = $(dropdown);
+			const tuitionId = $dropdown.attr('data-tuition-id');
+
+			const batchesOfThisInstitute = distinctBatchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
+
+			const batchDropDownHtml = template.batchOptions({ batches: batchesOfThisInstitute });
+			$dropdown.html(batchDropDownHtml);
+		})
 	}
 
 	function refresh() {

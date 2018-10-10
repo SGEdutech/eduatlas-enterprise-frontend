@@ -10,7 +10,7 @@ const instituteInfo = (() => {
 
 	async function renderPills(tuitionArr) {
 		const instituteDataArr = tuitionArr;
-		for (let index = 0; index < 1; index++) {
+		for (let index = 0; index < instituteDataArr.length; index++) {
 			const element = instituteDataArr[index];
 			const tabNumber = (index + 1) * 10;
 			element.tabNumber = tabNumber;

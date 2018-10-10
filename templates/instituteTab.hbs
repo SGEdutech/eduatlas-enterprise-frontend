@@ -53,8 +53,8 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating is-empty has-rose bmd-form-group">
-                                                    <input id="course-code" name="code" class="form-control" type="text"
-                                                        placeholder="Course Code (unique)" required>
+                                                    <input name="code" class="form-control" type="text" placeholder="Course Code (unique)"
+                                                        required>
                                                     <span class="material-input"></span>
                                                 </div>
                                                 <div class="form-group label-floating has-rose is-empty bmd-form-group">
@@ -252,7 +252,7 @@
                                     <div class="row">
                                         {{!-- FIXME: moved to new hbs file --}}
                                     </div>
-                                    <div class="row mt-2" id="student_container"></div>
+                                    <div class="row mt-2 student-container" data-tuition-id="{{_id}}"></div>
                                 </div>
                             </div>
                             <div class="card card-profile card-plaina main-raised m-0">
@@ -367,7 +367,7 @@
                                     <div class="row">
                                         {{!-- FIXME: moved to new hbs file --}}
                                     </div>
-                                    <div id="active_batch_container" class="row">
+                                    <div class="row active-batch-container" data-tuition-id="{{_id}}">
                                     </div>
                                 </div>
                                 <div class="inactive-batches-container"></div>
@@ -379,9 +379,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="courseIdSelect">Choose Course for your batch</label>
-                                                <select id="course_select_menu" class="form-control selectpicker courseIdSelect"
-                                                    data-style="btn btn-link" name="courseId" data-tabnumber="{{tabNumber}}"
-                                                    required>
+                                                <select class="form-control selectpicker course-select-menu" data-style="btn btn-link"
+                                                    name="courseId" data-tuition-id="{{_id}}" required>
                                                     {{!-- FIXME: moved to new hbs file --}}
                                                 </select>
                                             </div>
@@ -406,7 +405,8 @@
                                                 <div class="card-title">
                                                     Add Students
                                                 </div><br>
-                                                <div id="student_checkbox_container" class="px-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
+                                                <div class="px-2 student-checkbox-container" data-tuition-id="{{_id}}"
+                                                    style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
                                                     {{!-- FIXME: moved to new hbs file --}}
                                                 </div>
                                                 <button type="submit" class="btn btn-round btn-rose pull-right mt-4">
@@ -650,7 +650,7 @@
                                     <div class="form-group">
                                         <label class="text-dark">Announcement Text</label>
                                         <textarea class="form-control" placeholder="TYPE YOUR MESSAGE/NOTICE/ANNOUNCEMENT HERE"
-                                            rows="5" id="announcement-text" name="message"></textarea>
+                                            rows="5" name="message"></textarea>
                                     </div>
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-round btn-rose pull-right">SEND</button>
@@ -715,18 +715,18 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="label-control">From Date</label>
-                                                    <input type="text" id="from-date" name="from-date" class="form-control date-picker from-date"
-                                                        required data-tabNumber="{{tabNumber}}" />
+                                                    <input type="text" name="from-date" class="form-control date-picker from-date"
+                                                        required data-tuition-id="{{_id}}" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="label-control">To Date</label>
-                                                    <input name="to-date" id="to-date" type="text" class="form-control date-picker to-date"
-                                                        required data-tabNumber="{{tabNumber}}" disabled />
+                                                    <input name="to-date" type="text" class="form-control date-picker to-date"
+                                                        required data-tuition-id="{{_id}}" disabled />
                                                 </div>
                                             </div>
-                                            <div id="add-schedule-container" class="col-md-12" data-tuition-id="{{_id}}">
+                                            <div class="col-md-12 add-schedule-container" data-tuition-id="{{_id}}">
                                                 <div class="row">
                                                     <div class="col-2">Day</div>
                                                     <div class="col-2">From Time</div>
@@ -734,11 +734,11 @@
                                                     <div class="col-3">Topic</div>
                                                     <div class="col-3">Faculty</div>
                                                 </div>
-                                                <div class="schedule-row row">
+                                                <div class="schedule-row row" data-tuition-id="{{_id}}">
                                                     <div class="col-2 schedule-col">
                                                         <div class="form-group">
                                                             <select name="date" class="form-control day-dropdown"
-                                                                data-style="btn btn-link" data-tabNumber="{{tabNumber}}">
+                                                                data-style="btn btn-link" data-tuition-id="{{_id}}">
                                                             </select>
                                                         </div>
                                                     </div>
@@ -749,25 +749,29 @@
                                                         <input name="toTime" type="text" class="form-control time-picker to-time" />
                                                     </div>
                                                     <div class="col-3 schedule-col">
-                                                        <input type="text" name="topic" id="class-topic">
+                                                        <input type="text" name="topic">
                                                     </div>
                                                     <div class="col-3 schedule-col">
-                                                        <input type="text" name="faculty" id="class-faculty">
+                                                        <input type="text" name="faculty">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12 justify-content-end mx-2">
-                                                <button class="btn btn-round btn-rose add-class-entry" data-tabNumber="{{tabNumber}}">
+                                                <button class="btn btn-round btn-rose add-class-entry" data-tuition-id="{{_id}}">
                                                     Add More Class
                                                 </button>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="card-title">Select Batches For This Schedule</div>
-                                                <div id="batch_checkbox_container" class="p-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
-                                                    {{!-- FIXME: moved to new hbs file --}}
-                                                </div>
+                                                <form class="add-schedule-form" data-tuition-id="{{_id}}">
+                                                    <div class="p-2 batch-checkbox-container" data-tuition-id="{{_id}}"
+                                                        style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
+                                                        {{!-- FIXME: moved to new hbs file --}}
+                                                    </div>
+                                                </form>
                                                 <div class="row justify-content-end mt-2">
-                                                    <button id="save_schedule_btn" class="btn btn-round btn-rose" type="button">Save
+                                                    <button class="btn btn-round btn-rose save-schedule-btn" type="button"
+                                                        data-tuition-id="{{_id}}">Save
                                                         Schedule</button>
                                                 </div>
                                             </div>
@@ -777,12 +781,12 @@
                             </div>
                             <div class="row m-0">
                                 <div class="card-title col-12 h3 p-0">Active Schedules</div>
-                                <div id="active_schedule_container" class="col-12">
+                                <div class="col-12 active-schedule-container" data-tuition-id="{{_id}}">
                                     {{!-- FIXME: moved to new hbs file --}}
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="scheduleReports{{tabNumber}}">
+                        <div class="tab-pane">
                             gtsghsjuhsdjd
                         </div>
                     </div>
@@ -809,18 +813,18 @@
                                     </div>
                                     <div class="col-12">
                                         <label for="batchDropdown">Select Batch</label>
-                                        <select id="batchDropdown" class="form-control attendance-batch-dropdown"
-                                            data-style="btn btn-link" data-tabNumber="{{tabNumber}}">
+                                        <select class="form-control attendance-batch-dropdown" data-style="btn btn-link"
+                                            data-tuition-id="{{_id}}">
                                             {{!-- FIXME: moved to new hbs file --}}
                                         </select>
                                         <label for="scheduleDropdown">Select Schedule</label>
-                                        <select id="scheduleDropdown" class="form-control attendance-schedule-dropdown"
-                                            data-style="btn btn-link" data-tabNumber="{{tabNumber}}">
+                                        <select class="form-control attendance-schedule-dropdown" data-style="btn btn-link"
+                                            data-tuition-id="{{_id}}">
                                             {{!-- FIXME: moved to new hbs file --}}
                                         </select>
                                     </div>
                                     <div style="overflow-y: scroll;max-height: 279px;">
-                                        <form id="absent_student_form">
+                                        <form class="absent-student-form" data-tuition-id="{{_id}}">
                                             <table class="table border border-light">
                                                 <thead class="bg-info">
                                                     <tr>
@@ -841,7 +845,7 @@
                                                     </tr>
                                                 </thead>
 
-                                                <tbody id="students_container">
+                                                <tbody class="students-container" data-tuition-id="{{_id}}">
 
                                                     {{!-- FIXME: not moved to new hbs file --}}
 
@@ -851,7 +855,8 @@
                                     </div>
                                     <div class="row justify-content-end m-2">
                                         <button class="btn btn-rose btn-round" disabled>NOTIFY</button>
-                                        <button id="save_attendance_btn" class="btn btn-rose btn-round" type="button">Save
+                                        <button class="btn btn-rose btn-round save-attendance-btn" type="button"
+                                            data-tuition-id="{{_id}}">Save
                                             Attendance</button>
                                     </div>
                                 </div>
