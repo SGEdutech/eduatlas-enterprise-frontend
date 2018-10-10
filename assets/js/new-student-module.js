@@ -1,4 +1,3 @@
-console.log('Students not deleting');
 const student = (() => {
 	let studentsArr;
 	let $addStudentForm;
@@ -66,7 +65,7 @@ const student = (() => {
 
 	function cache() {
 		$addStudentForm = $('.add-student-form');
-		$studentContainer = $('#student_container');
+		$studentContainer = $('.student-container');
 	}
 
 	function bindevents() {
@@ -84,8 +83,15 @@ const student = (() => {
 	}
 
 	function render() {
-		const studentCardsHtml = template.studentCard({ students: studentsArr });
-		$studentContainer.html(studentCardsHtml);
+		$studentContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+
+			const studentsOfThisTuition = studentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
+
+			const studentCardsHtml = template.studentCard({ students: studentsOfThisTuition });
+			$container.html(studentCardsHtml);
+		})
 	}
 
 	function refresh(newStudentsArray) {

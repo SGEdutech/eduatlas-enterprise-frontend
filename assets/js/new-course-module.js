@@ -1,13 +1,13 @@
 const course = (() => {
 	let coursesArr;
-	let $courseContainer;
+	let $courseContainers;
 	let $addCourseForm;
 	let $editButton;
 	let $deleteButton;
 
 	function cache() {
 		$addCourseForm = $('.add_course_form');
-		$courseContainer = $('#active_course_container');
+		$courseContainers = $('.active-course-container');
 	}
 
 	function cacheDynamic() {
@@ -90,8 +90,14 @@ const course = (() => {
 	}
 
 	function render() {
-		const cardsHtml = template.courseCard({ courses: coursesArr });
-		$courseContainer.html(cardsHtml);
+		$courseContainers.each((index, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+
+			const coursesOfThisTuition = coursesArr.filter(courseObj => courseObj.tuitionId === tuitionId);
+			const cardsHtml = template.courseCard({ courses: coursesOfThisTuition });
+			$container.html(cardsHtml);
+		})
 	}
 
 	function refresh(courses) {

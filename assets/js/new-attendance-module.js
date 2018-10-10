@@ -5,16 +5,14 @@ const attendance = (() => {
 	let $scheduleDropDown;
 	let $absentStudentForm;
 	let $saveAttendance;
-	let $studentsAbsent;
 	let $studentsContainer;
+	let $checkboxInputs;
 
 	async function submitAttendance(event) {
 		try {
 			event.preventDefault();
 			cacheDynamic();
 			const absentArr = $absentStudentForm.serialize();
-			console.log($absentStudentForm);
-			console.log(absentArr);
 			const batchId = $batchDropDown.val();
 			const scheduleId = $scheduleDropDown.val();
 			let courseId;
@@ -25,46 +23,65 @@ const attendance = (() => {
 					tuitionId = batchInfo.tuitionId
 				}
 			});
-			tuitionApiCalls.putAttendanceInSchedule(tuitionId, courseId, batchId, scheduleId, absentArr);
+			const newAbsentArr = await tuitionApiCalls.replaceAttendanceInSchedule(tuitionId, courseId, batchId, scheduleId, absentArr);
+			distinctBatchesArr.forEach(batchObj => {
+				if (batchObj._id === batchId) {
+					batchObj.schedules.forEach(scheduleObj => {
+						if (scheduleObj._id === scheduleId) {
+							scheduleObj.studentsAbsent = newAbsentArr;
+						}
+					});
+				}
+			});
+			refresh();
 		} catch (error) {
 			console.error(error);
 		}
 	}
 
-	function renderScheduleDropDown(event) {
-		const $element = $(event.target);
-		const batchId = $element.val();
+	function renderScheduleDropDown() {
+		const batchId = $batchDropDown.val();
 		distinctBatchesArr.forEach(batch => {
 			if (batch._id === batchId) {
 				const scheduleOptionsHTML = template.scheduleOptions({ schedules: batch.schedules });
 				$scheduleDropDown.html(scheduleOptionsHTML);
 			}
-		})
+		});
+		renderStudentAttandencePallet();
 	}
 
 	function cache() {
-		$batchDropDown = $('#batchDropdown');
-		$scheduleDropDown = $('#scheduleDropdown');
+		$batchDropDown = $('.attendance-batch-dropdown');
+		$scheduleDropDown = $('.attendance-schedule-dropdown');
 		$markAttendanceForm = $('.mark-attendance-form');
-		$absentStudentForm = $('#absent_student_form');
-		$saveAttendance = $('#save_attendance_btn');
-		$studentsContainer = $('#students_container');
+		$absentStudentForm = $('.absent-student-form');
+		$saveAttendance = $('.save-attendance-btn');
+		$studentsContainer = $('.students-container');
 	}
 
 	function cacheDynamic() {
-		$studentsAbsent = $('.student-absent:checkbox:checked');
+		$checkboxInputs = $absentStudentForm.find('.student-absent');
 	}
 
 	function renderStudentAttandencePallet() {
 		const batchId = $batchDropDown.val();
 		const scheduleId = $scheduleDropDown.val();
+		let studentsAbsent;
 		const batchStudentsInfo = [];
 
 		distinctBatchesArr.forEach(batch => {
 			if (batch._id === batchId) {
+				batch.schedules.forEach(scheduleObj => {
+					if (scheduleObj._id === scheduleId) studentsAbsent = scheduleObj.studentsAbsent;
+				});
 				batch.students.forEach(studentId => {
 					studentsArr.forEach(studentInfo => {
-						if (studentInfo._id === studentId) batchStudentsInfo.push(studentInfo);
+						if (studentInfo._id === studentId) {
+							const jsonString = JSON.stringify(studentInfo);
+							const duplicateStudentInfo = JSON.stringify(jsonString);
+							duplicateStudentInfo.isAbsent = studentsAbsent.indexOf(duplicateStudentInfo._id) !== -1;
+							batchStudentsInfo.push(duplicateStudentInfo);
+						}
 					});
 				});
 			}
@@ -79,28 +96,27 @@ const attendance = (() => {
 		$saveAttendance.click(submitAttendance);
 	}
 
-	function cacheNBindDeleteButtons() {
-		// cacheDynamic();
-		// $deleteButton.click(function(e) {
-		// 	e.preventDefault();
-		// 	deletePost($(this));
-		// });
-	}
-
-	function eagerLoadPost(context) {
-		// context.col4 = false;
-		// $postsContainer.append(template.institutePostCard(context))
-		// cacheNBindDeleteButtons();
-	}
-
 	function renderBatchDropdown() {
-		const batchDropDownHtml = template.batchOptions({ batches: distinctBatchesArr });
-		$batchDropDown.html(batchDropDownHtml);
+		$batchDropDown.each((__, dropdown) => {
+			const $dropdown = $(dropdown);
+			const tuitionId = $dropdown.attr('data-tuition-id');
+
+			const batchesOfThisInstitute = distinctBatchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
+
+			const batchDropDownHtml = template.batchOptions({ batches: batchesOfThisInstitute });
+			$dropdown.html(batchDropDownHtml);
+		})
 	}
 
 	function refresh() {
-		renderBatchDropdown();
+		renderStudentAttandencePallet();
 		cacheDynamic();
+	}
+
+	function render() {
+		renderBatchDropdown();
+		renderScheduleDropDown();
+		renderStudentAttandencePallet();
 	}
 
 	function init(batches, students) {
@@ -111,19 +127,42 @@ const attendance = (() => {
 		studentsArr = students;
 		cache();
 		bindEvents();
-		renderBatchDropdown();
+		render();
 		cacheDynamic();
 	}
 
-	PubSub.subscribe('course.edit', (msg, editedCourse) => {
-		distinctBatchesArr.forEach(batchObj => {
-			if (editedCourse._id === batchObj.courseId) batchObj.courseCode = editedCourse.code;
-		});
+	PubSub.subscribe('course.delete', (msg, courseAdded) => {
+		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj.courseId !== courseAdded._id);
 		refresh();
 	});
 
-	PubSub.subscribe('course.delete', (msg, deletedCourse) => {
-		distinctBatchesArr = distinctBatchesArr.filter(batchObj => deletedCourse._id !== batchObj.courseId);
+	PubSub.subscribe('batch.add', (msg, batchAdded) => {
+		distinctBatchesArr.push(batchAdded);
+		refresh();
+	});
+
+	PubSub.subscribe('batch.edit', (msg, batchedited) => {
+		distinctBatchesArr = distinctBatchesArr.map(batchObj => batchObj.courseId === batchedited._id ? batchedited : batchObj);
+		refresh();
+	});
+
+	PubSub.subscribe('batch.delete', (msg, batchDeleted) => {
+		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj._id !== batchDeleted._id);
+		refresh();
+	});
+
+	PubSub.subscribe('students.add', (msg, studentAdded) => {
+		studentsArr.push(studentAdded);
+		refresh();
+	});
+
+	PubSub.subscribe('students.edit', (msg, studentEdited) => {
+		studentsArr = studentsArr.map(studentObj => studentObj._id === studentEdited._id ? studentEdited : studentObj);
+		refresh();
+	});
+
+	PubSub.subscribe('students.delete', (msg, studentDeleted) => {
+		studentsArr = studentsArr.filter(studentObj => studentObj._id !== studentDeleted._id);
 		refresh();
 	});
 

@@ -37,9 +37,9 @@ const batch = (() => {
 
 	function cache() {
 		$addBatchForm = $('.add_batch_form');
-		$batchContainer = $('#active_batch_container');
-		$courseSelectMenu = $('#course_select_menu');
-		$studentChekboxContainer = $('#student_checkbox_container');
+		$batchContainer = $('.active-batch-container');
+		$courseSelectMenu = $('.course-select-menu');
+		$studentChekboxContainer = $('.student-checkbox-container');
 	}
 
 	function cacheDynamic() {
@@ -134,7 +134,7 @@ const batch = (() => {
 		const uniqueCourseArr = [];
 		for (const i in coursesArr) {
 			if (uniqueCourseIds[coursesArr[i]._id] !== true) {
-				uniqueCourseArr.push({ _id: coursesArr[i]._id, code: coursesArr[i].code });
+				uniqueCourseArr.push({ _id: coursesArr[i]._id, code: coursesArr[i].code, tuitionId: coursesArr[i].tuitionId });
 				uniqueCourseIds[coursesArr[i]._id] = true;
 			}
 		}
@@ -151,14 +151,34 @@ const batch = (() => {
 	}
 
 	function render() {
-		const cardsHtml = template.batchCard({ batches: batchesArr });
-		$batchContainer.html(cardsHtml);
+		$batchContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
 
-		const courseOptionsHTML = template.courseOptions({ courses: distinctCoursesArr });
-		$courseSelectMenu.html(courseOptionsHTML).selectpicker('refresh');
+			const batchesArrOfThisTuition = batchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
 
-		const studentCheckboxesHTML = template.studentCheckboxes({ students: studentsArr });
-		$studentChekboxContainer.html(studentCheckboxesHTML);
+			const cardsHtml = template.batchCard({ batches: batchesArrOfThisTuition });
+			$container.html(cardsHtml);
+		});
+
+		$courseSelectMenu.each((__, selectMenu) => {
+			const $selectMenu = $(selectMenu);
+			const tuitionId = $selectMenu.attr('data-tuition-id');
+
+			const coursesOfThisTuition = distinctCoursesArr.filter(courseObj => courseObj.tuitionId === tuitionId);
+			const courseOptionsHTML = template.courseOptions({ courses: coursesOfThisTuition });
+			$selectMenu.html(courseOptionsHTML).selectpicker('refresh');
+		});
+
+		$studentChekboxContainer.each((__, checkboxContainer) => {
+			const $checkboxContainer = $(checkboxContainer);
+			const tuitionId = $checkboxContainer.attr('data-tuition-id');
+
+			const studentsOfThisTuition = studentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
+
+			const studentCheckboxesHTML = template.studentCheckboxes({ students: studentsOfThisTuition });
+			$checkboxContainer.html(studentCheckboxesHTML);
+		});
 	}
 
 	function refresh(batches) {
@@ -197,12 +217,16 @@ const batch = (() => {
 	PubSub.subscribe('course.edit', (msg, editedCourse) => {
 		distinctCoursesArr.forEach(courseObj => {
 			if (courseObj._id === editedCourse._id) courseObj.code = editedCourse.code;
+		});
+		batchesArr.forEach(batchObj => {
+			if (editedCourse._id === batchObj.courseId) batchObj.courseCode = editedCourse.code;
 		})
 		refresh();
 	});
 
 	PubSub.subscribe('course.delete', (msg, deletedCourse) => {
 		distinctCoursesArr = distinctCoursesArr.filter(courseObj => courseObj._id !== deletedCourse._id);
+		batchesArr = batchesArr.filter(batchObj => batchObj.courseId !== deletedCourse._id);
 		refresh();
 	});
 
