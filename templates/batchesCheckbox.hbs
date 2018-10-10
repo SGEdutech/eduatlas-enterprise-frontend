@@ -1,7 +1,5 @@
 {{#each batches as |batch|}}
-<input name="batches" type="checkbox" value="{{batch._id}}">
-<input name="courses" type="hidden" value="{{batch.courseId}}">
-<input name="tuitions" type="hidden" value="{{batch.tuitionId}}">
+<input class="batches" name="batches" type="checkbox" value="{{batch._id}}" data-course-id="{{batch.courseId}}" data-tuition-id="{{batch.tuitionId}}">
 <span class="media-heading">{{batch.code}}
     <span class="form-check-sign">
         <span class="check"></span>

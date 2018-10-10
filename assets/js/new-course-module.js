@@ -31,6 +31,7 @@ const course = (() => {
 			console.log('Course was successfully edited');
 			editedCourse.tuitionId = tuitionId;
 			const newCourseArr = coursesArr.map(courseObj => courseObj._id === courseId ? editedCourse : courseObj)
+			PubSub.publish('course.edit', editedCourse);
 			refresh(newCourseArr);
 		} catch (err) {
 			console.error(err);
@@ -49,6 +50,7 @@ const course = (() => {
 			const deletedTuition = await submitDeleteRequest(tuitionId, courseId);
 			console.log('Tuition was successfully deleted');
 			newCourseArr = coursesArr.filter(courseObj => courseObj._id !== courseId);
+			PubSub.publish('course.delete', deletedTuition);
 			refresh(newCourseArr);
 		} catch (err) {
 			console.error(err);
@@ -73,7 +75,7 @@ const course = (() => {
 		const newCourse = await submitAddCourse(tuitionId, $form.serialize());
 		newCourse.tuitionId = tuitionId;
 		coursesArr.push(newCourse);
-		console.log(coursesArr);
+		PubSub.publish('course.add', newCourse);
 		$form.trigger('reset');
 		refresh();
 	}

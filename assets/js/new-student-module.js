@@ -1,3 +1,4 @@
+console.log('Students not deleting');
 const student = (() => {
 	let studentsArr;
 	let $addStudentForm;
@@ -12,6 +13,7 @@ const student = (() => {
 			const studentId = $deleteBtn.attr('data-student-id');
 			const deletedStudent = await tuitionApiCalls.deleteStudentInTuition(tuitionId, studentId);
 			newStudentsArr = studentsArr.filter(studentObj => studentObj._id !== studentId);
+			PubSub.publish('student.delete', deletedStudent);
 			refresh(newStudentsArr);
 		} catch (err) {
 			console.error(err);
@@ -28,6 +30,7 @@ const student = (() => {
 			console.log('Student was successfully edited');
 			editedStudent.tuitionId = tuitionId;
 			const newStudentArr = studentsArr.map(studentObj => studentObj._id === studentId ? editedStudent : studentObj)
+			PubSub.publish('student.edit', editedStudent);
 			refresh(newStudentArr);
 		} catch (err) {
 			console.error(err);
@@ -51,9 +54,11 @@ const student = (() => {
 			const $form = $(event.target);
 			const tuitionId = $form.attr('data-id');
 			const newStudent = await tuitionApiCalls.putStudentInTuition(tuitionId, $form.serialize());
+			newStudent.tuitionId = tuitionId;
 			studentsArr.push(newStudent);
-			refresh(studentsArr);
+			PubSub.publish('student.add', newStudent);
 			$form.trigger('reset');
+			refresh(studentsArr);
 		} catch (err) {
 			console.error(err);
 		}
@@ -93,7 +98,6 @@ const student = (() => {
 	function init(studentsArray) {
 		if (studentsArray === undefined) throw new Error('Students array not defined');
 		studentsArr = studentsArray;
-
 		cache();
 		bindevents();
 		render();

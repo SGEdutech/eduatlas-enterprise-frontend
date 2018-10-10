@@ -65,6 +65,7 @@ const batch = (() => {
 			editedBatch.courseId = courseId;
 			editedBatch.courseCode = getCourseCode(courseId);
 			const newBatchArr = batchesArr.map(batchObj => batchObj._id === batchId ? editedBatch : batchObj)
+			PubSub.publish('batch.edit', editedBatch);
 			refresh(newBatchArr);
 		} catch (err) {
 			console.error(err);
@@ -81,9 +82,10 @@ const batch = (() => {
 			const tuitionId = $deleteBtn.attr('data-tuition-id');
 			const courseId = $deleteBtn.attr('data-course-id');
 			const batchId = $deleteBtn.attr('data-batch-id');
-			const deletedTuition = await submitDeleteRequest(tuitionId, courseId, batchId);
+			const deletedBatch = await submitDeleteRequest(tuitionId, courseId, batchId);
 			console.log('Batch was successfully deleted');
 			newCourseArr = batchesArr.filter(batchObj => batchObj._id !== batchId);
+			PubSub.publish('batch.delete', deletedBatch);
 			refresh(newCourseArr);
 		} catch (err) {
 			console.error(err);
@@ -117,6 +119,7 @@ const batch = (() => {
 			newBatch.courseCode = courseCode;
 			newBatch.tuitionId = tuitionId;
 			batchesArr.push(newBatch);
+			PubSub.publish('batch.add', newBatch);
 			$form.trigger('reset');
 			refresh();
 		} catch (err) {
@@ -178,13 +181,48 @@ const batch = (() => {
 		batchesArr = batches;
 		distinctCoursesArr = getUniqueCourses(courses);
 		studentsArr = students;
-
 		cache();
 		bindEvents();
 		render();
 		cacheDynamic();
 		bindDynamicEvents();
 	}
+
+	PubSub.subscribe('course.add', (msg, courseAdded) => {
+		const newCourse = { _id: courseAdded._id, code: courseAdded.code };
+		distinctCoursesArr.push(newCourse);
+		refresh();
+	});
+
+	PubSub.subscribe('course.edit', (msg, editedCourse) => {
+		distinctCoursesArr.forEach(courseObj => {
+			if (courseObj._id === editedCourse._id) courseObj.code = editedCourse.code;
+		})
+		refresh();
+	});
+
+	PubSub.subscribe('course.delete', (msg, deletedCourse) => {
+		distinctCoursesArr = distinctCoursesArr.filter(courseObj => courseObj._id !== deletedCourse._id);
+		refresh();
+	});
+
+	PubSub.subscribe('student.add', (msg, studentAdded) => {
+		studentsArr.push(studentAdded);
+		refresh();
+	});
+
+	PubSub.subscribe('student.edit', (msg, studentAdded) => {
+		studentsArr = studentsArr.map(studentObj => {
+			if (studentObj._id === studentAdded._id) return studentAdded;
+			return studentObj;
+		});
+		refresh();
+	});
+
+	PubSub.subscribe('student.delete', (msg, studentAdded) => {
+		studentsArr = studentsArr.filter(studentObj => studentObj._id !== studentAdded._id);
+		refresh();
+	});
 
 	return { init };
 })();

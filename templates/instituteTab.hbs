@@ -714,65 +714,64 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="from-date">From Date</label>
-                                                    <input type="date" name="from-date" id="from-date" class="form-control from-date"
-                                                        required data-tabNumber="{{tabNumber}}">
+                                                    <label class="label-control">From Date</label>
+                                                    <input type="text" id="from-date" name="from-date" class="form-control date-picker from-date"
+                                                        required data-tabNumber="{{tabNumber}}" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="to-date">To Date</label>
-                                                    <input type="date" name="to-date" id="to-date" class="form-control to-date"
-                                                        required data-tabNumber="{{tabNumber}}" disabled>
+                                                    <label class="label-control">To Date</label>
+                                                    <input name="to-date" id="to-date" type="text" class="form-control date-picker to-date"
+                                                        required data-tabNumber="{{tabNumber}}" disabled />
                                                 </div>
                                             </div>
-                                            <form class="add-schedule-form row" data-tabNumber="{{tabNumber}}" data-id="{{_id}}"
-                                                enctype="multipart/form-data">
-                                                <div class="col-md-12">
-                                                    <table class="table mb-0">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Day</th>
-                                                                <th>From Time</th>
-                                                                <th>To Time</th>
-                                                                <th>Topic</th>
-                                                                <th>Faculty</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="class-table" data-tabNumber="{{tabNumber}}">
-                                                            <tr class="class-row" data-tabNumber="{{tabNumber}}">
-                                                                <td>
-                                                                    <div class="form-group">
-                                                                        <select name="date" class="form-control day-dropdown"
-                                                                            data-style="btn btn-link" data-tabNumber="{{tabNumber}}">
-                                                                        </select>
-                                                                    </div>
-                                                                </td>
-                                                                <td><input type="time" name="fromTime" id="class-from-time"></td>
-                                                                <td><input type="time" name="toTime" id="class-to-time"></td>
-                                                                <td><input type="text" name="topic" id="class-topic"></td>
-                                                                <td><input type="text" name="faculty" id="class-faculty"></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <div class="row justify-content-end mx-2">
-                                                        <button class="btn btn-round btn-rose add-class-entry"
-                                                            data-tabNumber="{{tabNumber}}">Add
-                                                            More Class</button>
+                                            <div id="add-schedule-container" class="col-md-12" data-tuition-id="{{_id}}">
+                                                <div class="row">
+                                                    <div class="col-2">Day</div>
+                                                    <div class="col-2">From Time</div>
+                                                    <div class="col-2">To Time</div>
+                                                    <div class="col-3">Topic</div>
+                                                    <div class="col-3">Faculty</div>
+                                                </div>
+                                                <div class="schedule-row row">
+                                                    <div class="col-2 schedule-col">
+                                                        <div class="form-group">
+                                                            <select name="date" class="form-control day-dropdown"
+                                                                data-style="btn btn-link" data-tabNumber="{{tabNumber}}">
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2 schedule-col">
+                                                        <input name="fromTime" type="text" class="form-control time-picker from-time" />
+                                                    </div>
+                                                    <div class="col-2 schedule-col">
+                                                        <input name="toTime" type="text" class="form-control time-picker to-time" />
+                                                    </div>
+                                                    <div class="col-3 schedule-col">
+                                                        <input type="text" name="topic" id="class-topic">
+                                                    </div>
+                                                    <div class="col-3 schedule-col">
+                                                        <input type="text" name="faculty" id="class-faculty">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
-                                                    <div class="card-title">Select Batches For This Schedule</div>
-                                                    <div class="p-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
-                                                        {{!-- FIXME: moved to new hbs file --}}
-                                                    </div>
-                                                    <div class="row justify-content-end mt-2">
-                                                        <button class="btn btn-round btn-rose" disabled>Notify</button>
-                                                        <button class="btn btn-round btn-rose" type="submit">Save
-                                                            Schedule</button>
-                                                    </div>
+                                            </div>
+                                            <div class="col-md-12 justify-content-end mx-2">
+                                                <button class="btn btn-round btn-rose add-class-entry" data-tabNumber="{{tabNumber}}">
+                                                    Add More Class
+                                                </button>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="card-title">Select Batches For This Schedule</div>
+                                                <div id="batch_checkbox_container" class="p-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
+                                                    {{!-- FIXME: moved to new hbs file --}}
                                                 </div>
-                                            </form>
+                                                <div class="row justify-content-end mt-2">
+                                                    <button class="btn btn-round btn-rose" disabled>Notify</button>
+                                                    <button id="save_schedule_btn" class="btn btn-round btn-rose" type="button">Save
+                                                        Schedule</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -805,25 +804,31 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="attandance{{tabNumber}}">
                             <div class="card">
-                                <form class="mark-attendance-form" data-tuition="{{_id}}">
-                                    <div class="card-body">
-                                        <div class="card-title h3">
-                                            Mark Attendence
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="batchDropdown">Select Batch n Schedule</label>
-                                            <select id="batchDropdown" name="courseBatchSchedule" class="form-control attendance-batch-dropdown"
-                                                data-style="btn btn-link" data-tabNumber="{{tabNumber}}">
-                                                {{!-- FIXME: moved to new hbs file --}}
-                                            </select>
-                                        </div>
-                                        <div style="overflow-y: scroll;max-height: 279px;">
+                                <div class="card-body">
+                                    <div class="card-title h3">
+                                        Mark Attendence
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="batchDropdown">Select Batch</label>
+                                        <select id="batchDropdown" class="form-control attendance-batch-dropdown"
+                                            data-style="btn btn-link" data-tabNumber="{{tabNumber}}">
+                                            {{!-- FIXME: moved to new hbs file --}}
+                                        </select>
+                                        <label for="scheduleDropdown">Select Schedule</label>
+                                        <select id="scheduleDropdown" class="form-control attendance-schedule-dropdown"
+                                            data-style="btn btn-link" data-tabNumber="{{tabNumber}}">
+                                            {{!-- FIXME: moved to new hbs file --}}
+                                        </select>
+                                    </div>
+                                    <div style="overflow-y: scroll;max-height: 279px;">
+                                        <form id="absent_student_form">
                                             <table class="table border border-light">
                                                 <thead class="bg-info">
                                                     <tr>
+                                                        <th class="text-light">#</th>
                                                         <th class="text-light">Student Name</th>
-                                                        <th class="text-light">Email</th>
                                                         <th class="text-light">Roll No.</th>
+                                                        <th class="text-light">Email</th>
                                                         <th class="text-light">Action</th>
                                                     </tr>
                                                 </thead>
@@ -836,17 +841,21 @@
                                                             TO MARK ABSENT</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+
+                                                <tbody id="students_container">
+
                                                     {{!-- FIXME: not moved to new hbs file --}}
+
                                                 </tbody>
                                             </table>
-                                        </div>
-                                        <div class="row justify-content-end m-2">
-                                            <button class="btn btn-rose btn-round" disabled>NOTIFY</button>
-                                            <button class="btn btn-rose btn-round" type="submit">Save Attendance</button>
-                                        </div>
+                                        </form>
                                     </div>
-                                </form>
+                                    <div class="row justify-content-end m-2">
+                                        <button class="btn btn-rose btn-round" disabled>NOTIFY</button>
+                                        <button id="save_attendance_btn" class="btn btn-rose btn-round" type="button">Save
+                                            Attendance</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
