@@ -197,12 +197,16 @@ const batch = (() => {
 	PubSub.subscribe('course.edit', (msg, editedCourse) => {
 		distinctCoursesArr.forEach(courseObj => {
 			if (courseObj._id === editedCourse._id) courseObj.code = editedCourse.code;
+		});
+		batchesArr.forEach(batchObj => {
+			if (editedCourse._id === batchObj.courseId) batchObj.courseCode = editedCourse.code;
 		})
 		refresh();
 	});
 
 	PubSub.subscribe('course.delete', (msg, deletedCourse) => {
 		distinctCoursesArr = distinctCoursesArr.filter(courseObj => courseObj._id !== deletedCourse._id);
+		batchesArr = batchesArr.filter(batchObj => batchObj.courseId !== deletedCourse._id);
 		refresh();
 	});
 

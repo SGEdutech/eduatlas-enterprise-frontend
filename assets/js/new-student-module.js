@@ -1,4 +1,3 @@
-console.log('Students not deleting');
 const student = (() => {
 	let studentsArr;
 	let $addStudentForm;

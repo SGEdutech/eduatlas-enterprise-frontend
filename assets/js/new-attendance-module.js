@@ -5,7 +5,6 @@ const attendance = (() => {
 	let $scheduleDropDown;
 	let $absentStudentForm;
 	let $saveAttendance;
-	let $studentsAbsent;
 	let $studentsContainer;
 
 	async function submitAttendance(event) {
@@ -25,7 +24,7 @@ const attendance = (() => {
 					tuitionId = batchInfo.tuitionId
 				}
 			});
-			tuitionApiCalls.putAttendanceInSchedule(tuitionId, courseId, batchId, scheduleId, absentArr);
+			tuitionApiCalls.replaceAttendanceInSchedule(tuitionId, courseId, batchId, scheduleId, absentArr);
 		} catch (error) {
 			console.error(error);
 		}
@@ -57,7 +56,7 @@ const attendance = (() => {
 
 	function renderStudentAttandencePallet() {
 		const batchId = $batchDropDown.val();
-		const scheduleId = $scheduleDropDown.val();
+		// const scheduleId = $scheduleDropDown.val();
 		const batchStudentsInfo = [];
 
 		distinctBatchesArr.forEach(batch => {
@@ -77,20 +76,6 @@ const attendance = (() => {
 		$batchDropDown.change(renderScheduleDropDown);
 		$scheduleDropDown.change(renderStudentAttandencePallet);
 		$saveAttendance.click(submitAttendance);
-	}
-
-	function cacheNBindDeleteButtons() {
-		// cacheDynamic();
-		// $deleteButton.click(function(e) {
-		// 	e.preventDefault();
-		// 	deletePost($(this));
-		// });
-	}
-
-	function eagerLoadPost(context) {
-		// context.col4 = false;
-		// $postsContainer.append(template.institutePostCard(context))
-		// cacheNBindDeleteButtons();
 	}
 
 	function renderBatchDropdown() {
