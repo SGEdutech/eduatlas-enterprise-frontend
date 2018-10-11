@@ -64,9 +64,9 @@ const batch = (() => {
 			editedBatch.tuitionId = tuitionId;
 			editedBatch.courseId = courseId;
 			editedBatch.courseCode = getCourseCode(courseId);
-			const newBatchArr = batchesArr.map(batchObj => batchObj._id === batchId ? editedBatch : batchObj)
+			batchesArr = batchesArr.map(batchObj => batchObj._id === batchId ? editedBatch : batchObj)
 			PubSub.publish('batch.edit', editedBatch);
-			refresh(newBatchArr);
+			refresh();
 		} catch (err) {
 			console.error(err);
 		}
@@ -83,10 +83,12 @@ const batch = (() => {
 			const courseId = $deleteBtn.attr('data-course-id');
 			const batchId = $deleteBtn.attr('data-batch-id');
 			const deletedBatch = await submitDeleteRequest(tuitionId, courseId, batchId);
+			deletedBatch.tuitionId = tuitionId;
+			deletedBatch.courseId = courseId;
 			console.log('Batch was successfully deleted');
-			newCourseArr = batchesArr.filter(batchObj => batchObj._id !== batchId);
+			batchesArr = batchesArr.filter(batchObj => batchObj._id !== deletedBatch._id);
 			PubSub.publish('batch.delete', deletedBatch);
-			refresh(newCourseArr);
+			refresh();
 		} catch (err) {
 			console.error(err);
 		}
@@ -154,9 +156,7 @@ const batch = (() => {
 		$batchContainer.each((__, container) => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
-
 			const batchesArrOfThisTuition = batchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
-
 			const cardsHtml = template.batchCard({ batches: batchesArrOfThisTuition });
 			$container.html(cardsHtml);
 		});
@@ -198,7 +198,7 @@ const batch = (() => {
 		if (students === undefined) throw new Error('Students not provided');
 		if (Array.isArray(students) === false) throw new Error('Students not an array');
 
-		batchesArr = batches;
+		batchesArr = JSON.parse(JSON.stringify(batches));
 		distinctCoursesArr = getUniqueCourses(courses);
 		studentsArr = students;
 		cache();

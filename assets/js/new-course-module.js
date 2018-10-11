@@ -90,14 +90,14 @@ const course = (() => {
 	}
 
 	function render() {
-		$courseContainers.each((index, container) => {
+		$courseContainers.each((__, container) => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
 
 			const coursesOfThisTuition = coursesArr.filter(courseObj => courseObj.tuitionId === tuitionId);
 			const cardsHtml = template.courseCard({ courses: coursesOfThisTuition });
 			$container.html(cardsHtml);
-		})
+		});
 	}
 
 	function refresh(courses) {

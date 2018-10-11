@@ -6,7 +6,6 @@ const attendance = (() => {
 	let $absentStudentForm;
 	let $saveAttendance;
 	let $studentsContainer;
-	let $checkboxInputs;
 
 	async function submitAttendance(event) {
 		try {
@@ -123,7 +122,7 @@ const attendance = (() => {
 		if (batches === undefined) throw new Error('Batches array not provided!');
 		if (students === undefined) throw new Error('Students array not provided!');
 
-		distinctBatchesArr = batches;
+		distinctBatchesArr = JSON.parse(JSON.stringify(batches));
 		studentsArr = students;
 		cache();
 		bindEvents();

@@ -358,7 +358,7 @@ const schedule = (() => {
 		if (batches === undefined) throw new Error('Batches not provided');
 		if (Array.isArray(batches) === false) throw new Error('Batches not an array');
 
-		distinctBatchesArr = batches;
+		distinctBatchesArr = JSON.parse(JSON.stringify(batches));
 
 		// Parsing time
 		distinctBatchesArr.forEach(batch => {
