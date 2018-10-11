@@ -105,10 +105,10 @@ const batch = (() => {
 		modal.showModal();
 	}
 
-	async function addBatch(e) {
+	async function addBatch(event) {
 		try {
-			e.preventDefault();
-			const $form = $(e.target);
+			event.preventDefault();
+			const $form = $(event.target);
 			const tuitionId = $form.attr('data-id');
 			// FIXME: extract courseId for new batch
 			const serializedForm = $form.serialize();
@@ -209,8 +209,7 @@ const batch = (() => {
 	}
 
 	PubSub.subscribe('course.add', (msg, courseAdded) => {
-		const newCourse = { _id: courseAdded._id, code: courseAdded.code };
-		distinctCoursesArr.push(newCourse);
+		distinctCoursesArr.push(courseAdded);
 		refresh();
 	});
 
