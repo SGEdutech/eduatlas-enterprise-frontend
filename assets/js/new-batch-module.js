@@ -17,22 +17,19 @@ const batch = (() => {
 		return courseCode;
 	}
 
-	function getAllStudensWithInThisBatch(batchStudentArray) {
+	function getAllStudensWithInThisBatch(batchStudentArray, tuitionId) {
 		if (studentsArr === undefined) throw new Error('Module has not been initialised');
 		if (Array.isArray(studentsArr) === false) throw new Error('Students array not an array ');
 
 		if (batchStudentArray === undefined) throw new Error('Batch student array not provided');
 		if (Array.isArray(batchStudentArray) === false) throw new Error('Batch student is not an array');
 
-		// Doing this to prevent actual objects from being manipulated
-		// JSON meathod has been implemented for performance
-		const jsonString = JSON.stringify(studentsArr);
-		const duplicateStudentsArr = JSON.parse(jsonString);
+		const filteredStudentsArr = studentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
 
-		duplicateStudentsArr.forEach(studentObj => {
+		filteredStudentsArr.forEach(studentObj => {
 			studentObj.inThisBatch = batchStudentArray.indexOf(studentObj._id) !== -1;
 		});
-		return duplicateStudentsArr;
+		return filteredStudentsArr;
 	}
 
 	function cache() {
@@ -100,7 +97,7 @@ const batch = (() => {
 		const courseId = $editBtn.attr('data-course-id');
 		const batchId = $editBtn.attr('data-batch-id');
 		const batchInfo = batchesArr.find(batchToBeEdited => batchToBeEdited._id === batchId);
-		batchInfo.allStudents = getAllStudensWithInThisBatch(batchInfo.students);
+		batchInfo.allStudents = getAllStudensWithInThisBatch(batchInfo.students, tuitionId);
 		const editBatchInputHTML = template.batchEditInputs(batchInfo);
 		modal.renderFormContent(editBatchInputHTML);
 		modal.bindSubmitEvent(() => editBatch(tuitionId, courseId, batchId));

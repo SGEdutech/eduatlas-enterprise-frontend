@@ -43,7 +43,6 @@ const attendance = (() => {
 		distinctBatchesArr.forEach(batch => {
 			if (batch._id === batchId) {
 				const scheduleOptionsHTML = template.scheduleOptions({ schedules: batch.schedules });
-				console.log(scheduleOptionsHTML);
 				$scheduleDropDown.html(scheduleOptionsHTML);
 			}
 		});
@@ -64,31 +63,37 @@ const attendance = (() => {
 	}
 
 	function renderStudentAttandencePallet() {
-		const batchId = $batchDropDown.val();
-		const scheduleId = $scheduleDropDown.val();
-		let studentsAbsent;
-		const batchStudentsInfo = [];
+		$studentsContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
 
-		distinctBatchesArr.forEach(batch => {
-			if (batch._id === batchId) {
-				batch.schedules.forEach(scheduleObj => {
-					if (scheduleObj._id === scheduleId) studentsAbsent = scheduleObj.studentsAbsent;
-				});
-				studentsAbsent = studentsAbsent || [];
-				batch.students.forEach(studentId => {
-					studentsArr.forEach(studentInfo => {
-						if (studentInfo._id === studentId) {
-							const jsonString = JSON.stringify(studentInfo);
-							const duplicateStudentInfo = JSON.stringify(jsonString);
-							duplicateStudentInfo.isAbsent = studentsAbsent.indexOf(duplicateStudentInfo._id) !== -1;
-							batchStudentsInfo.push(duplicateStudentInfo);
-						}
+			const batchId = $batchDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const scheduleId = $scheduleDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const studentsOfThisInstitute = studentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
+			let studentsAbsent;
+			const batchStudentsInfo = [];
+
+			distinctBatchesArr.forEach(batch => {
+				if (batch._id === batchId) {
+					batch.schedules.forEach(scheduleObj => {
+						if (scheduleObj._id === scheduleId) studentsAbsent = scheduleObj.studentsAbsent;
 					});
-				});
-			}
-		});
-		const studentTableHtml = template.studentsTable({ students: batchStudentsInfo });
-		$studentsContainer.html(studentTableHtml);
+					studentsAbsent = studentsAbsent || [];
+					batch.students.forEach(studentId => {
+						studentsOfThisInstitute.forEach(studentInfo => {
+							if (studentInfo._id === studentId) {
+								const jsonString = JSON.stringify(studentInfo);
+								const duplicateStudentInfo = JSON.parse(jsonString);
+								duplicateStudentInfo.isAbsent = studentsAbsent.indexOf(duplicateStudentInfo._id) !== -1;
+								batchStudentsInfo.push(duplicateStudentInfo);
+							}
+						});
+					});
+				}
+			});
+			const studentTableHtml = template.studentsTable({ students: batchStudentsInfo });
+			$container.html(studentTableHtml);
+		})
 	}
 
 	function bindEvents() {
