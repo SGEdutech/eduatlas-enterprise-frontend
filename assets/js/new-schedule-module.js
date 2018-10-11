@@ -153,6 +153,8 @@ const schedule = (() => {
 	function updateTodate(fromDate, tuitionId) {
 		const nextSunday = getNextSunday(fromDate);
 		$toDate.filter(`[data-tuition-id="${tuitionId}"]`).val(nextSunday.toISOString().split('T')[0]);
+		console.log($toDate);
+		console.log($toDate.filter(`[data-tuition-id="${tuitionId}"]`));
 	}
 
 	function updateDays(fromDate, tuitionId) {
@@ -162,7 +164,7 @@ const schedule = (() => {
 
 	function updateTodateAndSelectDays(event) {
 		const $fromDateInp = $(event.target);
-		const tuitionId = $fromDate.attr('data-tuition-id');
+		const tuitionId = $fromDateInp.attr('data-tuition-id');
 		const fromDate = new Date($fromDateInp.val());
 		updateTodate(fromDate, tuitionId);
 		updateDays(fromDate, tuitionId);
