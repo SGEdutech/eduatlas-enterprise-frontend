@@ -114,7 +114,7 @@ const batch = (() => {
 			const tuitionId = $form.attr('data-id');
 			// FIXME: extract courseId for new batch
 			const serializedForm = $form.serialize();
-			const courseId = $courseSelectMenu.val();
+			const courseId = $courseSelectMenu.filter(`[data-tuition-id="${tuitionId}"]`).val();
 			const courseCode = getCourseCode(courseId);
 			const newBatch = await requestAddBatch(tuitionId, courseId, serializedForm);
 			newBatch.courseId = courseId;
