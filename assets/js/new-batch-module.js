@@ -200,7 +200,7 @@ const batch = (() => {
 
 		batchesArr = JSON.parse(JSON.stringify(batches));
 		distinctCoursesArr = getUniqueCourses(courses);
-		studentsArr = students;
+		studentsArr = JSON.parse(JSON.stringify(students));
 		cache();
 		bindEvents();
 		render();

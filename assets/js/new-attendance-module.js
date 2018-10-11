@@ -43,6 +43,7 @@ const attendance = (() => {
 		distinctBatchesArr.forEach(batch => {
 			if (batch._id === batchId) {
 				const scheduleOptionsHTML = template.scheduleOptions({ schedules: batch.schedules });
+				console.log(scheduleOptionsHTML);
 				$scheduleDropDown.html(scheduleOptionsHTML);
 			}
 		});
@@ -124,7 +125,7 @@ const attendance = (() => {
 		if (students === undefined) throw new Error('Students array not provided!');
 
 		distinctBatchesArr = JSON.parse(JSON.stringify(batches));
-		studentsArr = students;
+		studentsArr = JSON.parse(JSON.stringify(students));
 		cache();
 		bindEvents();
 		render();
