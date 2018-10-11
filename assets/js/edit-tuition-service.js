@@ -11,7 +11,7 @@ try {
 			basicDetails.init('tuition', tuitionInfo);
 			facilitiesDescriptionCategory.init('tuition', tuitionInfo);
 			contactUs.init('tuition', tuitionInfo);
-			// courses.init(tuitionInfo);
+			courses.init(tuitionInfo);
 			results.init('tuition', tuitionInfo);
 			faculty.init('tuition', tuitionInfo);
 			galleryTab.init('tuition', tuitionInfo);

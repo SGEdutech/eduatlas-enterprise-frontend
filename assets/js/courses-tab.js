@@ -45,7 +45,7 @@ const courses = (() => {
 		let title = $element.attr('data-title');
 		let cardId = $element.attr('data-course-id');
 		eagerRemoveCard(cardId);
-		tuitionApiCalls.deleteInArrayInTuition(tuitionId, "courses", { title: title })
+		tuitionApiCalls.deleteInArrayInTuition(tuitionId, "coursesOffered", { title: title })
 			.then(() => {
 				// alert("course deleted successfully")
 			}).catch((err) => {
@@ -70,7 +70,7 @@ const courses = (() => {
 			contextInner.nextBatch = contextInner.nextBatch.split('T')[0];
 		}
 		let contextOuter = {
-			courses: [contextInner]
+			coursesOffered: [contextInner]
 		};
 		$coursesContainer.append(template.userEditTuitionCourses(contextOuter));
 	}
@@ -78,11 +78,11 @@ const courses = (() => {
 	function addCourse(tuitionId) {
 		eagerLoadCourse($newCourseForm.serializeArray());
         // get the data and send it in post request
-        console.log(tuitionId);
-		const AddedCourse = tuitionApiCalls.putInArrayInTuition(tuitionId, "courses", $newCourseForm.serialize(), false);
+		const AddedCourse = tuitionApiCalls.putInArrayInTuition(tuitionId, "coursesOffered", $newCourseForm.serialize(), false);
 
 		AddedCourse.then((data) => {
 			cacheNBindDeleteButtons(tuitionId);
+			console.log(data)
 			// window.location.assign(`user-edit-tuition.html?a=${data._id}&tab=courses`);
 			// alert("course added successfully")
 		}).catch((err) => {
@@ -97,11 +97,11 @@ const courses = (() => {
 		}
 
 		let context = {
-			courses: tuition.courses ? tuition.courses : [],
+			coursesOffered: tuition.coursesOffered ? tuition.coursesOffered : [],
 		};
 
 		let counter = 1;
-		context.courses.forEach((obj) => {
+		context.coursesOffered.forEach((obj) => {
 			if (obj.nextBatch) {
 				obj.nextBatch = obj.nextBatch.split('T')[0];
 			}

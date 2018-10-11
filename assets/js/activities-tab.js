@@ -1,12 +1,14 @@
 const activities = (() => {
 	let $newActivityForm;
 	let $nextTabButton;
+	let $saveActivityBtn;
 	let $nextTab;
 	let $activityInput;
 
 	function cache() {
 		$newActivityForm = $('#activityForm');
 		$nextTabButton = $('#next_Tab_Button');
+		$saveActivityBtn = $('#save_sctivity_btn');
 		$nextTab = $('[href = "#tab7"]');
 		$activityInput = $('#acitivitiesInput')
 	}
@@ -15,7 +17,7 @@ const activities = (() => {
 		$activityInput.val(school.activities);
 	}
 
-	function saveActivities(schoolId, $form) {
+	function saveActivities(schoolId, $form, ifSaveOnly) {
 		const inputObj = $form.serializeArray();
 		let activitiesArr = inputObj[0].value;
 		activitiesArr = activitiesArr.split(',');
@@ -23,13 +25,13 @@ const activities = (() => {
 			_id: schoolId
 		}).then(() => {
 			// console.log('deleted old array');
-			submitActivity(schoolId, activitiesArr)
+			submitActivity(schoolId, activitiesArr, ifSaveOnly)
 		});
 	}
 
-	function submitActivity(schoolId, arr) {
+	function submitActivity(schoolId, activitiesArr, ifSaveOnly) {
 		const promiseArr = [];
-		arr.forEach(entry => {
+		activitiesArr.forEach(entry => {
 			promiseArr.push(
 				schoolApiCalls.putInArrayInSchool(schoolId, "activities", {
 					string: entry
@@ -38,13 +40,20 @@ const activities = (() => {
 		});
 		Promise.all(promiseArr).then(() => {
 			// console.log('added all activities');
-			helperScripts.showNextTab($nextTab);
+			if (ifSaveOnly) {
+				alert("activities saved successfully");
+			} else {
+				helperScripts.showNextTab($nextTab);
+			}
 		})
 	}
 
 	function bindEvents(instituteId) {
 		$nextTabButton.click(() => {
-			saveActivities(instituteId, $newActivityForm)
+			saveActivities(instituteId, $newActivityForm, false);
+		})
+		$saveActivityBtn.click(() => {
+			saveActivities(instituteId, $newActivityForm, true);
 		})
 	}
 

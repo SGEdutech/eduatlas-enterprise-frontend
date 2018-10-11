@@ -1,8 +1,18 @@
 const dashboardAddTuition = (() => {
 	let $addTuitionForm;
+	let $addOtherFacility;
+	let $otherFacilityContainer;
+	let $otherFacilityInput;
+	let $addFacilityModal;
+	let $addFacilityBtn;
 
 	function cache() {
 		$addTuitionForm = $('#addTuition');
+		$addOtherFacility = $('#add_other_facility');
+		$otherFacilityContainer = $('#other_facility_container');
+		$otherFacilityInput = $('#other_facility_input');
+		$addFacilityModal = $('#add_facility_modal');
+		$addFacilityBtn = $('#add_facility_btn');
 	}
 
 	function bindEvents(user) {
@@ -11,6 +21,20 @@ const dashboardAddTuition = (() => {
 			let tuitionSavedPromise = submitTuition(user);
 			updateUser(user, tuitionSavedPromise);
 		});
+		$addOtherFacility.click(openModal);
+		$addFacilityBtn.click(otherFacilityAddition);
+	}
+
+	function openModal() {
+		$otherFacilityInput.val('');
+		$addFacilityModal.modal('toggle');
+	}
+
+	function otherFacilityAddition() {
+		$addFacilityModal.modal('toggle');
+		const nameToBeAdded = $otherFacilityInput.val();
+		const otherFacilityHTML = template.otherFacilityCheckbox({ name: nameToBeAdded });
+		$otherFacilityContainer.append(otherFacilityHTML)
 	}
 
 	function submitTuition(user) {

@@ -6,7 +6,8 @@ const tuitionApiCalls = (() => {
 		bragging: true,
 		courses: true,
 		reviews: true,
-		students: true
+		students: true,
+		coursesOffered: true
 	};
 	const checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
 

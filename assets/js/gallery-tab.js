@@ -58,8 +58,6 @@ const galleryTab = (() => {
 			images: institute.gallery ? institute.gallery : []
 		};
 
-		console.log(context);
-
 		let counter = 1;
 		context.images.forEach((obj) => {
 			obj.id = counter;

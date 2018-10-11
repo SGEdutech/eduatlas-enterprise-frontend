@@ -3,8 +3,9 @@ const contactUs = (() => {
 	let $socialLinkContainer;
 	let $opration_hours_containers;
 	let $saveBtn;
-    let $coursesTab;
-    let $activitiesTab;
+	let $saveNProceedBtn;
+	let $coursesTab;
+	let $activitiesTab;
 	let $contactUsAndSocialLinksForm;
 	let $monForm, $tueForm, $wedForm, $thuForm, $friForm, $satForm, $sunForm;
 	let $monFormSchool, $tueFormSchool, $wedFormSchool, $thuFormSchool, $friFormSchool, $satFormSchool, $sunFormSchool;
@@ -16,9 +17,10 @@ const contactUs = (() => {
 		$contactPersonContainer = $("#contactPersonContainer");
 		$socialLinkContainer = $("#socialLinkContainer");
 		$opration_hours_containers = $("#opration_hours_containers");
-		$saveBtn = $('#saveTimeBtn');
-        $coursesTab = $(`[href = "#tab4"]`);
-        $activitiesTab = $(`[href = "#tab3"]`);
+		$saveBtn = $('#save_time_btn');
+		$saveNProceedBtn = $('#save_proceed_time_btn');
+		$coursesTab = $(`[href = "#tab3"]`);
+		$activitiesTab = $(`[href = "#tab3"]`);
 		$schoolTimingContainer = $('#school_timing_containers');
 		$officeTimingContainer = $('#office_timing_containers');
 	}
@@ -55,14 +57,26 @@ const contactUs = (() => {
 	}
 
 	function bindEvents(typeOfInfo, instituteId) {
-		$saveBtn.click(() => {
-			addAllTimes(typeOfInfo, instituteId);
-			if (typeOfInfo === "tuition") {
+		$saveNProceedBtn.click(()=>{saveEverything(typeOfInfo, instituteId, false)});
+
+		$saveBtn.click(()=>{saveEverything(typeOfInfo, instituteId, true)});
+	}
+
+	function saveEverything(typeOfInfo, instituteId, ifSaveOnly) {
+		addAllTimes(typeOfInfo, instituteId);
+		if (typeOfInfo === "tuition") {
+			if (ifSaveOnly) {
+				helperScripts.saveDetails(typeOfInfo, $contactUsAndSocialLinksForm, "saveOnly", instituteId);
+			} else {
 				helperScripts.saveDetails(typeOfInfo, $contactUsAndSocialLinksForm, $coursesTab, instituteId);
-			} else if (typeOfInfo === "school") {
+			}
+		} else if (typeOfInfo === "school") {
+			if (ifSaveOnly) {
+				helperScripts.saveDetails(typeOfInfo, $contactUsAndSocialLinksForm, "saveOnly", instituteId);
+			} else {
 				helperScripts.saveDetails(typeOfInfo, $contactUsAndSocialLinksForm, $activitiesTab, instituteId);
 			}
-		})
+		}
 	}
 
 	function render(typeOfInfo, user) {

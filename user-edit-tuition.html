@@ -47,11 +47,7 @@
 <body style="height: 2000px">
 
 	<div id="nav_container">
-
 	</div>
-
-	<!-- <div id="coverImgContainer">
-    </div> -->
 
 	<div id="secondary_info" class="container-fluid mt-5">
 		<div class="row">
@@ -70,6 +66,9 @@
 								<a class="nav-link" href="#tab2" data-toggle="tab">Contact Us</a>
 							</li>
 							<li class="nav-item">
+								<a class="nav-link" href="#tab3" data-toggle="tab">Courses</a>
+							</li>
+							<li class="nav-item">
 								<a class="nav-link" href="#tab4" data-toggle="tab">Results</a>
 							</li>
 							<li class="nav-item">
@@ -79,7 +78,6 @@
 								<a class="nav-link" href="#tab6" data-toggle="tab">Gallery</a>
 							</li>
 						</ul>
-						<!--<hr>-->
 					</div>
 				</div>
 			</div>
@@ -225,11 +223,12 @@
 
 								</form>
 								<!-- pass id of form to saveDetails function for AJAX put req -->
-								<button id="save_basic_details_btn" class="btn btn-info btn-round">Save And Continue
+								<button id="save_basic_details_btn" class="btn btn-info btn-round">Save
+								</button>
+								<button id="save_proceed_basic_details_btn" class="btn btn-info btn-round">Save And Proceed
 								</button>
 
 							</div>
-
 							<div class="tab-pane" id="tab2">
 								<div class="btn-group btn-group-raised justify-content-around" role="group" aria-label="stepwise">
 									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 1</button>
@@ -242,44 +241,6 @@
 									<div class="row justify-content-around">
 										<div class="card col-md-6">
 											<div class="card-body" id="contactPersonContainer">
-												<!--<script id="contactPersonInput" type="text/x-handlebars-template">
-                                            <div class="card-title h3">
-                                                Contact Us:
-                                            </div>
-                                            <div class="card-title h4">
-                                                Contact Person Name
-                                            </div>
-                                            <div>
-                                                <input class="form-control" value="{{contactPerson}}"
-                                                       name="contactPerson">
-                                            </div>
-                                            <div class="card-title h4">
-                                                Primary Number
-                                            </div>
-                                            <div>
-                                                <input class="form-control" value="{{primaryNumber}}"
-                                                       name="primaryNumber">
-                                            </div>
-                                            <div class="card-title h4">
-                                                Alternate Number
-                                            </div>
-                                            <div>
-                                                <input class="form-control" value="{{secondaryNumber}}"
-                                                       name="secondaryNumber">
-                                            </div>
-                                            <div class="card-title h4">
-                                                Email
-                                            </div>
-                                            <div>
-                                                <input class="form-control" value="{{email}}" name="email">
-                                            </div>
-                                            <div class="card-title h4">
-                                                Website
-                                            </div>
-                                            <div>
-                                                <input class="form-control" value="{{website}}" name="website">
-                                            </div>
-                                        </script>-->
 											</div>
 										</div>
 										<div class="col-md-6">
@@ -299,12 +260,76 @@
 									</div>
 									<div id="opration_hours_containers" class="">
 									</div>
-									<!--<button class="btn btn-outline-info mt-md-4" id="saveTimeBtn">Save Operating Hours
-                            </button>-->
 								</div>
-								<button id="saveTimeBtn" class="btn btn-info btn-round">
-									Save And Continue
+								<button id="save_time_btn" class="btn btn-info btn-round">
+									Save
 								</button>
+								<button id="save_proceed_time_btn" class="btn btn-info btn-round">
+									Save And Proceed
+								</button>
+							</div>
+							<div class="tab-pane" id="tab3">
+								<div class="btn-group btn-group-raised justify-content-around" role="group" aria-label="stepwise">
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 1</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 2</button>
+									<button type="button btn" class="btn btn-info disabled" disabled>Step 3</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 4</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 5</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 6</button>
+								</div>
+								<div class="row" id="coursesContainer">
+								</div>
+								<button class="btn btn-outline-info btn-round" data-toggle="modal" data-target="#new_course_modal">
+									Add More Course
+								</button>
+								<!-- Modal -->
+								<div class="modal fade" id="new_course_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Add Course</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<form id="newCourse">
+													<div class="form-group">
+														<label for="courseTitle1">Course Title</label>
+														<input required class="form-control" name="title" type="text" id="courseTitle1">
+													</div>
+													<div class="form-group">
+														<label for="courseAgeGroup">Age Group</label>
+														<input class="form-control" name="ageGroup" type="text" id="courseAgeGroup">
+													</div>
+													<div class="form-group">
+														<label for="courseDuration">Duration</label>
+														<input class="form-control" name="duration" type="text" id="courseDuration">
+													</div>
+													<div class="form-group">
+														<label for="courseFee">Fee</label>
+														<input class="form-control" name="fee" type="text" id="courseFee">
+													</div>
+													<div class="form-group">
+														<label for="nextBatch">Next Batch</label>
+														<input class="form-control" name="nextBatch" type="date" id="nextBatch">
+													</div>
+												</form>
+												<small>
+													<p> Added course will appear after refresh</p>
+												</small>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+												</button>
+												<button id="add_new_course_button" type="button" class="btn btn-info btn-round">
+													Add n Save
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<button id="next_Tab_Button" class="btn btn-info btn-round">Save And Proceed</button>
 							</div>
 							<div class="tab-pane" id="tab4">
 								<div class="btn-group btn-group-raised justify-content-around" role="group" aria-label="stepwise">
@@ -358,7 +383,7 @@
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close
 												</button>
 												<button id="add_new_result_button" type="button" class="btn btn-info btn-round">
-													Save changes
+													Add n Save
 												</button>
 											</div>
 
@@ -366,7 +391,7 @@
 									</div>
 								</div>
 								<button id="next_Tab_Button2" class="btn btn-info btn-round">
-									Save And Continue
+									Save And Proceed
 								</button>
 							</div>
 							<div class="tab-pane" id="tab5">
@@ -425,13 +450,13 @@
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close
 												</button>
-												<button id="add_new_faculty_button" type="button" class="btn btn-info btn-round">Save changes
+												<button id="add_new_faculty_button" type="button" class="btn btn-info btn-round">Add n Save
 												</button>
 											</div>
 										</div>
 									</div>
 								</div>
-								<button id="next_Tab_Button3" class="btn btn-info btn-round">Save And Continue</button>
+								<button id="next_Tab_Button3" class="btn btn-info btn-round">Save And Proceed</button>
 							</div>
 							<div class="tab-pane" id="tab6">
 								<div class="btn-group btn-group-raised justify-content-around" role="group" aria-label="stepwise">
@@ -482,7 +507,7 @@
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close
 												</button>
 												<button id="add_new_image_button" type="button" class="btn btn-info btn-round">
-													Save image
+													Add n Save
 												</button>
 											</div>
 										</div>
@@ -610,7 +635,7 @@
 	<script src="assets/js/basic-details.js"></script>
 	<script src="assets/js/facilities-description-category.js"></script>
 	<script src="assets/js/contact-us-tab.js"></script>
-	<!-- <script src="assets/js/courses-tab.js"></script> -->
+	<script src="assets/js/courses-tab.js"></script>
 	<script src="assets/js/results-tab.js"></script>
 	<script src="assets/js/faculty-tab.js"></script>
 	<script src="assets/js/gallery-tab.js"></script>

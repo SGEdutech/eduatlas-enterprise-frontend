@@ -137,7 +137,6 @@ const helperScripts = {
 	},
 	saveDetails(typeOfInfo, $form, $nextTab, instituteId) {
 		const formData = new FormData($form[0]);
-		console.log($form);
 		let Promise;
 		if (typeOfInfo === "tuition") {
 			Promise = tuitionApiCalls.updateInTuition(instituteId, formData, true);
@@ -149,7 +148,11 @@ const helperScripts = {
 
 		Promise.then((data) => {
 			// console.log(data);
-			this.showNextTab($nextTab);
+			if ($nextTab === "saveOnly") {
+				alert("saved successfully");
+			} else {
+				this.showNextTab($nextTab);
+			}
 		}).catch((err) => {
 			alert('Fail!');
 			console.log(err)

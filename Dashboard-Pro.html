@@ -70,7 +70,7 @@
 							<a class="nav-link" href="#tab8" data-toggle="tab"> Add Event</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link disabled" href="#" data-toggle="tab"> My Listings</a>
+							<a class="nav-link disabled" data-toggle="tab"> My Listings</a>
 						</li>
 						<!-- <li class="nav-item">
 							<a class="nav-link" href="#testprdt" data-toggle="tab">Test Item</a>
@@ -283,7 +283,8 @@
 													</span>
 												</label>
 											</div>
-
+											<div id="other_facility_container"></div>
+											<button class="btn btn-round btn-info" id="add_other_facility">Add More Facility</button>
 										</div>
 									</div>
 								</div>
@@ -292,8 +293,8 @@
 									<div class="card-body">
 										<h2 class="card-title h3">About Us</h2>
 										<div id="descriptionContainer">
-											<div>
-												<input name="description" class="form-control" id="description">
+											<div class="form-group">
+												<textarea name="description" class="form-control" id="description" rows="3" placeholder="type here"></textarea>
 											</div>
 										</div>
 									</div>
@@ -332,7 +333,7 @@
 													<span class="fileinput-exists">Change</span>
 													<input type="file" name="tuitionCoverPic" />
 												</span>
-												<a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+												<a class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
 													<i class="fa fa-times"></i> Remove</a>
 											</div>
 										</div>
@@ -626,7 +627,7 @@
 													<span class="fileinput-exists">Change</span>
 													<input type="file" name="schoolCoverPic">
 												</span>
-												<a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+												<a class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
 													<i class="fa fa-times"></i> Remove</a>
 											</div>
 										</div>
@@ -790,7 +791,7 @@
 													<span class="fileinput-exists">Change</span>
 													<input type="file" name="eventCoverPic">
 												</span>
-												<a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+												<a class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
 													<i class="fa fa-times"></i> Remove</a>
 											</div>
 										</div>
@@ -835,6 +836,17 @@
 								<button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
 							</div>
 						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="other_facility_modal_container">
+			<div id="add_facility_modal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content p-2">
+						<label for="other_facility_input">Facility Name</label>
+						<input class="text-secondary" type="text" id="other_facility_input">
+						<button class="btn btn-round btn-info" id="add_facility_btn">Add</button>
 					</div>
 				</div>
 			</div>
