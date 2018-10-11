@@ -3,8 +3,9 @@ PubSub.subscribe('user', (msg, userInfo) => {
     redirectOnLogout.init(userInfo);
 });
 
-PubSub.subscribeOnce('query.load', (msg, queryObject) => {
+PubSub.subscribeOnce('query', (msg, queryObject) => {
     getDetails.returnData('school', queryObject).then((schoolInfo) => {
+        redirectTabs.init(queryObject);
         coverImage.init('school', schoolInfo);
         basicDetails.init('school', schoolInfo);
         facilitiesDescriptionCategory.init('school', schoolInfo);

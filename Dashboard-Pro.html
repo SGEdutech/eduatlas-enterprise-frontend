@@ -29,15 +29,13 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 	<link rel="stylesheet" href="assets/css/dashboard-pro.css">
 	<link rel="stylesheet" href="css/index/dashboard.css" type="text/css">
+	<!-- fix undeline colors -->
+	<link rel="stylesheet" href="assets/css/input-color.css">
 </head>
 
 <body>
 	<div id="nav_container">
 	</div>
-	<!-- <div id="coverImgContainer">
-        <div id="cover_image" class="page-header header-filter header-small" data-parallax="true" filter-color="dark" style="background-image: url(assets/img/bg2.jpg);">
-        </div>
-    </div> -->
 	<div id="secondary_info" class="row m-3 mt-5">
 		<div class="col-md-2 text-center">
 			<div class="card">
@@ -74,9 +72,9 @@
 						<li class="nav-item">
 							<a class="nav-link disabled" href="#" data-toggle="tab"> My Listings</a>
 						</li>
-						<li class="nav-item">
+						<!-- <li class="nav-item">
 							<a class="nav-link" href="#testprdt" data-toggle="tab">Test Item</a>
-						</li>
+						</li> -->
 						<hr>
 					</ul>
 				</div>
@@ -802,1329 +800,129 @@
 								<button class="btn btn-info btn-round" type="submit">Save Event</button>
 							</form>
 						</div>
-						<div class="tab-pane" id="testprdt">
-							<div class="tab-pane" id="tab{{tabNumber}}">
-								<div class="card bg-info mt-1">
-									<div class="card-body px-3">
-										<h3 class="card-title text-dark" data-id="{{_id}}" data-tabNumber="{{tabNumber}}">
-										</h3>
-										<h5 class="card-title">
-											Study Monitor
-										</h5>
-									</div>
-								</div>
-								<ul class="nav nav-pills nav-pills-rose">
-									<li class="nav-item"><a class="nav-link active" href="#pill1" data-toggle="tab">Configure</a></li>
-									<li class="nav-item"><a class="nav-link" href="#pill2" data-toggle="tab">Promoter</a></li>
-									<li class="nav-item"><a class="nav-link" href="#pill3" data-toggle="tab">Messages</a></li>
-									<li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Form</a></li>
-								</ul>
-								<hr>
-								<div class="tab-content tab-space">
-									<div class="tab-pane active" id="pill1">
-										<div class="row m-0">
-											<div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
-												<ul class="nav nav-pills nav-pills-rose flex-column">
-													<li class="nav-item"><a class="nav-link active" href="#innertab1" data-toggle="tab">Courses</a></li>
-													<li class="nav-item"><a class="nav-link" href="#innertab3" data-toggle="tab">Batches</a></li>
-													<li class="nav-item"><a class="nav-link" href="#innertab2" data-toggle="tab">Students</a></li>
-													<li class="nav-item"><a class="nav-link" href="#innertab4" data-toggle="tab">Active
-															Batches</a></li>
-												</ul>
-											</div>
-											<div class="col-md-10">
-												<div class="tab-content">
-													<div class="tab-pane active" id="innertab1">
-														<div class="row m-0">
-															<div class="card-title col-12 h3">
-																Active Courses
-															</div>
-															<div class="col-12">
-																<div class="row">
-																	<div class="col-md-4">
-																		<div class="card">
-																			<div class="card-body ">
-																				<h4 class="card-title">
-																					<a href="#pablo">MBA Prep 18</a>
-																				</h4>
-																			</div>
-																			<div class="card-footer ">
-																				<div class="author">
-																					<h6 class="card-category text-danger">
-																						<i class="material-icons">trending_up</i>
-																						Price 50000/-
-																					</h6>
-																				</div>
-																				<div class="stats ml-auto">
-																					<i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
-																					<i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-
-																</div>
-																<div id="active_course_container{{tabNumber}}" class="row">
-																</div>
-															</div>
-															<div class="card-title col-12 h3">
-																Inactive Courses
-															</div>
-															<div class="col-md-4">
-																<div class="card">
-																	<div class="card-body ">
-																		<h4 class="card-title">
-																			<a href="#pablo">MBA Prep 18</a>
-																		</h4>
-																	</div>
-																	<div class="card-footer ">
-																		<div class="author">
-																			<h6 class="card-category text-danger">
-																				<i class="material-icons">trending_up</i>
-																				Price 50000/-
-																			</h6>
-																		</div>
-																		<div class="stats ml-auto">
-																			<i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
-																			<i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div class="card m-0 mb-4">
-																<div class="card-title col-12 h3">
-																	Add New Course/Product
-																</div>
-																<form class="new_course_form" data-tabNumber="tabNumber">
-																	<div class="row card-body">
-																		<div class="col-md-6">
-																			<div class="form-group label-floating is-empty has-rose bmd-form-group">
-																				<input type="text" name="name" class="form-control" placeholder="Course Name" required>
-																				<span class="material-input"></span>
-																			</div>
-																			<div class="form-group label-floating is-empty has-rose bmd-form-group">
-																				<input id="course-code" name="courseCode" class="form-control" type="text" placeholder="Course Code (unique)" required>
-																				<span class="material-input"></span>
-																			</div>
-																			<div class="form-group label-floating has-rose is-empty bmd-form-group">
-																				<textarea name="description" class="form-control" rows="4" placeholder="Description (optional)"></textarea>
-																				<span class="material-input"></span>
-																			</div>
-																		</div>
-																		<div class="col-md-6">
-																			<div class="form-group label-floating is-empty has-rose bmd-form-group">
-																				<input type="text" name="fees" class="form-control" placeholder="Course Fee" required>
-																				<span class="material-input"></span>
-																			</div>
-																			<div class="form-check">
-																				<label class="form-check-label">
-																					<input id="gst-checkbox" class="form-check-input" type="checkbox" value="true">
-																					insclusive of taxes
-																					<span class="form-check-sign">
-																						<span class="check"></span>
-																					</span>
-																				</label>
-																			</div>
-																			<div class="form-group label-floating has-rose is-empty bmd-form-group">
-																				<input id="gst-inp" type="number" name="GST" class="form-control" placeholder="GST (%)" required>
-																				<span class="material-input"></span>
-																			</div>
-																			<div class="form-group label-floating has-rose is-empty bmd-form-group">
-																				<input type="number" name="totalFee" class="form-control" placeholder="Total Fee" required>
-																				<span class="material-input"></span>
-																			</div>
-																		</div>
-																		<div class="col-md-6">
-																		</div>
-																		<div class="col-md-6">
-																			<button type="submit" class="btn btn-round btn-rose pull-right">
-																				ADD Course
-																				<div class="ripple-container"></div>
-																			</button>
-																		</div>
-																	</div>
-																	<input type="hidden" name="listingId" value="{{_id}}">
-																	<input type="hidden" name="listingCategory" value="{{category}}">
-																</form>
-															</div>
-														</div>
-														<br><br>
-													</div>
-													<div class="tab-pane" id="innertab2">
-														<div class="card card-profile card-plaina main-raised m-0">
-															<div class="row card-body">
-																<div class="col-md-6">
-																	<h4 class="card-title text-left">Bulk Upload</h4>
-																	<p class="description text-left">use the excel
-																		template
-																		to bulk
-																		Upload your student data please do not edit
-																		template</p>
-																</div>
-																<div class="col-md-6">
-																	<button class="btn btn-round btn-rose float-right">Download
-																		Template</button>
-																	<button class="btn btn-round btn-rose float-right">Upload
-																		Template</button>
-																</div>
-															</div>
-														</div>
-														<br>
-
-														<div class="card card-profile main-raised m-0">
-															<div class="card-body text-left has-rose">
-																<div class="row">
-																	<div class="col-md-12">
-																		<h4 class="card-title">Auto Fields</h4>
-																		<input type="text" value="" placeholder="-EA Membership number" class="form-control" />
-																		<h4 class="card-title">Compulsory Fields</h4>
-																		<div class="row">
-																			<div class="col-md-4">
-																				<input type="text" value="" placeholder="Student Roll No." class="form-control" />
-																			</div>
-																			<div class="col-md-4">
-																				<input type="text" value="" placeholder="Student Name" class="form-control" />
-																			</div>
-																			<div class="col-md-4">
-																				<input type="text" value="" placeholder="Student E-mail" class="form-control" />
-																			</div>
-																		</div>
-																	</div>
-																	<div class="col-md-12">
-																		<h4 class="card-title">Additional Fields</h4>
-																		<div class="row">
-																			<div class="col-md-6">
-																				<input type="text" value="" placeholder="Address" class="form-control" />
-																			</div>
-																			<div class="col-md-6">
-																				<input type="text" value="" placeholder="Contact No." class="form-control" />
-																			</div>
-																		</div>
-																	</div>
-																	<div class="col-md-12">
-																		<h4 class="card-title">Payment Details</h4>
-																		<div class="row">
-																			<div class="col-md-4">
-																				<input type="text" value="" placeholder="-Product Name" class="form-control" />
-																			</div>
-																			<div class="col-md-4">
-																				<input type="text" value="" placeholder="-Products Fees" class="form-control" />
-																			</div>
-																			<div class="col-md-4">
-																				<input type="text" value="" placeholder="-Discount Amount Given" class="form-control" />
-																			</div>
-																			<div class="col-md-4">
-																				<input type="text" value="" placeholder="-Discount Reason" class="form-control" />
-																			</div>
-																			<div class="col-md-4">
-																				<input type="text" value="" placeholder="-Net Fee" class="form-control" />
-																			</div>
-																			<div class="col-md-4">
-																				<input type="text" value="" placeholder="-Fee Collected" class="form-control" />
-																			</div>
-																			<div class="col-md-4">
-																				<input type="text" value="" placeholder="-Mode Of Payment" class="form-control" />
-																			</div>
-																			<div class="col-md-4">
-																				<input type="text" value="" placeholder="-Balance Pending" class="form-control" />
-																			</div>
-																			<div class="col-md-4">
-																				<input type="text" value="" placeholder="-next installment details" class="form-control" />
-																			</div>
-																			<div class="col-md-4">
-																				<input type="text" value="" placeholder="-print receipt" class="form-control" />
-																			</div>
-																			<div class="col-md-4">
-																				<input type="text" value="" placeholder="-add to batch code" class="form-control" />
-																			</div>
-																			<div class="col-md-12 mt-3">
-																				<button class="btn btn-round btn-rose float-right">ADD
-																					STUDENTS</button>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="card">
-															<div class=" card-title col-12 h3">
-																Active Students(143)
-															</div>
-															<div class="container">
-																<div class="section section-comments">
-																	<div class="row">
-																		<div class="col-md-4">
-																			<div class="media-area main-raised m-0">
-																				<div class="media">
-																					<a class="float-left" href="#pablo">
-																						<div class="avatar">
-																							<img class="media-object" src="../assets/img/logo.png" alt="...">
-																						</div>
-																					</a>
-																					<div class="media-body">
-																						<h5 class="media-heading">Prashant
-																							Gupta<br>
-																							<small>joined on 2017</small>
-																						</h5>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																		<div class="col-md-4">
-																			<div class="media-area main-raised m-0">
-																				<div class="media">
-																					<a class="float-left" href="#pablo">
-																						<div class="avatar">
-																							<img class="media-object" src="../assets/img/logo.png" alt="...">
-																						</div>
-																					</a>
-																					<div class="media-body">
-																						<h5 class="media-heading">Prashant
-																							Gupta<br>
-																							<small>joined on 2017</small>
-																						</h5>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-
-																		<div class="col-md-4">
-																			<div class="media-area main-raised m-0">
-																				<div class="media">
-																					<a class="float-left" href="#pablo">
-																						<div class="avatar">
-																							<img class="media-object" src="../assets/img/logo.png" alt="...">
-																						</div>
-																					</a>
-																					<div class="media-body">
-																						<h5 class="media-heading">Prashant
-																							Gupta <br>
-																							<small>joined on 2017</small>
-																						</h5>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="tab-pane" id="innertab3">
-														<div class="row m-0">
-
-															<div class="card-title col-12 h3">
-																Active Batches
-															</div>
-															<div class="col-12">
-																<div class="row">
-																	<div class="col-md-4" id="#">
-																		<div class="card">
-																			<div class="card-body ">
-																				<h4 class="card-title">
-																					<a href="#pablo">namenamenamenam</a>
-																				</h4>
-																				<p class="card-text">
-																					descriptionn
-																				</p>
-																				<p class="card-text">
-																					<small class="text-secondary">Course:</small>
-																					<small class="text-danger">parentCourse</small>
-																				</p>
-																			</div>
-																			<div class="card-footer ">
-																				<div class="stats ml-auto">
-																					<i class="material-icons delete-batch-btn" style="top: 0%; cursor: pointer;" data-id="{{_id}}">delete</i>
-																					<i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<div id="active_batch_container{{tabNumber}}" class="row">
-																</div>
-															</div>
-															<div class="card-title col-12 h3">
-																Inactive Batches
-															</div>
-															<div class="col-md-4">
-																<div class="card">
-																	<div class="card-body ">
-																		<h4 class="card-title">
-																			<a href="#pablo">Jul17</a>
-																		</h4>
-																		<p class="card-text">
-																			morning batch
-																		</p>
-																		<p class="card-text">
-																			<small class="text-secondary">Course:</small>
-																			<small class="text-danger">MBA Prep 18</small>
-																		</p>
-																	</div>
-																	<div class="card-footer ">
-																		<div class="stats ml-auto">
-																			<i class="material-icons" style="top: 0%; cursor: pointer;">delete</i>
-																			<i class="material-icons" style="top: 0%; cursor: pointer;">edit</i>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div class="card m-0 mb-4">
-																<div class="card-title col-12 h3">
-																	Add New Batch
-																</div>
-																<form class="new_batch_form" data-tabNumber="tabNumber">
-																	<div class="row card-body">
-																		<div class="col-md-6">
-																			<div class="form-group">
-																				<label for="courseIdSelect">Choose
-																					Course for your batch</label>
-																				<select class="form-control selectpicker courseIdSelect" data-style="btn btn-link" name="courseId">
-																					<option value=""></option>
-																				</select>
-																			</div>
-																		</div>
-																		<div class="col-md-6">
-																			<div class="form-group label-floating is-empty has-rose bmd-form-group">
-																				<input type="text" name="name" class="form-control" placeholder="Batch Code (unique)" required>
-																				<span class="material-input"></span>
-																			</div>
-																		</div>
-																		<div class="col-md-6">
-																			<!-- <div class="form-group label-floating has-rose is-empty bmd-form-group">
-																				<textarea name="description" class="form-control" rows="4" placeholder="Description(Optional)"></textarea>
-																				<span class="material-input"></span>
-                                                                            </div> -->
-																			<div class="col-md-6">
-																				<div class="card-title">
-																					Add Students
-																				</div><br><br>
-																				<div class="media-area main-raised">
-																					<div class="media groupchats">
-																						<div class="media-body">
-																							<input type="checkbox" value="">
-																							<span class="media-heading">Student-1
-																								<span class="form-check-sign">
-																									<span class="check"></span>
-																								</span>
-																							</span><br>
-
-																							<input type="checkbox" value="">
-																							<span class="media-heading">Student-1
-																								<span class="form-check-sign">
-																									<span class="check"></span>
-																								</span>
-																							</span><br>
-
-																							<input type="checkbox" value="">
-																							<span class="media-heading">Student-2
-																								<span class="form-check-sign">
-																									<span class="check"></span>
-																								</span>
-																							</span><br>
-
-																							<input type="checkbox" value="">
-																							<span class="media-heading">Student-3
-																								<span class="form-check-sign">
-																									<span class="check"></span>
-																								</span>
-																							</span><br>
-
-																							<input type="checkbox" value="">
-																							<span class="media-heading">Student-4
-																								<span class="form-check-sign">
-																									<span class="check"></span>
-																								</span>
-																							</span><br>
-
-																							<input type="checkbox" value="">
-																							<span class="media-heading">Student-5
-																								<span class="form-check-sign">
-																									<span class="check"></span>
-																								</span>
-																							</span><br>
-																						</div>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																		<div class="col-md-6">
-																			<button type="submit" class="btn btn-round btn-rose pull-right mt-5">
-																				ADD Batch
-																				<div class="ripple-container"></div>
-																			</button>
-																		</div>
-																	</div>
-																	<input type="hidden" name="courseId" value="{{_id}}">
-																</form>
-															</div>
-														</div>
-													</div>
-													<div class="tab-pane" id="innertab4">
-														Completely synergize resource taxing relationships via premier
-														niche markets.
-														Professionally cultivate one-to-one customer service with
-														robust
-														ideas.
-														<br><br>Dynamically innovate resource-leveling customer service
-														for
-														state of the art
-														customer service.
-													</div>
-												</div>
-											</div>
-										</div>
-										<br><br>
-									</div>
-									<div class="tab-pane" id="pill2">
-										<ul class="nav nav-pills nav-pills-rose nav-pills-icons" role="tablist">
-											<li class="nav-item col-3">
-												<a class="nav-link active" href="#dashboard-1" role="tab" data-toggle="tab">
-													<i class="material-icons" style="font-size: 48px">
-														home
-													</i>
-													Ad Stats for
-													<h4 class="info-title">
-														HOMEPAGE</h4>
-												</a>
-												<a class="nav-link" href="#dashboard-1" data-toggle="modal" data-target="#promoterModal">
-													<span class="badge badge-pill badge-danger">Not purchased</span>
-													<i class="material-icons" style="font-size: 48px">
-														home
-													</i>
-													Ad Stats for
-													<h4 class="info-title">
-														HOMEPAGE</h4>
-												</a>
-											</li>
-											<li class="nav-item col-3">
-												<a class="nav-link" href="#schedule-1{{tabNumber}}" role="tab" data-toggle="tab">
-													<i class="material-icons" style="font-size: 48px">
-														search
-													</i>
-													Ad Stats for
-													<h4 class="info-title">
-														SEARCHPAGE</h4>
-												</a>
-												<a class="nav-link" href="#schedule-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
-													<span class="badge badge-pill badge-danger">Not purchased</span>
-													<i class="material-icons" style="font-size: 48px">
-														search
-													</i>
-													Ad Stats for
-													<h4 class="info-title">
-														SEARCHPAGE</h4>
-												</a>
-											</li>
-											<li class="nav-item col-3">
-												<a class="nav-link" href="#tasks-1{{tabNumber}}" role="tab" data-toggle="tab">
-													<span class="badge badge-pill badge-danger">Not purchased</span>
-													<i class="material-icons" style="font-size: 48px">
-														format_list_bulleted
-													</i>
-													Ad Stats for
-													<h4 class="info-title">
-														RELATED LISTING</h4>
-												</a>
-												<a class="nav-link" href="##tasks-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
-													<span class="badge badge-pill badge-danger">Not purchased</span>
-													<i class="material-icons" style="font-size: 48px">
-														format_list_bulleted
-													</i>
-													Ad Stats for
-													<h4 class="info-title">
-														RELATED LISTING</h4>
-												</a>
-											</li>
-										</ul>
-										<div class="tab-content tab-space">
-											<div class="tab-pane active" id="dashboard-1tabNumber">
-												<div class="row mx-3 justify-content-around">
-													<div class="col-md-6">
-														<div class="card">
-															<div class="card-body">
-																<div class="card-stats justify-content-around">
-																	<canvas id="myCharttabNumber"></canvas>
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="col-md-6 ">
-														<div class="card">
-															<div class="card-body">
-																<div class="card-stats justify-content-around">
-																	<canvas id="myChart2tabNumber"></canvas>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="row mx-3">
-													<small>You Don't have promoter subscription, click on above buttons
-														to activate promoter</small>
-												</div>
-											</div>
-											<div class="tab-pane" id="schedule-1tabNumber">
-												<div class="row mx-3 justify-content-around">
-													<div class="col-md-6">
-														<div class="card">
-															<div class="card-body">
-																<div class="card-stats justify-content-around">
-																	<canvas id="myCharttabNumbe1"></canvas>
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="col-md-6 ">
-														<div class="card">
-															<div class="card-body">
-																<div class="card-stats justify-content-around">
-																	<canvas id="myChart2tabNumbe1"></canvas>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="tab-pane" id="tasks-1">
-												<div class="row mx-3 justify-content-around">
-													<div class="col-md-6">
-														<div class="card">
-															<div class="card-body">
-																<div class="card-stats justify-content-around">
-																	<canvas id="myCharttabNumber2"></canvas>
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="col-md-6 ">
-														<div class="card">
-															<div class="card-body">
-																<div class="card-stats justify-content-around">
-																	<canvas id="myChart2tabNumber2"></canvas>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="tab-pane" id="pill3">
-										<div class="row m-0">
-											<div class="col-md-3">
-												<ul class="nav nav-pills nav-pills-rose flex-column">
-													<li class="nav-item"><a class="nav-link" href="#sendmessage" data-toggle="tab">Send
-															Messages</a></li>
-													<li class="nav-item"><a class="nav-link active" href="#groupchats" data-toggle="tab">Group
-															Chats</a></li>
-													<li class="nav-item"><a class="nav-link" href="#messagehistory" data-toggle="tab">Message
-															History</a></li>
-												</ul>
-											</div>
-											<div class="col-md-9">
-												<div class="tab-content">
-													<div class="tab-pane" id="sendmessage">
-														<div class="card-body card card-profile card-plaina main-raised m-1">
-															<form class="card-body">
-																<div class="form-group">
-																	<div class="form-group">
-																		<textarea class="form-control" placeholder="Type Message" rows="3"></textarea>
-																	</div>
-																	<div class="form-check">
-																		<label class="form-check-label">
-																			<input class="form-check-input" type="checkbox" value="">
-																			Broadcast To Entire Institute
-																			<span class="form-check-sign">
-																				<span class="check"></span>
-																			</span>
-																		</label>
-																	</div>
-															</form>
-														</div>
-														<br><br>
-														<div class="card-body card card-profile card-plaina main-raised m-1">
-															<div class="row">
-																<div class="col-md-6">
-																	<div class="card-title col-12 h3">
-																		Select Students
-																	</div><br><br>
-																	<div class="media-area main-raised">
-																		<div class="media">
-																			<div class="media-body">
-																				<input class="form-check-input" type="checkbox" value="">
-																				<span class="media-heading">Student-1
-																					<span class="form-check-sign">
-																						<span class="check"></span>
-																					</span>
-																				</span><br>
-
-																				<input class="form-check-input" type="checkbox" value="">
-																				<span class="media-heading">Student-2
-																					<span class="form-check-sign">
-																						<span class="check"></span>
-																					</span>
-																				</span><br>
-
-																				<input class="form-check-input" type="checkbox" value="">
-																				<span class="media-heading">Student-3
-																					<span class="form-check-sign">
-																						<span class="check"></span>
-																					</span>
-																				</span><br>
-
-																				<input class="form-check-input" type="checkbox" value="">
-																				<span class="media-heading">Student-4
-																					<span class="form-check-sign">
-																						<span class="check"></span>
-																					</span>
-																				</span><br>
-
-																				<input class="form-check-input" type="checkbox" value="">
-																				<span class="media-heading">Student-5
-																					<span class="form-check-sign">
-																						<span class="check"></span>
-																					</span>
-																				</span><br>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<div class="col-md-6">
-																	<div class="card-title col-12 h3">
-																		Select Batches
-																	</div><br><br>
-																	<div class="media-area main-raised">
-																		<div class="media">
-																			<div class="media-body">
-																				<input class="form-check-input" type="checkbox" value="">
-																				<span class="media-heading">Batch-1
-																					<span class="form-check-sign">
-																						<span class="check"></span>
-																					</span>
-																				</span><br>
-
-																				<input class="form-check-input" type="checkbox" value="">
-																				<span class="media-heading">Batch-2
-																					<span class="form-check-sign">
-																						<span class="check"></span>
-																					</span>
-																				</span><br>
-
-																				<input class="form-check-input" type="checkbox" value="">
-																				<span class="media-heading">Batch-3
-																					<span class="form-check-sign">
-																						<span class="check"></span>
-																					</span>
-																				</span><br>
-
-																				<input class="form-check-input" type="checkbox" value="">
-																				<span class="media-heading">Batch-4
-																					<span class="form-check-sign">
-																						<span class="check"></span>
-																					</span>
-																				</span><br>
-
-																				<input class="form-check-input" type="checkbox" value="">
-																				<span class="media-heading">Batch-5
-																					<span class="form-check-sign">
-																						<span class="check"></span>
-																					</span>
-																				</span><br>
-																			</div>
-																		</div>
-																	</div>
-																	<button type="button" class="btn btn-primary float-right m-4">Add
-																		Student</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="tab-pane active" id="groupchats">
-													<div class="card-profile card-plaina  m-0">
-														<div class="card">
-															<div class="container">
-																<div class="section section-comments">
-																	<div class="row">
-																		<div class="col-md-6">
-																			<div class="media-area main-raised">
-																				<div class="media">
-																					<a class="float-left" href="#pablo">
-																						<div class="avatar">
-																							<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
-																						</div>
-																					</a>
-																					<div class="media-body">
-																						<h4 class="media-heading">Group2
-																							<span class="badge badge-default float-right">4</span><br>
-																							<small>Latest Message Text</small>
-																						</h4>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																		<div class="col-md-6">
-																			<div class="media-area main-raised">
-																				<div class="media">
-																					<a class="float-left" href="#pablo">
-																						<div class="avatar">
-																							<img class="media-object" src="assets/img/card-profile4-square.jpg" alt="...">
-																						</div>
-																					</a>
-																					<div class="media-body">
-																						<h4 class="media-heading">Group2
-																							<span class="badge badge-default float-right">4</span><br>
-																							<small>Latest Message Text</small>
-																						</h4>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="card-body card card-profile card-plaina main-raised m-1">
-														<div class="card-title col-12 float-left h3">
-															Create New Group
-														</div><br><br>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="card-title col-12 h5">
-																	Add Students
-																</div><br><br>
-																<div class="media-area main-raised">
-																	<div class="media groupchats">
-																		<div class="media-body">
-																			<input type="checkbox" value="">
-																			<span class="media-heading">Student-1
-																				<span class="form-check-sign">
-																					<span class="check"></span>
-																				</span>
-																			</span><br>
-
-																			<input type="checkbox" value="">
-																			<span class="media-heading">Student-1
-																				<span class="form-check-sign">
-																					<span class="check"></span>
-																				</span>
-																			</span><br>
-
-																			<input type="checkbox" value="">
-																			<span class="media-heading">Student-2
-																				<span class="form-check-sign">
-																					<span class="check"></span>
-																				</span>
-																			</span><br>
-
-																			<input type="checkbox" value="">
-																			<span class="media-heading">Student-3
-																				<span class="form-check-sign">
-																					<span class="check"></span>
-																				</span>
-																			</span><br>
-
-																			<input type="checkbox" value="">
-																			<span class="media-heading">Student-4
-																				<span class="form-check-sign">
-																					<span class="check"></span>
-																				</span>
-																			</span><br>
-
-																			<input type="checkbox" value="">
-																			<span class="media-heading">Student-5
-																				<span class="form-check-sign">
-																					<span class="check"></span>
-																				</span>
-																			</span><br>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="card-title col-12 h5">
-																	Select Batches
-																</div><br><br>
-																<div class="media-area main-raised">
-																	<div class="media groupchats">
-																		<div class="media-body">
-																			<input type="checkbox" value="">
-																			<span class="media-heading">Batch-1
-																				<span class="form-check-sign">
-																					<span class="check"></span>
-																				</span>
-																			</span><br>
-
-																			<input type="checkbox" value="">
-																			<span class="media-heading">Batch-1
-																				<span class="form-check-sign">
-																					<span class="check"></span>
-																				</span>
-																			</span><br>
-
-																			<input type="checkbox" value="">
-																			<span class="media-heading">Batch-2
-																				<span class="form-check-sign">
-																					<span class="check"></span>
-																				</span>
-																			</span><br>
-
-																			<input type="checkbox" value="">
-																			<span class="media-heading">Batch-3
-																				<span class="form-check-sign">
-																					<span class="check"></span>
-																				</span>
-																			</span><br>
-																			<input type="checkbox" value="">
-																			<span class="media-heading">Batch-4
-																				<span class="form-check-sign">
-																					<span class="check"></span>
-																				</span>
-																			</span><br>
-																			<input type="checkbox" value="">
-																			<span class="media-heading">Batch-5
-																				<span class="form-check-sign">
-																					<span class="check"></span>
-																				</span>
-																			</span><br>
-																		</div>
-																	</div>
-																</div>
-																<button type="button" class="btn btn-primary float-right m-4">Create
-																	Group</button>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="tab-pane" id="pill4">
-									<div class="section-blog-info">
-										<div class="row">
-											<div class="col-md-12">
-												<div class="card-plain">
-													<div class="card-body ">
-														<div class="tab-content text-center">
-															<div class="tab-pane active" id="home">
-																<div class="card">
-																	<div class="card-body row">
-																		<div class="col-md-2">
-																			<div class="card-avatar">
-																				<a href="#pablo">
-																					<img class="img f-img" src="assets/img/card-profile4-square.jpg">
-																				</a>
-																				<div class="ripple-container"></div>
-																			</div>
-																		</div>
-																		<div class="col-10 text-left">
-																			<a class="row card-link" href="#">
-																				<h3 class="card-heading font-weight-bold">Announcement
-																					Thread</h3>
-																			</a>
-																			<div class="row">
-																				<small><span class="text-secondary">submitted</span>
-																					3 days ago <span class="text-secondary">by</span>
-																					Principal</small>
-																			</div>
-																			<div class="row">
-																				<small class="text-secondary">326
-																					comments</small>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div class="tab-pane" id="updates">
-																<div class="card">
-																	<div class="card-body row">
-																		<div class="col-md-2">
-																			<div class="card-avatar">
-																				<a href="#pablo">
-																					<img class="img f-img" src="assets/img/card-profile4-square.jpg">
-																				</a>
-																				<div class="ripple-container"></div>
-																			</div>
-																		</div>
-																		<div class="col-10 text-left">
-																			<a class="row card-link" href="#">
-																				<h3 class="card-heading font-weight-bold">Announcement
-																					Thread</h3>
-																			</a>
-																			<div class="row">
-																				<small><span class="text-secondary">submitted</span>
-																					3 days ago <span class="text-secondary">by</span>
-																					Principal</small>
-																			</div>
-																			<div class="row">
-																				<small class="text-secondary">326
-																					comments</small>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div class="tab-pane" id="history">
-																<div class="card">
-																	<div class="card-body row">
-																		<div class="col-md-2">
-																			<div class="card-avatar">
-																				<a href="#pablo">
-																					<img class="img f-img" src="assets/img/card-profile4-square.jpg">
-																				</a>
-																				<div class="ripple-container"></div>
-																			</div>
-																		</div>
-																		<div class="col-10 text-left">
-																			<a class="row card-link" href="#">
-																				<h3 class="card-heading font-weight-bold">Announcement
-																					Thread</h3>
-																			</a>
-																			<div class="row">
-																				<small><span class="text-secondary">submitted</span>
-																					3 days ago <span class="text-secondary">by</span>
-																					Principal</small>
-																			</div>
-																			<div class="row">
-																				<small class="text-secondary">326
-																					comments</small>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<hr>
-
-											</div>
-											<div class="col-md-12">
-												<div class="card-plain">
-													<div class="card-body ">
-														<div class="tab-content text-center">
-															<div class="tab-pane active" id="home">
-																<div class="card">
-																	<div class="card-body row">
-																		<div class="col-md-2">
-																			<div class="card-avatar">
-																				<a href="#pablo">
-																					<img class="img f-img" src="assets/img/card-profile4-square.jpg">
-																				</a>
-																				<div class="ripple-container"></div>
-																			</div>
-																		</div>
-																		<div class="col-10 text-left">
-																			<a class="row card-link" href="#">
-																				<h3 class="card-heading font-weight-bold">Announcement
-																					Thread</h3>
-																			</a>
-																			<div class="row">
-																				<small><span class="text-secondary">submitted</span>
-																					3 days ago <span class="text-secondary">by</span>
-																					Principal</small>
-																			</div>
-																			<div class="row">
-																				<small class="text-secondary">326
-																					comments</small>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div class="tab-pane" id="updates">
-																<div class="card">
-																	<div class="card-body row">
-																		<div class="col-md-2">
-																			<div class="card-avatar">
-																				<a href="#pablo">
-																					<img class="img f-img" src="assets/img/card-profile4-square.jpg">
-																				</a>
-																				<div class="ripple-container"></div>
-																			</div>
-																		</div>
-																		<div class="col-10 text-left">
-																			<a class="row card-link" href="#">
-																				<h3 class="card-heading font-weight-bold">Announcement
-																					Thread</h3>
-																			</a>
-																			<div class="row">
-																				<small><span class="text-secondary">submitted</span>
-																					3 days ago <span class="text-secondary">by</span>
-																					Principal</small>
-																			</div>
-																			<div class="row">
-																				<small class="text-secondary">326
-																					comments</small>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div class="tab-pane" id="history">
-																<div class="card">
-																	<div class="card-body row">
-																		<div class="col-md-2">
-																			<div class="card-avatar">
-																				<a href="#pablo">
-																					<img class="img f-img" src="assets/img/card-profile4-square.jpg">
-																				</a>
-																				<div class="ripple-container"></div>
-																			</div>
-																		</div>
-																		<div class="col-10 text-left">
-																			<a class="row card-link" href="#">
-																				<h3 class="card-heading font-weight-bold">Announcement
-																					Thread</h3>
-																			</a>
-																			<div class="row">
-																				<small><span class="text-secondary">submitted</span>
-																					3 days ago <span class="text-secondary">by</span>
-																					Principal</small>
-																			</div>
-																			<div class="row">
-																				<small class="text-secondary">326
-																					comments</small>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<hr>
-
-											</div>
-											<div class="col-md-12">
-												<div class="card-plain">
-													<div class="card-body ">
-														<div class="tab-content text-center">
-															<div class="tab-pane active" id="home">
-																<div class="card">
-																	<div class="card-body row">
-																		<div class="col-md-2">
-																			<div class="card-avatar">
-																				<a href="#pablo">
-																					<img class="img f-img" src="assets/img/card-profile4-square.jpg">
-																				</a>
-																				<div class="ripple-container"></div>
-																			</div>
-																		</div>
-																		<div class="col-10 text-left">
-																			<a class="row card-link" href="#">
-																				<h3 class="card-heading font-weight-bold">Announcement
-																					Thread</h3>
-																			</a>
-																			<div class="row">
-																				<small><span class="text-secondary">submitted</span>
-																					3 days ago <span class="text-secondary">by</span>
-																					Principal</small>
-																			</div>
-																			<div class="row">
-																				<small class="text-secondary">326
-																					comments</small>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div class="tab-pane" id="updates">
-																<div class="card">
-																	<div class="card-body row">
-																		<div class="col-md-2">
-																			<div class="card-avatar">
-																				<a href="#pablo">
-																					<img class="img" src="assets/img/card-profile4-square.jpg">
-																				</a>
-																				<div class="ripple-container"></div>
-																			</div>
-																		</div>
-																		<div class="col-10 text-left">
-																			<a class="row card-link" href="#">
-																				<h3 class="card-heading font-weight-bold">Announcement
-																					Thread</h3>
-																			</a>
-																			<div class="row">
-																				<small><span class="text-secondary">submitted</span>
-																					3 days ago <span class="text-secondary">by</span>
-																					Principal</small>
-																			</div>
-																			<div class="row">
-																				<small class="text-secondary">326
-																					comments</small>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div class="tab-pane" id="history">
-																<div class="card">
-																	<div class="card-body row">
-																		<div class="col-md-2">
-																			<div class="card-avatar">
-																				<a href="#pablo">
-																					<img class="img" src="assets/img/card-profile4-square.jpg">
-																				</a>
-																				<div class="ripple-container"></div>
-																			</div>
-																		</div>
-																		<div class="col-10 text-left">
-																			<a class="row card-link" href="#">
-																				<h3 class="card-heading font-weight-bold">Announcement
-																					Thread</h3>
-																			</a>
-																			<div class="row">
-																				<small><span class="text-secondary">submitted</span>
-																					3 days ago <span class="text-secondary">by</span>
-																					Principal</small>
-																			</div>
-																			<div class="row">
-																				<small class="text-secondary">326
-																					comments</small>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<hr>
-
-											</div>
-										</div>
-									</div>
-								</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="claim_modal_container">
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="claimOrNotModal" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="claimOrNotModal">Claim Newly Added Institute/Event</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="edit_modal_container">
+			<div class="modal fade bd-example-modal-lg" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-body p-0">
+							<form id="edit_form" enctype="multipart/form-data">
+							</form>
+							<div class="row justify-content-end m-2">
+								<button id="submit_edit_form_btn" type="button" class="btn btn-round btn-primary">Save
+									changes</button>
+								<button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div id="claim_modal_container">
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="claimOrNotModal" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="claimOrNotModal">Claim Newly Added Institute/Event</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="edit_modal_container">
-		<div class="modal fade bd-example-modal-lg" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-body p-0">
-						<form id="edit_form" enctype="multipart/form-data">
-						</form>
-						<div class="row justify-content-end m-2">
-							<button id="submit_edit_form_btn" type="button" class="btn btn-round btn-primary">Save
-								changes</button>
-							<button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="login_modal_container"></div>
-	<div id="promoter_modal_container"></div>
+		<div id="login_modal_container"></div>
+		<div id="promoter_modal_container"></div>
 
-	<!--   Core JS Files   -->
-	<script src="assets/js/core/jquery.min.js"></script>
-	<script src="assets/js/core/popper.min.js"></script>
-	<script src="assets/js/bootstrap-material-design.js"></script>
-	<!-- Plugin for Date Time Picker and Full Calendar Plugin-->
-	<script src="assets/js/plugins/moment.min.js"></script>
+		<!--   Core JS Files   -->
+		<script src="assets/js/core/jquery.min.js"></script>
+		<script src="assets/js/core/popper.min.js"></script>
+		<script src="assets/js/bootstrap-material-design.js"></script>
+		<!-- Plugin for Date Time Picker and Full Calendar Plugin-->
+		<script src="assets/js/plugins/moment.min.js"></script>
 
-	<!-- Plugin for Select, full documentation here: https://silviomoreto.github.io/bootstrap-select -->
-	<script src="assets/js/plugins/bootstrap-selectpicker.js"></script>
+		<!-- Plugin for Select, full documentation here: https://silviomoreto.github.io/bootstrap-select -->
+		<script src="assets/js/plugins/bootstrap-selectpicker.js"></script>
 
-	<!-- Plugin for Tags, full documentation here: https://xoxco.com/projects/code/tagsinput/  -->
-	<script src="assets/js/plugins/bootstrap-tagsinput.js"></script>
+		<!-- Plugin for Tags, full documentation here: https://xoxco.com/projects/code/tagsinput/  -->
+		<script src="assets/js/plugins/bootstrap-tagsinput.js"></script>
 
-	<!-- Plugin for Fileupload, full documentation here: https://www.jasny.net/bootstrap/javascript/#fileinput -->
-	<script src="assets/js/plugins/jasny-bootstrap.min.js"></script>
+		<!-- Plugin for Fileupload, full documentation here: https://www.jasny.net/bootstrap/javascript/#fileinput -->
+		<script src="assets/js/plugins/jasny-bootstrap.min.js"></script>
 
-	<!-- Plugin for Small Gallery in Product Page -->
-	<script src="assets/js/plugins/jquery.flexisel.js"></script>
+		<!-- Plugin for Small Gallery in Product Page -->
+		<script src="assets/js/plugins/jquery.flexisel.js"></script>
 
-	<!-- Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
-	<script src="assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+		<!-- Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+		<script src="assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
 
-	<!-- Plugin for the Sliders, full documentation here: https://refreshless.com/nouislider/ -->
-	<script src="assets/js/plugins/nouislider.min.js"></script>
+		<!-- Plugin for the Sliders, full documentation here: https://refreshless.com/nouislider/ -->
+		<script src="assets/js/plugins/nouislider.min.js"></script>
 
-	<!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
-	<script src="assets/js/material-kit.js?v=2.0.0"></script>
+		<!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
+		<script src="assets/js/material-kit.js?v=2.0.0"></script>
 
-	<!--HandleBars for templating-->
-	<script src="assets/js/handlebars-v4.0.11.js"></script>
-	<script src="assets/js/templates.js"></script>
+		<!--HandleBars for templating-->
+		<script src="assets/js/handlebars-v4.0.11.js"></script>
+		<script src="assets/js/templates.js"></script>
 
-	<!--seed cities-->
-	<!--Docs at: https://github.com/mroderick/PubSubJS-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pubsub-js/1.6.0/pubsub.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
-	<script src="assets/cities/seed.js"></script>
+		<!--seed cities-->
+		<!--Docs at: https://github.com/mroderick/PubSubJS-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pubsub-js/1.6.0/pubsub.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+		<script src="assets/cities/seed.js"></script>
 
-	<script src="assets/js/ajax-calls/user-api-calls.js"></script>
-	<script src="assets/js/ajax-calls/tuition-api-calls.js"></script>
-	<script src="assets/js/ajax-calls/school-api-calls.js"></script>
-	<script src="assets/js/ajax-calls/event-api-calls.js"></script>
-	<script src="assets/js/ajax-calls/notification-api-calls.js"></script>
-	<script src="assets/js/ajax-calls/promoter-homepage-api-calls.js"></script>
-	<script src="assets/js/ajax-calls/promoter-search-api-calls.js"></script>
-	<script src="assets/js/ajax-calls/promoter-related-api-calls.js"></script>
-	<script src="assets/js/active-products.js"></script>
-	<script src="assets/js/user-claimed.js"></script>
-	<script src="assets/js/user-notification.js"></script>
-	<script src="assets/js/scripts.js"></script>
-	<script src="assets/js/user.js"></script>
-	<script src="assets/js/refresh-select-options.js"></script>
-	<script src="assets/js/login-modal.js"></script>
-	<script src="assets/js/promoter-modal.js"></script>
-	<script src="assets/js/query-string.js"></script>
-	<script src="assets/js/redirect-tabs.js"></script>
-	<script src="assets/js/navbar.js"></script>
-	<script src="assets/js/new-modal.js"></script>
-	<script src="assets/js/promoter.js"></script>
-	<script src="assets/js/chart.js"></script>
-	<script src="assets/js/institute-info.js"></script>
-	<!-- <script src="assets/js/institute-students.js"></script>
+		<script src="assets/js/ajax-calls/user-api-calls.js"></script>
+		<script src="assets/js/ajax-calls/tuition-api-calls.js"></script>
+		<script src="assets/js/ajax-calls/school-api-calls.js"></script>
+		<script src="assets/js/ajax-calls/event-api-calls.js"></script>
+		<script src="assets/js/ajax-calls/notification-api-calls.js"></script>
+		<script src="assets/js/ajax-calls/promoter-homepage-api-calls.js"></script>
+		<script src="assets/js/ajax-calls/promoter-search-api-calls.js"></script>
+		<script src="assets/js/ajax-calls/promoter-related-api-calls.js"></script>
+		<script src="assets/js/active-products.js"></script>
+		<script src="assets/js/user-claimed.js"></script>
+		<script src="assets/js/user-notification.js"></script>
+		<script src="assets/js/scripts.js"></script>
+		<script src="assets/js/user.js"></script>
+		<script src="assets/js/refresh-select-options.js"></script>
+		<script src="assets/js/login-modal.js"></script>
+		<script src="assets/js/promoter-modal.js"></script>
+		<script src="assets/js/query-string.js"></script>
+		<script src="assets/js/redirect-tabs.js"></script>
+		<script src="assets/js/navbar.js"></script>
+		<script src="assets/js/new-modal.js"></script>
+		<script src="assets/js/promoter.js"></script>
+		<script src="assets/js/chart.js"></script>
+		<script src="assets/js/institute-info.js"></script>
+		<!-- <script src="assets/js/institute-students.js"></script>
 	<script src="assets/js/institute-announcement.js"></script>
 	<script src="assets/js/institute-forum.js"></script>
 	<script src="assets/js/institute-schedule.js"></script>
 	<script src="assets/js/institute-attendance.js"></script> -->
-	<script src="assets/js/dashboard-edit-profile.js"></script>
-	<script src="assets/js/dashboard-add-tuition.js"></script>
-	<script src="assets/js/dashboard-add-school.js"></script>
-	<script src="assets/js/dashboard-add-event.js"></script>
-	<script src="assets/js/test.js"></script>
+		<script src="assets/js/dashboard-edit-profile.js"></script>
+		<script src="assets/js/dashboard-add-tuition.js"></script>
+		<script src="assets/js/dashboard-add-school.js"></script>
+		<script src="assets/js/dashboard-add-event.js"></script>
+		<script src="assets/js/test.js"></script>
 
-	<script src="assets/js/new-course-module.js"></script>
-	<script src="assets/js/new-student-module.js"></script>
-	<script src="assets/js/new-batch-module.js"></script>
-	<script src="assets/js/new-institute-fetch.js"></script>
-	<script src="assets/js/new-schedule-module.js"></script>
-	<script src="assets/js/new-attendance-module.js"></script>
-	<script src="assets/js/date-time-picker-module.js"></script>
+		<script src="assets/js/new-course-module.js"></script>
+		<script src="assets/js/new-student-module.js"></script>
+		<script src="assets/js/new-batch-module.js"></script>
+		<script src="assets/js/new-institute-fetch.js"></script>
+		<script src="assets/js/new-schedule-module.js"></script>
+		<script src="assets/js/new-attendance-module.js"></script>
+		<script src="assets/js/date-time-picker-module.js"></script>
 
-	<script src="assets/js/dashboard-pro-service.js"></script>
+		<script src="assets/js/dashboard-pro-service.js"></script>
 </body>
 
 </html>

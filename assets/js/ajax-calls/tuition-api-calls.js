@@ -100,10 +100,11 @@ const tuitionApiCalls = (() => {
 	}
 
 	function putNewTuition(bodyObj, isForm = false) {
+		console.log(bodyObj);
 		if (isForm) {
 			return $.ajax({
-				type: 'POST',
-				url: '/tuition',
+				type: "POST",
+				url: `/tuition`,
 				data: bodyObj,
 				cache: false,
 				contentType: false,
@@ -111,9 +112,9 @@ const tuitionApiCalls = (() => {
 			});
 		} else {
 			return $.ajax({
-				type: 'POST',
+				type: "POST",
 				url: `/tuition`,
-				data: bodyObj
+				data: bodyObj,
 			});
 		}
 	}

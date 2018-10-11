@@ -19,7 +19,7 @@ const redirectTabs = (() => {
 		} else if (queryObject.tab === '2ndStepTuition') {
 			$secondStepTuition.tab('show');
 		} else if (queryObject.tab === '2ndStepSchool') {
-			$secondStepSchool.tab('show');
+			$secondStepTuition.tab('show');
 		}
 	}
 

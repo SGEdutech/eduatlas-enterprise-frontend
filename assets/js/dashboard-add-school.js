@@ -30,7 +30,7 @@ const dashboardAddSchool = (() => {
 
     function redirectToEditTuition(userUpdatedPromise, schoolId) {
         userUpdatedPromise.then((data) => {
-            window.location.assign('./user-edit-school.html?a=' + schoolId)
+            window.location.assign(`./user-edit-school.html?a=${schoolId}&tab=2ndStepTuition`)
         }).catch(err => {
             console.log(err);
         });

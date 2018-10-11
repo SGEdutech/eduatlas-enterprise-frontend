@@ -13,7 +13,7 @@ const helperScripts = {
 
 	openDetailsPage(typeOfInfo, id) {
 		let upperCaseTypeOfInfo = typeOfInfo.charAt(0).toUpperCase() + typeOfInfo.slice(1);
-		window.location.assign(`/${upperCaseTypeOfInfo}Details2.0.html?_id=${id}`)
+		window.location.assign(`https://eduatlas.com/${upperCaseTypeOfInfo}Details2.0.html?_id=${id}`)
 	},
 
 	calcAverageRating(reviewArray) {

@@ -53,55 +53,55 @@
 	<!-- <div id="coverImgContainer">
     </div> -->
 
-	<div id="secondary_info" class="row mt-5">
-
-		<div class="col-md-3">
-			<div class="card">
-				<div class="card-body">
-					<ul class="nav nav-pills nav-pills-info flex-column">
-						<li class="nav-item">
-							<a class="nav-link disabled" data-toggle="tab">Edit Tuition</a>
-						</li>
-						<hr>
-						<li class="nav-item">
-							<a class="nav-link active" href="#tab1" data-toggle="tab"> Description</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#tab2" data-toggle="tab">Contact Us</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#tab4" data-toggle="tab">Results</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#tab5" data-toggle="tab">Faculty</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#tab6" data-toggle="tab">Gallery</a>
-						</li>
-					</ul>
-					<!--<hr>-->
+	<div id="secondary_info" class="container-fluid mt-5">
+		<div class="row">
+			<div class="col-md-2 m-0">
+				<div class="card">
+					<div class="card-body p-0">
+						<ul class="nav nav-pills nav-pills-info flex-column">
+							<li class="nav-item">
+								<a class="nav-link disabled" data-toggle="tab">Edit Tuition</a>
+							</li>
+							<hr>
+							<li class="nav-item">
+								<a class="nav-link active" href="#tab1" data-toggle="tab"> Description</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#tab2" data-toggle="tab">Contact Us</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#tab4" data-toggle="tab">Results</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#tab5" data-toggle="tab">Faculty</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#tab6" data-toggle="tab">Gallery</a>
+							</li>
+						</ul>
+						<!--<hr>-->
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="col-md-9">
-			<div class="card">
-				<div class="card-body">
-					<!--<div class="row">-->
-					<div class="tab-content">
-						<div class="tab-pane active" id="tab1">
-							<div class="btn-group btn-group-raised justify-content-around" role="group" aria-label="stepwise">
-								<button type="button btn" class="btn btn-info disabled" disabled>Step 1</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 2</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 3</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 4</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 5</button>
-							</div>
+			<div class="col-md-10 m-0">
+				<div class="card">
+					<div class="card-body">
+						<!--<div class="row">-->
+						<div class="tab-content">
+							<div class="tab-pane active" id="tab1">
+								<div class="btn-group btn-group-raised justify-content-around" role="group" aria-label="stepwise">
+									<button type="button btn" class="btn btn-info disabled" disabled>Step 1</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 2</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 3</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 4</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 5</button>
+								</div>
 
-							<form id="aboutUsForm">
+								<form id="aboutUsForm">
 
-								<div id="basicContainer">
-									<!--<script id="basicInput" type="text/x-handlebars-template">
+									<div id="basicContainer">
+										<!--<script id="basicInput" type="text/x-handlebars-template">
                                     <div class="card">
                                         <div class="card-body">
                                             <h2 class="card-title h3">Basic Details:</h2>
@@ -169,80 +169,80 @@
                                         </div>
                                     </div>
                                 </script>-->
-								</div>
+									</div>
 
-								<div class="card">
-									<div class="card-body">
-										<h2 class="card-title h3">Facilities:</h2>
-										<small>
-											<p class="">separate different things with "
-												<span class="h2">,</span> "</p>
-										</small>
-										<div id="facilityContainer">
+									<div class="card">
+										<div class="card-body">
+											<h2 class="card-title h3">Facilities:</h2>
+											<small>
+												<p class="">separate different things with "
+													<span class="h2">,</span> "</p>
+											</small>
+											<div id="facilityContainer">
+											</div>
 										</div>
 									</div>
-								</div>
 
-								<div class="card">
-									<div class="card-body">
-										<h2 class="card-title h3">About Us</h2>
-										<div id="descriptionContainer">
+									<div class="card">
+										<div class="card-body">
+											<h2 class="card-title h3">About Us</h2>
+											<div id="descriptionContainer">
+											</div>
 										</div>
 									</div>
-								</div>
 
-								<div class="card">
-									<div class="card-body">
-										<h2 class="card-title h3">Category</h2>
-										<div id="cateContainer">
+									<div class="card">
+										<div class="card-body">
+											<h2 class="card-title h3">Category</h2>
+											<div id="cateContainer">
+											</div>
 										</div>
 									</div>
-								</div>
 
-								<!-- not tested-->
-								<div class="card">
-									<div class="card-body">
-										<h2 class="card-title h3">Add/Change Cover Pic</h2>
+									<!-- not tested-->
+									<div class="card">
+										<div class="card-body">
+											<h2 class="card-title h3">Add/Change Cover Pic</h2>
 
-										<div class="fileinput fileinput-new text-center" data-provides="fileinput">
-											<div class="fileinput-new thumbnail img-raised">
-												<img src="assets/img/preview.jpg" ; style="-webkit-filter: grayscale(100%);
+											<div class="fileinput fileinput-new text-center" data-provides="fileinput">
+												<div class="fileinput-new thumbnail img-raised">
+													<img src="assets/img/preview.jpg" ; style="-webkit-filter: grayscale(100%);
                                              filter: grayscale(100%);">
-											</div>
-											<div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
-											<div>
-												<span class="btn btn-raised btn-round btn-default btn-file">
-													<span class="fileinput-new">Select image</span>
-													<span class="fileinput-exists">Change</span>
-													<input type="file" name="tuitionCoverPic" />
-												</span>
-												<a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
-													<i class="fa fa-times"></i> Remove</a>
+												</div>
+												<div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+												<div>
+													<span class="btn btn-raised btn-round btn-default btn-file">
+														<span class="fileinput-new">Select image</span>
+														<span class="fileinput-exists">Change</span>
+														<input type="file" name="tuitionCoverPic" />
+													</span>
+													<a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+														<i class="fa fa-times"></i> Remove</a>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
 
-							</form>
-							<!-- pass id of form to saveDetails function for AJAX put req -->
-							<button id="save_basic_details_btn" class="btn btn-info btn-round">Save And Continue
-							</button>
+								</form>
+								<!-- pass id of form to saveDetails function for AJAX put req -->
+								<button id="save_basic_details_btn" class="btn btn-info btn-round">Save And Continue
+								</button>
 
-						</div>
-
-						<div class="tab-pane" id="tab2">
-							<div class="btn-group btn-group-raised justify-content-around" role="group" aria-label="stepwise">
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 1</button>
-								<button type="button btn" class="btn btn-info disabled" disabled>Step 2</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 3</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 4</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 5</button>
 							</div>
-							<form id="contactUsForm">
-								<div class="row justify-content-around">
-									<div class="card col-md-6">
-										<div class="card-body" id="contactPersonContainer">
-											<!--<script id="contactPersonInput" type="text/x-handlebars-template">
+
+							<div class="tab-pane" id="tab2">
+								<div class="btn-group btn-group-raised justify-content-around" role="group" aria-label="stepwise">
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 1</button>
+									<button type="button btn" class="btn btn-info disabled" disabled>Step 2</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 3</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 4</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 5</button>
+								</div>
+								<form id="contactUsForm">
+									<div class="row justify-content-around">
+										<div class="card col-md-6">
+											<div class="card-body" id="contactPersonContainer">
+												<!--<script id="contactPersonInput" type="text/x-handlebars-template">
                                             <div class="card-title h3">
                                                 Contact Us:
                                             </div>
@@ -280,226 +280,226 @@
                                                 <input class="form-control" value="{{website}}" name="website">
                                             </div>
                                         </script>-->
+											</div>
 										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="card">
-											<div class="card-body" id="socialLinkContainer">
-												<div class="card-title h3">
-													Social Links:
+										<div class="col-md-6">
+											<div class="card">
+												<div class="card-body" id="socialLinkContainer">
+													<div class="card-title h3">
+														Social Links:
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							</form>
-							<div class="card card-nav-tabs row">
-								<div class="card-header card-header-info">
-									Operates on
-								</div>
-								<div id="opration_hours_containers" class="">
-								</div>
-								<!--<button class="btn btn-outline-info mt-md-4" id="saveTimeBtn">Save Operating Hours
+								</form>
+								<div class="card card-nav-tabs row">
+									<div class="card-header card-header-info">
+										Operates on
+									</div>
+									<div id="opration_hours_containers" class="">
+									</div>
+									<!--<button class="btn btn-outline-info mt-md-4" id="saveTimeBtn">Save Operating Hours
                             </button>-->
+								</div>
+								<button id="saveTimeBtn" class="btn btn-info btn-round">
+									Save And Continue
+								</button>
 							</div>
-							<button id="saveTimeBtn" class="btn btn-info btn-round">
-								Save And Continue
-							</button>
-						</div>
-						<div class="tab-pane" id="tab4">
-							<div class="btn-group btn-group-raised justify-content-around" role="group" aria-label="stepwise">
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 1</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 2</button>
-								<button type="button btn" class="btn btn-info disabled" disabled>Step 3</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 4</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 5</button>
-							</div>
-							<div class="row" id="resultsContainer">
-							</div>
-							<button class="btn btn-outline-info btn-round" data-toggle="modal" data-target="#new_result_modal">
-								Add More Result
-							</button>
-							<!-- Modal -->
-							<div class="modal fade" id="new_result_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
-								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title font-weight-bold" id="exampleModalLabel3">Add Result</h5>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<form id="newResult">
-												<div class="form-group">
-													<label for="resultTitle1">Result Title</label>
-													<input class="form-control" name="title" type="text" id="resultTitle1" required>
-												</div>
-												<div class="form-group">
-													<label for="resultDescription">Description</label>
-													<input class="form-control" name="description" type="text" id="resultDescription">
-												</div>
-												<div class="form-group form-file-upload form-file-multiple">
-													<input id="resultImageInp" type="file" class="inputFileHidden" name="cover">
-													<div class="input-group">
-														<input type="text" class="form-control inputFileVisible" placeholder="image">
-														<span class="input-group-btn">
-															<button type="button" class="btn btn-fab btn-round btn-primary">
-																<i class="material-icons">
-																	add_photo_alternate
-																</i>
-															</button>
-														</span>
+							<div class="tab-pane" id="tab4">
+								<div class="btn-group btn-group-raised justify-content-around" role="group" aria-label="stepwise">
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 1</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 2</button>
+									<button type="button btn" class="btn btn-info disabled" disabled>Step 3</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 4</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 5</button>
+								</div>
+								<div class="row" id="resultsContainer">
+								</div>
+								<button class="btn btn-outline-info btn-round" data-toggle="modal" data-target="#new_result_modal">
+									Add More Result
+								</button>
+								<!-- Modal -->
+								<div class="modal fade" id="new_result_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title font-weight-bold" id="exampleModalLabel3">Add Result</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<form id="newResult">
+													<div class="form-group">
+														<label for="resultTitle1">Result Title</label>
+														<input class="form-control" name="title" type="text" id="resultTitle1" required>
 													</div>
-												</div>
-											</form>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-											</button>
-											<button id="add_new_result_button" type="button" class="btn btn-info btn-round">
-												Save changes
-											</button>
-										</div>
+													<div class="form-group">
+														<label for="resultDescription">Description</label>
+														<input class="form-control" name="description" type="text" id="resultDescription">
+													</div>
+													<div class="form-group form-file-upload form-file-multiple">
+														<input id="resultImageInp" type="file" class="inputFileHidden" name="cover">
+														<div class="input-group">
+															<input type="text" class="form-control inputFileVisible" placeholder="image">
+															<span class="input-group-btn">
+																<button type="button" class="btn btn-fab btn-round btn-primary">
+																	<i class="material-icons">
+																		add_photo_alternate
+																	</i>
+																</button>
+															</span>
+														</div>
+													</div>
+												</form>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+												</button>
+												<button id="add_new_result_button" type="button" class="btn btn-info btn-round">
+													Save changes
+												</button>
+											</div>
 
+										</div>
 									</div>
 								</div>
+								<button id="next_Tab_Button2" class="btn btn-info btn-round">
+									Save And Continue
+								</button>
 							</div>
-							<button id="next_Tab_Button2" class="btn btn-info btn-round">
-								Save And Continue
-							</button>
-						</div>
-						<div class="tab-pane" id="tab5">
-							<div class="btn-group btn-group-raised justify-content-around" role="group" aria-label="stepwise">
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 1</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 2</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 3</button>
-								<button type="button btn" class="btn btn-info disabled" disabled>Step 4</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 5</button>
-							</div>
-							<div class="row" id="facultyContainer">
-							</div>
-							<button class="btn btn-outline-info btn-round" data-toggle="modal" data-target="#new_faculty_modal">
-								Add More Faculty
-							</button>
-							<!-- Modal -->
-							<div class="modal fade" id="new_faculty_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel4" aria-hidden="true">
-								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title font-weight-bold" id="exampleModalLabel4">Add Faculty
-											</h5>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<form id="newFaculty">
-												<div class="form-group">
-													<label for="facultyName1">Faculty Name</label>
-													<input class="form-control" name="name" type="text" id="facultyName1" required>
-												</div>
-												<div class="form-group">
-													<label for="facultyDescription">Description</label>
-													<input class="form-control" name="description" type="text" id="facultyDescription">
-												</div>
-												<div class="form-group">
-													<label for="facultyQualification">Qualification</label>
-													<input class="form-control" name="qualification" type="text" id="facultyQualification">
-												</div>
-												<div class="form-group form-file-upload form-file-multiple">
-													<input id="facultyImageInp" type="file" class="inputFileHidden" name="path">
-													<div class="input-group">
-														<input type="text" class="form-control inputFileVisible" placeholder="image" name="img_path">
-														<span class="input-group-btn">
-															<button type="button" class="btn btn-fab btn-round btn-info">
-																<i class="material-icons">
-																	add_photo_alternate
-																</i>
-															</button>
-														</span>
+							<div class="tab-pane" id="tab5">
+								<div class="btn-group btn-group-raised justify-content-around" role="group" aria-label="stepwise">
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 1</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 2</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 3</button>
+									<button type="button btn" class="btn btn-info disabled" disabled>Step 4</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 5</button>
+								</div>
+								<div class="row" id="facultyContainer">
+								</div>
+								<button class="btn btn-outline-info btn-round" data-toggle="modal" data-target="#new_faculty_modal">
+									Add More Faculty
+								</button>
+								<!-- Modal -->
+								<div class="modal fade" id="new_faculty_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel4" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title font-weight-bold" id="exampleModalLabel4">Add Faculty
+												</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<form id="newFaculty">
+													<div class="form-group">
+														<label for="facultyName1">Faculty Name</label>
+														<input class="form-control" name="name" type="text" id="facultyName1" required>
 													</div>
-												</div>
-											</form>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-											</button>
-											<button id="add_new_faculty_button" type="button" class="btn btn-info btn-round">Save changes
-											</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<button id="next_Tab_Button3" class="btn btn-info btn-round">Save And Continue</button>
-						</div>
-						<div class="tab-pane" id="tab6">
-							<div class="btn-group btn-group-raised justify-content-around" role="group" aria-label="stepwise">
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 1</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 2</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 3</button>
-								<button type="button btn" class="btn btn-secondary disabled" disabled>Step 4</button>
-								<button type="button btn" class="btn btn-info disabled" disabled>Step 5</button>
-							</div>
-							<div class="row" id="galleryContainer">
-							</div>
-							<button class="btn btn-outline-info btn-round" data-toggle="modal" data-target="#new_image_modal">
-								Add Image
-							</button>
-							<!-- Modal -->
-							<div class="modal fade" id="new_image_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel5" aria-hidden="true">
-								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title font-weight-bold" id="exampleModalLabel5">Add New Image</h5>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<form id="newImageForm" enctype="multipart/form-data">
-												<div class="form-group">
-                                                    <label for="albumTitle">Image Title</label>
-                                                    <small class="text-danger">name must be unique</small>
-													<input class="form-control" name="album" type="text" id="albumTitle" required>
-												</div>
-												<div class="form-group form-file-upload form-file-multiple">
-													<input id="galleryImgInp" type="file" class="inputFileHidden" name="path">
-													<div class="input-group">
-														<input type="text" class="form-control inputFileVisible" placeholder="image" name="path">
-														<span class="input-group-btn">
-															<button type="button" class="btn btn-fab btn-round btn-primary">
-																<i class="material-icons">
-																	add_photo_alternate
-																</i>
-															</button>
-														</span>
+													<div class="form-group">
+														<label for="facultyDescription">Description</label>
+														<input class="form-control" name="description" type="text" id="facultyDescription">
 													</div>
-												</div>
-											</form>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-											</button>
-											<button id="add_new_image_button" type="button" class="btn btn-info btn-round">
-												Save image
-											</button>
+													<div class="form-group">
+														<label for="facultyQualification">Qualification</label>
+														<input class="form-control" name="qualification" type="text" id="facultyQualification">
+													</div>
+													<div class="form-group form-file-upload form-file-multiple">
+														<input id="facultyImageInp" type="file" class="inputFileHidden" name="path">
+														<div class="input-group">
+															<input type="text" class="form-control inputFileVisible" placeholder="image" name="img_path">
+															<span class="input-group-btn">
+																<button type="button" class="btn btn-fab btn-round btn-info">
+																	<i class="material-icons">
+																		add_photo_alternate
+																	</i>
+																</button>
+															</span>
+														</div>
+													</div>
+												</form>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+												</button>
+												<button id="add_new_faculty_button" type="button" class="btn btn-info btn-round">Save changes
+												</button>
+											</div>
 										</div>
 									</div>
 								</div>
+								<button id="next_Tab_Button3" class="btn btn-info btn-round">Save And Continue</button>
 							</div>
-							<button class="btn btn-info btn-round" id="saveNExit">Save And Exit</button>
+							<div class="tab-pane" id="tab6">
+								<div class="btn-group btn-group-raised justify-content-around" role="group" aria-label="stepwise">
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 1</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 2</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 3</button>
+									<button type="button btn" class="btn btn-secondary disabled" disabled>Step 4</button>
+									<button type="button btn" class="btn btn-info disabled" disabled>Step 5</button>
+								</div>
+								<div class="row" id="galleryContainer">
+								</div>
+								<button class="btn btn-outline-info btn-round" data-toggle="modal" data-target="#new_image_modal">
+									Add Image
+								</button>
+								<!-- Modal -->
+								<div class="modal fade" id="new_image_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel5" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title font-weight-bold" id="exampleModalLabel5">Add New Image</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<form id="newImageForm" enctype="multipart/form-data">
+													<div class="form-group">
+														<label for="albumTitle">Image Title</label>
+														<small class="text-danger">name must be unique</small>
+														<input class="form-control" name="album" type="text" id="albumTitle" required>
+													</div>
+													<div class="form-group form-file-upload form-file-multiple">
+														<input id="galleryImgInp" type="file" class="inputFileHidden" name="path">
+														<div class="input-group">
+															<input type="text" class="form-control inputFileVisible" placeholder="image" name="path">
+															<span class="input-group-btn">
+																<button type="button" class="btn btn-fab btn-round btn-primary">
+																	<i class="material-icons">
+																		add_photo_alternate
+																	</i>
+																</button>
+															</span>
+														</div>
+													</div>
+												</form>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+												</button>
+												<button id="add_new_image_button" type="button" class="btn btn-info btn-round">
+													Save image
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<button class="btn btn-info btn-round" id="saveNExit">Save And Exit</button>
+							</div>
 						</div>
+						<!--</div>-->
 					</div>
-					<!--</div>-->
 				</div>
-			</div>
 
-			<div class="row">
-			</div>
+				<div class="row">
+				</div>
 
+			</div>
 		</div>
-
 	</div>
 
 	<!-- Modal -->
@@ -617,6 +617,7 @@
 	<script src="assets/js/get-details.js"></script>
 	<script src="assets/js/redirect-on-logout.js"></script>
 	<script src="assets/js/query-string.js"></script>
+	<script src="assets/js/redirect-tabs.js"></script>
 	<script src="assets/js/edit-tuition-service.js"></script>
 	<!-- endbuild -->
 
