@@ -153,7 +153,6 @@ const schedule = (() => {
 	function updateTodate(fromDate, tuitionId) {
 		const nextSunday = getNextSunday(fromDate);
 		$toDate.filter(`[data-tuition-id="${tuitionId}"]`).val(nextSunday.toISOString().split('T')[0]);
-		console.log($toDate);
 		console.log($toDate.filter(`[data-tuition-id="${tuitionId}"]`));
 	}
 
@@ -367,7 +366,7 @@ const schedule = (() => {
 			batch.schedules.forEach(scheduleInfo => {
 				scheduleInfo.fromTime = inverseMinutesFromMidnight(scheduleInfo.fromTime);
 				scheduleInfo.toTime = inverseMinutesFromMidnight(scheduleInfo.toTime);
-			})
+			});
 		});
 
 		cache();

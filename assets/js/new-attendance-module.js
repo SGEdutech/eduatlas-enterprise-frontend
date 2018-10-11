@@ -11,15 +11,16 @@ const attendance = (() => {
 		try {
 			event.preventDefault();
 			cacheDynamic();
-			const absentArr = $absentStudentForm.serialize();
-			const batchId = $batchDropDown.val();
-			const scheduleId = $scheduleDropDown.val();
+
+			const $button = $(event.target);
+			const tuitionId = $button.attr('data-tuition-id');
+			const absentArr = $absentStudentForm.filter(`[data-tuition-id="${tuitionId}"]`).serialize();
+			const batchId = $batchDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const scheduleId = $scheduleDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
 			let courseId;
-			let tuitionId;
 			distinctBatchesArr.forEach(batchInfo => {
 				if (batchInfo._id === batchId) {
 					courseId = batchInfo.courseId;
-					tuitionId = batchInfo.tuitionId
 				}
 			});
 			const newAbsentArr = await tuitionApiCalls.replaceAttendanceInSchedule(tuitionId, courseId, batchId, scheduleId, absentArr);
@@ -38,14 +39,20 @@ const attendance = (() => {
 		}
 	}
 
-	function renderScheduleDropDown() {
-		const batchId = $batchDropDown.val();
-		distinctBatchesArr.forEach(batch => {
-			if (batch._id === batchId) {
-				const scheduleOptionsHTML = template.scheduleOptions({ schedules: batch.schedules });
-				$scheduleDropDown.html(scheduleOptionsHTML);
-			}
-		});
+	function renderScheduleDropDownAndAttendancePallet() {
+		$scheduleDropDown.each((__, dropdown) => {
+			const $dropdown = $(dropdown);
+			const tuitionId = $dropdown.attr('data-tuition-id');
+
+			const batchId = $batchDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			distinctBatchesArr.forEach(batch => {
+				if (batch._id === batchId) {
+					const scheduleOptionsHTML = template.scheduleOptions({ schedules: batch.schedules });
+					console.log('Rendering dropdown again');
+					$dropdown.html(scheduleOptionsHTML);
+				}
+			});
+		})
 		renderStudentAttandencePallet();
 	}
 
@@ -97,7 +104,7 @@ const attendance = (() => {
 	}
 
 	function bindEvents() {
-		$batchDropDown.change(renderScheduleDropDown);
+		$batchDropDown.change(renderScheduleDropDownAndAttendancePallet);
 		$scheduleDropDown.change(renderStudentAttandencePallet);
 		$saveAttendance.click(submitAttendance);
 	}
@@ -115,14 +122,14 @@ const attendance = (() => {
 	}
 
 	function refresh() {
-		renderStudentAttandencePallet();
 		cacheDynamic();
+		renderBatchDropdown();
+		renderScheduleDropDownAndAttendancePallet();
 	}
 
 	function render() {
 		renderBatchDropdown();
-		renderScheduleDropDown();
-		renderStudentAttandencePallet();
+		renderScheduleDropDownAndAttendancePallet();
 	}
 
 	function init(batches, students) {
@@ -148,7 +155,7 @@ const attendance = (() => {
 	});
 
 	PubSub.subscribe('batch.edit', (msg, batchedited) => {
-		distinctBatchesArr = distinctBatchesArr.map(batchObj => batchObj.courseId === batchedited._id ? batchedited : batchObj);
+		distinctBatchesArr = distinctBatchesArr.map(batchObj => batchObj._id === batchedited._id ? batchedited : batchObj);
 		refresh();
 	});
 
