@@ -64,7 +64,7 @@ const batch = (() => {
 			editedBatch.tuitionId = tuitionId;
 			editedBatch.courseId = courseId;
 			editedBatch.courseCode = getCourseCode(courseId);
-			batchesArr = batchesArr.map(batchObj => batchObj._id === batchId ? editedBatch : batchObj)
+			batchesArr = batchesArr.map(batchObj => batchObj._id === batchId ? editedBatch : batchObj);
 			PubSub.publish('batch.edit', editedBatch);
 			refresh();
 		} catch (err) {

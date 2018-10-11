@@ -73,6 +73,7 @@ const attendance = (() => {
 				batch.schedules.forEach(scheduleObj => {
 					if (scheduleObj._id === scheduleId) studentsAbsent = scheduleObj.studentsAbsent;
 				});
+				studentsAbsent = studentsAbsent || [];
 				batch.students.forEach(studentId => {
 					studentsArr.forEach(studentInfo => {
 						if (studentInfo._id === studentId) {
