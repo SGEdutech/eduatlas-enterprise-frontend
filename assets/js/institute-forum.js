@@ -65,7 +65,7 @@ const instituteForum = (() => {
 	function editPost($form) {
 		let cardId = $form.attr('data-post');
 		let idOfTuition = $form.attr('data-tuition');
-		let idOfModal =  $form.attr('data-modal');
+		let idOfModal = $form.attr('data-modal');
 		const serializedArrayForm = $form.serializeArray()
 		let bodyObj = {};
 		serializedArrayForm.forEach(obj => {

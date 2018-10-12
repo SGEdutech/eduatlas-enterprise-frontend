@@ -48,7 +48,6 @@ const attendance = (() => {
 			distinctBatchesArr.forEach(batch => {
 				if (batch._id === batchId) {
 					const scheduleOptionsHTML = template.scheduleOptions({ schedules: batch.schedules });
-					console.log('Rendering dropdown again');
 					$dropdown.html(scheduleOptionsHTML);
 				}
 			});
@@ -161,6 +160,43 @@ const attendance = (() => {
 
 	PubSub.subscribe('batch.delete', (msg, batchDeleted) => {
 		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj._id !== batchDeleted._id);
+		refresh();
+	});
+
+	PubSub.subscribe('schedule.add', (msg, scheduleAddedWithBatchId) => {
+		// Deep cloning to avoid any mutation in original objects or array
+		scheduleAddedWithBatchId = JSON.parse(JSON.stringify(scheduleAddedWithBatchId));
+		distinctBatchesArr.forEach(batchObj => {
+			if (batchObj._id === scheduleAddedWithBatchId.batchId) {
+				batchObj.schedules = batchObj.schedules.concat(scheduleAddedWithBatchId.schedules);
+			}
+		});
+		refresh();
+	});
+
+	PubSub.subscribe('schedule.edit', (msg, scheduleInfo) => {
+		distinctBatchesArr.forEach(batchObj => {
+			if (batchObj._id === scheduleInfo.batchId) {
+				batchObj.schedules.forEach((schedule, index) => {
+					if (schedule._id === scheduleInfo.schedule._id) {
+						batchObj.schedules[index] = scheduleInfo.schedule;
+					}
+				});
+			}
+		});
+		refresh();
+	});
+
+	PubSub.subscribe('schedule.delete', (msg, deletedScheduleInfo) => {
+		distinctBatchesArr.forEach(batchObj => {
+			if (batchObj._id === deletedScheduleInfo.batchId) {
+				batchObj.schedules.forEach((scheduleObj, index) => {
+					if (scheduleObj._id === deletedScheduleInfo.schedule._id) {
+						batchObj.schedules.splice(index, 1);
+					}
+				});
+			}
+		});
 		refresh();
 	});
 
