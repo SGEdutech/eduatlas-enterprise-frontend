@@ -659,7 +659,7 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="forums{{tabNumber}}">
-                            <form class="new_post_form" enctype="multipart/form-data" data-id="{{_id}}" data-tabNumber="{{tabNumber}}">
+                            <form class="new-post-form" enctype="multipart/form-data" data-tuition-id="{{_id}}">
                                 <div class="card mt-0">
                                     <div class="row card-body">
                                         <div class="card-title col-12 h3">
@@ -677,7 +677,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <div id="post-container-{{tabNumber}}">
+                            <div class="active-forum-container" data-tuition-id="{{_id}}">
                                 {{!-- FIXME: moved to new hbs file --}}
                             </div>
                         </div>

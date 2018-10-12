@@ -25,8 +25,9 @@ async function initModules() {
 		promiseArr.push(tuitionApiCalls.getClaimedBatches());
 		promiseArr.push(tuitionApiCalls.getClaimedStudents());
 		promiseArr.push(tuitionApiCalls.getAllClaimedTuitions());
+		promiseArr.push(tuitionApiCalls.getAllClaimedForums());
 
-		const [claimedCourses, claimedBatches, claimedStudents, claimedInstitute] =
+		const [claimedCourses, claimedBatches, claimedStudents, claimedInstitute, claimedForums] =
 		await Promise.all(promiseArr);
 
 		instituteInfo.init(claimedInstitute);
@@ -35,6 +36,7 @@ async function initModules() {
 		student.init(claimedStudents);
 		schedule.init(claimedBatches);
 		attendance.init(claimedBatches, claimedStudents);
+		forum.init(claimedForums);
 	} catch (err) {
 		console.error(err);
 	}

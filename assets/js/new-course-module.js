@@ -68,9 +68,9 @@ const course = (() => {
 		modal.showModal();
 	}
 
-	async function addCourse(e) {
-		e.preventDefault();
-		const $form = $(e.target);
+	async function addCourse(event) {
+		event.preventDefault();
+		const $form = $(event.target);
 		const tuitionId = $form.attr('data-id');
 		const newCourse = await submitAddCourse(tuitionId, $form.serialize());
 		newCourse.tuitionId = tuitionId;
