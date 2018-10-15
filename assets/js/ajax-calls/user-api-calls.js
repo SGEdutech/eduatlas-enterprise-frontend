@@ -55,7 +55,7 @@ const userApiCalls = (() => {
 		}
 		return $.ajax({
 			type: "POST",
-			url: "user/add-claim",
+			url: "/user/add-claim",
 			data: {
 				listingCategory: listingCategory,
 				listingId: listingId,

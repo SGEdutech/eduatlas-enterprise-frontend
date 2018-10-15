@@ -16,8 +16,6 @@ const dashboardAddEvent = (() => {
     }
 
     function submitEvent(user) {
-        console.log(user);
-        console.log($ownerUserIdInput);
         $ownerUserIdInput.val(user._id);
         const formData = new FormData($addEventForm[0]);
         return eventApiCalls.putNewEvent(formData, true)
@@ -27,7 +25,7 @@ const dashboardAddEvent = (() => {
         // console.log('event saved');
         eventSavedPromise.then((data) => {
             const eventIdCreated = data._id;
-            const userUpdatedPromise = userApiCalls.addClaim("event", data._id);
+            const userUpdatedPromise = userApiCalls.addClaim("event", eventIdCreated);
             redirectToDashboard(userUpdatedPromise);
         }).catch(err => {
             console.log(err);

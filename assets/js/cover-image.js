@@ -18,7 +18,6 @@ const coverImage = (() => {
                 html = getCoverHtml('assets/img/event2.png');
             }
         }
-        console.log(html);
         $coverImgContainer.html(html);
     }
 

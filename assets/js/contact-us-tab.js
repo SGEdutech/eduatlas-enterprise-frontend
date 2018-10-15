@@ -8,10 +8,7 @@ const contactUs = (() => {
 	let $activitiesTab;
 	let $contactUsAndSocialLinksForm;
 	let $monForm, $tueForm, $wedForm, $thuForm, $friForm, $satForm, $sunForm;
-	let $monFormSchool, $tueFormSchool, $wedFormSchool, $thuFormSchool, $friFormSchool, $satFormSchool, $sunFormSchool;
-	let $monFormSchoolOffice, $tueFormSchoolOffice, $wedFormSchoolOffice, $thuFormSchoolOffice, $friFormSchoolOffice,
-		$satFormSchoolOffice, $sunFormSchoolOffice;
-	let $schoolTimingContainer, $officeTimingContainer;
+	let $cloneToAllBtn;
 
 	function cache() {
 		$contactPersonContainer = $("#contactPersonContainer");
@@ -21,8 +18,6 @@ const contactUs = (() => {
 		$saveNProceedBtn = $('#save_proceed_time_btn');
 		$coursesTab = $(`[href = "#tab3"]`);
 		$activitiesTab = $(`[href = "#tab3"]`);
-		$schoolTimingContainer = $('#school_timing_containers');
-		$officeTimingContainer = $('#office_timing_containers');
 	}
 
 	function cacheDynamic(typeOfInfo) {
@@ -36,30 +31,50 @@ const contactUs = (() => {
 			$satForm = $('#satForm');
 			$sunForm = $('#sunForm');
 		}
-
-		if (typeOfInfo === 'school') {
-			$monFormSchool = $('#monFormSchool');
-			$tueFormSchool = $('#tueFormSchool');
-			$wedFormSchool = $('#wedFormSchool');
-			$thuFormSchool = $('#thrFormSchool');
-			$friFormSchool = $('#friFormSchool');
-			$satFormSchool = $('#satFormSchool');
-			$sunFormSchool = $('#sunFormSchool');
-
-			$monFormSchoolOffice = $('#monFormSchoolOffice');
-			$tueFormSchoolOffice = $('#tueFormSchoolOffice');
-			$wedFormSchoolOffice = $('#wedFormSchoolOffice');
-			$thuFormSchoolOffice = $('#thrFormSchoolOffice');
-			$friFormSchoolOffice = $('#friFormSchoolOffice');
-			$satFormSchoolOffice = $('#satFormSchoolOffice');
-			$sunFormSchoolOffice = $('#sunFormSchoolOffice');
-		}
+		$cloneToAllBtn = $('.clone-to-all-btn');
 	}
 
 	function bindEvents(typeOfInfo, instituteId) {
-		$saveNProceedBtn.click(()=>{saveEverything(typeOfInfo, instituteId, false)});
+		$saveNProceedBtn.click(() => { saveEverything(typeOfInfo, instituteId, false) });
 
-		$saveBtn.click(()=>{saveEverything(typeOfInfo, instituteId, true)});
+		$saveBtn.click(() => { saveEverything(typeOfInfo, instituteId, true) });
+
+		$cloneToAllBtn.click((event) => cloneTimming(event, typeOfInfo, instituteId));
+	}
+
+	function cloneTimming(event, typeOfInfo, instituteId) {
+		const typeOfOperation = $(event.target).attr("data-time-type");
+
+		if (typeOfOperation === 'tuition_normal') {
+			const mondayTimeValues = JSON.parse(JSON.stringify($monForm.serializeArray()));
+			const context = {
+				fromTime: mondayTimeValues[1].value,
+				toTime: mondayTimeValues[2].value
+			}
+			const clonedTimmingsHTML = template.userEditTuitionHoursClone(context)
+			$opration_hours_containers.html(clonedTimmingsHTML);
+		} else if (typeOfOperation === 'school_normal') {
+			const mondayTimeValues = JSON.parse(JSON.stringify($monFormSchool.serializeArray()));
+			const context = {
+				fromTime: mondayTimeValues[1].value,
+				toTime: mondayTimeValues[2].value,
+				school: true
+			}
+			const clonedTimmingsHTML = template.userEditTuitionHoursClone(context)
+			$schoolTimingContainer.html(clonedTimmingsHTML);
+		} else if (typeOfOperation === 'school_office') {
+			const mondayTimeValues = JSON.parse(JSON.stringify($monFormSchoolOffice.serializeArray()));
+			const context = {
+				fromTime: mondayTimeValues[1].value,
+				toTime: mondayTimeValues[2].value,
+				school: true,
+				office: 'Office'
+			}
+			const clonedTimmingsHTML = template.userEditTuitionHoursClone(context)
+			$officeTimingContainer.html(clonedTimmingsHTML);
+		}
+
+		refresh(typeOfInfo, instituteId);
 	}
 
 	function saveEverything(typeOfInfo, instituteId, ifSaveOnly) {
@@ -84,13 +99,7 @@ const contactUs = (() => {
 		let socialHtml = getSocialHtml(user);
 		if (typeOfInfo === 'tuition') {
 			let dayNTimeHtml = getDayNTimeHtml(typeOfInfo, false, user.dayAndTimeOfOperation);
-			$opration_hours_containers.append(dayNTimeHtml);
-		}
-		if (typeOfInfo === 'school') {
-			let dayNTimeHtml = getDayNTimeHtml(typeOfInfo, false, user.schoolTiming);
-			$schoolTimingContainer.append(dayNTimeHtml);
-			let dayNTimeHtml2 = getDayNTimeHtml(typeOfInfo, true, user.officeTiming);
-			$officeTimingContainer.append(dayNTimeHtml2);
+			$opration_hours_containers.html(dayNTimeHtml);
 		}
 		$contactPersonContainer.append(contactPersonHtml);
 		$socialLinkContainer.append(socialHtml);
@@ -166,61 +175,26 @@ const contactUs = (() => {
 		return template.userEditTuitionHours(context);
 	}
 
-	function addAllTimes(typeOfInfo, instituteId) {
-		// temporary - let's delete the time and operation first and add new
+	async function addAllTimes(typeOfInfo, instituteId) {
 		if (typeOfInfo === 'tuition') {
-			tuitionApiCalls.deleteArrayInTuition("dayAndTimeOfOperation", {
-				_id: instituteId
-			}).then((data) => {
-				return Promise.all([
-					addDayAndTimeOfOperation(typeOfInfo, $monForm, instituteId, "dayAndTimeOfOperation"),
-					addDayAndTimeOfOperation(typeOfInfo, $tueForm, instituteId, "dayAndTimeOfOperation"),
-					addDayAndTimeOfOperation(typeOfInfo, $wedForm, instituteId, "dayAndTimeOfOperation"),
-					addDayAndTimeOfOperation(typeOfInfo, $thuForm, instituteId, "dayAndTimeOfOperation"),
-					addDayAndTimeOfOperation(typeOfInfo, $friForm, instituteId, "dayAndTimeOfOperation"),
-					addDayAndTimeOfOperation(typeOfInfo, $satForm, instituteId, "dayAndTimeOfOperation"),
-					addDayAndTimeOfOperation(typeOfInfo, $sunForm, instituteId, "dayAndTimeOfOperation")
-				])
-			}).then(() => console.log('Time save successful')).catch(err => {
-				console.log(err);
-				alert("time addition failed")
-			});
-		}
-
-		if (typeOfInfo === 'school') {
-			schoolApiCalls.deleteArrayInSchool("schoolTiming", {
-				_id: instituteId
-			}).then((data) => {
-				return Promise.all([
-					addDayAndTimeOfOperation(typeOfInfo, $monFormSchool, instituteId, "schoolTiming"),
-					addDayAndTimeOfOperation(typeOfInfo, $tueFormSchool, instituteId, "schoolTiming"),
-					addDayAndTimeOfOperation(typeOfInfo, $wedFormSchool, instituteId, "schoolTiming"),
-					addDayAndTimeOfOperation(typeOfInfo, $thuFormSchool, instituteId, "schoolTiming"),
-					addDayAndTimeOfOperation(typeOfInfo, $friFormSchool, instituteId, "schoolTiming"),
-					addDayAndTimeOfOperation(typeOfInfo, $satFormSchool, instituteId, "schoolTiming"),
-					addDayAndTimeOfOperation(typeOfInfo, $sunFormSchool, instituteId, "schoolTiming")
-				])
-			}).then(() => console.log('school Time save successful')).catch(err => {
-				console.log(err);
-				alert("time addition failed")
-			});
-
-			schoolApiCalls.deleteArrayInSchool("officeTiming", {
-				_id: instituteId
-			}).then((data) => {
-				return Promise.all([
-					addDayAndTimeOfOperation(typeOfInfo, $monFormSchoolOffice, instituteId, "officeTiming"),
-					addDayAndTimeOfOperation(typeOfInfo, $tueFormSchoolOffice, instituteId, "officeTiming"),
-					addDayAndTimeOfOperation(typeOfInfo, $wedFormSchoolOffice, instituteId, "officeTiming"),
-					addDayAndTimeOfOperation(typeOfInfo, $thuFormSchoolOffice, instituteId, "officeTiming"),
-					addDayAndTimeOfOperation(typeOfInfo, $friFormSchoolOffice, instituteId, "officeTiming"),
-					addDayAndTimeOfOperation(typeOfInfo, $satFormSchoolOffice, instituteId, "officeTiming"),
-					addDayAndTimeOfOperation(typeOfInfo, $sunFormSchoolOffice, instituteId, "officeTiming")
-				])
-			}).then(() => console.log('school office Time save successful')).catch(err => {
-				console.log(err);
-				alert("time addition failed")
-			});
+			try {
+				const deleteData = await tuitionApiCalls.deleteArrayInTuition("dayAndTimeOfOperation", {
+					_id: instituteId
+				})
+				const addTimepromiseArr = [
+					await addDayAndTimeOfOperation(typeOfInfo, $monForm, instituteId, "dayAndTimeOfOperation"),
+					await addDayAndTimeOfOperation(typeOfInfo, $tueForm, instituteId, "dayAndTimeOfOperation"),
+					await addDayAndTimeOfOperation(typeOfInfo, $wedForm, instituteId, "dayAndTimeOfOperation"),
+					await addDayAndTimeOfOperation(typeOfInfo, $thuForm, instituteId, "dayAndTimeOfOperation"),
+					await addDayAndTimeOfOperation(typeOfInfo, $friForm, instituteId, "dayAndTimeOfOperation"),
+					await addDayAndTimeOfOperation(typeOfInfo, $satForm, instituteId, "dayAndTimeOfOperation"),
+					await addDayAndTimeOfOperation(typeOfInfo, $sunForm, instituteId, "dayAndTimeOfOperation")
+				];
+				const dataReturned = Promise.all(addTimepromiseArr)
+				console.log('tuition time saved sucessfully');
+			} catch (err) {
+				console.error(err);
+			}
 		}
 	}
 
@@ -229,9 +203,14 @@ const contactUs = (() => {
 		// get the data and send it in post request
 		if (typeOfInfo === "tuition") {
 			return tuitionApiCalls.putInArrayInTuition(tuitionId, arrayName, $form.serialize())
-		} else if (typeOfInfo === "school") {
-			return schoolApiCalls.putInArrayInSchool(tuitionId, arrayName, $form.serialize())
 		}
+	}
+
+	function refresh(typeOfInfo, instituteId) {
+		$saveNProceedBtn.off();
+		$saveBtn.off();
+		cacheDynamic(typeOfInfo);
+		bindEvents(typeOfInfo, instituteId);
 	}
 
 	function init(typeOfInfo, instituteInfo) {

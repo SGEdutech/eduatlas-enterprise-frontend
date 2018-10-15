@@ -115,6 +115,7 @@ const results = (() => {
 
         promise.then((data) => {
             cacheNBindDeleteButtons(typeOfInfo, instituteId);
+            $newResultForm.trigger('reset');
             // alert("result added successfully");
         }).catch((err) => {
             console.log(err);

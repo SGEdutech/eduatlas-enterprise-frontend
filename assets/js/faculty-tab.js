@@ -111,10 +111,11 @@ const faculty = (() => {
 
         promise.then((data) => {
             cacheNBindDeleteButtons(typeOfInfo, instituteId);
+            $newFacultyForm.trigger('reset');
             // alert("result added successfully");
         }).catch((err) => {
             console.log(err);
-            alert("faculty addition failed")
+            $newFacultyForm.trigger('reset');
         })
     }
 

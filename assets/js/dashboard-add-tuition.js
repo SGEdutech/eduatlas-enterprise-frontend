@@ -28,13 +28,19 @@ const dashboardAddTuition = (() => {
 	function openModal() {
 		$otherFacilityInput.val('');
 		$addFacilityModal.modal('toggle');
+		$addFacilityBtn.attr('data-target', 'tuition');
 	}
 
-	function otherFacilityAddition() {
+	function otherFacilityAddition(e) {
+		e.preventDefault();
+		const $target = $(e.target);
+		const targetString = $target.attr('data-target');
 		$addFacilityModal.modal('toggle');
 		const nameToBeAdded = $otherFacilityInput.val();
 		const otherFacilityHTML = template.otherFacilityCheckbox({ name: nameToBeAdded });
-		$otherFacilityContainer.append(otherFacilityHTML)
+		if (targetString === 'tuition') {
+			$otherFacilityContainer.append(otherFacilityHTML)
+		}
 	}
 
 	function submitTuition(user) {
@@ -47,7 +53,7 @@ const dashboardAddTuition = (() => {
 		// console.log('tuition saved');
 		tuitionSavedPromise.then((data) => {
 			const tuitionIdCreated = data._id;
-			const userUpdatedPromise = userApiCalls.addClaim("tuition", data._id);
+			const userUpdatedPromise = userApiCalls.addClaim("tuition", tuitionIdCreated);
 
 			redirectToEditTuition(userUpdatedPromise, tuitionIdCreated);
 		}).catch(err => {

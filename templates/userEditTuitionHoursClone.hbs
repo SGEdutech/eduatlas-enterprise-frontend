@@ -7,11 +7,10 @@
             Monday:
             <input hidden name="day" value="Monday">
         </div>
-        <input id="mon_from_time" class="form-control col-4 m-md-0 p-md-1" value="{{monFrom}}" name="fromTime" type="time">
-        <input id="mon_to_time" class="form-control col-2 m-md-0 p-md-1" value="{{monTo}}" name="toTime" type="time">
+        <input id="mon_from_time" class="form-control col-4 m-md-0 p-md-1" value="{{fromTime}}" name="fromTime" type="time">
+        <input id="mon_to_time" class="form-control col-2 m-md-0 p-md-1" value="{{toTime}}" name="toTime" type="time">
         <div class="col-2">
-            <button class="btn btn-round btn-info clone-to-all-btn" type="button" data-time-type="{{#if school}}school_{{else}}tuition_{{/if}}{{#if office}}office{{else}}normal{{/if}}">Clone
-                to all</button>
+            <button class="btn btn-round btn-info clone-to-all-btn" type="button" data-time-type="{{#if school}}school_{{else}}tuition_{{/if}}{{#if office}}office{{else}}normal{{/if}}">Clone to all</button>
         </div>
     </form>
 
@@ -24,8 +23,8 @@
                 Tuesday:
                 <input hidden name="day" value="Tuesday">
             </div>
-            <input class="form-control col-4 m-md-0 p-md-1" value="{{tueFrom}}" name="fromTime" type="time">
-            <input class="form-control col-4 m-md-0 p-md-1" value="{{tueTo}}" name="toTime" type="time">
+            <input class="form-control col-4 m-md-0 p-md-1" value="{{fromTime}}" name="fromTime" type="time">
+            <input class="form-control col-4 m-md-0 p-md-1" value="{{toTime}}" name="toTime" type="time">
         </form>
 
         {{#if school}}
@@ -37,8 +36,8 @@
                     Wednesday:
                     <input hidden name="day" value="Wednesday">
                 </div>
-                <input class="form-control col-4 m-md-0 p-md-1" value="{{wedFrom}}" name="fromTime" type="time">
-                <input class="form-control col-4 m-md-0 p-md-1" value="{{wedTo}}" name="toTime" type="time">
+                <input class="form-control col-4 m-md-0 p-md-1" value="{{fromTime}}" name="fromTime" type="time">
+                <input class="form-control col-4 m-md-0 p-md-1" value="{{toTime}}" name="toTime" type="time">
             </form>
 
             {{#if school}}
@@ -50,8 +49,8 @@
                         Thursday:
                         <input hidden name="day" value="Thursday">
                     </div>
-                    <input class="form-control col-4 m-md-0 p-md-1" value="{{thrFrom}}" name="fromTime" type="time">
-                    <input class="form-control col-4 m-md-0 p-md-1" value="{{thrTo}}" name="toTime" type="time">
+                    <input class="form-control col-4 m-md-0 p-md-1" value="{{fromTime}}" name="fromTime" type="time">
+                    <input class="form-control col-4 m-md-0 p-md-1" value="{{toTime}}" name="toTime" type="time">
                 </form>
 
                 {{#if school}}
@@ -63,8 +62,8 @@
                             Friday:
                             <input hidden name="day" value="Friday">
                         </div>
-                        <input class="form-control col-4 m-md-0 p-md-1" value="{{friFrom}}" name="fromTime" type="time">
-                        <input class="form-control col-4 m-md-0 p-md-1" value="{{friTo}}" name="toTime" type="time">
+                        <input class="form-control col-4 m-md-0 p-md-1" value="{{fromTime}}" name="fromTime" type="time">
+                        <input class="form-control col-4 m-md-0 p-md-1" value="{{toTime}}" name="toTime" type="time">
                     </form>
 
                     {{#if school}}
@@ -76,8 +75,8 @@
                                 Saturday:
                                 <input hidden name="day" value="Saturday">
                             </div>
-                            <input class="form-control col-4 m-md-0 p-md-1" value="{{satFrom}}" name="fromTime" type="time">
-                            <input class="form-control col-4 m-md-0 p-md-1" value="{{satTo}}" name="toTime" type="time">
+                            <input class="form-control col-4 m-md-0 p-md-1" value="{{fromTime}}" name="fromTime" type="time">
+                            <input class="form-control col-4 m-md-0 p-md-1" value="{{toTime}}" name="toTime" type="time">
                         </form>
 
                         {{#if school}}
@@ -89,7 +88,7 @@
                                     Sunday:
                                     <input hidden name="day" value="Sunday">
                                 </div>
-                                <input class="form-control col-4 m-md-0 p-md-1" value="{{sunFrom}}" name="fromTime"
+                                <input class="form-control col-4 m-md-0 p-md-1" value="{{fromTime}}" name="fromTime"
                                     type="time">
-                                <input class="form-control col-4 m-md-0 p-md-1" value="{{sunTo}}" name="toTime" type="time">
+                                <input class="form-control col-4 m-md-0 p-md-1" value="{{toTime}}" name="toTime" type="time">
                             </form>

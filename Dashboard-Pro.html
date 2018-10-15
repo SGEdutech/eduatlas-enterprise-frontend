@@ -190,7 +190,7 @@
 													</div>
 													<div class="row form-group">
 														<label for="al2">Address Line 2</label>
-														<input class="form-control" type="text" id="al2" name="addressLine2" required>
+														<input class="form-control" type="text" id="al2" name="addressLine2">
 													</div>
 													<div class="row form-group">
 														<label for="inputCity">City</label>
@@ -284,7 +284,7 @@
 												</label>
 											</div>
 											<div id="other_facility_container"></div>
-											<button class="btn btn-round btn-info" id="add_other_facility">Add More Facility</button>
+											<button class="btn btn-round btn-info btn-sm" id="add_other_facility">Add More Facility</button>
 										</div>
 									</div>
 								</div>
@@ -375,7 +375,7 @@
 													</div>
 													<div class="row form-group">
 														<label for="al2School">Address Line 2</label>
-														<input class="form-control" type="text" id="al2School" name="addressLine2" required>
+														<input class="form-control" type="text" id="al2School" name="addressLine2">
 													</div>
 													<div class="row form-group">
 														<label for="inputCitySchool">City</label>
@@ -412,9 +412,8 @@
 										<div id="otherDetailsContainerSchool">
 											<div class="row form-group mb-4">
 												<label for="curriculumSchool" class="text-dark">Curriculum</label>
-												<select id="curriculumSchool" name="curriculum" class="selectpicker form-control" data-style="btn btn-link" required>
-													<option disabled selected>Choose your option</option>
-													<option value="CBSE">CBSE</option>
+												<select id="curriculumSchool" name="curriculum" class="selectpicker form-control" data-style="btn btn-link" multiple required>
+													<option value="CBSE" selected>CBSE</option>
 													<option value="ICSE">ICSE</option>
 													<option value="State Board">State Board</option>
 													<option value="Open School">Open School</option>
@@ -426,10 +425,9 @@
 											</div>
 
 											<div class="row form-group mb-4">
-												<label for="grades" class="text-dark">Grades</label>
-												<select id="grades" name="grades" class="selectpicker form-control" data-style="btn btn-link" multiple required>
-													<option disabled>Choose multiple</option>
-													<option value="Nursery">Nursery</option>
+												<label for="grades_for_school" class="text-dark ">Grades</label>
+												<select id="grades_for_school" name="grades" class="selectpicker form-control " data-style="btn btn-link" multiple required>
+													<option value="Nursery" selected>Nursery</option>
 													<option value="Kindergarten">Kindergarten</option>
 													<option value="1st">1st</option>
 													<option value="2nd">2nd</option>
@@ -444,24 +442,33 @@
 													<option value="11th">11th</option>
 													<option value="12th">12th</option>
 												</select>
+												<button id="select_all_grades" class="btn btn-round btn-info btn-sm">select all grades</button>
 											</div>
 
 											<div class="row form-group mb-4">
-												<label for="type" class="text-dark">Type Of Schooling</label>
-												<select id="type" name="type" class="selectpicker form-control" data-style="btn btn-link" required>
-													<option disabled selected>Choose your option</option>
-													<option value="Day">Day School</option>
+												<label for="type" class="text-dark">Category Of School</label>
+												<select id="categorySchool" name="category" class="selectpicker form-control" data-style="btn btn-link" multiple required>
+													<option value="Pre/Play School">Pre/Play School</option>
+													<option value="Day Care">Day Care</option>
+													<option value="Formal School" selected>Formal School</option>
+												</select>
+											</div>
+
+											<div class="row form-group mb-4">
+												<label for="type" class="text-dark">Type Of School</label>
+												<select id="type" name="type" class="selectpicker form-control" data-style="btn btn-link" multiple required>
+													<option value="Day" selected>Day School</option>
 													<option value="Day Boarding">Day Boarding</option>
 													<option value="Boarding/Residential">Boarding/Residential</option>
 												</select>
 											</div>
 
 											<div class="row form-group">
-												<label for="principalName">Head Of School</label>
+												<label for="principalName" class="text-dark">Head Of School</label>
 												<input id="principalName" class="form-control" type="text" name="principalName">
 											</div>
 											<div class="row form-group">
-												<label for="yearFounded">Founded</label>
+												<label for="yearFounded" class="text-dark">Year of Foundation</label>
 												<input id="yearFounded" class="form-control" type="number" name="yearFounded">
 											</div>
 										</div>
@@ -581,6 +588,40 @@
 													</span>
 												</label>
 											</div>
+											<div class="form-check form-check-inline">
+												<label class="form-check-label">
+													<input class="form-check-input" type="checkbox" name="facilities" id="inlineRadio15School" value="Dance Room"> Dance Room
+													<span class="form-check-sign">
+														<span class="check"></span>
+													</span>
+												</label>
+											</div>
+											<div class="form-check form-check-inline">
+												<label class="form-check-label">
+													<input class="form-check-input" type="checkbox" name="facilities" id="inlineRadio16School" value="Gymnasium"> Gymnasium
+													<span class="form-check-sign">
+														<span class="check"></span>
+													</span>
+												</label>
+											</div>
+											<div class="form-check form-check-inline">
+												<label class="form-check-label">
+													<input class="form-check-input" type="checkbox" name="facilities" id="inlineRadio17School" value="Music Room"> Music Room
+													<span class="form-check-sign">
+														<span class="check"></span>
+													</span>
+												</label>
+											</div>
+											<div class="form-check form-check-inline">
+												<label class="form-check-label">
+													<input class="form-check-input" type="checkbox" name="facilities" id="inlineRadio18School" value="Hostel"> Hostel
+													<span class="form-check-sign">
+														<span class="check"></span>
+													</span>
+												</label>
+											</div>
+											<div id="other_facility_container_school"></div>
+											<button class="btn btn-round btn-info btn-sm" id="add_other_facility_school">Add More Facility</button>
 										</div>
 									</div>
 								</div>
@@ -590,22 +631,8 @@
 										<h2 class="card-title h3">About Us</h2>
 										<div id="descriptionContainerSchool">
 											<div>
-												<input name="description" class="form-control" id="descriptionSchool">
+												<textarea name="description" class="form-control" id="descriptionSchool" rows="3" placeholder="type here"></textarea>
 											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="card">
-									<div class="card-body">
-										<h2 class="card-title h3">Category</h2>
-										<div id="cateContainerSchool">
-											<select id="categorySchool" name="category" class="selectpicker form-control" data-style="btn btn-link" multiple required>
-												<option disabled>Choose your option</option>
-												<option value="Pre/Play School">Pre/Play School</option>
-												<option value="Day Care">Day Care</option>
-												<option value="Formal School">Formal School</option>
-											</select>
 										</div>
 									</div>
 								</div>
@@ -731,7 +758,7 @@
 													</div>
 													<div class="row form-group">
 														<label for="al2Event">Address Line 2</label>
-														<input class="form-control" type="text" id="al2Event" name="addressLine2" required>
+														<input class="form-control" type="text" id="al2Event" name="addressLine2">
 													</div>
 													<div class="row form-group">
 														<label for="inputCityEvent">City</label>
@@ -845,7 +872,7 @@
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content p-2">
 						<label for="other_facility_input">Facility Name</label>
-						<input class="text-secondary" type="text" id="other_facility_input">
+						<input class="text-secondary form-control" type="text" id="other_facility_input">
 						<button class="btn btn-round btn-info" id="add_facility_btn">Add</button>
 					</div>
 				</div>

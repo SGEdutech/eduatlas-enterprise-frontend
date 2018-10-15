@@ -85,6 +85,7 @@ const galleryTab = (() => {
 
 		promise.then((data) => {
 			cacheNBindDeleteButtons(typeOfInfo, institute._id);
+			$newImageform.trigger('reset');
 			// alert(data);
 			// init(typeOfInfo, institute);
 		}).catch((err) => {
