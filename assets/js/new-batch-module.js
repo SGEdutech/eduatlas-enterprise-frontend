@@ -8,6 +8,7 @@ const batch = (() => {
 	let $deleteButton;
 	let $courseSelectMenu;
 	let $studentChekboxContainer;
+	let $codeInp;
 
 	function getCourseCode(courseId) {
 		let courseCode;
@@ -37,6 +38,7 @@ const batch = (() => {
 		$batchContainer = $('.active-batch-container');
 		$courseSelectMenu = $('.course-select-menu');
 		$studentChekboxContainer = $('.student-checkbox-container');
+		$codeInp = $('.add-batch-code-inp');
 	}
 
 	function cacheDynamic() {
@@ -104,12 +106,25 @@ const batch = (() => {
 		modal.showModal();
 	}
 
+	function isDuplicateCode(tuitionId) {
+		const code = $codeInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		const batchesOfThisTuition = batchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
+		let isCodeDuplicate = false;
+		batchesOfThisTuition.forEach(batchObj => {
+			if (batchObj.code === code) isCodeDuplicate = true;
+		});
+		return isCodeDuplicate;
+	}
+
 	async function addBatch(event) {
 		try {
 			event.preventDefault();
 			const $form = $(event.target);
 			const tuitionId = $form.attr('data-id');
-			// FIXME: extract courseId for new batch
+			if (isDuplicateCode(tuitionId)) {
+				alert('A batch with same code has already been added');
+				return;
+			}
 			const serializedForm = $form.serialize();
 			const courseId = $courseSelectMenu.filter(`[data-tuition-id="${tuitionId}"]`).val();
 			const courseCode = getCourseCode(courseId);
