@@ -6,6 +6,7 @@ const courses = (() => {
 	let $resultsTab;
 	let $newCourseModal;
 	let $deleteButtons;
+	let $coursesBackBtn, $lastTab;
 
 	function cache() {
 		$coursesContainer = $("#coursesContainer");
@@ -14,6 +15,8 @@ const courses = (() => {
 		$resultsTabButton = $('#next_Tab_Button');
 		$resultsTab = $(`[href = "#tab4"]`);
 		$newCourseModal = $('#new_course_modal');
+		$coursesBackBtn = $('#courses_back_btn');
+		$lastTab = $(`[href = "#tab2"]`);
 	}
 
 	function cacheDynamic() {
@@ -31,6 +34,8 @@ const courses = (() => {
 		$deleteButtons.click(function() {
 			deleteCourse(this, tuitionId)
 		});
+
+		$coursesBackBtn.click(openLastTab);
 	}
 
 	function cacheNBindDeleteButtons(tuitionId) {
@@ -38,6 +43,13 @@ const courses = (() => {
 		$deleteButtons.click(function() {
 			deleteCourse(this, tuitionId)
 		});
+	}
+
+	function openLastTab(e) {
+		e.preventDefault();
+		$lastTab.tab('show');
+		//scroll 100 pixels
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	}
 
 	function deleteCourse(element, tuitionId) {
@@ -77,7 +89,7 @@ const courses = (() => {
 
 	function addCourse(tuitionId) {
 		eagerLoadCourse($newCourseForm.serializeArray());
-        // get the data and send it in post request
+		// get the data and send it in post request
 		const AddedCourse = tuitionApiCalls.putInArrayInTuition(tuitionId, "coursesOffered", $newCourseForm.serialize(), false);
 
 		AddedCourse.then((data) => {

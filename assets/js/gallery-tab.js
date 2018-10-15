@@ -6,6 +6,7 @@ const galleryTab = (() => {
 	let $saveAndExitButton;
 	let $newImageModal;
 	let imgPath;
+	let $galleryBackBtn, $lastTab;
 
 	function cache() {
 		$newImageform = $('#newImageForm');
@@ -13,7 +14,9 @@ const galleryTab = (() => {
 		$galleryContainer = $("#galleryContainer");
 		$galleryImgInp = $('#galleryImgInp');
 		$newImageModal = $('#new_image_modal');
-		$saveAndExitButton = $('#saveNExit')
+		$saveAndExitButton = $('#saveNExit');
+		$galleryBackBtn = $('#gallery_back_btn');
+		$lastTab = $(`[href = "#tab5"]`);
 	}
 
 	function cacheDynamic() {
@@ -42,6 +45,15 @@ const galleryTab = (() => {
 		$deleteButtons.click(function() {
 			deleteImage(typeOfInfo, this, institute._id)
 		});
+
+		$galleryBackBtn.click(openLastTab);
+	}
+
+	function openLastTab(e) {
+		e.preventDefault();
+		$lastTab.tab('show');
+		//scroll 100 pixels
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	}
 
 	function render(typeOfInfo, institute) {

@@ -8,6 +8,7 @@ const admissionDetails = (() => {
 	let $sessionStartDateForm;
 	let $feeInput, $admissionProcess, $eligibilityCriteria;
 	let $admissionStartDateInput, $admissionEndDateInput, $sessionStartDateInput;
+	let $admissionDetailsBackBtn, $lastTab;
 
 	function cache() {
 		$admissionFeeDetailsForm = $('#admission_details_form');
@@ -23,6 +24,8 @@ const admissionDetails = (() => {
 		$admissionStartDateInput = $('#admission_start_date');
 		$admissionEndDateInput = $('#admission_end_date');
 		$sessionStartDateInput = $('#session_start_date');
+		$admissionDetailsBackBtn = $('#admission_details_back_btn');
+		$lastTab = $(`[href = "#tab3"]`);
 	}
 
 	function cacheDynamic() {}
@@ -56,6 +59,15 @@ const admissionDetails = (() => {
 				helperScripts.saveDetails('school', $admissionFeeDetailsForm, "saveOnly", instituteId);
 			});
 		});
+
+		$admissionDetailsBackBtn.click(openLastTab);
+	}
+
+	function openLastTab(e) {
+		e.preventDefault();
+		$lastTab.tab('show');
+		//scroll 100 pixels
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	}
 
 	function saveImportantDetails(instituteId) {

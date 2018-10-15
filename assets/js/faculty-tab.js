@@ -8,6 +8,7 @@ const faculty = (() => {
     let $deleteButtons;
     let $facultyImgInp;
     let imgPath;
+    let $facultyBackBtn, $lastTab;
 
     function cache() {
         $facultyContainer = $("#facultyContainer");
@@ -16,7 +17,9 @@ const faculty = (() => {
         $galleryTabButton = $('#next_Tab_Button3');
         $galleryTab = $(`[href = "#tab6"]`);
         $newFacultyModal = $('#new_faculty_modal');
-        $facultyImgInp = $('#facultyImageInp')
+        $facultyImgInp = $('#facultyImageInp');
+        $facultyBackBtn = $('#faculty_back_btn');
+        $lastTab = $(`[href = "#tab4"]`);
     }
 
     function cacheDynamic() {
@@ -43,6 +46,8 @@ const faculty = (() => {
         $deleteButtons.click(function () {
             deleteFaculty(typeOfInfo, this, tuitionId)
         });
+
+        $facultyBackBtn.click(openLastTab);
     }
 
     function cacheNBindDeleteButtons(typeOfInfo, instituteId) {
@@ -51,6 +56,13 @@ const faculty = (() => {
             deleteFaculty(typeOfInfo, this, instituteId)
         });
     }
+
+    function openLastTab(e) {
+		e.preventDefault();
+		$lastTab.tab('show');
+		//scroll 100 pixels
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
+	}
 
     function deleteFaculty(typeOfInfo, element, instituteId) {
         const $element = $(element);

@@ -4,6 +4,7 @@ const activities = (() => {
 	let $saveActivityBtn;
 	let $nextTab;
 	let $activityInput;
+	let $activityBackBtn, $lastTab;
 
 	function cache() {
 		$newActivityForm = $('#activityForm');
@@ -11,6 +12,8 @@ const activities = (() => {
 		$saveActivityBtn = $('#save_sctivity_btn');
 		$nextTab = $('[href = "#tab7"]');
 		$activityInput = $('#acitivitiesInput')
+		$activityBackBtn = $('#activities_back_btn');
+		$lastTab = $('[href = "#tab2"]')
 	}
 
 	function render(school) {
@@ -48,6 +51,13 @@ const activities = (() => {
 		})
 	}
 
+	function openLastTab(e) {
+		e.preventDefault();
+		$lastTab.tab('show');
+		//scroll 100 pixels
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
+	}
+
 	function bindEvents(instituteId) {
 		$nextTabButton.click(() => {
 			saveActivities(instituteId, $newActivityForm, false);
@@ -55,6 +65,8 @@ const activities = (() => {
 		$saveActivityBtn.click(() => {
 			saveActivities(instituteId, $newActivityForm, true);
 		})
+
+		$activityBackBtn.click(openLastTab);
 	}
 
 	function init(school) {

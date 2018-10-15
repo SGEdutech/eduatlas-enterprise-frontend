@@ -9,6 +9,7 @@ const contactUs = (() => {
 	let $contactUsAndSocialLinksForm;
 	let $monForm, $tueForm, $wedForm, $thuForm, $friForm, $satForm, $sunForm;
 	let $cloneToAllBtn;
+	let $contactUsBackBtn, $lastTab;
 
 	function cache() {
 		$contactPersonContainer = $("#contactPersonContainer");
@@ -18,6 +19,8 @@ const contactUs = (() => {
 		$saveNProceedBtn = $('#save_proceed_time_btn');
 		$coursesTab = $(`[href = "#tab3"]`);
 		$activitiesTab = $(`[href = "#tab3"]`);
+		$contactUsBackBtn = $('#contact_us_back_btn');
+		$lastTab = $('[href = "#tab1"]')
 	}
 
 	function cacheDynamic(typeOfInfo) {
@@ -40,6 +43,15 @@ const contactUs = (() => {
 		$saveBtn.click(() => { saveEverything(typeOfInfo, instituteId, true) });
 
 		$cloneToAllBtn.click((event) => cloneTimming(event, typeOfInfo, instituteId));
+
+		$contactUsBackBtn.click(openLastTab);
+	}
+
+	function openLastTab(e) {
+		e.preventDefault();
+		$lastTab.tab('show');
+		//scroll 100 pixels
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	}
 
 	function cloneTimming(event, typeOfInfo, instituteId) {

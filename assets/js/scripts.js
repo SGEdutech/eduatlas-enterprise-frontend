@@ -110,7 +110,7 @@ const helperScripts = {
 	showNextTab($nextTab) {
 		$nextTab.tab('show');
 		//scroll 100 pixels
-		document.body.scrollTop = document.documentElement.scrollTop = 150;
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},
 	getDateObj(date) {
 		if (date === undefined || date === '') {
