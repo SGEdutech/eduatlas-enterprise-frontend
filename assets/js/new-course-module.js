@@ -4,10 +4,18 @@ const course = (() => {
 	let $addCourseForm;
 	let $editButton;
 	let $deleteButton;
+	let $codeInp;
+	let $feeInp
+	let $gstInp;
+	let $totalFee;
 
 	function cache() {
 		$addCourseForm = $('.add_course_form');
 		$courseContainers = $('.active-course-container');
+		$codeInp = $('.add-course-code-input');
+		$feeInp = $('.fee-inp');
+		$gstInp = $('.gst-inp');
+		$totalFee = $('.total-fee');
 	}
 
 	function cacheDynamic() {
@@ -68,10 +76,24 @@ const course = (() => {
 		modal.showModal();
 	}
 
+	function isDuplicateCode(tuitionId) {
+		const code = $codeInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		const coursesOfThisTuition = coursesArr.filter(courseObj => courseObj.tuitionId === tuitionId);
+		let isCodeDuplicate = false;
+		coursesOfThisTuition.forEach(courseObj => {
+			if (courseObj.code === code) isCodeDuplicate = true;
+		});
+		return isCodeDuplicate;
+	}
+
 	async function addCourse(event) {
 		event.preventDefault();
 		const $form = $(event.target);
 		const tuitionId = $form.attr('data-id');
+		if (isDuplicateCode(tuitionId)) {
+			alert('A course with same code has already been added');
+			return;
+		}
 		const newCourse = await submitAddCourse(tuitionId, $form.serialize());
 		newCourse.tuitionId = tuitionId;
 		coursesArr.push(newCourse);
@@ -80,8 +102,23 @@ const course = (() => {
 		refresh();
 	}
 
+	function updateTotalFee(event) {
+		// FIXME: Too many $totalFee
+		// FIXME: Wrong event.target
+		const $input = $(event.target);
+		const tuitionId = $input.attr('data-tuition-id');
+		let courseFee = $feeInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		let gstPercentage = $gstInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		courseFee = parseInt(courseFee, 10) || 0;
+		gstPercentage = parseInt(gstPercentage, 10) || 0;
+		const totalFee = courseFee + courseFee * (gstPercentage / 100);
+		$totalFee.filter(`[data-tuition-id="${tuitionId}"]`).val(totalFee);
+	}
+
 	function bindEvents() {
 		$addCourseForm.submit(addCourse);
+		$feeInp.off().change(updateTotalFee);
+		$gstInp.off().change(updateTotalFee);
 	}
 
 	function bindDynamicEvents() {
