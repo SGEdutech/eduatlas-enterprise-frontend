@@ -11,6 +11,8 @@ const student = (() => {
 	let $courseFee;
 	let $netFee;
 	let $discountAmount;
+	let $feeCollected;
+	let $balancePending;
 
 	async function deleteStudent(event) {
 		try {
@@ -18,9 +20,9 @@ const student = (() => {
 			const tuitionId = $deleteBtn.attr('data-tuition-id');
 			const studentId = $deleteBtn.attr('data-student-id');
 			const deletedStudent = await tuitionApiCalls.deleteStudentInTuition(tuitionId, studentId);
-			newStudentsArr = studentsArr.filter(studentObj => studentObj._id !== studentId);
+			studentsArr = studentsArr.filter(studentObj => studentObj._id !== studentId);
 			PubSub.publish('student.delete', deletedStudent);
-			refresh(newStudentsArr);
+			refresh();
 		} catch (err) {
 			console.error(err);
 		}
@@ -64,7 +66,7 @@ const student = (() => {
 			studentsArr.push(newStudent);
 			PubSub.publish('student.add', newStudent);
 			$form.trigger('reset');
-			refresh(studentsArr);
+			refresh();
 		} catch (err) {
 			console.error(err);
 		}
@@ -75,17 +77,30 @@ const student = (() => {
 			const $input = $(input);
 			const tuitionId = $input.attr('data-tuition-id');
 
-			const courseFee = $courseFee.val() || 0;
+			const courseFee = $courseFee.filter(`[data-tuition-id="${tuitionId}"]`).val() || 0;
 			const discountAmount = $discountAmount.filter(`[data-tuition-id="${tuitionId}"]`).val() || 0;
 
 			$input.val(courseFee - discountAmount);
 		});
 	}
 
+	function renderBalancePending() {
+		// FIXME: Make a function for calculation of net fee
+		$balancePending.each((__, input) => {
+			const $input = $(input);
+			const tuitionId = $input.attr('data-tuition-id');
+
+			const netFee = $netFee.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const feeCollected = $feeCollected.filter(`[data-tuition-id="${tuitionId}"]`).val();
+
+			$input.val(netFee - feeCollected);
+		});
+	}
+
 	function renderCourseFee() {
-		$courseFee.each((__, container) => {
-			const $container = $(container);
-			const tuitionId = $container.attr('data-tuition-id');
+		$courseFee.each((__, input) => {
+			const $input = $(input);
+			const tuitionId = $input.attr('data-tuition-id');
 
 			const courseId = $courseSelectContainer.filter(`[data-tuition-id="${tuitionId}"]`).val();
 			let courseFee = 0;
@@ -96,7 +111,7 @@ const student = (() => {
 					courseFee = fees + (fees * (gstPercentage / 100));
 				}
 			});
-			$courseFee.val(courseFee);
+			$input.val(courseFee);
 		});
 	}
 
@@ -108,14 +123,20 @@ const student = (() => {
 		$courseFee = $('.student-course-fee');
 		$netFee = $('.student-net-fee');
 		$discountAmount = $('.student-discount-amount');
+		$feeCollected = $('.student-fee-colected');
+		$balancePending = $('.student-balance-pending');
 	}
 
 	function bindevents() {
+		// Sort this mess
 		$addStudentForm.submit(addStudent);
 		$courseSelectContainer.change(renderBatchSelectMenu);
 		$courseSelectContainer.change(renderCourseFee);
-		$courseFee.change(renderNetFee);
-		$discountAmount.change(renderNetFee);
+		$courseSelectContainer.change(renderNetFee);
+		$courseSelectContainer.change(renderBalancePending);
+		$discountAmount.blur(renderNetFee);
+		$discountAmount.blur(renderBalancePending);
+		$feeCollected.blur(renderBalancePending);
 	}
 
 	function cacheDynamic() {
@@ -164,10 +185,10 @@ const student = (() => {
 		renderBatchSelectMenu();
 		renderCourseFee();
 		renderNetFee();
+		renderBalancePending();
 	}
 
-	function refresh(newStudentsArray) {
-		if (newStudentsArray) studentsArr = newStudentsArray;
+	function refresh() {
 		render();
 		cacheDynamic();
 		bindDynamic();

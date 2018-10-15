@@ -117,8 +117,8 @@ const course = (() => {
 
 	function bindEvents() {
 		$addCourseForm.submit(addCourse);
-		$feeInp.off().change(updateTotalFee);
-		$gstInp.off().change(updateTotalFee);
+		$feeInp.blur(updateTotalFee);
+		$gstInp.blur(updateTotalFee);
 	}
 
 	function bindDynamicEvents() {
