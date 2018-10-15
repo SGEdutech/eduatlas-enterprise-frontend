@@ -33,10 +33,11 @@ async function initModules() {
 		instituteInfo.init(claimedInstitute);
 		course.init(claimedCourses);
 		batch.init(claimedBatches, claimedCourses, claimedStudents);
-		student.init(claimedStudents);
+		student.init(claimedStudents, claimedCourses, claimedBatches);
 		schedule.init(claimedBatches);
 		attendance.init(claimedBatches, claimedStudents);
 		forum.init(claimedForums);
+		announcement.init(claimedBatches, claimedStudents);
 	} catch (err) {
 		console.error(err);
 	}
