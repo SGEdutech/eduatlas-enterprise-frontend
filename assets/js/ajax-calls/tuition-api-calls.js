@@ -388,6 +388,13 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
+	function getAllClaimedForums() {
+		return $.ajax({
+			type: 'GET',
+			url: '/tuition/forum/claimed',
+		});
+	}
+
 	function putPostInForum(idOfTuition, bodyObj) {
 		if (!checkForHexRegExp.test(idOfTuition)) {
 			console.error('Not a valid idOfTuition');
@@ -573,6 +580,7 @@ const tuitionApiCalls = (() => {
 		deleteBatchInCourseInTuition,
 		putStudentInBatch,
 		deleteStudentInBatch,
+		getAllClaimedForums,
 		putPostInForum,
 		editPostInForum,
 		deletePostInForum,

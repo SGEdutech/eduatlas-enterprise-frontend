@@ -6,21 +6,21 @@ const attendance = (() => {
 	let $absentStudentForm;
 	let $saveAttendance;
 	let $studentsContainer;
-	let $checkboxInputs;
 
 	async function submitAttendance(event) {
 		try {
 			event.preventDefault();
 			cacheDynamic();
-			const absentArr = $absentStudentForm.serialize();
-			const batchId = $batchDropDown.val();
-			const scheduleId = $scheduleDropDown.val();
+
+			const $button = $(event.target);
+			const tuitionId = $button.attr('data-tuition-id');
+			const absentArr = $absentStudentForm.filter(`[data-tuition-id="${tuitionId}"]`).serialize();
+			const batchId = $batchDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const scheduleId = $scheduleDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
 			let courseId;
-			let tuitionId;
 			distinctBatchesArr.forEach(batchInfo => {
 				if (batchInfo._id === batchId) {
 					courseId = batchInfo.courseId;
-					tuitionId = batchInfo.tuitionId
 				}
 			});
 			const newAbsentArr = await tuitionApiCalls.replaceAttendanceInSchedule(tuitionId, courseId, batchId, scheduleId, absentArr);
@@ -39,14 +39,19 @@ const attendance = (() => {
 		}
 	}
 
-	function renderScheduleDropDown() {
-		const batchId = $batchDropDown.val();
-		distinctBatchesArr.forEach(batch => {
-			if (batch._id === batchId) {
-				const scheduleOptionsHTML = template.scheduleOptions({ schedules: batch.schedules });
-				$scheduleDropDown.html(scheduleOptionsHTML);
-			}
-		});
+	function renderScheduleDropDownAndAttendancePallet() {
+		$scheduleDropDown.each((__, dropdown) => {
+			const $dropdown = $(dropdown);
+			const tuitionId = $dropdown.attr('data-tuition-id');
+
+			const batchId = $batchDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			distinctBatchesArr.forEach(batch => {
+				if (batch._id === batchId) {
+					const scheduleOptionsHTML = template.scheduleOptions({ schedules: batch.schedules });
+					$dropdown.html(scheduleOptionsHTML);
+				}
+			});
+		})
 		renderStudentAttandencePallet();
 	}
 
@@ -64,34 +69,41 @@ const attendance = (() => {
 	}
 
 	function renderStudentAttandencePallet() {
-		const batchId = $batchDropDown.val();
-		const scheduleId = $scheduleDropDown.val();
-		let studentsAbsent;
-		const batchStudentsInfo = [];
+		$studentsContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
 
-		distinctBatchesArr.forEach(batch => {
-			if (batch._id === batchId) {
-				batch.schedules.forEach(scheduleObj => {
-					if (scheduleObj._id === scheduleId) studentsAbsent = scheduleObj.studentsAbsent;
-				});
-				batch.students.forEach(studentId => {
-					studentsArr.forEach(studentInfo => {
-						if (studentInfo._id === studentId) {
-							const jsonString = JSON.stringify(studentInfo);
-							const duplicateStudentInfo = JSON.stringify(jsonString);
-							duplicateStudentInfo.isAbsent = studentsAbsent.indexOf(duplicateStudentInfo._id) !== -1;
-							batchStudentsInfo.push(duplicateStudentInfo);
-						}
+			const batchId = $batchDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const scheduleId = $scheduleDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const studentsOfThisInstitute = studentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
+			let studentsAbsent;
+			const batchStudentsInfo = [];
+
+			distinctBatchesArr.forEach(batch => {
+				if (batch._id === batchId) {
+					batch.schedules.forEach(scheduleObj => {
+						if (scheduleObj._id === scheduleId) studentsAbsent = scheduleObj.studentsAbsent;
 					});
-				});
-			}
-		});
-		const studentTableHtml = template.studentsTable({ students: batchStudentsInfo });
-		$studentsContainer.html(studentTableHtml);
+					studentsAbsent = studentsAbsent || [];
+					batch.students.forEach(studentId => {
+						studentsOfThisInstitute.forEach(studentInfo => {
+							if (studentInfo._id === studentId) {
+								const jsonString = JSON.stringify(studentInfo);
+								const duplicateStudentInfo = JSON.parse(jsonString);
+								duplicateStudentInfo.isAbsent = studentsAbsent.indexOf(duplicateStudentInfo._id) !== -1;
+								batchStudentsInfo.push(duplicateStudentInfo);
+							}
+						});
+					});
+				}
+			});
+			const studentTableHtml = template.studentsTable({ students: batchStudentsInfo });
+			$container.html(studentTableHtml);
+		})
 	}
 
 	function bindEvents() {
-		$batchDropDown.change(renderScheduleDropDown);
+		$batchDropDown.change(renderScheduleDropDownAndAttendancePallet);
 		$scheduleDropDown.change(renderStudentAttandencePallet);
 		$saveAttendance.click(submitAttendance);
 	}
@@ -109,22 +121,22 @@ const attendance = (() => {
 	}
 
 	function refresh() {
-		renderStudentAttandencePallet();
 		cacheDynamic();
+		renderBatchDropdown();
+		renderScheduleDropDownAndAttendancePallet();
 	}
 
 	function render() {
 		renderBatchDropdown();
-		renderScheduleDropDown();
-		renderStudentAttandencePallet();
+		renderScheduleDropDownAndAttendancePallet();
 	}
 
 	function init(batches, students) {
 		if (batches === undefined) throw new Error('Batches array not provided!');
 		if (students === undefined) throw new Error('Students array not provided!');
 
-		distinctBatchesArr = batches;
-		studentsArr = students;
+		distinctBatchesArr = JSON.parse(JSON.stringify(batches));
+		studentsArr = JSON.parse(JSON.stringify(students));
 		cache();
 		bindEvents();
 		render();
@@ -142,12 +154,49 @@ const attendance = (() => {
 	});
 
 	PubSub.subscribe('batch.edit', (msg, batchedited) => {
-		distinctBatchesArr = distinctBatchesArr.map(batchObj => batchObj.courseId === batchedited._id ? batchedited : batchObj);
+		distinctBatchesArr = distinctBatchesArr.map(batchObj => batchObj._id === batchedited._id ? batchedited : batchObj);
 		refresh();
 	});
 
 	PubSub.subscribe('batch.delete', (msg, batchDeleted) => {
 		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj._id !== batchDeleted._id);
+		refresh();
+	});
+
+	PubSub.subscribe('schedule.add', (msg, scheduleAddedWithBatchId) => {
+		// Deep cloning to avoid any mutation in original objects or array
+		scheduleAddedWithBatchId = JSON.parse(JSON.stringify(scheduleAddedWithBatchId));
+		distinctBatchesArr.forEach(batchObj => {
+			if (batchObj._id === scheduleAddedWithBatchId.batchId) {
+				batchObj.schedules = batchObj.schedules.concat(scheduleAddedWithBatchId.schedules);
+			}
+		});
+		refresh();
+	});
+
+	PubSub.subscribe('schedule.edit', (msg, scheduleInfo) => {
+		distinctBatchesArr.forEach(batchObj => {
+			if (batchObj._id === scheduleInfo.batchId) {
+				batchObj.schedules.forEach((schedule, index) => {
+					if (schedule._id === scheduleInfo.schedule._id) {
+						batchObj.schedules[index] = scheduleInfo.schedule;
+					}
+				});
+			}
+		});
+		refresh();
+	});
+
+	PubSub.subscribe('schedule.delete', (msg, deletedScheduleInfo) => {
+		distinctBatchesArr.forEach(batchObj => {
+			if (batchObj._id === deletedScheduleInfo.batchId) {
+				batchObj.schedules.forEach((scheduleObj, index) => {
+					if (scheduleObj._id === deletedScheduleInfo.schedule._id) {
+						batchObj.schedules.splice(index, 1);
+					}
+				});
+			}
+		});
 		refresh();
 	});
 

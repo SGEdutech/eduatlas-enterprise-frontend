@@ -8,6 +8,7 @@ const batch = (() => {
 	let $deleteButton;
 	let $courseSelectMenu;
 	let $studentChekboxContainer;
+	let $codeInp;
 
 	function getCourseCode(courseId) {
 		let courseCode;
@@ -17,22 +18,19 @@ const batch = (() => {
 		return courseCode;
 	}
 
-	function getAllStudensWithInThisBatch(batchStudentArray) {
+	function getAllStudensWithInThisBatch(batchStudentArray, tuitionId) {
 		if (studentsArr === undefined) throw new Error('Module has not been initialised');
 		if (Array.isArray(studentsArr) === false) throw new Error('Students array not an array ');
 
 		if (batchStudentArray === undefined) throw new Error('Batch student array not provided');
 		if (Array.isArray(batchStudentArray) === false) throw new Error('Batch student is not an array');
 
-		// Doing this to prevent actual objects from being manipulated
-		// JSON meathod has been implemented for performance
-		const jsonString = JSON.stringify(studentsArr);
-		const duplicateStudentsArr = JSON.parse(jsonString);
+		const filteredStudentsArr = studentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
 
-		duplicateStudentsArr.forEach(studentObj => {
+		filteredStudentsArr.forEach(studentObj => {
 			studentObj.inThisBatch = batchStudentArray.indexOf(studentObj._id) !== -1;
 		});
-		return duplicateStudentsArr;
+		return filteredStudentsArr;
 	}
 
 	function cache() {
@@ -40,6 +38,7 @@ const batch = (() => {
 		$batchContainer = $('.active-batch-container');
 		$courseSelectMenu = $('.course-select-menu');
 		$studentChekboxContainer = $('.student-checkbox-container');
+		$codeInp = $('.add-batch-code-inp');
 	}
 
 	function cacheDynamic() {
@@ -64,9 +63,9 @@ const batch = (() => {
 			editedBatch.tuitionId = tuitionId;
 			editedBatch.courseId = courseId;
 			editedBatch.courseCode = getCourseCode(courseId);
-			const newBatchArr = batchesArr.map(batchObj => batchObj._id === batchId ? editedBatch : batchObj)
+			batchesArr = batchesArr.map(batchObj => batchObj._id === batchId ? editedBatch : batchObj);
 			PubSub.publish('batch.edit', editedBatch);
-			refresh(newBatchArr);
+			refresh();
 		} catch (err) {
 			console.error(err);
 		}
@@ -83,10 +82,12 @@ const batch = (() => {
 			const courseId = $deleteBtn.attr('data-course-id');
 			const batchId = $deleteBtn.attr('data-batch-id');
 			const deletedBatch = await submitDeleteRequest(tuitionId, courseId, batchId);
+			deletedBatch.tuitionId = tuitionId;
+			deletedBatch.courseId = courseId;
 			console.log('Batch was successfully deleted');
-			newCourseArr = batchesArr.filter(batchObj => batchObj._id !== batchId);
+			batchesArr = batchesArr.filter(batchObj => batchObj._id !== deletedBatch._id);
 			PubSub.publish('batch.delete', deletedBatch);
-			refresh(newCourseArr);
+			refresh();
 		} catch (err) {
 			console.error(err);
 		}
@@ -98,21 +99,34 @@ const batch = (() => {
 		const courseId = $editBtn.attr('data-course-id');
 		const batchId = $editBtn.attr('data-batch-id');
 		const batchInfo = batchesArr.find(batchToBeEdited => batchToBeEdited._id === batchId);
-		batchInfo.allStudents = getAllStudensWithInThisBatch(batchInfo.students);
+		batchInfo.allStudents = getAllStudensWithInThisBatch(batchInfo.students, tuitionId);
 		const editBatchInputHTML = template.batchEditInputs(batchInfo);
 		modal.renderFormContent(editBatchInputHTML);
 		modal.bindSubmitEvent(() => editBatch(tuitionId, courseId, batchId));
 		modal.showModal();
 	}
 
-	async function addBatch(e) {
+	function isDuplicateCode(tuitionId) {
+		const code = $codeInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		const batchesOfThisTuition = batchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
+		let isCodeDuplicate = false;
+		batchesOfThisTuition.forEach(batchObj => {
+			if (batchObj.code === code) isCodeDuplicate = true;
+		});
+		return isCodeDuplicate;
+	}
+
+	async function addBatch(event) {
 		try {
-			e.preventDefault();
-			const $form = $(e.target);
+			event.preventDefault();
+			const $form = $(event.target);
 			const tuitionId = $form.attr('data-id');
-			// FIXME: extract courseId for new batch
+			if (isDuplicateCode(tuitionId)) {
+				alert('A batch with same code has already been added');
+				return;
+			}
 			const serializedForm = $form.serialize();
-			const courseId = $courseSelectMenu.val();
+			const courseId = $courseSelectMenu.filter(`[data-tuition-id="${tuitionId}"]`).val();
 			const courseCode = getCourseCode(courseId);
 			const newBatch = await requestAddBatch(tuitionId, courseId, serializedForm);
 			newBatch.courseId = courseId;
@@ -154,9 +168,7 @@ const batch = (() => {
 		$batchContainer.each((__, container) => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
-
 			const batchesArrOfThisTuition = batchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
-
 			const cardsHtml = template.batchCard({ batches: batchesArrOfThisTuition });
 			$container.html(cardsHtml);
 		});
@@ -198,9 +210,9 @@ const batch = (() => {
 		if (students === undefined) throw new Error('Students not provided');
 		if (Array.isArray(students) === false) throw new Error('Students not an array');
 
-		batchesArr = batches;
+		batchesArr = JSON.parse(JSON.stringify(batches));
 		distinctCoursesArr = getUniqueCourses(courses);
-		studentsArr = students;
+		studentsArr = JSON.parse(JSON.stringify(students));
 		cache();
 		bindEvents();
 		render();
@@ -209,8 +221,7 @@ const batch = (() => {
 	}
 
 	PubSub.subscribe('course.add', (msg, courseAdded) => {
-		const newCourse = { _id: courseAdded._id, code: courseAdded.code };
-		distinctCoursesArr.push(newCourse);
+		distinctCoursesArr.push(courseAdded);
 		refresh();
 	});
 

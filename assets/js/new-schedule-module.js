@@ -162,7 +162,7 @@ const schedule = (() => {
 
 	function updateTodateAndSelectDays(event) {
 		const $fromDateInp = $(event.target);
-		const tuitionId = $fromDate.attr('data-tuition-id');
+		const tuitionId = $fromDateInp.attr('data-tuition-id');
 		const fromDate = new Date($fromDateInp.val());
 		updateTodate(fromDate, tuitionId);
 		updateDays(fromDate, tuitionId);
@@ -200,10 +200,6 @@ const schedule = (() => {
 		$checkedBatchesInput = $('.batches:checkbox:checked');
 	}
 
-	function requestAddschedule(tuitionId, courseId, batchId, newScheduleDetails) {
-		return tuitionApiCalls.putscheduleInCourseInTuition(tuitionId, courseId, batchId, newScheduleDetails);
-	}
-
 	function submitEditRequest(tuitionId, courseId, batchId, scheduleId, editedData) {
 		return tuitionApiCalls.editScheduleInBatch(tuitionId, courseId, batchId, scheduleId, editedData);
 	}
@@ -218,10 +214,14 @@ const schedule = (() => {
 			editedschedule.fromTime = inverseMinutesFromMidnight(editedschedule.fromTime);
 			editedschedule.toTime = inverseMinutesFromMidnight(editedschedule.toTime);
 			console.log('Schedule was successfully edited');
+			let objToBePublished;
 			distinctBatchesArr.forEach(batchObj => {
 				if (batchObj._id !== batchId) return;
 				batchObj.schedules = batchObj.schedules.filter(scheduleObj => scheduleObj._id !== scheduleId);
 				batchObj.schedules.push(editedschedule);
+				// Preparing new object to for PubSub
+				objToBePublished = { batchId: batchObj._id, schedule: editedschedule };
+				PubSub.publish('schedule.edit', objToBePublished);
 			});
 			refresh();
 		} catch (err) {
@@ -247,6 +247,9 @@ const schedule = (() => {
 					batchObj.schedules = batchObj.schedules.filter(scheduleObj => scheduleObj._id !== scheduleId);
 				}
 			});
+			// Preparing object for PubSub
+			const objToPublish = { batchId, schedule: deletedSchedule };
+			PubSub.publish('schedule.delete', objToPublish);
 			refresh();
 		} catch (err) {
 			console.error(err);
@@ -298,15 +301,18 @@ const schedule = (() => {
 			const newSchedulesArr = await Promise.all(addSchedulesPromiseArr);
 			batchIdsSequence.forEach((batchId, index) => {
 				const schedulesOfThisBatch = newSchedulesArr[index];
-				schedulesOfThisBatch.forEach(schedule => {
-					if (schedule.fromTime) schedule.fromTime = inverseMinutesFromMidnight(schedule.fromTime);
-					if (schedule.toTime) schedule.toTime = inverseMinutesFromMidnight(schedule.toTime);
-				})
+				schedulesOfThisBatch.forEach(scheduleObj => {
+					if (scheduleObj.fromTime) scheduleObj.fromTime = inverseMinutesFromMidnight(scheduleObj.fromTime);
+					if (scheduleObj.toTime) scheduleObj.toTime = inverseMinutesFromMidnight(scheduleObj.toTime);
+				});
 				let batchInfo;
 				distinctBatchesArr.forEach(batchObj => {
 					if (batchObj._id === batchId) batchInfo = batchObj;
 				});
 				batchInfo.schedules = batchInfo.schedules.concat(schedulesOfThisBatch);
+				// Preparing object to emit PubSub event
+				const schedulesWithBatchId = { batchId: batchInfo._id, schedules: schedulesOfThisBatch };
+				PubSub.publish('schedule.add', schedulesWithBatchId);
 			});
 			refresh();
 		} catch (err) {
@@ -325,7 +331,6 @@ const schedule = (() => {
 		$fromDate.blur(updateTodateAndSelectDays);
 	}
 
-	//FIXME: Optimise
 	function render() {
 		$scheduleContainer.each((index, container) => {
 			const $container = $(container);
@@ -358,14 +363,14 @@ const schedule = (() => {
 		if (batches === undefined) throw new Error('Batches not provided');
 		if (Array.isArray(batches) === false) throw new Error('Batches not an array');
 
-		distinctBatchesArr = batches;
+		distinctBatchesArr = JSON.parse(JSON.stringify(batches));
 
 		// Parsing time
 		distinctBatchesArr.forEach(batch => {
 			batch.schedules.forEach(scheduleInfo => {
 				scheduleInfo.fromTime = inverseMinutesFromMidnight(scheduleInfo.fromTime);
 				scheduleInfo.toTime = inverseMinutesFromMidnight(scheduleInfo.toTime);
-			})
+			});
 		});
 
 		cache();

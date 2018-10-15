@@ -1,9 +1,18 @@
 const student = (() => {
+	let distinctCoursesArr;
+	let distinctBatchesArr;
 	let studentsArr;
 	let $addStudentForm;
 	let $editButton;
 	let $deleteButton;
 	let $studentContainer;
+	let $courseSelectContainer;
+	let $batchSelectContainer;
+	let $courseFee;
+	let $netFee;
+	let $discountAmount;
+	let $feeCollected;
+	let $balancePending;
 
 	async function deleteStudent(event) {
 		try {
@@ -11,9 +20,9 @@ const student = (() => {
 			const tuitionId = $deleteBtn.attr('data-tuition-id');
 			const studentId = $deleteBtn.attr('data-student-id');
 			const deletedStudent = await tuitionApiCalls.deleteStudentInTuition(tuitionId, studentId);
-			newStudentsArr = studentsArr.filter(studentObj => studentObj._id !== studentId);
+			studentsArr = studentsArr.filter(studentObj => studentObj._id !== studentId);
 			PubSub.publish('student.delete', deletedStudent);
-			refresh(newStudentsArr);
+			refresh();
 		} catch (err) {
 			console.error(err);
 		}
@@ -57,19 +66,77 @@ const student = (() => {
 			studentsArr.push(newStudent);
 			PubSub.publish('student.add', newStudent);
 			$form.trigger('reset');
-			refresh(studentsArr);
+			refresh();
 		} catch (err) {
 			console.error(err);
 		}
 	}
 
+	function renderNetFee() {
+		$netFee.each((__, input) => {
+			const $input = $(input);
+			const tuitionId = $input.attr('data-tuition-id');
+
+			const courseFee = $courseFee.filter(`[data-tuition-id="${tuitionId}"]`).val() || 0;
+			const discountAmount = $discountAmount.filter(`[data-tuition-id="${tuitionId}"]`).val() || 0;
+
+			$input.val(courseFee - discountAmount);
+		});
+	}
+
+	function renderBalancePending() {
+		// FIXME: Make a function for calculation of net fee
+		$balancePending.each((__, input) => {
+			const $input = $(input);
+			const tuitionId = $input.attr('data-tuition-id');
+
+			const netFee = $netFee.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const feeCollected = $feeCollected.filter(`[data-tuition-id="${tuitionId}"]`).val();
+
+			$input.val(netFee - feeCollected);
+		});
+	}
+
+	function renderCourseFee() {
+		$courseFee.each((__, input) => {
+			const $input = $(input);
+			const tuitionId = $input.attr('data-tuition-id');
+
+			const courseId = $courseSelectContainer.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			let courseFee = 0;
+			distinctCoursesArr.forEach(courseObj => {
+				if (courseObj._id === courseId) {
+					const fees = parseInt(courseObj.fees, 10) || 0;
+					const gstPercentage = parseInt(courseObj.gstPercentage, 10) || 0;
+					courseFee = fees + (fees * (gstPercentage / 100));
+				}
+			});
+			$input.val(courseFee);
+		});
+	}
+
 	function cache() {
 		$addStudentForm = $('.add-student-form');
 		$studentContainer = $('.student-container');
+		$courseSelectContainer = $('.student-course-select-menu');
+		$batchSelectContainer = $('.student-batch-select-menu');
+		$courseFee = $('.student-course-fee');
+		$netFee = $('.student-net-fee');
+		$discountAmount = $('.student-discount-amount');
+		$feeCollected = $('.student-fee-colected');
+		$balancePending = $('.student-balance-pending');
 	}
 
 	function bindevents() {
+		// Sort this mess
 		$addStudentForm.submit(addStudent);
+		$courseSelectContainer.change(renderBatchSelectMenu);
+		$courseSelectContainer.change(renderCourseFee);
+		$courseSelectContainer.change(renderNetFee);
+		$courseSelectContainer.change(renderBalancePending);
+		$discountAmount.blur(renderNetFee);
+		$discountAmount.blur(renderBalancePending);
+		$feeCollected.blur(renderBalancePending);
 	}
 
 	function cacheDynamic() {
@@ -82,6 +149,19 @@ const student = (() => {
 		$deleteButton.click(deleteStudent);
 	}
 
+	function renderBatchSelectMenu() {
+		$batchSelectContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+			const courseId = $courseSelectContainer.filter(`[data-tuition-id="${tuitionId}"]`).val();
+
+			const batchesOfThisCourse = distinctBatchesArr.filter(batchObj => batchObj.courseId === courseId);
+			// FIXME: Template Name
+			const batchOptionsHTML = template.courseOptions({ courses: batchesOfThisCourse });
+			$container.html(batchOptionsHTML).selectpicker('refresh');
+		});
+	}
+
 	function render() {
 		$studentContainer.each((__, container) => {
 			const $container = $(container);
@@ -91,19 +171,34 @@ const student = (() => {
 
 			const studentCardsHtml = template.studentCard({ students: studentsOfThisTuition });
 			$container.html(studentCardsHtml);
-		})
+		});
+
+		$courseSelectContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+
+			const coursesOfThisTuition = distinctCoursesArr.filter(courseObj => courseObj.tuitionId === tuitionId);
+			const courseOptionsHTML = template.courseOptions({ courses: coursesOfThisTuition });
+			$container.html(courseOptionsHTML).selectpicker('refresh');
+		});
+
+		renderBatchSelectMenu();
+		renderCourseFee();
+		renderNetFee();
+		renderBalancePending();
 	}
 
-	function refresh(newStudentsArray) {
-		if (newStudentsArray) studentsArr = newStudentsArray;
+	function refresh() {
 		render();
 		cacheDynamic();
 		bindDynamic();
 	}
 
-	function init(studentsArray) {
+	function init(studentsArray, courseArr, batchArr) {
 		if (studentsArray === undefined) throw new Error('Students array not defined');
-		studentsArr = studentsArray;
+		studentsArr = JSON.parse(JSON.stringify(studentsArray));
+		distinctCoursesArr = JSON.parse(JSON.stringify(courseArr));
+		distinctBatchesArr = JSON.parse(JSON.stringify(batchArr));
 		cache();
 		bindevents();
 		render();
