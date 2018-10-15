@@ -76,7 +76,7 @@ const eventApiCalls = (() => {
 		if (isForm) {
 			return $.ajax({
 				type: "POST",
-				url: `/event/`,
+				url: `/event`,
 				data: bodyObj,
 				cache: false,
 				contentType: false,
@@ -85,7 +85,7 @@ const eventApiCalls = (() => {
 		} else {
 			return $.ajax({
 				type: "POST",
-				url: `/event/`,
+				url: `/event`,
 				data: bodyObj,
 			});
 		}

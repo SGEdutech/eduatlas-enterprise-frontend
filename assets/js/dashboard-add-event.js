@@ -1,10 +1,8 @@
 const dashboardAddEvent = (() => {
     let $addEventForm;
-    let $ownerUserIdInput;
 
     function cache() {
         $addEventForm = $('#addEvent');
-        $ownerUserIdInput = $('#event_owner_id_input');
     }
 
     function bindEvents(user) {
@@ -16,13 +14,11 @@ const dashboardAddEvent = (() => {
     }
 
     function submitEvent(user) {
-        $ownerUserIdInput.val(user._id);
         const formData = new FormData($addEventForm[0]);
-        return eventApiCalls.putNewEvent(formData, true)
+        return eventApiCalls.putNewEvent(formData, true);
     }
 
     function updateUser(user, eventSavedPromise) {
-        // console.log('event saved');
         eventSavedPromise.then((data) => {
             const eventIdCreated = data._id;
             const userUpdatedPromise = userApiCalls.addClaim("event", eventIdCreated);
