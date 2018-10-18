@@ -193,8 +193,7 @@ const batch = (() => {
 		});
 	}
 
-	function refresh(batches) {
-		if (batches) batchesArr = batches;
+	function refresh() {
 		render();
 		cacheDynamic();
 		bindDynamicEvents();
