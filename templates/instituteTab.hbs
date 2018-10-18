@@ -1,5 +1,5 @@
 <div class="tab-pane" id="tab{{tabNumber}}">
-	<div class="card bg-info mt-2">
+	<div class="card bg-info m-0">
 		<div class="card-body px-3">
 			<h3 class="card-title text-dark" data-id="{{_id}}" data-tabNumber="{{tabNumber}}">
 				{{name}}
@@ -9,23 +9,23 @@
 			</h5>
 		</div>
 	</div>
-	<ul class="nav nav-pills nav-pills-rose">
-		<li class="nav-item"><a class="nav-link active" href="#pill1{{tabNumber}}" data-toggle="tab">Configure</a></li>
-		<li class="nav-item"><a class="nav-link" href="#pill2{{tabNumber}}" data-toggle="tab">Promoter</a></li>
-		<li class="nav-item"><a class="nav-link" href="#pill3{{tabNumber}}" data-toggle="tab">Communicator</a></li>
-		<li class="nav-item"><a class="nav-link" href="#pill4{{tabNumber}}" data-toggle="tab">Schedule</a></li>
-		<li class="nav-item"><a class="nav-link" href="#pill5{{tabNumber}}" data-toggle="tab">Attendance</a></li>
-	</ul>
+		<ul class="nav nav-pills nav-pills-success mt-3">
+			<li class="nav-item"><a class="nav-link active rounded-0" href="#pill1{{tabNumber}}" data-toggle="tab">Configure</a></li>
+			<li class="nav-item"><a class="nav-link rounded-0" href="#pill2{{tabNumber}}" data-toggle="tab">Promoter</a></li>
+			<li class="nav-item"><a class="nav-link rounded-0" href="#pill3{{tabNumber}}" data-toggle="tab">Communicator</a></li>
+			<li class="nav-item"><a class="nav-link rounded-0" href="#pill4{{tabNumber}}" data-toggle="tab">Schedule</a></li>
+			<li class="nav-item"><a class="nav-link rounded-0" href="#pill5{{tabNumber}}" data-toggle="tab">Attendance</a></li>
+		</ul>
 	<hr>
 	<div class="tab-content tab-space">
 		<div class="tab-pane active" id="pill1{{tabNumber}}">
 			<div class="row m-0">
 				<div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
-					<ul class="nav nav-pills nav-pills-rose flex-column">
-						<li class="nav-item"><a class="nav-link active" href="#innertab1{{tabNumber}}" data-toggle="tab">Courses</a></li>
-						<li class="nav-item"><a class="nav-link" href="#innertab3{{tabNumber}}" data-toggle="tab">Batches</a></li>
-						<li class="nav-item"><a class="nav-link" href="#innertab2{{tabNumber}}" data-toggle="tab">Students</a></li>
-						<li class="nav-item"><a class="nav-link" href="#innertab4{{tabNumber}}" data-toggle="tab">Active
+					<ul class="nav nav-pills nav-pills-success flex-column">
+						<li class="nav-item"><a class="nav-link active rounded-0" href="#innertab1{{tabNumber}}" data-toggle="tab">Courses</a></li>
+						<li class="nav-item"><a class="nav-link rounded-0" href="#innertab3{{tabNumber}}" data-toggle="tab">Batches</a></li>
+						<li class="nav-item"><a class="nav-link rounded-0" href="#innertab2{{tabNumber}}" data-toggle="tab">Students</a></li>
+						<li class="nav-item"><a class="nav-link rounded-0" href="#innertab4{{tabNumber}}" data-toggle="tab">Active
 								Batches</a></li>
 					</ul>
 				</div>
@@ -52,18 +52,20 @@
 												Add New Course/Product
 											</div>
 											<div class="col-md-6">
-												<div class="form-group label-floating is-empty has-rose bmd-form-group">
-													<input name="code" class="form-control add-course-code-input" type="text" placeholder="Course Code (unique)" data-tuition-id="{{_id}}" required>
+												<div class="form-group label-floating is-empty has-success bmd-form-group">
+													<input name="code" class="form-control add-course-code-input" type="text" placeholder="Course Code (unique)"
+													 data-tuition-id="{{_id}}" required>
 													<span class="material-input"></span>
 												</div>
-												<div class="form-group label-floating has-rose is-empty bmd-form-group">
+												<div class="form-group label-floating has-success is-empty bmd-form-group">
 													<textarea name="description" class="form-control" rows="4" placeholder="Description (optional)"></textarea>
 													<span class="material-input"></span>
 												</div>
 											</div>
 											<div class="col-md-6">
-												<div class="form-group label-floating is-empty has-rose bmd-form-group">
-													<input name="fees" type="number" class="form-control fee-inp" placeholder="Course Fee" data-tuition-id="{{_id}}" required data-tabNumber="{{tabNumber}}">
+												<div class="form-group label-floating is-empty has-success bmd-form-group">
+													<input name="fees" type="number" class="form-control fee-inp" placeholder="Course Fee" data-tuition-id="{{_id}}"
+													 required data-tabNumber="{{tabNumber}}">
 													<span class="material-input"></span>
 												</div>
 												<div class="form-check">
@@ -75,20 +77,22 @@
 														</span>
 													</label>
 												</div>
-												<div class="form-group label-floating has-rose is-empty bmd-form-group">
-													<input name="gstPercentage" type="number" class="form-control gst-inp" placeholder="GST (%)" data-tuition-id="{{_id}}" data-tabNumber="{{tabNumber}}">
+												<div class="form-group label-floating has-success is-empty bmd-form-group">
+													<input name="gstPercentage" type="number" class="form-control gst-inp" placeholder="GST (%)"
+													 data-tuition-id="{{_id}}" data-tabNumber="{{tabNumber}}">
 													<span class="material-input"></span>
 												</div>
-												<div class="form-group label-floating has-rose is-empty bmd-form-group">
+												<div class="form-group label-floating has-success is-empty bmd-form-group">
 													<label>Total Fee</label>
-													<input type="number" class="form-control total-fee" data-tabNumber="{{tabNumber}}" data-tuition-id="{{_id}}" disabled>
+													<input type="number" class="form-control total-fee" data-tabNumber="{{tabNumber}}" data-tuition-id="{{_id}}"
+													 disabled>
 													<span class="material-input"></span>
 												</div>
 											</div>
 											<div class="col-md-6">
 											</div>
 											<div class="col-md-6">
-												<button type="submit" class="btn btn-round btn-rose pull-right">
+												<button type="submit" class="btn btn-round btn-success pull-right">
 													ADD Course
 													<div class="ripple-container"></div>
 												</button>
@@ -96,7 +100,8 @@
 										</div>
 									</form>
 								</div>
-								<div class="modal fade bd-example-modal-lg" id="editCourseModal{{course._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal fade bd-example-modal-lg" id="editCourseModal{{course._id}}" tabindex="-1" role="dialog"
+								 aria-labelledby="exampleModalLabel" aria-hidden="true">
 									<div class="modal-dialog modal-lg" role="document">
 										<div class="modal-content">
 											<div class="modal-body p-0">
@@ -142,7 +147,8 @@
 																		</span>
 																	</div>
 																	<div class="col-md-8 p-0">
-																		<input name="fees" type="text" class="form-control bg-white fee-inp" placeholder="COURSE FEE" value="{{course.fees}}" data-tabNumber="{{course._id}}">
+																		<input name="fees" type="text" class="form-control bg-white fee-inp" placeholder="COURSE FEE" value="{{course.fees}}"
+																		 data-tabNumber="{{course._id}}">
 																	</div>
 																</div>
 															</div>
@@ -168,7 +174,8 @@
 																			<div class="col-md-6">
 																				<div class="row">
 																					<div class="col-md-3 pl-0 pr-0">
-																						<input name="gst" type="text" class="form-control bg-white border rounded  mt-3 gst-inp" style="height:24px;" value="{{course.gst}}" data-tabNumber="{{course._id}}">
+																						<input name="gst" type="text" class="form-control bg-white border rounded  mt-3 gst-inp" style="height:24px;"
+																						 value="{{course.gst}}" data-tabNumber="{{course._id}}">
 																					</div>
 																					<div class="col-md-9 pl-0 pr-0 mt-3">
 																						<p>GST PERCENTAGE</p>
@@ -202,7 +209,7 @@
 																	</div>
 																	<div class="col-md-8 p-0">
 																		{{#each batches as |batch|}}
-																			<span class="badge badge-info">{{batch.code}}</span>
+																		<span class="badge badge-info">{{batch.code}}</span>
 																		{{/each}}
 																	</div>
 																</div>
@@ -241,7 +248,7 @@
 
 							<div class="card card-profile main-raised m-0">
 								<form class="add-student-form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}">
-									<div class="card-body text-left has-rose">
+									<div class="card-body text-left has-success">
 										<div class="row">
 											<div class="col-md-12">
 												<h4 class="card-title">EA Id</h4>
@@ -273,40 +280,57 @@
 											<div class="col-md-12">
 												<h4 class="card-title">Payment Details</h4>
 												<div class="row">
-													<div class="col-md-4">
-														<select class="form-control selectpicker student-course-select-menu" data-style="btn btn-link" name="courseId" data-tuition-id="{{_id}}" required>
+													<div class="col-md-4 form-group">
+														<label for="course_select" class="bmd-label-floating">Select Course</label>
+														<select id="course_select" class="form-control selectpicker student-course-select-menu" data-style="btn btn-link"
+														 name="courseId" data-tuition-id="{{_id}}" required>
 														</select>
 													</div>
-													<div class="col-md-4">
-														<select class="form-control selectpicker student-batch-select-menu" data-style="btn btn-link" name="batchId" data-tuition-id="{{_id}}">
+													<div class="col-md-4 form-group">
+														<label for="batch_select" class="bmd-label-floating">Select Batch</label>
+														<select id="batch_select" class="form-control selectpicker student-batch-select-menu" data-style="btn btn-link"
+														 name="batchId" data-tuition-id="{{_id}}">
 														</select>
 													</div>
-													<div class="col-md-4">
-														<input type="number" placeholder="Course Fee" class="form-control student-course-fee" data-tuition-id="{{_id}}" disabled>
+													<div class="col-md-4 form-group">
+														<label for="course_fee_inp" class="bmd-label-floating">Course Fee</label>
+														<input id="course_fee_inp" type="number" placeholder="Course Fee" class="form-control student-course-fee"
+														 data-tuition-id="{{_id}}" disabled>
 													</div>
-													<div class="col-md-4">
-														<input type="number" placeholder="Discount Amount" class="form-control student-discount-amount" data-tuition-id="{{_id}}">
+													<div class="col-md-4 form-group">
+														<label for="discount_amount" class="bmd-label-floating">Discount Amount</label>
+														<input id="discount_amount" type="number" placeholder="Discount Amount" class="form-control student-discount-amount"
+														 data-tuition-id="{{_id}}">
 													</div>
-													<div class="col-md-4">
-														<input type="text" placeholder="Discount Reason" class="form-control">
+													<div class="col-md-4 form-group">
+														<label for="discount_reason" class="bmd-label-floating">Discount Reason</label>
+														<input id="discount_reason" type="text" placeholder="Discount Reason" class="form-control">
 													</div>
-													<div class="col-md-4">
-														<input type="text" placeholder="Net Fee" class="form-control student-net-fee" data-tuition-id="{{_id}}" disabled>
+													<div class="col-md-4 form-group">
+														<label for="net_fee" class="bmd-label-floating">Net Fee</label>
+														<input id="net_fee" type="text" placeholder="Net Fee" class="form-control student-net-fee"
+														 data-tuition-id="{{_id}}" disabled>
 													</div>
-													<div class="col-md-4">
-														<input type="text" placeholder="Fee Collected" class="form-control student-fee-colected" data-tuition-id="{{_id}}">
+													<div class="col-md-4 form-group">
+														<label for="fee_collected" class="bmd-label-floating">Fee Collected</label>
+														<input id="fee_collected" type="number" placeholder="Fee Collected" class="form-control student-fee-colected"
+														 data-tuition-id="{{_id}}">
 													</div>
-													<div class="col-md-4">
-														<input type="text" placeholder="Mode Of Payment" class="form-control">
+													<div class="col-md-4 form-group">
+														<label for="mode_of_payment" class="bmd-label-floating">Mode Of Payment</label>
+														<input id="mode_of_payment" type="text" placeholder="Mode Of Payment" class="form-control">
 													</div>
-													<div class="col-md-4">
-														<input type="text" placeholder="Balance Pending" class="form-control student-balance-pending" data-tuition-id="{{_id}}" disabled>
+													<div class="col-md-4 form-group">
+														<label for="balance_pending" class="bmd-label-floating">Balance Pending</label>
+														<input id="balance_pending" type="text" placeholder="Balance Pending" class="form-control student-balance-pending"
+														 data-tuition-id="{{_id}}" disabled>
 													</div>
-													<div class="col-md-4">
-														<input type="text" placeholder="Next installment date" class="form-control">
+													<div class="col-md-4 form-group">
+														<label for="next_install" class="bmd-label-floating">Next Installment Date</label>
+														<input id="next_install" type="date" placeholder="Next installment date" class="form-control">
 													</div>
 													<div class="col-md-12 mt-3">
-														<button class="btn btn-round btn-rose float-right">ADD
+														<button class="btn btn-round btn-success float-right">ADD
 															STUDENTS</button>
 													</div>
 												</div>
@@ -337,20 +361,22 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="courseIdSelect">Choose Course for your batch</label>
-												<select class="form-control selectpicker course-select-menu" data-style="btn btn-link" name="courseId" data-tuition-id="{{_id}}" required>
+												<select class="form-control selectpicker course-select-menu" data-style="btn btn-link" name="courseId"
+												 data-tuition-id="{{_id}}" required>
 													{{!-- FIXME: moved to new hbs file --}}
 												</select>
 											</div>
 										</div>
 										<form class="add_batch_form col-12" data-tabNumber="{{tabNumber}}" data-id="{{_id}}" enctype="multipart/form-data">
 											<div class="col-md-6">
-												<div class="form-group label-floating is-empty has-rose bmd-form-group">
-													<input type="text" name="code" class="form-control add-batch-code-inp" placeholder="Batch Code (unique)" data-tuition-id="{{_id}}" activhrequired>
+												<div class="form-group label-floating is-empty has-success bmd-form-group">
+													<input type="text" name="code" class="form-control add-batch-code-inp" placeholder="Batch Code (unique)"
+													 data-tuition-id="{{_id}}" activhrequired>
 													<span class="material-input"></span>
 												</div>
 											</div>
 											<div class="col-md-6">
-												<div class="form-group label-floating is-empty has-rose bmd-form-group">
+												<div class="form-group label-floating is-empty has-success bmd-form-group">
 													<input type="text" name="description" class="form-control" placeholder="Description (optional)">
 													<span class="material-input"></span>
 												</div>
@@ -362,7 +388,7 @@
 												<div class="px-2 student-checkbox-container" data-tuition-id="{{_id}}" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
 													{{!-- FIXME: moved to new hbs file --}}
 												</div>
-												<button type="submit" class="btn btn-round btn-rose pull-right mt-4">
+												<button type="submit" class="btn btn-round btn-success pull-right mt-4">
 													ADD Batch
 													<div class="ripple-container"></div>
 												</button>
@@ -387,151 +413,151 @@
 			<br><br>
 		</div>
 		<div class="tab-pane" id="pill2{{tabNumber}}">
-			<ul class="nav nav-pills nav-pills-rose nav-pills-icons" role="tablist">
+			<ul class="nav nav-pills nav-pills-success nav-pills-icons" role="tablist">
 				<li class="nav-item col-3">
 					{{#if promotedHome}}
-						<a class="nav-link active" href="#dashboard-1{{tabNumber}}" role="tab" data-toggle="tab">
-							<i class="material-icons" style="font-size: 48px">
-								home
-							</i>
-							Ad Stats for
-							<h4 class="info-title">
-								HOMEPAGE</h4>
-						</a>
+					<a class="nav-link active" href="#dashboard-1{{tabNumber}}" role="tab" data-toggle="tab">
+						<i class="material-icons" style="font-size: 48px">
+							home
+						</i>
+						Ad Stats for
+						<h4 class="info-title">
+							HOMEPAGE</h4>
+					</a>
 					{{else}}
-						<a class="nav-link" href="#dashboard-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
-							<span class="badge badge-pill badge-danger">Not purchased</span>
-							<i class="material-icons" style="font-size: 48px">
-								home
-							</i>
-							Ad Stats for
-							<h4 class="info-title">
-								HOMEPAGE</h4>
-						</a>
+					<a class="nav-link" href="#dashboard-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
+						<span class="badge badge-pill badge-danger">Not purchased</span>
+						<i class="material-icons" style="font-size: 48px">
+							home
+						</i>
+						Ad Stats for
+						<h4 class="info-title">
+							HOMEPAGE</h4>
+					</a>
 					{{/if}}
 
 				</li>
 				<li class="nav-item col-3">
 					{{#if promotedSearch}}
-						<a class="nav-link" href="#schedule-1{{tabNumber}}" role="tab" data-toggle="tab">
-							<i class="material-icons" style="font-size: 48px">
-								search
-							</i>
-							Ad Stats for
-							<h4 class="info-title">
-								SEARCHPAGE</h4>
-						</a>
+					<a class="nav-link" href="#schedule-1{{tabNumber}}" role="tab" data-toggle="tab">
+						<i class="material-icons" style="font-size: 48px">
+							search
+						</i>
+						Ad Stats for
+						<h4 class="info-title">
+							SEARCHPAGE</h4>
+					</a>
 					{{else}}
-						<a class="nav-link" href="#schedule-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
-							<span class="badge badge-pill badge-danger">Not purchased</span>
-							<i class="material-icons" style="font-size: 48px">
-								search
-							</i>
-							Ad Stats for
-							<h4 class="info-title">
-								SEARCHPAGE</h4>
-						</a>
+					<a class="nav-link" href="#schedule-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
+						<span class="badge badge-pill badge-danger">Not purchased</span>
+						<i class="material-icons" style="font-size: 48px">
+							search
+						</i>
+						Ad Stats for
+						<h4 class="info-title">
+							SEARCHPAGE</h4>
+					</a>
 					{{/if}}
 				</li>
 				<li class="nav-item col-3">
 					{{#if promotedRelated}}
-						<a class="nav-link" href="#tasks-1{{tabNumber}}" role="tab" data-toggle="tab">
-							<span class="badge badge-pill badge-danger">Not purchased</span>
-							<i class="material-icons" style="font-size: 48px">
-								format_list_bulleted
-							</i>
-							Ad Stats for
-							<h4 class="info-title">
-								RELATED LISTING</h4>
-						</a>
+					<a class="nav-link" href="#tasks-1{{tabNumber}}" role="tab" data-toggle="tab">
+						<span class="badge badge-pill badge-danger">Not purchased</span>
+						<i class="material-icons" style="font-size: 48px">
+							format_list_bulleted
+						</i>
+						Ad Stats for
+						<h4 class="info-title">
+							RELATED LISTING</h4>
+					</a>
 					{{else}}
-						<a class="nav-link" href="##tasks-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
-							<span class="badge badge-pill badge-danger">Not purchased</span>
-							<i class="material-icons" style="font-size: 48px">
-								format_list_bulleted
-							</i>
-							Ad Stats for
-							<h4 class="info-title">
-								RELATED LISTING</h4>
-						</a>
+					<a class="nav-link" href="##tasks-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
+						<span class="badge badge-pill badge-danger">Not purchased</span>
+						<i class="material-icons" style="font-size: 48px">
+							format_list_bulleted
+						</i>
+						Ad Stats for
+						<h4 class="info-title">
+							RELATED LISTING</h4>
+					</a>
 					{{/if}}
 				</li>
 			</ul>
 			<div class="tab-content tab-space">
 				<div class="tab-pane active" id="dashboard-1{{tabNumber}}">
 					{{#if promotedHome}}
-						<div class="row mx-3 justify-content-around">
-							<div class="col-md-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="card-stats justify-content-around">
-											<canvas id="myChart{{tabNumber}}"></canvas>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 ">
-								<div class="card">
-									<div class="card-body">
-										<div class="card-stats justify-content-around">
-											<canvas id="myChart2{{tabNumber}}"></canvas>
-										</div>
+					<div class="row mx-3 justify-content-around">
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-stats justify-content-around">
+										<canvas id="myChart{{tabNumber}}"></canvas>
 									</div>
 								</div>
 							</div>
 						</div>
+						<div class="col-md-6 ">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-stats justify-content-around">
+										<canvas id="myChart2{{tabNumber}}"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					{{else}}
-						<div class="row mx-3">
-							<small>You Don't have promoter subscription, click on above buttons to activate promoter</small>
-						</div>
+					<div class="row mx-3">
+						<small>You Don't have promoter subscription, click on above buttons to activate promoter</small>
+					</div>
 					{{/if}}
 				</div>
 				<div class="tab-pane" id="schedule-1{{tabNumber}}">
 					{{#if promotedSearch}}
-						<div class="row mx-3 justify-content-around">
-							<div class="col-md-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="card-stats justify-content-around">
-											<canvas id="myChart{{tabNumber}}1"></canvas>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 ">
-								<div class="card">
-									<div class="card-body">
-										<div class="card-stats justify-content-around">
-											<canvas id="myChart2{{tabNumber}}1"></canvas>
-										</div>
+					<div class="row mx-3 justify-content-around">
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-stats justify-content-around">
+										<canvas id="myChart{{tabNumber}}1"></canvas>
 									</div>
 								</div>
 							</div>
 						</div>
+						<div class="col-md-6 ">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-stats justify-content-around">
+										<canvas id="myChart2{{tabNumber}}1"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					{{/if}}
 				</div>
 				<div class="tab-pane" id="tasks-1{{tabNumber}}">
 					{{#if promotedRelated}}
-						<div class="row mx-3 justify-content-around">
-							<div class="col-md-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="card-stats justify-content-around">
-											<canvas id="myChart{{tabNumber}}2"></canvas>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 ">
-								<div class="card">
-									<div class="card-body">
-										<div class="card-stats justify-content-around">
-											<canvas id="myChart2{{tabNumber}}2"></canvas>
-										</div>
+					<div class="row mx-3 justify-content-around">
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-stats justify-content-around">
+										<canvas id="myChart{{tabNumber}}2"></canvas>
 									</div>
 								</div>
 							</div>
 						</div>
+						<div class="col-md-6 ">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-stats justify-content-around">
+										<canvas id="myChart2{{tabNumber}}2"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					{{/if}}
 				</div>
 			</div>
@@ -539,9 +565,9 @@
 		<div class="tab-pane" id="pill3{{tabNumber}}">
 			<div class="row m-0">
 				<div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
-					<ul class="nav nav-pills nav-pills-rose flex-column">
-						<li class="nav-item"><a class="nav-link active" href="#announce{{tabNumber}}" data-toggle="tab">Announcement</a></li>
-						<li class="nav-item"><a class="nav-link" href="#forums{{tabNumber}}" data-toggle="tab">Forums</a></li>
+					<ul class="nav nav-pills nav-pills-success flex-column">
+						<li class="nav-item"><a class="nav-link active rounded-0" href="#announce{{tabNumber}}" data-toggle="tab">Announcement</a></li>
+						<li class="nav-item"><a class="nav-link rounded-0" href="#forums{{tabNumber}}" data-toggle="tab">Forums</a></li>
 					</ul>
 				</div>
 				<div class="col-md-10">
@@ -601,10 +627,11 @@
 								<br>
 								<div class="form-group">
 									<label class="text-dark">Announcement Text</label>
-									<textarea class="form-control announcement-text" placeholder="TYPE YOUR MESSAGE/NOTICE/ANNOUNCEMENT HERE" rows="5" name="message"></textarea>
+									<textarea class="form-control announcement-text" placeholder="TYPE YOUR MESSAGE/NOTICE/ANNOUNCEMENT HERE" rows="5"
+									 name="message"></textarea>
 								</div>
 								<div class="col-12">
-									<button class="btn btn-round btn-rose pull-right send-announcement-btn" type="button" data-tuition-id="{{_id}}">SEND</button>
+									<button class="btn btn-round btn-success pull-right send-announcement-btn" type="button" data-tuition-id="{{_id}}">SEND</button>
 								</div>
 							</div>
 						</div>
@@ -622,7 +649,7 @@
 											<textarea class="form-control" rows="5" placeholder="Enter Content" name="body"></textarea>
 										</div>
 										<div class="col-md-12">
-											<button type="submit" class="btn btn-round btn-rose float-right">ADD</button>
+											<button type="submit" class="btn btn-round btn-success float-right">ADD</button>
 										</div>
 									</div>
 								</div>
@@ -638,12 +665,12 @@
 		<div class="tab-pane" id="pill4{{tabNumber}}">
 			<div class="row m-0">
 				<div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
-					<ul class="nav nav-pills nav-pills-rose flex-column">
+					<ul class="nav nav-pills nav-pills-success flex-column">
 						<li class="nav-item">
-							<a class="nav-link active" href="#addSchedule{{tabNumber}}" data-toggle="tab">Add Schedule</a>
+							<a class="nav-link active rounded-0" href="#addSchedule{{tabNumber}}" data-toggle="tab">Add Schedule</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#scheduleReports{{tabNumber}}" data-toggle="tab">Reports</a>
+							<a class="nav-link rounded-0" href="#scheduleReports{{tabNumber}}" data-toggle="tab">Reports</a>
 						</li>
 					</ul>
 				</div>
@@ -664,13 +691,15 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="label-control">From Date</label>
-													<input type="text" name="from-date" class="form-control date-picker from-date" required data-tuition-id="{{_id}}" data-tuition-id="{{_id}}">
+													<input type="text" name="from-date" class="form-control date-picker from-date" required data-tuition-id="{{_id}}"
+													 data-tuition-id="{{_id}}">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="label-control">To Date</label>
-													<input name="to-date" type="text" class="form-control date-picker to-date" required data-tuition-id="{{_id}}" data-tuition-id="{{_id}}" disabled>
+													<input name="to-date" type="text" class="form-control date-picker to-date" required data-tuition-id="{{_id}}"
+													 data-tuition-id="{{_id}}" disabled>
 												</div>
 											</div>
 											<div class="col-md-12 add-schedule-container" data-tuition-id="{{_id}}">
@@ -703,7 +732,7 @@
 												</div>
 											</div>
 											<div class="col-md-12 justify-content-end mx-2">
-												<button class="btn btn-round btn-rose add-class-entry" data-tuition-id="{{_id}}">
+												<button class="btn btn-round btn-success add-class-entry" data-tuition-id="{{_id}}">
 													Add More Class
 												</button>
 											</div>
@@ -715,7 +744,7 @@
 													</div>
 												</form>
 												<div class="row justify-content-end mt-2">
-													<button class="btn btn-round btn-rose save-schedule-btn" type="button" data-tuition-id="{{_id}}">Save
+													<button class="btn btn-round btn-success save-schedule-btn" type="button" data-tuition-id="{{_id}}">Save
 														Schedule</button>
 												</div>
 											</div>
@@ -740,9 +769,9 @@
 		<div class="tab-pane" id="pill5{{tabNumber}}">
 			<div class="row m-0">
 				<div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
-					<ul class="nav nav-pills nav-pills-rose flex-column">
+					<ul class="nav nav-pills nav-pills-success flex-column">
 						<li class="nav-item">
-							<a class="nav-link active" href="#attandance{{tabNumber}}" data-toggle="tab">Mark
+							<a class="nav-link active rounded-0" href="#attandance{{tabNumber}}" data-toggle="tab">Mark
 								Attendance</a>
 						</li>
 					</ul>
@@ -796,8 +825,8 @@
 										</form>
 									</div>
 									<div class="row justify-content-end m-2">
-										<button class="btn btn-rose btn-round" disabled>NOTIFY</button>
-										<button class="btn btn-rose btn-round save-attendance-btn" type="button" data-tuition-id="{{_id}}">Save
+										<button class="btn btn-success btn-round" disabled>NOTIFY</button>
+										<button class="btn btn-success btn-round save-attendance-btn" type="button" data-tuition-id="{{_id}}">Save
 											Attendance</button>
 									</div>
 								</div>
