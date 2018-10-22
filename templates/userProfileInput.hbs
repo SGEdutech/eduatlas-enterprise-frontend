@@ -132,7 +132,8 @@
             </div>
             <div class="form-check form-check-radio ">
                 <label class="form-check-label">
-                    <input class="form-check-input" disabled type="radio" name="isMale" id="exampleRadios0" value="">
+                    <input class="form-check-input" type="radio" name="isMale" id="exampleRadios0" value="other"
+                        {{otherChecked}}>
                     Other
                     <span class="circle">
                         <span class="check"></span>
@@ -155,7 +156,7 @@
 
             <div class="form-check form-check-radio">
                 <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="primaryRole" id="exampleRadios3" value="Student"
+                    <input class="form-check-input" type="radio" name="primaryRole" id="exampleRadios3" value="student"
                         {{studentChecked}}>
                     Student
                     <span class="circle">
@@ -166,7 +167,18 @@
 
             <div class="form-check form-check-radio">
                 <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="primaryRole" id="exampleRadios5" value="Institute"
+                    <input class="form-check-input" type="radio" name="primaryRole" id="exampleRadios4" value="parent"
+                        {{parentChecked}}>
+                    Parent
+                    <span class="circle">
+                        <span class="check"></span>
+                    </span>
+                </label>
+            </div>
+
+            <div class="form-check form-check-radio">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="primaryRole" id="exampleRadios5" value="enterprise"
                         {{instituteChecked}}>
                     Institute
                     <span class="circle">

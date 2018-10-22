@@ -8,17 +8,28 @@ const instituteInfo = (() => {
 		$tabContainer = $('#tab-container');
 	}
 
-	async function renderPills(tuitionArr) {
+	async function renderPills(tuitionArr, ifJustPills) {
 		const instituteDataArr = tuitionArr;
 		for (let index = 0; index < instituteDataArr.length; index++) {
 			const element = instituteDataArr[index];
 			const tabNumber = (index + 1) * 10;
 			element.tabNumber = tabNumber;
-			renderCorrespondingTabs(element);
-			const shortName = element.name.substr(0, 7) + '..';
-			$navPillsList.append(`<li class="nav-item">
-                <a class="nav-link rounded-0" href="#tab${tabNumber}" data-toggle="tab">${shortName}</a>
+			if (ifJustPills === false) {
+				renderCorrespondingTabs(element);
+			}
+			let shortName = element.name;
+			if (element.name.length > 20) {
+				shortName = element.name.substr(0, 18) + '..';
+			}
+			if (ifJustPills === false) {
+				$navPillsList.append(`<li class="nav-item">
+                <a class="nav-link rounded-0 text-left" href="#tab${tabNumber}" data-toggle="tab">${shortName}</a>
                 </li>`);
+			} else {
+				$navPillsList.append(`<li class="nav-item">
+                <a class="nav-link rounded-0 text-left" href="/Dashboard-Pro.html?tab=${tabNumber}">${shortName}</a>
+                </li>`);
+			}
 		}
 	}
 
@@ -81,9 +92,9 @@ const instituteInfo = (() => {
 		}
 	}
 
-	function init(tuitionArr) {
+	function init(tuitionArr, ifJustPills = false) {
 		cache();
-		renderPills(tuitionArr);
+		renderPills(tuitionArr, ifJustPills);
 	}
 
 	return { init };
