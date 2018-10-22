@@ -31,13 +31,10 @@ const userApiCalls = (() => {
 	}
 
 	function getSpecificUser(idenfifierObj) {
-		if (!checkForHexRegExp.test(idenfifierObj._id)) {
-			console.error("Not a valid _id Of User");
-		}
 		return $.ajax({
-			type: "GET",
-			url: `/user`,
-			data: idenfifierObj,
+			type: 'GET',
+			url: '/user',
+			data: idenfifierObj
 		});
 	}
 
@@ -156,7 +153,7 @@ const userApiCalls = (() => {
 		return $.ajax({
 			type: "DELETE",
 			url: `/user/${idOfUser}`,
-			data: bodyObj,
+			data: bodyObj
 		});
 	}
 

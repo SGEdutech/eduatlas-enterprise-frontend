@@ -13,6 +13,38 @@ const student = (() => {
 	let $discountAmount;
 	let $feeCollected;
 	let $balancePending;
+	let $eaIdInput;
+	let $studentNameInp;
+	let $studentEmailInp;
+	let $studentAddressInp;
+	let $studentNumberInp;
+
+	function _indexOfAlphabet(char) {
+		if (char === undefined) return -1;
+		if (char.length !== 1) throw new Error('Character must be of length 1');
+		char = char.toLowerCase();
+		return char.charCodeAt(0) - 97;
+	}
+
+	function eAIdToNumber(eAId) {
+		if (eAId === undefined) throw new Error('EA id not provided');
+		if (typeof eAId !== 'string') throw new Error('Type of EA id is not string');
+		if (eAId.length !== 8) throw new Error('Invalid EA id');
+
+		const str = eAId.substr(0, 3);
+		const num = parseInt(eAId.substr(3), 10);
+		let alphabetMultiplier = 0;
+
+		for (let i = 0; i < str.length; i++) {
+			const base = str.length - (i + 1);
+			const char = str.charAt(i);
+			const indexOfChar = _indexOfAlphabet(char);
+			alphabetMultiplier += Math.pow(26, base) * indexOfChar;
+		}
+
+		const stringImpact = 99999 * alphabetMultiplier;
+		return stringImpact + num;
+	}
 
 	async function deleteStudent(event) {
 		try {
@@ -31,7 +63,6 @@ const student = (() => {
 	async function editStudent(tuitionId, studentId) {
 		try {
 			const editedData = modal.serializeForm();
-			// TODO: Replace with tuition API calls
 			console.log(tuitionId);
 			const editedStudent = await tuitionApiCalls.editStudentInTuition(tuitionId, studentId, editedData);
 			modal.hideModal();
@@ -50,6 +81,7 @@ const student = (() => {
 		const tuitionId = $editBtn.attr('data-tuition-id');
 		const studentId = $editBtn.attr('data-student-id');
 		const studentInfo = studentsArr.find(studentToBeEdited => studentToBeEdited._id === studentId);
+		studentInfo.nextInstallment = studentInfo.nextInstallment.split('T')[0];
 		const editStudentInputHTML = template.studentEditInputs(studentInfo);
 		modal.renderFormContent(editStudentInputHTML);
 		modal.bindSubmitEvent(() => editStudent(tuitionId, studentId));
@@ -120,6 +152,30 @@ const student = (() => {
 		});
 	}
 
+	async function fetchAndRenderUserInfoFromEaId() {
+		try {
+			const eAIdRegex = new RegExp('^[a-zA-z]{3}\\d{5}$', 'i');
+			if (eAIdRegex.test($eaIdInput.val())) {
+				const eANumber = eAIdToNumber($eaIdInput.val());
+				const userInfo = await userApiCalls.getSpecificUser({ eANumber })
+				if (userInfo.firstName) $studentNameInp.val(userInfo.firstName);
+				if (userInfo.middleName) $studentNameInp.val(`${$studentNameInp.val()} ${userInfo.middleName}`);
+				if (userInfo.lastName) $studentNameInp.val(`${$studentNameInp.val()} ${userInfo.lastName}`);
+
+				if (userInfo.primaryEmail) $studentEmailInp.val(userInfo.primaryEmail);
+				if (userInfo.phone) $studentNumberInp.val(userInfo.phone);
+
+				if (userInfo.addressLine1) $studentAddressInp.val(userInfo.addressLine1);
+				if (userInfo.addressLine2) $studentAddressInp.val(`${$studentAddressInp.val()} ${userInfo.addressLine2}`);
+				if (userInfo.city) $studentAddressInp.val(`${$studentAddressInp.val()} ${userInfo.city}`);
+				if (userInfo.state) $studentAddressInp.val(`${$studentAddressInp.val()} ${userInfo.state}`);
+				if (userInfo.pin) $studentAddressInp.val(`${$studentAddressInp.val()} ${userInfo.pin}`);
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
 	function cache() {
 		$addStudentForm = $('.add-student-form');
 		$studentContainer = $('.student-container');
@@ -130,6 +186,11 @@ const student = (() => {
 		$discountAmount = $('.student-discount-amount');
 		$feeCollected = $('.student-fee-colected');
 		$balancePending = $('.student-balance-pending');
+		$eaIdInput = $('.ea-id-inp');
+		$studentNameInp = $('.student-name-inp');
+		$studentEmailInp = $('.student-email-inp');
+		$studentAddressInp = $('.student-address-inp');
+		$studentNumberInp = $('.student-phone-inp');
 	}
 
 	function bindevents() {
@@ -142,6 +203,7 @@ const student = (() => {
 		$discountAmount.blur(renderNetFee);
 		$discountAmount.blur(renderBalancePending);
 		$feeCollected.blur(renderBalancePending);
+		$eaIdInput.blur(fetchAndRenderUserInfoFromEaId);
 	}
 
 	function cacheDynamic() {

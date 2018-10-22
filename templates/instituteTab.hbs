@@ -250,17 +250,21 @@
 										<div class="row">
 											<div class="col-md-12">
 												<h4 class="card-title">EA Id</h4>
-												<input name="eduatlasId" type="text" placeholder="EA Membership number" class="form-control" disabled>
+												<input name="eduatlasId" type="text" placeholder="EA Membership number" class="form-control ea-id-inp">
 												<h4 class="card-title">Compulsory Fields</h4>
 												<div class="row">
 													<div class="col-md-4">
+														<label class="bmd-label-floating">Student Roll No.</label>
 														<input name="rollNumber" type="text" placeholder="Student Roll No." class="form-control" required>
 													</div>
 													<div class="col-md-4">
-														<input name="name" type="text" placeholder="Student Name" class="form-control" required>
+														<label class="bmd-label-floating">Student Name</label>
+														<input name="name" type="text" placeholder="Student Name" class="form-control student-name-inp" required>
 													</div>
 													<div class="col-md-4">
-														<input name="email" type="text" placeholder="Student E-mail" class="form-control" required>
+														<label class="bmd-label-floating">Student E-mail</label>
+														<input name="email" type="email" placeholder="Student E-mail" class="form-control student-email-inp"
+														 required>
 													</div>
 												</div>
 											</div>
@@ -268,10 +272,12 @@
 												<h4 class="card-title">Additional Fields</h4>
 												<div class="row">
 													<div class="col-md-6">
-														<input name="address" type="text" placeholder="Address" class="form-control">
+														<label class="bmd-label-floating">Address</label>
+														<input name="address" type="text" placeholder="Address" class="form-control student-address-inp">
 													</div>
 													<div class="col-md-6">
-														<input name="contactNumber" type="text" placeholder="Contact No." class="form-control">
+														<label class="bmd-label-floating">Contact No.</label>
+														<input name="contactNumber" type="text" placeholder="Contact No." class="form-control student-phone-inp">
 													</div>
 												</div>
 											</div>
@@ -297,12 +303,12 @@
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="discount_amount" class="bmd-label-floating">Discount Amount</label>
-														<input id="discount_amount" type="number" placeholder="Discount Amount" class="form-control student-discount-amount"
+														<input id="discount_amount" name="discountAmount" type="number" placeholder="Discount Amount" class="form-control student-discount-amount"
 														 data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="discount_reason" class="bmd-label-floating">Discount Reason</label>
-														<input id="discount_reason" type="text" placeholder="Discount Reason" class="form-control">
+														<input id="discount_reason"  name="discountReason" type="text" placeholder="Discount Reason" class="form-control">
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="net_fee" class="bmd-label-floating">Net Fee</label>
@@ -311,12 +317,12 @@
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="fee_collected" class="bmd-label-floating">Fee Collected</label>
-														<input id="fee_collected" type="number" placeholder="Fee Collected" class="form-control student-fee-colected"
+														<input id="fee_collected" name="feeCollected" type="number" placeholder="Fee Collected" class="form-control student-fee-colected"
 														 data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="mode_of_payment" class="bmd-label-floating">Mode Of Payment</label>
-														<input id="mode_of_payment" type="text" placeholder="Mode Of Payment" class="form-control">
+														<input id="mode_of_payment" name="modeOfPayment" type="text" placeholder="Mode Of Payment" class="form-control">
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="balance_pending" class="bmd-label-floating">Balance Pending</label>
@@ -325,7 +331,7 @@
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="next_install" class="bmd-label-floating">Next Installment Date</label>
-														<input id="next_install" type="date" placeholder="Next installment date" class="form-control">
+														<input id="next_install" name="nextInstallment" type="date" placeholder="Next installment date" class="form-control">
 													</div>
 													<div class="col-md-12 mt-3">
 														<button class="btn btn-round btn-success float-right">ADD
