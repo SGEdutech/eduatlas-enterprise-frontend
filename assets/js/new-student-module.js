@@ -56,9 +56,14 @@ const student = (() => {
 		modal.showModal();
 	}
 
+	function alertForMoreOrLessFeeCollected() {
+		if ($balancePending.val() < 0) alert('You are collecting more fee than necessary!');
+	}
+
 	async function addStudent(event) {
 		try {
 			event.preventDefault();
+			alertForMoreOrLessFeeCollected();
 			const $form = $(event.target);
 			const tuitionId = $form.attr('data-id');
 			const newStudent = await tuitionApiCalls.putStudentInTuition(tuitionId, $form.serialize());
