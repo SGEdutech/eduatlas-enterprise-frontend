@@ -81,7 +81,7 @@ const student = (() => {
 		const tuitionId = $editBtn.attr('data-tuition-id');
 		const studentId = $editBtn.attr('data-student-id');
 		const studentInfo = studentsArr.find(studentToBeEdited => studentToBeEdited._id === studentId);
-		studentInfo.nextInstallment = studentInfo.nextInstallment.split('T')[0];
+		if (studentInfo.nextInstallment) studentInfo.nextInstallment = studentInfo.nextInstallment.split('T')[0];
 		const editStudentInputHTML = template.studentEditInputs(studentInfo);
 		modal.renderFormContent(editStudentInputHTML);
 		modal.bindSubmitEvent(() => editStudent(tuitionId, studentId));
