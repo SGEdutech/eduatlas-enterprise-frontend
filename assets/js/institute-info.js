@@ -17,7 +17,7 @@ const instituteInfo = (() => {
 			renderCorrespondingTabs(element);
 			const shortName = element.name.substr(0, 7) + '..';
 			$navPillsList.append(`<li class="nav-item">
-                <a class="nav-link" href="#tab${tabNumber}" data-toggle="tab">${shortName}</a>
+                <a class="nav-link rounded-0" href="#tab${tabNumber}" data-toggle="tab">${shortName}</a>
                 </li>`);
 		}
 	}
