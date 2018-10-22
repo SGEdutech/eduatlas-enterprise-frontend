@@ -1,5 +1,5 @@
 const redirectTabs = (() => {
-	let $addTuitionTab, $addSchoolTab, $addEventTab, $secondStepTuition, $secondStepSchool;
+	let $addTuitionTab, $addSchoolTab, $addEventTab, $secondStepTuition, $secondStepSchool, $editProfile;
 
 	function cache() {
 		$addTuitionTab = $('.nav-item a[href="#tab6"]');
@@ -7,6 +7,7 @@ const redirectTabs = (() => {
 		$addEventTab = $('.nav-item a[href="#tab8"]');
 		$secondStepTuition = $('.nav-item a[href="#tab2"]');
 		$secondStepSchool = $('.nav-item a[href="#tab2"]');
+		$editProfile = $('.nav-item a[href="#tab3"]');
 	}
 
 	function showTab(queryObject) {
@@ -19,7 +20,11 @@ const redirectTabs = (() => {
 		} else if (queryObject.tab === '2ndStepTuition') {
 			$secondStepTuition.tab('show');
 		} else if (queryObject.tab === '2ndStepSchool') {
-			$secondStepTuition.tab('show');
+			$secondStepSchool.tab('show');
+		} else if (queryObject.tab === 'editProfile') {
+			$editProfile.tab('show');
+		} else {
+			$(`.nav-item a[href="#tab${queryObject.tab}"]`).tab('show');
 		}
 	}
 

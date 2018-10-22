@@ -3,11 +3,8 @@ PubSub.subscribe('user', (msg, userInfo) => {
 	redirectOnLogout.init(userInfo);
 });
 
-PubSub.subscribeOnce('query', (msg, queryObj) => {
-	redirectTabs.init(queryObj);
-});
-
 user.getInfo().then(userInfo => {
+	userImgAndName.init(userInfo);
 	modal.init();
 	navigationBar.init(userInfo, { colorOnScroll: false });
 	userClaimed.init(userInfo);
@@ -38,6 +35,7 @@ async function initModules() {
 		attendance.init(claimedBatches, claimedStudents);
 		forum.init(claimedForums);
 		announcement.init(claimedBatches, claimedStudents);
+		redirectTabs.init(queryString.loadQueryString());
 	} catch (err) {
 		console.error(err);
 	}
@@ -46,5 +44,4 @@ async function initModules() {
 initModules();
 
 setTimeout(loginModal.init());
-setTimeout(queryString.loadQueryString());
 // setTimeout(promoterModal.init());
