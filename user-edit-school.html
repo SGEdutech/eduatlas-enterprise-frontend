@@ -47,44 +47,64 @@
 <body style="height: 2000px">
 
 	<div id="nav_container">
-
 	</div>
 
 	<div id="secondary_info" class="container-fluid mt-5">
 		<div class="row">
 			<div class="col-md-2 m-0">
-				<div class="card">
-					<div class="card-body p-0">
-						<ul class="nav nav-pills nav-pills-info flex-column">
-							<li class="nav-item">
-								<a class="nav-link disabled" data-toggle="tab">Edit Tuition</a>
-							</li>
-							<hr>
-							<li class="nav-item">
-								<a class="nav-link active" href="#tab1" data-toggle="tab"> Description</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#tab2" data-toggle="tab">Contact Us</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#tab3" data-toggle="tab">Activities</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#tab7" data-toggle="tab">Admission Details</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#tab4" data-toggle="tab">Results</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#tab5" data-toggle="tab">Faculty</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#tab6" data-toggle="tab">Gallery</a>
-							</li>
-						</ul>
-						<!--<hr>-->
+				<div class="card text-center">
+					<div class="card-body">
+						<div class="fileinput fileinput-new text-center">
+							<div class="fileinput-new thumbnail img-raised">
+								<img id="profile_pic" alt="User Profile Pic" src="/assets/img/logo.png">
+							</div>
+						</div>
+						<div class="card-subtitle text-info h5 my-0" id="ea_id_container"></div>
+						<div class="card-subtitle text-muted h5 text-capitalize my-0" id="userIdContainer"></div>
+						<a id="user_edit_profile" class="btn btn-outline-info btn-sm" href="/Dashboard-Pro.html?tab=editProfile">Edit User Profile</a>
 					</div>
 				</div>
+				<div class="card">
+					<div class="card-body p-0">
+						<ul class="nav nav-pills nav-pills-info flex-column p-0" id="nav-pills-list">
+							<li class="nav-item">
+								<a class="nav-link rounded-0 text-left" href="/Dashboard-Pro.html"> Dashboard</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link rounded-0 disabled text-left text-info font-weight-bold" style="background-color: rgba(200, 200, 200, 0.2)">
+									My Listings
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<ul class="nav nav-pills nav-pills-info flex-column d-none">
+					<li class="nav-item">
+						<a class="nav-link disabled" data-toggle="tab">Edit Tuition</a>
+					</li>
+					<hr>
+					<li class="nav-item">
+						<a class="nav-link active" href="#tab1" data-toggle="tab"> Description</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#tab2" data-toggle="tab">Contact Us</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#tab3" data-toggle="tab">Activities</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#tab7" data-toggle="tab">Admission Details</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#tab4" data-toggle="tab">Results</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#tab5" data-toggle="tab">Faculty</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#tab6" data-toggle="tab">Gallery</a>
+					</li>
+				</ul>
 			</div>
 			<div class="col-md-10 m-0">
 				<div class="card">
@@ -616,12 +636,14 @@
 
 	<script src="assets/js/ajax-calls/user-api-calls.js"></script>
 	<script src="assets/js/ajax-calls/school-api-calls.js"></script>
+	<script src="assets/js/ajax-calls/tuition-api-calls.js"></script>
 	<script src="assets/js/navbar.js"></script>
 	<script src="assets/js/scripts.js"></script>
 	<script src="assets/js/user.js"></script>
 	<script src="assets/js/cover-image.js"></script>
 	<script src="assets/js/basic-details.js"></script>
 	<script src="assets/js/facilities-description-category.js"></script>
+	<script src="assets/js/dashboard-name-and-img.js"></script>
 	<script src="assets/js/contact-us-tab.js"></script>
 	<script src="assets/js/activities-tab.js"></script>
 	<script src="assets/js/admission-details.js"></script>
@@ -631,6 +653,7 @@
 	<script src="assets/js/get-details.js"></script>
 	<script src="assets/js/redirect-on-logout.js"></script>
 	<script src="assets/js/redirect-tabs.js"></script>
+	<script src="assets/js/institute-info.js"></script>
 	<script src="assets/js/query-string.js"></script>
 	<script src="assets/js/edit-school-service.js"></script>
 	<!-- endbuild -->

@@ -17,6 +17,13 @@ const eventApiCalls = (() => {
 		});
 	}
 
+	function getAllClaimedEvents() {
+		return $.ajax({
+			type: 'GET',
+			url: '/event/claimed'
+		});
+	}
+
 	function getSpecificEvent(idenfifierObj = {}) {
 		return $.ajax({
 			type: "GET",
@@ -174,6 +181,7 @@ const eventApiCalls = (() => {
 	return {
 		getSpecificEvent,
 		getAllEvents,
+		getAllClaimedEvents,
 		searchEvents,
 		putInArrayInEvent,
 		putNewEvent,

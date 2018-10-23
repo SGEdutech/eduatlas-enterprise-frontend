@@ -52,6 +52,18 @@
 	<div id="secondary_info" class="container-fluid mt-5">
 		<div class="row">
 			<div class="col-md-2 m-0">
+				<div class="card text-center">
+					<div class="card-body">
+						<div class="fileinput fileinput-new text-center">
+							<div class="fileinput-new thumbnail img-raised">
+								<img id="profile_pic" alt="User Profile Pic" src="/assets/img/logo.png">
+							</div>
+						</div>
+						<div class="card-subtitle text-info h5 my-0" id="ea_id_container"></div>
+						<div class="card-subtitle text-muted h5 text-capitalize my-0" id="userIdContainer"></div>
+						<a id="user_edit_profile" class="btn btn-outline-info btn-sm" href="/Dashboard-Pro.html?tab=editProfile">Edit User Profile</a>
+					</div>
+				</div>
 				<div class="card">
 					<div class="card-body p-0">
 						<ul class="nav nav-pills nav-pills-info flex-column p-0" id="nav-pills-list">
@@ -59,57 +71,37 @@
 								<a class="nav-link rounded-0 text-left" href="/Dashboard-Pro.html"> Dashboard</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link rounded-0 text-left" href="/Dashboard-Pro.html?tab=editProfile"> Edit Profile</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link rounded-0 disabled text-left text-info" style="background-color: rgba(200, 200, 200, 0.2)" data-toggle="tab">
-									Add
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link rounded-0 text-left" href="/Dashboard-Pro.html?tab=addTuition">Tuition</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link rounded-0 text-left" href="/Dashboard-Pro.html?tab=addSchool">School</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link rounded-0 text-left" href="/Dashboard-Pro.html?tab=addEvent">Event</a>
-							</li>
-							<li class="nav-item">
 								<a class="nav-link rounded-0 disabled text-left text-info font-weight-bold" style="background-color: rgba(200, 200, 200, 0.2)">
 									My Listings
 								</a>
 							</li>
-							<!-- <li class="nav-item">
-										<a class="nav-link" href="#testprdt" data-toggle="tab">Test Item</a>
-									</li> -->
 						</ul>
-						<!-- <ul class="nav nav-pills nav-pills-info flex-column">
-							<li class="nav-item">
-								<a class="nav-link disabled" data-toggle="tab">Edit Tuition</a>
-							</li>
-							<hr>
-							<li class="nav-item">
-								<a class="nav-link active" href="#tab1" data-toggle="tab"> Description</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#tab2" data-toggle="tab">Contact Us</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#tab3" data-toggle="tab">Courses</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#tab4" data-toggle="tab">Results</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#tab5" data-toggle="tab">Faculty</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#tab6" data-toggle="tab">Gallery</a>
-							</li>
-						</ul> -->
 					</div>
 				</div>
+				<ul class="nav nav-pills nav-pills-info flex-column d-none">
+					<li class="nav-item">
+						<a class="nav-link disabled" data-toggle="tab">Edit Tuition</a>
+					</li>
+					<hr>
+					<li class="nav-item">
+						<a class="nav-link active" href="#tab1" data-toggle="tab"> Description</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#tab2" data-toggle="tab">Contact Us</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#tab3" data-toggle="tab">Courses</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#tab4" data-toggle="tab">Results</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#tab5" data-toggle="tab">Faculty</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#tab6" data-toggle="tab">Gallery</a>
+					</li>
+				</ul>
 			</div>
 
 			<div class="col-md-10 m-0">
@@ -130,74 +122,6 @@
 								<form id="aboutUsForm">
 
 									<div id="basicContainer">
-										<!--<script id="basicInput" type="text/x-handlebars-template">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h2 class="card-title h3">Basic Details:</h2>
-                                            <div class="row align-items-center">
-                                                <div class="col-md-3">
-                                                    <h6>Institute Name</h6>
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <input id="tName" value="{{name}}" class="form-control" type="text"
-                                                           name="name">
-                                                </div>
-
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="row">
-                                                        <h6>Address</h6>
-                                                    </div>
-                                                    <div class="row form-group">
-                                                        <label for="al1">Address Line 1</label>
-                                                        <input class="form-control" value="{{addressLine1}}" type="text"
-                                                               id="al1" name="addressLine1">
-                                                    </div>
-                                                    <div class="row form-group">
-                                                        <label for="al2">Address Line 2</label>
-                                                        <input class="form-control" value="{{addressLine2}}" type="text"
-                                                               id="al2" name="addressLine2">
-                                                    </div>
-                                                    <div class="row form-group">
-                                                        <label for="city">City</label>
-                                                        <input class="form-control" value="{{city}}" type="text"
-                                                               id="city"
-                                                               name="city">
-                                                    </div>
-                                                    <div class="row form-group">
-                                                        <label for="dist">District</label>
-                                                        <input class="form-control" value="{{district}}" type="text"
-                                                               id="dist"
-                                                               name="district">
-                                                    </div>
-                                                    <div class="row form-group">
-                                                        <label for="state">State</label>
-                                                        <input class="form-control" value="{{state}}" type="text"
-                                                               id="state"
-                                                               name="state">
-                                                    </div>
-                                                    <div class="row form-group">
-                                                        <label for="country">Country</label>
-                                                        <input class="form-control" value="{{country}}" type="text"
-                                                               id="country"
-                                                               name="country">
-                                                    </div>
-                                                    <div class="row form-group">
-                                                        <label for="pin">Pin</label>
-                                                        <input class="form-control" value="{{pin}}" type="number"
-                                                               id="pin"
-                                                               name="pin">
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </script>-->
 									</div>
 
 									<div class="card">
@@ -228,7 +152,6 @@
 										</div>
 									</div>
 
-									<!-- not tested-->
 									<div class="card">
 										<div class="card-body">
 											<h2 class="card-title h3">Add/Change Cover Pic</h2>
@@ -253,7 +176,6 @@
 									</div>
 
 								</form>
-								<!-- pass id of form to saveDetails function for AJAX put req -->
 								<button id="save_basic_details_btn" class="btn btn-info btn-round">Save
 								</button>
 								<button id="save_proceed_basic_details_btn" class="btn btn-info btn-round">Save And Proceed
@@ -685,6 +607,7 @@
 	<script src="assets/js/cover-image.js"></script>
 	<script src="assets/js/basic-details.js"></script>
 	<script src="assets/js/facilities-description-category.js"></script>
+	<script src="assets/js/dashboard-name-and-img.js"></script>
 	<script src="assets/js/contact-us-tab.js"></script>
 	<script src="assets/js/courses-tab.js"></script>
 	<script src="assets/js/results-tab.js"></script>

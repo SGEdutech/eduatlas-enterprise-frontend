@@ -1,18 +1,17 @@
 PubSub.subscribe('user', (msg, userInfo) => {
-    navigationBar.render(userInfo);
-    redirectOnLogout.init(userInfo);
+	navigationBar.render(userInfo);
+	redirectOnLogout.init(userInfo);
 });
 
-PubSub.subscribeOnce('query.load', (msg, queryObject) => {
-    getDetails.returnData('event', queryObject).then((eventInfo) => {
-        // coverImage.init('event', eventInfo);
-        eventDetails.init(eventInfo);
-        galleryTab.init('event', eventInfo);
-    });
+
+const queryObject = queryString.loadQueryString();
+getDetails.returnData('event', queryObject).then((eventInfo) => {
+	// coverImage.init('event', eventInfo);
+	eventDetails.init(eventInfo);
+	galleryTab.init('event', eventInfo);
 });
 
 user.getInfo().then(userInfo => {
-    navigationBar.init(userInfo);
+	navigationBar.init(userInfo);
+	userImgAndName.init(userInfo);
 });
-
-queryString.loadQueryString();

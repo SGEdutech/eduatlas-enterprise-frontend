@@ -23,6 +23,13 @@ function getAllSchools(skip = 0, limit = 0, demands) {
         });
     }
 
+    function getAllClaimedSchools() {
+		return $.ajax({
+			type: 'GET',
+			url: '/school/claimed'
+		});
+	}
+
     function searchSchools(skip = 0, limit = 0, sortBy, demands, extraInfoObj = {}) {
         let basicData = {
             skip: skip,
@@ -192,6 +199,7 @@ function getAllSchools(skip = 0, limit = 0, demands) {
 
     return {
         getAllSchools,
+        getAllClaimedSchools,
         getSpecificSchool,
         searchSchools,
         putInArrayInSchool,

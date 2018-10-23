@@ -24,6 +24,7 @@ try {
 
 	user.getInfo().then(userInfo => {
 		navigationBar.init(userInfo);
+		userImgAndName.init(userInfo);
 	});
 } catch (error) {
 	console.error(error);

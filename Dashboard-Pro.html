@@ -45,41 +45,25 @@
 							<img id="profile_pic" alt="User Profile Pic" src="/assets/img/logo.png">
 						</div>
 					</div>
-					<div class="card-subtitle text-muted h5 text-capitalize" id="userIdContainer"></div>
-					<div class="card-subtitle text-info h5" id="ea_id_container"></div>
+					<div class="card-subtitle text-info h5 my-0" id="ea_id_container"></div>
+					<div class="card-subtitle text-muted h5 text-capitalize my-0" id="userIdContainer"></div>
+					<button id="user_edit_profile" class="btn btn-outline-info btn-sm">Edit User Profile</button>
 				</div>
 			</div>
 			<div class="card">
 				<div class="card-body p-0">
 					<ul class="nav nav-pills nav-pills-info flex-column p-0" id="nav-pills-list">
 						<li class="nav-item">
-							<a class="nav-link rounded-0 text-left active" href="#tab2" data-toggle="tab"> Dashboard</a>
+							<a class="nav-link rounded-0 text-left active dashboard-nav-pills" href="#tab2" data-toggle="tab"> Dashboard</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link rounded-0 text-left" href="#tab3" data-toggle="tab"> Edit Profile</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link rounded-0 disabled text-left text-info" style="background-color: rgba(200, 200, 200, 0.2)" data-toggle="tab">
-								Add
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link rounded-0 text-left" href="#tab6" data-toggle="tab">Tuition</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link rounded-0 text-left" href="#tab7" data-toggle="tab">School</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link rounded-0 text-left" href="#tab8" data-toggle="tab">Event</a>
+						<li class="nav-item d-none">
+							<a class="nav-link rounded-0 text-left dashboard-nav-pills" href="#tab3" data-toggle="tab"> Edit User Profile</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link rounded-0 disabled text-left text-info font-weight-bold" data-toggle="tab"  style="background-color: rgba(200, 200, 200, 0.2)">
 								My Listings
 							</a>
 						</li>
-						<!-- <li class="nav-item">
-							<a class="nav-link" href="#testprdt" data-toggle="tab">Test Item</a>
-						</li> -->
 					</ul>
 				</div>
 			</div>
@@ -955,6 +939,7 @@
 	<script src="assets/js/new-attendance-module.js"></script>
 	<script src="assets/js/new-forum-module.js"></script>
 	<script src="assets/js/new-announcement-module.js"></script>
+	<script src="assets/js/trigger-pills-module.js"></script>
 	<script src="assets/js/date-time-picker-module.js"></script>
 
 	<script src="assets/js/dashboard-pro-service.js"></script>
