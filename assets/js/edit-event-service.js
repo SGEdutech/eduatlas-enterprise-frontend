@@ -11,6 +11,10 @@ getDetails.returnData('event', queryObject).then((eventInfo) => {
 	galleryTab.init('event', eventInfo);
 });
 
+tuitionApiCalls.getAllClaimedTuitions().then(claimedInstitute => {
+    instituteInfo.init(claimedInstitute, true);
+})
+
 user.getInfo().then(userInfo => {
 	navigationBar.init(userInfo);
 	userImgAndName.init(userInfo);
