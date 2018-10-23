@@ -9,6 +9,13 @@ const course = (() => {
 	let $gstInp;
 	let $totalFee;
 
+	function calcTotalFee(fee, gstPercentage) {
+		if (fee === undefined) throw new Error('Fee not provided!');
+		gstPercentage = gstPercentage || 0;
+
+		return fee + fee * (gstPercentage / 100);
+	}
+
 	function cache() {
 		$addCourseForm = $('.add_course_form');
 		$courseContainers = $('.active-course-container');
@@ -38,9 +45,9 @@ const course = (() => {
 			modal.hideModal();
 			console.log('Course was successfully edited');
 			editedCourse.tuitionId = tuitionId;
-			const newCourseArr = coursesArr.map(courseObj => courseObj._id === courseId ? editedCourse : courseObj)
+			coursesArr = coursesArr.map(courseObj => courseObj._id === courseId ? editedCourse : courseObj)
 			PubSub.publish('course.edit', editedCourse);
-			refresh(newCourseArr);
+			refresh();
 		} catch (err) {
 			console.error(err);
 		}
@@ -57,9 +64,9 @@ const course = (() => {
 			const courseId = $deleteBtn.attr('data-course-id');
 			const deletedTuition = await submitDeleteRequest(tuitionId, courseId);
 			console.log('Tuition was successfully deleted');
-			newCourseArr = coursesArr.filter(courseObj => courseObj._id !== courseId);
+			coursesArr = coursesArr.filter(courseObj => courseObj._id !== courseId);
 			PubSub.publish('course.delete', deletedTuition);
-			refresh(newCourseArr);
+			refresh();
 		} catch (err) {
 			console.error(err);
 		}
@@ -126,19 +133,23 @@ const course = (() => {
 		$deleteButton.click(deleteCourse);
 	}
 
+	function injectTotalFees(arrayOfCourses) {
+		arrayOfCourses.forEach(courseObj => courseObj.totalFee = calcTotalFee(courseObj.fees, courseObj.gstPercentage));
+	}
+
 	function render() {
 		$courseContainers.each((__, container) => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
 
 			const coursesOfThisTuition = coursesArr.filter(courseObj => courseObj.tuitionId === tuitionId);
+			injectTotalFees(coursesOfThisTuition);
 			const cardsHtml = template.courseCard({ courses: coursesOfThisTuition });
 			$container.html(cardsHtml);
 		});
 	}
 
-	function refresh(courses) {
-		if (courses) coursesArr = courses;
+	function refresh() {
 		render();
 		cacheDynamic();
 		bindDynamicEvents();
