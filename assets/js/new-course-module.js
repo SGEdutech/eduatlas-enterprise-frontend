@@ -77,6 +77,7 @@ const course = (() => {
 		const tuitionId = $editBtn.attr('data-tuition-id');
 		const courseId = $editBtn.attr('data-course-id');
 		const courseInfo = coursesArr.find(courseToBeEdited => courseToBeEdited._id === courseId);
+		courseInfo.tatalFee = calcTotalFee(courseInfo.fees, courseInfo.gstPercentage);
 		const editCourseInputHTML = template.courseEditInputs(courseInfo);
 		modal.renderFormContent(editCourseInputHTML);
 		modal.bindSubmitEvent(() => editCourse(tuitionId, courseId));
@@ -118,7 +119,7 @@ const course = (() => {
 		let gstPercentage = $gstInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
 		courseFee = parseInt(courseFee, 10) || 0;
 		gstPercentage = parseInt(gstPercentage, 10) || 0;
-		const totalFee = courseFee + courseFee * (gstPercentage / 100);
+		const totalFee = calcTotalFee(courseFee, gstPercentage);
 		$totalFee.filter(`[data-tuition-id="${tuitionId}"]`).val(totalFee);
 	}
 
