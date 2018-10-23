@@ -13,11 +13,14 @@ const student = (() => {
 	let $discountAmount;
 	let $feeCollected;
 	let $balancePending;
-	let $eaIdInput;
 	let $studentNameInp;
 	let $studentEmailInp;
 	let $studentAddressInp;
 	let $studentNumberInp;
+	let $eAIdModalTriggerBtn;
+	let $eAIdModal;
+	let $eAIdInp;
+	let $eASuceedBtn;
 
 	async function deleteStudent(event) {
 		try {
@@ -125,28 +128,44 @@ const student = (() => {
 		});
 	}
 
-	async function fetchAndRenderUserInfoFromEaId() {
+	function populateStudentInfo(userInfo, tuitionId) {
+		if (userInfo.firstName) $studentNameInp.filter(`[data-tuition-id="${tuitionId}"]`).val(userInfo.firstName);
+		if (userInfo.middleName) $studentNameInp.filter(`[data-tuition-id="${tuitionId}"]`).val(`${$studentNameInp.filter(`[data-tuition-id="${tuitionId}"]`).val()} ${userInfo.middleName}`);
+		if (userInfo.lastName) $studentNameInp.filter(`[data-tuition-id="${tuitionId}"]`).val(`${$studentNameInp.filter(`[data-tuition-id="${tuitionId}"]`).val()} ${userInfo.lastName}`);
+
+		if (userInfo.primaryEmail) $studentEmailInp.filter(`[data-tuition-id="${tuitionId}"]`).val(userInfo.primaryEmail);
+		if (userInfo.phone) $studentNumberInp.filter(`[data-tuition-id="${tuitionId}"]`).val(userInfo.phone);
+
+		if (userInfo.addressLine1) $studentAddressInp.filter(`[data-tuition-id="${tuitionId}"]`).val(userInfo.addressLine1);
+		if (userInfo.addressLine2) $studentAddressInp.filter(`[data-tuition-id="${tuitionId}"]`).val(`${$studentAddressInp.filter(`[data-tuition-id="${tuitionId}"]`).val()} ${userInfo.addressLine2}`);
+		if (userInfo.city) $studentAddressInp.filter(`[data-tuition-id="${tuitionId}"]`).val(`${$studentAddressInp.filter(`[data-tuition-id="${tuitionId}"]`).val()} ${userInfo.city}`);
+		if (userInfo.state) $studentAddressInp.filter(`[data-tuition-id="${tuitionId}"]`).val(`${$studentAddressInp.filter(`[data-tuition-id="${tuitionId}"]`).val()} ${userInfo.state}`);
+		if (userInfo.pin) $studentAddressInp.filter(`[data-tuition-id="${tuitionId}"]`).val(`${$studentAddressInp.filter(`[data-tuition-id="${tuitionId}"]`).val()} ${userInfo.pin}`);
+	}
+
+	async function fetchAndRenderUserInfoAndCloseModal(event) {
 		try {
 			const eAIdRegex = new RegExp('^[a-zA-z]{3}\\d{5}$', 'i');
-			if (eAIdRegex.test($eaIdInput.val())) {
-				const eANumber = eAIdsAndNumbers.eAIdToNumber($eaIdInput.val());
-				const userInfo = await userApiCalls.getSpecificUser({ eANumber })
-				if (userInfo.firstName) $studentNameInp.val(userInfo.firstName);
-				if (userInfo.middleName) $studentNameInp.val(`${$studentNameInp.val()} ${userInfo.middleName}`);
-				if (userInfo.lastName) $studentNameInp.val(`${$studentNameInp.val()} ${userInfo.lastName}`);
-
-				if (userInfo.primaryEmail) $studentEmailInp.val(userInfo.primaryEmail);
-				if (userInfo.phone) $studentNumberInp.val(userInfo.phone);
-
-				if (userInfo.addressLine1) $studentAddressInp.val(userInfo.addressLine1);
-				if (userInfo.addressLine2) $studentAddressInp.val(`${$studentAddressInp.val()} ${userInfo.addressLine2}`);
-				if (userInfo.city) $studentAddressInp.val(`${$studentAddressInp.val()} ${userInfo.city}`);
-				if (userInfo.state) $studentAddressInp.val(`${$studentAddressInp.val()} ${userInfo.state}`);
-				if (userInfo.pin) $studentAddressInp.val(`${$studentAddressInp.val()} ${userInfo.pin}`);
+			if (eAIdRegex.test($eAIdInp.val()) === false) {
+				alert('Not a valid EA ID!');
+				return
 			}
+			const tuitionId = $eASuceedBtn.attr('data-tuition-id');
+
+			const eANumber = eAIdsAndNumbers.eAIdToNumber($eAIdInp.val());
+			const userInfo = await userApiCalls.getSpecificUser({ eANumber });
+			populateStudentInfo(userInfo, tuitionId);
+			$eAIdModal.modal('hide');
 		} catch (error) {
 			console.error(error);
 		}
+	}
+
+	function initEAIdModal(event) {
+		$eAIdModal.modal('show');
+		const $btn = $(event.target);
+		const tuitionId = $btn.attr('data-tuition-id');
+		$eASuceedBtn.attr('data-tuition-id', tuitionId);
 	}
 
 	function cache() {
@@ -159,11 +178,14 @@ const student = (() => {
 		$discountAmount = $('.student-discount-amount');
 		$feeCollected = $('.student-fee-colected');
 		$balancePending = $('.student-balance-pending');
-		$eaIdInput = $('.ea-id-inp');
 		$studentNameInp = $('.student-name-inp');
 		$studentEmailInp = $('.student-email-inp');
 		$studentAddressInp = $('.student-address-inp');
 		$studentNumberInp = $('.student-phone-inp');
+		$eAIdModal = $('#ea_id_modal');
+		$eAIdInp = $('#ea_id_inp');
+		$eASuceedBtn = $('#get_student_details_btn');
+		$eAIdModalTriggerBtn = $('.ea-id-modal-trigger');
 	}
 
 	function cacheDynamic() {
@@ -181,7 +203,8 @@ const student = (() => {
 		$discountAmount.blur(renderNetFee);
 		$discountAmount.blur(renderBalancePending);
 		$feeCollected.blur(renderBalancePending);
-		$eaIdInput.blur(fetchAndRenderUserInfoFromEaId);
+		$eAIdModalTriggerBtn.click(initEAIdModal);
+		$eASuceedBtn.click(fetchAndRenderUserInfoAndCloseModal);
 	}
 
 	function bindDynamic() {

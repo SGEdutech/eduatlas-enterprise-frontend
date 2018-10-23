@@ -25,17 +25,16 @@ const instituteInfo = (() => {
 				$navPillsList.append(`<li class="nav-item">
                 <a class="nav-link rounded-0 text-left dashboard-nav-pills" href="#tab${tabNumber}" data-toggle="tab">${shortName}</a>
 				</li>`);
-
-				$navPillsList.append(template.addPillsDashboard());
 			} else {
 				$navPillsList.append(`<li class="nav-item">
                 <a class="nav-link rounded-0 text-left" href="/Dashboard-Pro.html?tab=${tabNumber}">${shortName}</a>
 				</li>`);
-
-				$navPillsList.append(template.addPillsEditPages());
 			}
-
-
+		}
+		if (ifJustPills === false) {
+			$navPillsList.append(template.addPillsDashboard());
+		} else {
+			$navPillsList.append(template.addPillsEditPages());
 		}
 	}
 
@@ -101,7 +100,7 @@ const instituteInfo = (() => {
 	function init(tuitionArr, ifJustPills = false) {
 		cache();
 		renderPills(tuitionArr, ifJustPills);
-		
+
 	}
 
 	return { init };
