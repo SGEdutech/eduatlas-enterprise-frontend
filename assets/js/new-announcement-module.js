@@ -70,12 +70,9 @@ const announcement = (() => {
 		$sendBtn.click(addNotification);
 	}
 
-	function deleteAnnouncement($element) {}
-
-	function addAnnouncement(form) {}
-
 	function refresh() {
-
+		render();
+		cacheDynamic();
 	}
 
 	function init(batchesArr, students) {
@@ -92,7 +89,6 @@ const announcement = (() => {
 		bindEvents();
 		render();
 		cacheDynamic();
-		// bindDynamic();
 	}
 
 	PubSub.subscribe('batch.add', (msg, addedBatch) => {
@@ -113,17 +109,17 @@ const announcement = (() => {
 		refresh();
 	});
 
-	PubSub.subscribe('students.add', (msg, studentAdded) => {
+	PubSub.subscribe('student.add', (msg, studentAdded) => {
 		studentsArr.push(studentAdded);
 		refresh();
 	});
 
-	PubSub.subscribe('students.edit', (msg, studentEdited) => {
+	PubSub.subscribe('student.edit', (msg, studentEdited) => {
 		studentsArr = studentsArr.map(studentObj => studentObj._id === studentEdited._id ? studentEdited : studentObj);
 		refresh();
 	});
 
-	PubSub.subscribe('students.delete', (msg, studentDeleted) => {
+	PubSub.subscribe('student.delete', (msg, studentDeleted) => {
 		studentsArr = studentsArr.filter(studentObj => studentObj._id !== studentDeleted._id);
 		refresh();
 	});
