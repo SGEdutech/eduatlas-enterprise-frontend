@@ -68,6 +68,7 @@ const course = (() => {
 		const editCourseInputHTML = template.courseEditInputs(courseInfo);
 		modal.renderFormContent(editCourseInputHTML);
 		modal.bindSubmitEvent(() => editCourse(tuitionId, courseId));
+		modal.cacheAndBindCoursesStuff();
 		modal.showModal();
 	}
 
