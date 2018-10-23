@@ -51,24 +51,28 @@
 											</div>
 											<div class="col-md-6">
 												<div class="form-group label-floating is-empty has-success bmd-form-group">
-													<input name="code" class="form-control add-course-code-input" type="text" placeholder="Course Code (unique)"
-													 data-tuition-id="{{_id}}" required>
+													<label for="bmd-label-floating">Course Code (unique)</label>
+													<input name="code" class="form-control add-course-code-input" type="text" data-tuition-id="{{_id}}"
+													 required>
 													<span class="material-input"></span>
 												</div>
 												<div class="form-group label-floating has-success is-empty bmd-form-group">
-													<textarea name="description" class="form-control" rows="4" placeholder="Description (optional)"></textarea>
+													<label for="bmd-label-floating">Description (optional)</label>
+													<textarea name="description" class="form-control" rows="4"></textarea>
 													<span class="material-input"></span>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group label-floating is-empty has-success bmd-form-group">
-													<input name="fees" type="number" class="form-control fee-inp" placeholder="Course Fee" data-tuition-id="{{_id}}"
-													 required data-tabNumber="{{tabNumber}}">
+													<label for="bmd-label-floating">Course Fee</label>
+													<input name="fees" type="number" class="form-control fee-inp" data-tuition-id="{{_id}}" required
+													 data-tabNumber="{{tabNumber}}">
 													<span class="material-input"></span>
 												</div>
 												<div class="form-check">
 													<label class="form-check-label">
-														<input class="form-check-input gst-checkbox" type="checkbox" value="true" data-tuition-id="{{_id}}" data-tabNumber="{{tabNumber}}">
+														<input class="form-check-input gst-checkbox" type="checkbox" value="true" data-tuition-id="{{_id}}"
+														 data-tabNumber="{{tabNumber}}">
 														inclusive of taxes
 														<span class="form-check-sign">
 															<span class="check"></span>
@@ -76,12 +80,13 @@
 													</label>
 												</div>
 												<div class="form-group label-floating has-success is-empty bmd-form-group">
-													<input name="gstPercentage" type="number" class="form-control gst-inp" placeholder="GST (%)"
-													 data-tuition-id="{{_id}}" data-tabNumber="{{tabNumber}}">
+													<label for="bmd-label-floating">GST (%)</label>
+													<input name="gstPercentage" type="number" class="form-control gst-inp" data-tuition-id="{{_id}}"
+													 data-tabNumber="{{tabNumber}}">
 													<span class="material-input"></span>
 												</div>
 												<div class="form-group label-floating has-success is-empty bmd-form-group">
-													<label>Total Fee</label>
+													<label for="bmd-label-floating">Total Fee</label>
 													<input type="number" class="form-control total-fee" data-tabNumber="{{tabNumber}}" data-tuition-id="{{_id}}"
 													 disabled>
 													<span class="material-input"></span>
@@ -217,7 +222,7 @@
 														<div class="col-sm-12 col-xs-12 mt-3 ml-3 text-right">
 															<button type="button" class="btn btn-danger" disabled>CHANGE
 																STATUS</button>
-															<button type="submit" class="btn btn-primary">Save
+															<button type="submit" class="btn btn-info">Save
 																changes</button>
 															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 														</div>
@@ -245,26 +250,40 @@
 							<br>
 
 							<div class="card card-profile main-raised m-0">
+								<div class=" card-title h3 mt-4">
+									Add New Student
+								</div>
+								<div class="row justify-content-end px-3">
+									<div class="col-12 px-1">
+										<p class="text-success">Auto-populate student details using EA id</p>
+									</div>
+									<div class="col-12 px-1">
+										<button class="btn btn-info btn-sm ea-id-modal-trigger" data-tuition-id="{{_id}}">Enter EA ID</button>
+									</div>
+								</div>
 								<form class="add-student-form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}">
 									<div class="card-body text-left has-success">
 										<div class="row">
 											<div class="col-md-12">
-												<h4 class="card-title">EA Id</h4>
-												<input name="eduatlasId" type="text" placeholder="EA Membership number" class="form-control ea-id-inp">
+												{{!-- <h4 class="card-title">EA Id</h4> --}}
+												{{!-- <input name="eduatlasId" type="text" placeholder="EA Membership number" class="form-control ea-id-inp">
+												--}}
 												<h4 class="card-title">Compulsory Fields</h4>
 												<div class="row">
 													<div class="col-md-4">
 														<label class="bmd-label-floating">Student Roll No.</label>
-														<input name="rollNumber" type="text" placeholder="Student Roll No." class="form-control" required>
+														<input name="rollNumber" type="text" class="form-control" data-tuition-id="{{_id}}"
+														 required>
 													</div>
 													<div class="col-md-4">
 														<label class="bmd-label-floating">Student Name</label>
-														<input name="name" type="text" placeholder="Student Name" class="form-control student-name-inp" required>
+														<input name="name" type="text" class="form-control student-name-inp"
+														 data-tuition-id="{{_id}}" required>
 													</div>
 													<div class="col-md-4">
 														<label class="bmd-label-floating">Student E-mail</label>
-														<input name="email" type="email" placeholder="Student E-mail" class="form-control student-email-inp"
-														 required>
+														<input name="email" type="email" class="form-control student-email-inp"
+														 data-tuition-id="{{_id}}" required>
 													</div>
 												</div>
 											</div>
@@ -273,11 +292,13 @@
 												<div class="row">
 													<div class="col-md-6">
 														<label class="bmd-label-floating">Address</label>
-														<input name="address" type="text" placeholder="Address" class="form-control student-address-inp">
+														<input name="address" type="text" class="form-control student-address-inp"
+														 data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-6">
 														<label class="bmd-label-floating">Contact No.</label>
-														<input name="contactNumber" type="text" placeholder="Contact No." class="form-control student-phone-inp">
+														<input name="contactNumber" type="text"  class="form-control student-phone-inp"
+														 data-tuition-id="{{_id}}">
 													</div>
 												</div>
 											</div>
@@ -286,52 +307,55 @@
 												<div class="row">
 													<div class="col-md-4 form-group">
 														<label for="course_select" class="bmd-label-floating">Select Course</label>
-														<select id="course_select" class="form-control selectpicker student-course-select-menu" data-style="btn btn-link"
-														 name="courseId" data-tuition-id="{{_id}}" required>
+														<select class="form-control selectpicker student-course-select-menu" data-style="btn btn-link" name="courseId"
+														 data-tuition-id="{{_id}}" data-tuition-id="{{_id}}" required>
 														</select>
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="batch_select" class="bmd-label-floating">Select Batch</label>
-														<select id="batch_select" class="form-control selectpicker student-batch-select-menu" data-style="btn btn-link"
-														 name="batchId" data-tuition-id="{{_id}}">
+														<select class="form-control selectpicker student-batch-select-menu" data-style="btn btn-link" name="batchId"
+														 data-tuition-id="{{_id}}">
 														</select>
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="course_fee_inp" class="bmd-label-floating">Course Fee</label>
-														<input id="course_fee_inp" type="number" placeholder="Course Fee" class="form-control student-course-fee"
+														<input type="number" class="form-control student-course-fee" data-tuition-id="{{_id}}"
 														 data-tuition-id="{{_id}}" disabled>
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="discount_amount" class="bmd-label-floating">Discount Amount</label>
-														<input id="discount_amount" name="discountAmount" type="number" placeholder="Discount Amount" class="form-control student-discount-amount"
-														 data-tuition-id="{{_id}}">
+														<input name="discountAmount" type="number" class="form-control student-discount-amount"
+														 data-tuition-id="{{_id}}" data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="discount_reason" class="bmd-label-floating">Discount Reason</label>
-														<input id="discount_reason"  name="discountReason" type="text" placeholder="Discount Reason" class="form-control">
+														<input name="discountReason" type="text" class="form-control"
+														 data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="net_fee" class="bmd-label-floating">Net Fee</label>
-														<input id="net_fee" type="text" placeholder="Net Fee" class="form-control student-net-fee"
+														<input type="text" class="form-control student-net-fee" data-tuition-id="{{_id}}"
 														 data-tuition-id="{{_id}}" disabled>
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="fee_collected" class="bmd-label-floating">Fee Collected</label>
-														<input id="fee_collected" name="feeCollected" type="number" placeholder="Fee Collected" class="form-control student-fee-colected"
-														 data-tuition-id="{{_id}}">
+														<input name="feeCollected" type="number" class="form-control student-fee-colected"
+														 data-tuition-id="{{_id}}" data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="mode_of_payment" class="bmd-label-floating">Mode Of Payment</label>
-														<input id="mode_of_payment" name="modeOfPayment" type="text" placeholder="Mode Of Payment" class="form-control">
+														<input name="modeOfPayment" type="text" class="form-control"
+														 data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="balance_pending" class="bmd-label-floating">Balance Pending</label>
-														<input id="balance_pending" type="text" placeholder="Balance Pending" class="form-control student-balance-pending"
-														 data-tuition-id="{{_id}}" disabled>
+														<input type="text" class="form-control student-balance-pending"
+														 data-tuition-id="{{_id}}" data-tuition-id="{{_id}}" disabled>
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="next_install" class="bmd-label-floating">Next Installment Date</label>
-														<input id="next_install" name="nextInstallment" type="date" placeholder="Next installment date" class="form-control">
+														<input name="nextInstallment" type="date" class="form-control"
+														 data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-12 mt-3">
 														<button class="btn btn-round btn-success float-right">ADD
@@ -372,30 +396,33 @@
 											</div>
 										</div>
 										<form class="add_batch_form col-12" data-tabNumber="{{tabNumber}}" data-id="{{_id}}" enctype="multipart/form-data">
-											<div class="col-md-6">
-												<div class="form-group label-floating is-empty has-success bmd-form-group">
-													<input type="text" name="code" class="form-control add-batch-code-inp" placeholder="Batch Code (unique)"
-													 data-tuition-id="{{_id}}" activhrequired>
-													<span class="material-input"></span>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group label-floating is-empty has-success bmd-form-group">
+														<label class="bmd-label-floating">Batch Code (unique)</label>
+														<input type="text" name="code" class="form-control add-batch-code-inp" data-tuition-id="{{_id}}" required>
+														<span class="material-input"></span>
+													</div>
 												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group label-floating is-empty has-success bmd-form-group">
-													<input type="text" name="description" class="form-control" placeholder="Description (optional)">
-													<span class="material-input"></span>
+												<div class="col-md-6">
+													<div class="form-group label-floating is-empty has-success bmd-form-group">
+														<label class="bmd-label-floating">Description (optional)</label>
+														<input type="text" name="description" class="form-control">
+														<span class="material-input"></span>
+													</div>
 												</div>
-											</div>
-											<div class="col-md-6 h-100">
-												<div class="card-title">
-													Add Students
-												</div><br>
-												<div class="px-2 student-checkbox-container" data-tuition-id="{{_id}}" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
-													{{!-- FIXME: moved to new hbs file --}}
+												<div class="col-md-12 h-100">
+													<div class="card-title">
+														Add Students
+													</div><br>
+													<div class="px-2 student-checkbox-container" data-tuition-id="{{_id}}" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
+														{{!-- FIXME: moved to new hbs file --}}
+													</div>
+													<button type="submit" class="btn btn-round btn-success pull-right mt-4">
+														ADD Batch
+														<div class="ripple-container"></div>
+													</button>
 												</div>
-												<button type="submit" class="btn btn-round btn-success pull-right mt-4">
-													ADD Batch
-													<div class="ripple-container"></div>
-												</button>
 											</div>
 										</form>
 									</div>
