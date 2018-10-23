@@ -166,6 +166,11 @@ const student = (() => {
 		$studentNumberInp = $('.student-phone-inp');
 	}
 
+	function cacheDynamic() {
+		$editButton = $('.student-edit');
+		$deleteButton = $('.delete-student-btn');
+	}
+
 	function bindevents() {
 		// Sort this mess
 		$addStudentForm.submit(addStudent);
@@ -177,11 +182,6 @@ const student = (() => {
 		$discountAmount.blur(renderBalancePending);
 		$feeCollected.blur(renderBalancePending);
 		$eaIdInput.blur(fetchAndRenderUserInfoFromEaId);
-	}
-
-	function cacheDynamic() {
-		$editButton = $('.student-edit');
-		$deleteButton = $('.delete-student-btn');
 	}
 
 	function bindDynamic() {
