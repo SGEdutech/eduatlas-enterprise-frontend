@@ -2,6 +2,9 @@ const modal = (() => {
 	let $submitBtn;
 	let $modal;
 	let $modalForm;
+	let $courseFeeEdit;
+	let $gstPercentageEdit;
+	let $totalFeeEdit;
 
 	function cacheDynamic() {
 		$timePicker = $modalForm.find('.edit-time-picker');
@@ -34,6 +37,36 @@ const modal = (() => {
 		$submitBtn.click(cb);
 	}
 
+	function calcTotalCourseFee(fee, gstPercentage) {
+		if (fee === undefined) throw new Error('Fee not provided!');
+		gstPercentage = gstPercentage || 0;
+
+		return fee + fee * (gstPercentage / 100);
+	}
+
+	// FIXME: Has been copied from other module! Centralise!!
+	function updateTotalFee() {
+		const totalFee = calcTotalCourseFee($courseFeeEdit.val(), $gstPercentageEdit.val());
+		$totalFeeEdit.val(totalFee);
+	}
+
+	// Is intended to call after cache
+	function cacheCourseDomElements() {
+		$courseFeeEdit = $modalForm.find('#course_fee_edit');
+		$gstPercentageEdit = $modalForm.find('#gst_precentage_edit');
+		$totalFeeEdit = $modalForm.find('#total_fee_edit');
+	}
+
+	function bindCoursesEvents() {
+		$courseFeeEdit.blur(updateTotalFee);
+		$gstPercentageEdit.blur(updateTotalFee);
+	}
+
+	function cacheAndBindCoursesStuff() {
+		cacheCourseDomElements();
+		bindCoursesEvents();
+	}
+
 	function serializeForm() {
 		return $modalForm.serialize();
 	}
@@ -46,7 +79,7 @@ const modal = (() => {
 			const name = $input.attr('name');
 			const value = $input.val();
 			nameToValueMap[name] = value;
-		})
+		});
 		return nameToValueMap;
 	}
 
@@ -80,6 +113,7 @@ const modal = (() => {
 		serializeForm,
 		getInputValues,
 		initDatetimepicker,
+		cacheAndBindCoursesStuff,
 		init
 	}
 })();

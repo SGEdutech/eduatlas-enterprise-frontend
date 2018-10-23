@@ -8,26 +8,13 @@ const course = (() => {
 	let $feeInp
 	let $gstInp;
 	let $totalFee;
+	let $inclusiveTaxCheckbox;
 
 	function calcTotalFee(fee, gstPercentage) {
 		if (fee === undefined) throw new Error('Fee not provided!');
 		gstPercentage = gstPercentage || 0;
 
 		return fee + fee * (gstPercentage / 100);
-	}
-
-	function cache() {
-		$addCourseForm = $('.add_course_form');
-		$courseContainers = $('.active-course-container');
-		$codeInp = $('.add-course-code-input');
-		$feeInp = $('.fee-inp');
-		$gstInp = $('.gst-inp');
-		$totalFee = $('.total-fee');
-	}
-
-	function cacheDynamic() {
-		$editButton = $('.course-edit');
-		$deleteButton = $('.delete-course-btn');
 	}
 
 	function submitAddCourse(tuitionId, newCourseDetails) {
@@ -81,6 +68,7 @@ const course = (() => {
 		const editCourseInputHTML = template.courseEditInputs(courseInfo);
 		modal.renderFormContent(editCourseInputHTML);
 		modal.bindSubmitEvent(() => editCourse(tuitionId, courseId));
+		modal.cacheAndBindCoursesStuff();
 		modal.showModal();
 	}
 
@@ -123,10 +111,36 @@ const course = (() => {
 		$totalFee.filter(`[data-tuition-id="${tuitionId}"]`).val(totalFee);
 	}
 
-	function bindEvents() {
-		$addCourseForm.submit(addCourse);
-		$feeInp.blur(updateTotalFee);
-		$gstInp.blur(updateTotalFee);
+	function toggleGstInp(event) {
+		const $taxCheckbox = $(event.target);
+		const tuitionId = $taxCheckbox.attr('data-tuition-id');
+		const isChecked = $taxCheckbox.prop('checked');
+
+		if (isChecked) {
+			$gstInp.filter(`[data-tuition-id="${tuitionId}"]`).prop('disabled', true);
+			$gstInp.filter(`[data-tuition-id="${tuitionId}"]`).val(0);
+		} else {
+			$gstInp.filter(`[data-tuition-id="${tuitionId}"]`).prop('disabled', false);
+		}
+	}
+
+	function injectTotalFees(arrayOfCourses) {
+		arrayOfCourses.forEach(courseObj => courseObj.totalFee = calcTotalFee(courseObj.fees, courseObj.gstPercentage));
+	}
+
+	function cache() {
+		$addCourseForm = $('.add_course_form');
+		$courseContainers = $('.active-course-container');
+		$codeInp = $('.add-course-code-input');
+		$feeInp = $('.fee-inp');
+		$gstInp = $('.gst-inp');
+		$totalFee = $('.total-fee');
+		$inclusiveTaxCheckbox = $('.gst-checkbox');
+	}
+
+	function cacheDynamic() {
+		$editButton = $('.course-edit');
+		$deleteButton = $('.delete-course-btn');
 	}
 
 	function bindDynamicEvents() {
@@ -134,8 +148,11 @@ const course = (() => {
 		$deleteButton.click(deleteCourse);
 	}
 
-	function injectTotalFees(arrayOfCourses) {
-		arrayOfCourses.forEach(courseObj => courseObj.totalFee = calcTotalFee(courseObj.fees, courseObj.gstPercentage));
+	function bindEvents() {
+		$addCourseForm.submit(addCourse);
+		$feeInp.blur(updateTotalFee);
+		$gstInp.blur(updateTotalFee);
+		$inclusiveTaxCheckbox.change(toggleGstInp);
 	}
 
 	function render() {

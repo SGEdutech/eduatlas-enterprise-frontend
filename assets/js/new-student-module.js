@@ -41,9 +41,9 @@ const student = (() => {
 			modal.hideModal();
 			console.log('Student was successfully edited');
 			editedStudent.tuitionId = tuitionId;
-			const newStudentArr = studentsArr.map(studentObj => studentObj._id === studentId ? editedStudent : studentObj)
+			studentsArr = studentsArr.map(studentObj => studentObj._id === studentId ? editedStudent : studentObj)
 			PubSub.publish('student.edit', editedStudent);
-			refresh(newStudentArr);
+			refresh();
 		} catch (err) {
 			console.error(err);
 		}
@@ -166,6 +166,11 @@ const student = (() => {
 		$studentNumberInp = $('.student-phone-inp');
 	}
 
+	function cacheDynamic() {
+		$editButton = $('.student-edit');
+		$deleteButton = $('.delete-student-btn');
+	}
+
 	function bindevents() {
 		// Sort this mess
 		$addStudentForm.submit(addStudent);
@@ -177,11 +182,6 @@ const student = (() => {
 		$discountAmount.blur(renderBalancePending);
 		$feeCollected.blur(renderBalancePending);
 		$eaIdInput.blur(fetchAndRenderUserInfoFromEaId);
-	}
-
-	function cacheDynamic() {
-		$editButton = $('.student-edit');
-		$deleteButton = $('.delete-student-btn');
 	}
 
 	function bindDynamic() {
