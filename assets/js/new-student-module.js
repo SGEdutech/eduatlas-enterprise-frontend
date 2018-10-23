@@ -41,9 +41,9 @@ const student = (() => {
 			modal.hideModal();
 			console.log('Student was successfully edited');
 			editedStudent.tuitionId = tuitionId;
-			const newStudentArr = studentsArr.map(studentObj => studentObj._id === studentId ? editedStudent : studentObj)
+			studentsArr = studentsArr.map(studentObj => studentObj._id === studentId ? editedStudent : studentObj)
 			PubSub.publish('student.edit', editedStudent);
-			refresh(newStudentArr);
+			refresh();
 		} catch (err) {
 			console.error(err);
 		}
