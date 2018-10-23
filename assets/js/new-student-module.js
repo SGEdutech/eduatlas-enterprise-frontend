@@ -19,33 +19,6 @@ const student = (() => {
 	let $studentAddressInp;
 	let $studentNumberInp;
 
-	function _indexOfAlphabet(char) {
-		if (char === undefined) return -1;
-		if (char.length !== 1) throw new Error('Character must be of length 1');
-		char = char.toLowerCase();
-		return char.charCodeAt(0) - 97;
-	}
-
-	function eAIdToNumber(eAId) {
-		if (eAId === undefined) throw new Error('EA id not provided');
-		if (typeof eAId !== 'string') throw new Error('Type of EA id is not string');
-		if (eAId.length !== 8) throw new Error('Invalid EA id');
-
-		const str = eAId.substr(0, 3);
-		const num = parseInt(eAId.substr(3), 10);
-		let alphabetMultiplier = 0;
-
-		for (let i = 0; i < str.length; i++) {
-			const base = str.length - (i + 1);
-			const char = str.charAt(i);
-			const indexOfChar = _indexOfAlphabet(char);
-			alphabetMultiplier += Math.pow(26, base) * indexOfChar;
-		}
-
-		const stringImpact = 99999 * alphabetMultiplier;
-		return stringImpact + num;
-	}
-
 	async function deleteStudent(event) {
 		try {
 			const $deleteBtn = $(event.target);
@@ -156,7 +129,7 @@ const student = (() => {
 		try {
 			const eAIdRegex = new RegExp('^[a-zA-z]{3}\\d{5}$', 'i');
 			if (eAIdRegex.test($eaIdInput.val())) {
-				const eANumber = eAIdToNumber($eaIdInput.val());
+				const eANumber = eAIdsAndNumbers.eAIdToNumber($eaIdInput.val());
 				const userInfo = await userApiCalls.getSpecificUser({ eANumber })
 				if (userInfo.firstName) $studentNameInp.val(userInfo.firstName);
 				if (userInfo.middleName) $studentNameInp.val(`${$studentNameInp.val()} ${userInfo.middleName}`);
