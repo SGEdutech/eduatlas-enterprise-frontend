@@ -1,0 +1,16 @@
+.is-focused .form-control {
+	background-image: linear-gradient(to top, #00bcd4 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+}
+
+input.form-control {
+	background-image: linear-gradient(to top, #00bcd4 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+}
+
+.is-focused .bmd-label-static {
+	color: #00bcd4
+}
+
+.sm-tab input,
+.sm-tab textarea {
+	border: 0.5px solid #4caf50
+}
