@@ -79,7 +79,7 @@ const modal = (() => {
 			const name = $input.attr('name');
 			const value = $input.val();
 			nameToValueMap[name] = value;
-		})
+		});
 		return nameToValueMap;
 	}
 
