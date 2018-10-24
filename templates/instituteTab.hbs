@@ -250,14 +250,14 @@
 							<br>
 
 							<div class="card card-profile main-raised m-0">
-								<div class=" card-title h3 mt-4">
+								<div class="col-12 card-title h3 mt-4 text-left">
 									Add New Student
 								</div>
-								<div class="row justify-content-end px-3">
-									<div class="col-12 px-1">
+								<div class="col-12 px-3 text-left">
+									<div class="row px-3">
 										<p class="text-success">Auto-populate student details using EA id</p>
 									</div>
-									<div class="col-12 px-1">
+									<div class="row px-3">
 										<button class="btn btn-info btn-sm ea-id-modal-trigger" data-tuition-id="{{_id}}">Enter EA ID</button>
 									</div>
 								</div>
@@ -272,18 +272,16 @@
 												<div class="row">
 													<div class="col-md-4">
 														<label class="bmd-label-floating">Student Roll No.</label>
-														<input name="rollNumber" type="text" class="form-control" data-tuition-id="{{_id}}"
-														 required>
+														<input name="rollNumber" type="text" class="form-control" data-tuition-id="{{_id}}" required>
 													</div>
 													<div class="col-md-4">
 														<label class="bmd-label-floating">Student Name</label>
-														<input name="name" type="text" class="form-control student-name-inp"
-														 data-tuition-id="{{_id}}" required>
+														<input name="name" type="text" class="form-control student-name-inp" data-tuition-id="{{_id}}" required>
 													</div>
 													<div class="col-md-4">
 														<label class="bmd-label-floating">Student E-mail</label>
-														<input name="email" type="email" class="form-control student-email-inp"
-														 data-tuition-id="{{_id}}" required>
+														<input name="email" type="email" class="form-control student-email-inp" data-tuition-id="{{_id}}"
+														 required>
 													</div>
 												</div>
 											</div>
@@ -292,13 +290,11 @@
 												<div class="row">
 													<div class="col-md-6">
 														<label class="bmd-label-floating">Address</label>
-														<input name="address" type="text" class="form-control student-address-inp"
-														 data-tuition-id="{{_id}}">
+														<input name="address" type="text" class="form-control student-address-inp" data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-6">
 														<label class="bmd-label-floating">Contact No.</label>
-														<input name="contactNumber" type="text"  class="form-control student-phone-inp"
-														 data-tuition-id="{{_id}}">
+														<input name="contactNumber" type="text" class="form-control student-phone-inp" data-tuition-id="{{_id}}">
 													</div>
 												</div>
 											</div>
@@ -319,43 +315,65 @@
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="course_fee_inp" class="bmd-label-floating">Course Fee</label>
-														<input type="number" class="form-control student-course-fee" data-tuition-id="{{_id}}"
-														 data-tuition-id="{{_id}}" disabled>
+														<input type="number" class="form-control student-course-fee" data-tuition-id="{{_id}}" data-tuition-id="{{_id}}"
+														 disabled>
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="discount_amount" class="bmd-label-floating">Discount Amount</label>
-														<input name="discountAmount" type="number" class="form-control student-discount-amount"
-														 data-tuition-id="{{_id}}" data-tuition-id="{{_id}}">
+														<input name="discountAmount" type="number" class="form-control student-discount-amount" data-tuition-id="{{_id}}"
+														 data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="discount_reason" class="bmd-label-floating">Discount Reason</label>
-														<input name="discountReason" type="text" class="form-control"
-														 data-tuition-id="{{_id}}">
+														<input name="discountReason" type="text" class="form-control" data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="net_fee" class="bmd-label-floating">Net Fee</label>
-														<input type="text" class="form-control student-net-fee" data-tuition-id="{{_id}}"
-														 data-tuition-id="{{_id}}" disabled>
+														<input type="text" class="form-control student-net-fee" data-tuition-id="{{_id}}" data-tuition-id="{{_id}}"
+														 disabled>
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="fee_collected" class="bmd-label-floating">Fee Collected</label>
-														<input name="feeCollected" type="number" class="form-control student-fee-colected"
-														 data-tuition-id="{{_id}}" data-tuition-id="{{_id}}">
-													</div>
-													<div class="col-md-4 form-group">
-														<label for="mode_of_payment" class="bmd-label-floating">Mode Of Payment</label>
-														<input name="modeOfPayment" type="text" class="form-control"
+														<input name="feeCollected" type="number" class="form-control student-fee-colected" data-tuition-id="{{_id}}"
 														 data-tuition-id="{{_id}}">
+													</div>
+													{{!-- <div class="col-md-4 form-group">
+														<label for="mode_of_payment" class="bmd-label-floating">Mode Of Payment</label>
+														<input name="modeOfPayment" type="text" class="form-control" data-tuition-id="{{_id}}">
+													</div> --}}
+													<div class="col-md-4 form-group">
+														<label for="next_install" class="bmd-label-floating">Next Installment Date</label>
+														<input name="nextInstallment" type="date" class="form-control" data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="balance_pending" class="bmd-label-floating">Balance Pending</label>
-														<input type="text" class="form-control student-balance-pending"
-														 data-tuition-id="{{_id}}" data-tuition-id="{{_id}}" disabled>
+														<input type="text" class="form-control student-balance-pending" data-tuition-id="{{_id}}" data-tuition-id="{{_id}}"
+														 disabled>
 													</div>
 													<div class="col-md-4 form-group">
-														<label for="next_install" class="bmd-label-floating">Next Installment Date</label>
-														<input name="nextInstallment" type="date" class="form-control"
+														<label for="modeOfPayment" class="bmd-label-floating">Mode Of Payment</label>
+														<select class="form-control mode-of-payment-select" data-style="btn btn-link" name="modeOfPayment"
 														 data-tuition-id="{{_id}}">
+															<option value="cheque">Cheque</option>
+															<option value="card">Card</option>
+															<option value="other">Other</option>
+														</select>
+													</div>
+													<div class="col-md-12">
+														<div class="row mode-of-payment-details-container" data-tuition-id="{{_id}}">
+															{{!-- <div class="col-md-4 form-group">
+																<label class="bmd-label-floating">Date</label>
+																<input type="date" class="form-control" data-tuition-id="{{_id}}">
+															</div>
+															<div class="col-md-4 form-group">
+																<label class="bmd-label-floating">Bank</label>
+																<input type="text" class="form-control" data-tuition-id="{{_id}}">
+															</div>
+															<div class="col-md-4 form-group">
+																<label class="bmd-label-floating">Cheque Number</label>
+																<input type="text" class="form-control" data-tuition-id="{{_id}}">
+															</div> --}}
+														</div>
 													</div>
 													<div class="col-md-12 mt-3">
 														<button class="btn btn-round btn-success float-right">ADD

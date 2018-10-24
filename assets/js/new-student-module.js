@@ -21,6 +21,8 @@ const student = (() => {
 	let $eAIdModal;
 	let $eAIdInp;
 	let $eASuceedBtn;
+	let $modeOfPaymentSelect;
+	let $modeOfPaymentDetailsContainer;
 
 	async function deleteStudent(event) {
 		try {
@@ -168,6 +170,22 @@ const student = (() => {
 		$eASuceedBtn.attr('data-tuition-id', tuitionId);
 	}
 
+	function showModeOfPaymentDetailsInputs(event) {
+		const $modeSelect = $(event.target);
+		const tuitionId = $modeSelect.attr('data-tuition-id');
+		const selectedModeOfPayment = $modeSelect.val();
+		let inputsHTML = '';
+		if (selectedModeOfPayment === 'cheque') {
+			inputsHTML = template.modeOfPaymentChequeInputs();
+		} else if (selectedModeOfPayment === 'card') {
+			inputsHTML = template.modeOfPaymentCardInputs();
+		}
+		else if (selectedModeOfPayment === 'other') {
+			inputsHTML = template.modeOfPaymentOtherInputs();
+		}
+		$modeOfPaymentDetailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).html(inputsHTML);
+	}
+
 	function cache() {
 		$addStudentForm = $('.add-student-form');
 		$studentContainer = $('.student-container');
@@ -186,6 +204,8 @@ const student = (() => {
 		$eAIdInp = $('#ea_id_inp');
 		$eASuceedBtn = $('#get_student_details_btn');
 		$eAIdModalTriggerBtn = $('.ea-id-modal-trigger');
+		$modeOfPaymentSelect = $('.mode-of-payment-select');
+		$modeOfPaymentDetailsContainer = $('.mode-of-payment-details-container');
 	}
 
 	function cacheDynamic() {
@@ -205,6 +225,7 @@ const student = (() => {
 		$feeCollected.blur(renderBalancePending);
 		$eAIdModalTriggerBtn.click(initEAIdModal);
 		$eASuceedBtn.click(fetchAndRenderUserInfoAndCloseModal);
+		$modeOfPaymentSelect.change(showModeOfPaymentDetailsInputs)
 	}
 
 	function bindDynamic() {
@@ -234,6 +255,9 @@ const student = (() => {
 
 			const studentCardsHtml = template.studentCard({ students: studentsOfThisTuition });
 			$container.html(studentCardsHtml);
+
+			const modeOfPaymentDetailInputsHTML = template.modeOfPaymentChequeInputs();
+			$modeOfPaymentDetailsContainer.html(modeOfPaymentDetailInputsHTML);
 		});
 
 		$courseSelectContainer.each((__, container) => {
