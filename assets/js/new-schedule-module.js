@@ -5,15 +5,18 @@ const schedule = (() => {
 	let $editButton;
 	let $deleteButton;
 	let $fromDate;
+	let $toDate;
 	let $addClassEntryBtn;
 	let $dayDropdown;
 	let $addScheduleContainer;
-	let $fromTime;
-	let $toTime;
 	let $saveScheduleBtn;
 	let $timePicker;
 	let $datePicker;
 	let $batchCheckboxContainer;
+	let $clonedRows;
+	let $staticScheduleCol;
+	let $staticInps;
+	let $staticSelects;
 
 	// function getCourseCode(batchId) {
 	// 	let batchCode;
@@ -74,7 +77,7 @@ const schedule = (() => {
 	function appendMoreAddScheduleInputs(event) {
 		const $button = $(event.target);
 		const tuitionId = $button.attr('data-tuition-id');
-		$scheduleRow.filter(`[data-tuition-id="${tuitionId}"]`).last().clone().appendTo($addScheduleContainer.filter(`[data-tuition-id="${tuitionId}"]`));
+		$scheduleRow.filter(`[data-tuition-id="${tuitionId}"]`).last().clone().addClass('cloned-row').appendTo($addScheduleContainer.filter(`[data-tuition-id="${tuitionId}"]`));
 		$timePicker.datetimepicker('destroy');
 		$datePicker.datetimepicker('destroy');
 		cacheDynamic();
@@ -87,6 +90,9 @@ const schedule = (() => {
 		$scheduleContainer = $('.active-schedule-container');
 		$addClassEntryBtn = $('.add-class-entry');
 		$batchCheckboxContainer = $('.batch-checkbox-container');
+		$staticScheduleCol = $('.schedule-col');
+		$staticInps = $staticScheduleCol.find('input');
+		$staticSelects = $staticScheduleCol.find('select')
 	}
 
 	function cacheDynamic() {
@@ -100,6 +106,8 @@ const schedule = (() => {
 		$datePicker = $('.date-picker');
 		$dayDropdown = $('.day-dropdown');
 		$checkedBatchesInput = $('.batches:checkbox:checked');
+		$clonedInp = $('.cloned-inp');
+		$clonedRows = $('.cloned-row');
 	}
 
 	function submitEditRequest(tuitionId, courseId, batchId, scheduleId, editedData) {
@@ -177,7 +185,15 @@ const schedule = (() => {
 		modal.showModal();
 	}
 
-	async function addschedule(event) {
+	function resetForm() {
+		$clonedRows.remove();
+		$staticInps.val('');
+		$fromDate.val('');
+		$toDate.val('');
+		$staticSelects.html('');
+	}
+
+	async function addSchedule(event) {
 		try {
 			event.preventDefault();
 			const $form = $(event.target);
@@ -216,17 +232,18 @@ const schedule = (() => {
 				const schedulesWithBatchId = { batchId: batchInfo._id, schedules: schedulesOfThisBatch };
 				PubSub.publish('schedule.add', schedulesWithBatchId);
 			});
+
+			cacheDynamic();
+			resetForm();
 			refresh();
 		} catch (err) {
 			console.error(err);
 		}
 	}
 
-
-
 	function bindEvents() {
 		$addClassEntryBtn.click(appendMoreAddScheduleInputs);
-		$saveScheduleBtn.click(addschedule);
+		$saveScheduleBtn.click(addSchedule);
 	}
 
 	function bindDynamicEvents() {
