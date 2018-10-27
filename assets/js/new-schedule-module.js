@@ -22,28 +22,6 @@ const schedule = (() => {
 	// 	});
 	// 	return batchCode;
 	// }
-	function inverseMinutesFromMidnight(minutesFromMidnight) {
-		const dt = new Date(0, 0, 0);
-		const time = new Date(dt.getTime() + minutesFromMidnight * 60000);
-		return time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-	}
-
-	function minutesFromMidnight(time) {
-		if (time instanceof Date === false) throw new Error('Time should be an instance of date');
-		return (time.getHours() * 60) + time.getMinutes();
-	}
-
-	function getInputsValues($container) {
-		const $inputs = $container.find('input');
-		const nameToValueMap = {};
-		$inputs.each((__, input) => {
-			const $input = $(input);
-			const name = $input.attr('name');
-			const value = $input.val();
-			nameToValueMap[name] = value;
-		})
-		return nameToValueMap;
-	}
 
 	//FIXME: Optimise
 	function initDateTimePicker() {
@@ -63,17 +41,8 @@ const schedule = (() => {
 		$datePicker.datetimepicker({ format: 'L', icons });
 	}
 
-	function twelveHourToMinutesFromMidnight(timeStr) {
-		if (timeStr === undefined) throw new Error('Time not provided');
-		const twentyFourHourTime = convertTo24Hours(timeStr);
-		const timeDateObj = new Date();
-		timeDateObj.setHours(twentyFourHourTime.hours);
-		timeDateObj.setMinutes(twentyFourHourTime.minutes);
-		return minutesFromMidnight(timeDateObj);
-	}
-
 	function getInputsValues($container) {
-		const $inputs = $container.find('input');
+		const $inputs = $container.find('input, select');
 		const nameToValueMap = {};
 		$inputs.each((__, input) => {
 			const $input = $(input);
@@ -84,79 +53,13 @@ const schedule = (() => {
 		return nameToValueMap;
 	}
 
-	function convertTo24Hours(timeToConvert) {
-		if (timeToConvert === undefined || timeToConvert === '') {
-			return
-		}
-		const time = timeToConvert;
-		if (time.slice(-2) === 'AM' || time.slice(-2) === 'PM') {
-			let hours = Number(time.match(/^(\d+)/)[1]);
-			const minutes = Number(time.match(/:(\d+)/)[1]);
-			const AMPM = time.match(/\s(.*)$/)[1];
-			if (AMPM === 'PM' && hours < 12) hours += 12;
-			if (AMPM === 'AM' && hours === 12) hours -= 12;
-			return {
-				hours,
-				minutes
-			}
-		}
-		const temp = time.split(':');
-		const hours = parseInt(temp[0], 10);
-		const minutes = parseInt(temp[1], 10);
-		return {
-			hours,
-			minutes
-		}
-	}
-
-	function addDays(date, days) {
-		if (date instanceof Date === false) throw new Error('Type of date must be a date');
-		if (typeof days !== 'number') throw new Error('Type of days must be a number');
-
-		const result = new Date(date);
-		result.setDate(result.getDate() + days);
-		return result;
-	}
-
-	function getDaysTillSunday(date) {
-		if (date instanceof Date === false) throw new Error('Time should be an instance of date');
-
-		const resultArr = [];
-		const dayIndexToDayNameMap = {
-			0: 'sunday',
-			1: 'monday',
-			2: 'tuesday',
-			3: 'wednesday',
-			4: 'thursday',
-			5: 'friday',
-			6: 'saturday'
-		};
-		const givenDateIndex = date.getDay();
-
-		for (let i = givenDateIndex, numeberOfDaysPassed = 0; i <= 7; i++, numeberOfDaysPassed++) {
-			dateIndex = i % 7;
-			resultArr.push({
-				day: dayIndexToDayNameMap[dateIndex],
-				date: addDays(date, numeberOfDaysPassed)
-			});
-		}
-		return resultArr;
-	}
-
-	function getNextSunday(date) {
-		if (date instanceof Date === false) throw new Error('Type of date must be a date');
-
-		const numberOfDayToBeAdded = 7 - date.getDay();
-		return addDays(date, numberOfDayToBeAdded)
-	}
-
 	function updateTodate(fromDate, tuitionId) {
-		const nextSunday = getNextSunday(fromDate);
+		const nextSunday = dateAndTime.getNextSunday(fromDate);
 		$toDate.filter(`[data-tuition-id="${tuitionId}"]`).val(nextSunday.toISOString().split('T')[0]);
 	}
 
 	function updateDays(fromDate, tuitionId) {
-		const allDaysTillSunday = getDaysTillSunday(fromDate);
+		const allDaysTillSunday = dateAndTime.getDaysTillSunday(fromDate);
 		$dayDropdown.filter(`[data-tuition-id="${tuitionId}"]`).html(template.daySelectOptions({ days: allDaysTillSunday }));
 	}
 
@@ -195,7 +98,6 @@ const schedule = (() => {
 		$toDate = $('.to-date');
 		$timePicker = $('.time-picker');
 		$datePicker = $('.date-picker');
-		$scheduleRow = $('.schedule-row');
 		$dayDropdown = $('.day-dropdown');
 		$checkedBatchesInput = $('.batches:checkbox:checked');
 	}
@@ -207,12 +109,12 @@ const schedule = (() => {
 	async function editschedule(tuitionId, courseId, batchId, scheduleId) {
 		try {
 			const editedData = modal.getInputValues();
-			editedData.fromTime = twelveHourToMinutesFromMidnight(editedData.fromTime);
-			editedData.toTime = twelveHourToMinutesFromMidnight(editedData.toTime);
+			editedData.fromTime = dateAndTime.twelveHourToMinutesFromMidnight(editedData.fromTime);
+			editedData.toTime = dateAndTime.twelveHourToMinutesFromMidnight(editedData.toTime);
 			const editedschedule = await submitEditRequest(tuitionId, courseId, batchId, scheduleId, editedData);
 			modal.hideModal();
-			editedschedule.fromTime = inverseMinutesFromMidnight(editedschedule.fromTime);
-			editedschedule.toTime = inverseMinutesFromMidnight(editedschedule.toTime);
+			editedschedule.fromTime = dateAndTime.inverseMinutesFromMidnight(editedschedule.fromTime);
+			editedschedule.toTime = dateAndTime.inverseMinutesFromMidnight(editedschedule.toTime);
 			console.log('Schedule was successfully edited');
 			let objToBePublished;
 			distinctBatchesArr.forEach(batchObj => {
@@ -284,8 +186,8 @@ const schedule = (() => {
 			const batchIdsSequence = [];
 			$scheduleRow.filter(`[data-tuition-id="${tuitionId}"]`).each((__, inputsGroup) => {
 				const inputsValues = getInputsValues($(inputsGroup));
-				inputsValues.fromTime = twelveHourToMinutesFromMidnight(inputsValues.fromTime)
-				inputsValues.toTime = twelveHourToMinutesFromMidnight(inputsValues.toTime)
+				inputsValues.fromTime = dateAndTime.twelveHourToMinutesFromMidnight(inputsValues.fromTime)
+				inputsValues.toTime = dateAndTime.twelveHourToMinutesFromMidnight(inputsValues.toTime)
 				schedulesToBeAddedArr.push(inputsValues);
 			});
 			cacheDynamic();
@@ -302,8 +204,8 @@ const schedule = (() => {
 			batchIdsSequence.forEach((batchId, index) => {
 				const schedulesOfThisBatch = newSchedulesArr[index];
 				schedulesOfThisBatch.forEach(scheduleObj => {
-					if (scheduleObj.fromTime) scheduleObj.fromTime = inverseMinutesFromMidnight(scheduleObj.fromTime);
-					if (scheduleObj.toTime) scheduleObj.toTime = inverseMinutesFromMidnight(scheduleObj.toTime);
+					if (scheduleObj.fromTime) scheduleObj.fromTime = dateAndTime.inverseMinutesFromMidnight(scheduleObj.fromTime);
+					if (scheduleObj.toTime) scheduleObj.toTime = dateAndTime.inverseMinutesFromMidnight(scheduleObj.toTime);
 				});
 				let batchInfo;
 				distinctBatchesArr.forEach(batchObj => {
@@ -320,6 +222,8 @@ const schedule = (() => {
 		}
 	}
 
+
+
 	function bindEvents() {
 		$addClassEntryBtn.click(appendMoreAddScheduleInputs);
 		$saveScheduleBtn.click(addschedule);
@@ -331,14 +235,55 @@ const schedule = (() => {
 		$fromDate.blur(updateTodateAndSelectDays);
 	}
 
+	function sortByWeek(batchObj) {
+		return batchObj.schedules.reduce((accumulator, scheduleObj) => {
+			const yearWeek = moment(scheduleObj.date).week() + '-' + moment(scheduleObj.date).year();
+			// check if the week number exists
+			if (typeof accumulator[yearWeek] === 'undefined') {
+				accumulator[yearWeek] = [];
+			}
+			accumulator[yearWeek].push(scheduleObj);
+			return accumulator;
+		}, {});
+	}
+
+	function injectBatchCodeInSortedSchedulesObj(schedules, batchCode) {
+		const keys = Object.keys(schedules);
+		keys.forEach(key => schedules[key].forEach(scheduleObj => scheduleObj.batchCode = batchCode));
+	}
+
+	function injectClassDateInSchedules() {
+		distinctBatchesArr.forEach(batchObj => {
+			batchObj.schedules.forEach(schedulesObj => schedulesObj.classDate = (new Date(schedulesObj.date)).toDateString());
+		});
+	}
+
+	function injectBatchIdAndTuitionId() {
+		distinctBatchesArr.forEach(batchObj => {
+			const batchId = batchObj._id;
+			const tuitionId = batchObj.tuitionId;
+			const courseId = batchObj.courseId;
+			batchObj.schedules.forEach(scheduleObj => {
+				scheduleObj.batchId = batchId;
+				scheduleObj.tuitionId = tuitionId;
+				scheduleObj.courseId = courseId;
+			});
+		});
+	}
+
 	function render() {
 		$scheduleContainer.each((index, container) => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
+			let cardsHtml = '';
 
 			const batchOfThisInstitute = distinctBatchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
 
-			const cardsHtml = template.scheduleCard({ batches: batchOfThisInstitute });
+			batchOfThisInstitute.forEach(batchObj => {
+				const schedulesByWeek = sortByWeek(batchObj);
+				injectBatchCodeInSortedSchedulesObj(schedulesByWeek, batchObj.code);
+				cardsHtml += template.scheduleCard({ schedules: schedulesByWeek, batchCode: batchObj.code })
+			});
 			$container.html(cardsHtml);
 		});
 
@@ -354,6 +299,8 @@ const schedule = (() => {
 	}
 
 	function refresh() {
+		injectClassDateInSchedules();
+		injectBatchIdAndTuitionId();
 		render();
 		cacheDynamic();
 		bindDynamicEvents();
@@ -368,11 +315,13 @@ const schedule = (() => {
 		// Parsing time
 		distinctBatchesArr.forEach(batch => {
 			batch.schedules.forEach(scheduleInfo => {
-				scheduleInfo.fromTime = inverseMinutesFromMidnight(scheduleInfo.fromTime);
-				scheduleInfo.toTime = inverseMinutesFromMidnight(scheduleInfo.toTime);
+				scheduleInfo.fromTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.fromTime);
+				scheduleInfo.toTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.toTime);
 			});
 		});
 
+		injectClassDateInSchedules();
+		injectBatchIdAndTuitionId();
 		cache();
 		bindEvents();
 		render();

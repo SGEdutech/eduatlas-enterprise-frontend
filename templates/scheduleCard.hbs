@@ -1,8 +1,9 @@
-{{#each batches as |batch|}}
-{{#if schedules}}
+{{#each schedules as |value key|}}
 <div class="card">
     <div class="card-body">
-        <div class="card-title">{{batch.code}}</div>
+        {{!-- FIXME: access batchCode efficiently --}}
+        <div class="card-title">{{#each value}}{{#if @first}}{{batchCode}}{{/if}}{{/each}}</div>
+        <div class="card-title text-info">WEEK: {{@key}}</div>
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -19,20 +20,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{#each schedules as |schedule|}}
-                                <tr id="{{schedule._id}}">
-                                    <td>{{schedule.date}}</td>
-                                    <td>{{schedule.fromTime}}</td>
-                                    <td>{{schedule.toTime}}</td>
-                                    <td>{{schedule.topic}}</td>
-                                    <td>{{schedule.faculty}}</td>
+                                {{#each value as |scheduleArr|}}
+                                <tr id="{{_id}}">
+                                    <td>{{classDate}}</td>
+                                    <td>{{fromTime}}</td>
+                                    <td>{{toTime}}</td>
+                                    <td>{{topic}}</td>
+                                    <td>{{faculty}}</td>
                                     <td>
                                         <i class="material-icons delete-schedule-btn" style="top: 0%; cursor: pointer;"
-                                            data-schedule-id="{{schedule._id}}" data-tuition-id="{{batch.tuitionId}}"
-                                            data-course-id="{{batch.courseId}}" data-batch-id="{{batch._id}}">delete</i>
+                                            data-schedule-id="{{_id}}" data-tuition-id="{{tuitionId}}"
+                                            data-course-id="{{courseId}}" data-batch-id="{{batchId}}">delete</i>
                                         <i class="material-icons schedule-edit" style="top: 0%; cursor: pointer;"
-                                            data-schedule-id="{{schedule._id}}" data-tuition-id="{{batch.tuitionId}}"
-                                            data-course-id="{{batch.courseId}}" data-batch-id="{{batch._id}}">edit</i>
+                                            data-schedule-id="{{_id}}" data-tuition-id="{{tuitionId}}"
+                                            data-course-id="{{courseId}}" data-batch-id="{{batchId}}">edit</i>
                                     </td>
                                 </tr>
                                 {{/each}}
@@ -44,5 +45,4 @@
         </div>
     </div>
 </div>
-{{/if}}
 {{/each}}

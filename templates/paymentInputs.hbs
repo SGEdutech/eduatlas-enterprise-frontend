@@ -1,0 +1,52 @@
+<div class="col-md-4 form-group">
+    <label for="course_select" class="bmd-label-floating">Select Course</label>
+    <select class="form-control selectpicker student-course-select-menu" data-style="btn btn-link" name="courseId"
+        data-tuition-id="{{_id}}" required>
+    </select>
+</div>
+<div class="col-md-4 form-group">
+    <label for="batch_select" class="bmd-label-floating">Select Batch</label>
+    <select class="form-control selectpicker student-batch-select-menu" data-style="btn btn-link" name="batchId"
+        data-tuition-id="{{_id}}">
+    </select>
+</div>
+<div class="col-md-4 form-group">
+    <label for="course_fee_inp" class="bmd-label-floating">Course Fee</label>
+    <input type="number" class="form-control student-course-fee" data-tuition-id="{{_id}}" disabled>
+</div>
+<div class="col-md-4 form-group">
+    <label for="discount_amount" class="bmd-label-floating">Discount Amount</label>
+    <input name="discountAmount" type="number" class="form-control student-discount-amount" data-tuition-id="{{_id}}">
+</div>
+<div class="col-md-4 form-group">
+    <label for="discount_reason" class="bmd-label-floating">Discount Reason</label>
+    <input name="discountReason" type="text" class="form-control" data-tuition-id="{{_id}}">
+</div>
+<div class="col-md-4 form-group">
+    <label for="net_fee" class="bmd-label-floating">Net Fee</label>
+    <input type="text" class="form-control student-net-fee" data-tuition-id="{{_id}}" disabled>
+</div>
+<div class="col-md-4 form-group">
+    <label for="fee_collected" class="bmd-label-floating">Fee Collected</label>
+    <input name="feeCollected" type="number" class="form-control student-fee-colected" data-tuition-id="{{_id}}">
+</div>
+<div class="col-md-4 form-group">
+    <label for="next_install" class="bmd-label-floating">Next Installment Date</label>
+    <input name="nextInstallment" type="date" class="form-control" data-tuition-id="{{_id}}">
+</div>
+<div class="col-md-4 form-group">
+    <label for="balance_pending" class="bmd-label-floating">Balance Pending</label>
+    <input type="text" class="form-control student-balance-pending" data-tuition-id="{{_id}}" disabled>
+</div>
+<div class="col-md-4 form-group">
+    <label for="modeOfPayment" class="bmd-label-floating">Mode Of Payment</label>
+    <select class="form-control mode-of-payment-select" data-style="btn btn-link" name="modeOfPayment" data-tuition-id="{{_id}}">
+        <option value="cheque">Cheque</option>
+        <option value="card">Card</option>
+        <option value="other">Other</option>
+    </select>
+</div>
+<div class="col-md-12">
+    <div class="row mode-of-payment-details-container" data-tuition-id="{{_id}}">
+    </div>
+</div>

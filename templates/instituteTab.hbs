@@ -25,6 +25,8 @@
 						<li class="nav-item"><a class="nav-link active rounded-0" href="#innertab1{{tabNumber}}" data-toggle="tab">Courses</a></li>
 						<li class="nav-item"><a class="nav-link rounded-0" href="#innertab3{{tabNumber}}" data-toggle="tab">Batches</a></li>
 						<li class="nav-item"><a class="nav-link rounded-0" href="#innertab2{{tabNumber}}" data-toggle="tab">Students</a></li>
+						<li class="nav-item"><a class="nav-link rounded-0" href="#innertab4{{tabNumber}}" data-toggle="tab">Finance</a></li>
+						<li class="nav-item"><a class="nav-link rounded-0" href="#innertab5{{tabNumber}}" data-toggle="tab">Discounts</a></li>
 					</ul>
 				</div>
 				<div class="col-md-10">
@@ -265,9 +267,6 @@
 									<div class="card-body text-left has-success">
 										<div class="row">
 											<div class="col-md-12">
-												{{!-- <h4 class="card-title">EA Id</h4> --}}
-												{{!-- <input name="eduatlasId" type="text" placeholder="EA Membership number" class="form-control ea-id-inp">
-												--}}
 												<h4 class="card-title">Compulsory Fields</h4>
 												<div class="row">
 													<div class="col-md-4">
@@ -301,80 +300,6 @@
 											<div class="col-md-12">
 												<h4 class="card-title">Payment Details</h4>
 												<div class="row">
-													<div class="col-md-4 form-group">
-														<label for="course_select" class="bmd-label-floating">Select Course</label>
-														<select class="form-control selectpicker student-course-select-menu" data-style="btn btn-link" name="courseId"
-														 data-tuition-id="{{_id}}" data-tuition-id="{{_id}}" required>
-														</select>
-													</div>
-													<div class="col-md-4 form-group">
-														<label for="batch_select" class="bmd-label-floating">Select Batch</label>
-														<select class="form-control selectpicker student-batch-select-menu" data-style="btn btn-link" name="batchId"
-														 data-tuition-id="{{_id}}">
-														</select>
-													</div>
-													<div class="col-md-4 form-group">
-														<label for="course_fee_inp" class="bmd-label-floating">Course Fee</label>
-														<input type="number" class="form-control student-course-fee" data-tuition-id="{{_id}}" data-tuition-id="{{_id}}"
-														 disabled>
-													</div>
-													<div class="col-md-4 form-group">
-														<label for="discount_amount" class="bmd-label-floating">Discount Amount</label>
-														<input name="discountAmount" type="number" class="form-control student-discount-amount" data-tuition-id="{{_id}}"
-														 data-tuition-id="{{_id}}">
-													</div>
-													<div class="col-md-4 form-group">
-														<label for="discount_reason" class="bmd-label-floating">Discount Reason</label>
-														<input name="discountReason" type="text" class="form-control" data-tuition-id="{{_id}}">
-													</div>
-													<div class="col-md-4 form-group">
-														<label for="net_fee" class="bmd-label-floating">Net Fee</label>
-														<input type="text" class="form-control student-net-fee" data-tuition-id="{{_id}}" data-tuition-id="{{_id}}"
-														 disabled>
-													</div>
-													<div class="col-md-4 form-group">
-														<label for="fee_collected" class="bmd-label-floating">Fee Collected</label>
-														<input name="feeCollected" type="number" class="form-control student-fee-colected" data-tuition-id="{{_id}}"
-														 data-tuition-id="{{_id}}">
-													</div>
-													{{!-- <div class="col-md-4 form-group">
-														<label for="mode_of_payment" class="bmd-label-floating">Mode Of Payment</label>
-														<input name="modeOfPayment" type="text" class="form-control" data-tuition-id="{{_id}}">
-													</div> --}}
-													<div class="col-md-4 form-group">
-														<label for="next_install" class="bmd-label-floating">Next Installment Date</label>
-														<input name="nextInstallment" type="date" class="form-control" data-tuition-id="{{_id}}">
-													</div>
-													<div class="col-md-4 form-group">
-														<label for="balance_pending" class="bmd-label-floating">Balance Pending</label>
-														<input type="text" class="form-control student-balance-pending" data-tuition-id="{{_id}}" data-tuition-id="{{_id}}"
-														 disabled>
-													</div>
-													<div class="col-md-4 form-group">
-														<label for="modeOfPayment" class="bmd-label-floating">Mode Of Payment</label>
-														<select class="form-control mode-of-payment-select" data-style="btn btn-link" name="modeOfPayment"
-														 data-tuition-id="{{_id}}">
-															<option value="cheque">Cheque</option>
-															<option value="card">Card</option>
-															<option value="other">Other</option>
-														</select>
-													</div>
-													<div class="col-md-12">
-														<div class="row mode-of-payment-details-container" data-tuition-id="{{_id}}">
-															{{!-- <div class="col-md-4 form-group">
-																<label class="bmd-label-floating">Date</label>
-																<input type="date" class="form-control" data-tuition-id="{{_id}}">
-															</div>
-															<div class="col-md-4 form-group">
-																<label class="bmd-label-floating">Bank</label>
-																<input type="text" class="form-control" data-tuition-id="{{_id}}">
-															</div>
-															<div class="col-md-4 form-group">
-																<label class="bmd-label-floating">Cheque Number</label>
-																<input type="text" class="form-control" data-tuition-id="{{_id}}">
-															</div> --}}
-														</div>
-													</div>
 													<div class="col-md-12 mt-3">
 														<button class="btn btn-round btn-success float-right">ADD
 															STUDENTS</button>
@@ -416,14 +341,14 @@
 										<form class="add_batch_form col-12" data-tabNumber="{{tabNumber}}" data-id="{{_id}}" enctype="multipart/form-data">
 											<div class="row">
 												<div class="col-md-6">
-													<div class="form-group label-floating is-empty has-success bmd-form-group">
+													<div class="form-group is-empty has-success">
 														<label class="bmd-label-floating">Batch Code (unique)</label>
 														<input type="text" name="code" class="form-control add-batch-code-inp" data-tuition-id="{{_id}}" required>
 														<span class="material-input"></span>
 													</div>
 												</div>
 												<div class="col-md-6">
-													<div class="form-group label-floating is-empty has-success bmd-form-group">
+													<div class="form-group is-empty has-success">
 														<label class="bmd-label-floating">Description (optional)</label>
 														<input type="text" name="description" class="form-control">
 														<span class="material-input"></span>
@@ -447,10 +372,179 @@
 								</div>
 							</div>
 						</div>
+						<div class="tab-pane" id="innertab4{{tabNumber}}"></div>
+						<div class="tab-pane" id="innertab5{{tabNumber}}">
+							<div class="row m-0">
+								<div class="card-title col-12 h3">
+									Active Discounts
+								</div>
+								<div class="col-12">
+									<div class="row">
+										{{!-- FIXME: moved to new hbs file --}}
+									</div>
+									<div class="row active-discounts-container" data-tuition-id="{{_id}}">
+									</div>
+								</div>
+								<div class="card m-0 mb-4">
+									<form class="add-discount-form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}">
+										<div class="row card-body">
+											<div class="card-title h3 col-12">
+												Define New Discount(s)
+											</div>
+											<div class="col-md-6">
+												<div class="form-group label-floating is-empty has-success bmd-form-group">
+													<label for="bmd-label-floating">Discount Code (unique)</label>
+													<input name="code" class="form-control" type="text" data-tuition-id="{{_id}}" required>
+													<span class="material-input"></span>
+												</div>
+												<div class="form-group label-floating has-success is-empty bmd-form-group">
+													<label for="bmd-label-floating">Amount</label>
+													<input name="amount" class="form-controlt" type="number" data-tuition-id="{{_id}}" required>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<button type="submit" class="btn btn-round btn-success pull-right">
+													Define Discount
+													<div class="ripple-container"></div>
+												</button>
+											</div>
+										</div>
+									</form>
+								</div>
+								{{!-- <div class="modal fade bd-example-modal-lg" id="editCourseModal{{course._id}}" tabindex="-1" role="dialog"
+								 aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-lg" role="document">
+										<div class="modal-content">
+											<div class="modal-body p-0">
+												<div class="card my-0 bg-info">
+													<div class="card-body pt-0 pb-0">
+														<h3 class="card-title my-2">
+															<a href="#pablo" class="text-dark">{{course.code}}</a>
+														</h3>
+													</div>
+												</div>
+												<div class="card my-0">
+													<div class="card-body ">
+														<div class="row align-items-center justify-content-around">
+															<div class="col-sm-12 col-xs-12 mt-1">
+																<div class="row">
+																	<div class="col-md-4 pt-0 pb-0 border border-white">
+																		<span class="input-group-addon" style="font-size: 12px;">
+																			COURSE CODE
+																		</span>
+																	</div>
+																	<div class="col-md-8 p-0">
+																		<input name="code" type="text" class="form-control bg-white" placeholder="COURSE CODE" value="{{course.code}}">
+																	</div>
+																</div>
+															</div>
+															<div class="col-sm-12 col-xs-12 mt-1">
+																<div class="row">
+																	<div class="col-md-4 pt-0 pb-0">
+																		<span class="input-group-addon" style="font-size: 12px;">
+																			DESCRIPTION
+																		</span>
+																	</div>
+																	<div class="col-md-8 p-0">
+																		<input name="description" type="text" class="form-control bg-white" placeholder="DESCRIPTION" value="{{course.description}}">
+																	</div>
+																</div>
+															</div>
+															<div class="col-sm-12 col-xs-12 mt-1">
+																<div class="row">
+																	<div class="col-md-4 pt-0 pb-0 border border-white">
+																		<span class="input-group-addon" style="font-size: 12px">
+																			COURSE FEE
+																		</span>
+																	</div>
+																	<div class="col-md-8 p-0">
+																		<input name="fees" type="text" class="form-control bg-white fee-inp" placeholder="COURSE FEE" value="{{course.fees}}"
+																		 data-tabNumber="{{course._id}}">
+																	</div>
+																</div>
+															</div>
+															<div class="col-sm-12 col-xs-12 mt-1">
+																<div class="row">
+																	<div class="col-md-4 pt-0 pb-0 border border-white">
+																		<span class="input-group-addon" style="font-size: 12px;">
+																		</span>
+																	</div>
+																	<div class="col-md-8 p-0">
+																		<div class="row">
+																			<div class="col-md-6">
+																				<div class="form-check">
+																					<label class="form-check-label">
+																						<input class="form-check-input gst-checkbox" type="checkbox" data-tabNumber="{{course._id}}">
+																						INCLUSIVE OF GST
+																						<span class="form-check-sign">
+																							<span class="check"></span>
+																						</span>
+																					</label>
+																				</div>
+																			</div>
+																			<div class="col-md-6">
+																				<div class="row">
+																					<div class="col-md-3 pl-0 pr-0">
+																						<input name="gst" type="text" class="form-control bg-white border rounded  mt-3 gst-inp" style="height:24px;"
+																						 value="{{course.gst}}" data-tabNumber="{{course._id}}">
+																					</div>
+																					<div class="col-md-9 pl-0 pr-0 mt-3">
+																						<p>GST PERCENTAGE</p>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="row align-items-center justify-content-around">
+															<div class="col-sm-12 col-xs-12 mt-1">
+																<div class="row">
+																	<div class="col-md-4 pt-0 pb-0 border border-white">
+																		<span class="input-group-addon" style="font-size: 12px;">
+																			TOTAL FEE
+																		</span>
+																	</div>
+																	<div class="col-md-8 p-0">
+																		<input type="text" class="form-control bg-white total-fee" placeholder="TOTAL FEE" data-tabNumber="{{course._id}}">
+																	</div>
+																</div>
+															</div>
+															<div class="col-sm-12 col-xs-12 mt-1">
+																<div class="row">
+																	<div class="col-md-4 pt-0 pb-0 border border-white">
+																		<span class="input-group-addon" style="font-size: 12px;">
+																			DEFINED BATCHES
+																		</span>
+																	</div>
+																	<div class="col-md-8 p-0">
+																		{{#each batches as |batch|}}
+																		<span class="badge badge-info">{{batch.code}}</span>
+																		{{/each}}
+																	</div>
+																</div>
+															</div>
+														</div>
+														<br>
+														<div class="col-sm-12 col-xs-12 mt-3 ml-3 text-right">
+															<button type="button" class="btn btn-danger" disabled>CHANGE
+																STATUS</button>
+															<button type="submit" class="btn btn-info">Save
+																changes</button>
+															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div> --}}
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<br><br>
 		</div>
 		<div class="tab-pane" id="pill2{{tabNumber}}">
 			<ul class="nav nav-pills nav-pills-success nav-pills-icons" role="tablist">

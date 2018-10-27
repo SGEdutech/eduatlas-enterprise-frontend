@@ -553,6 +553,44 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
+	function putDiscountInTuition(idOfTuition, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error('Not a valid idOfTuition');
+		}
+		return $.ajax({
+			type: 'POST',
+			url: `/tuition/${idOfTuition}/discount`,
+			data: bodyObj
+		});
+	}
+
+	function editDicountInTuition(idOfTuition, idOfDiscount, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error('Not a valid idOfTuition');
+		}
+		if (!checkForHexRegExp.test(idOfDiscount)) {
+			console.error('Not a valid idOfDiscount');
+		}
+		return $.ajax({
+			type: 'PUT',
+			url: `/tuition/${idOfTuition}/discount/${idOfDiscount}`,
+			data: bodyObj,
+		});
+	}
+
+	function deleteDiscountInTuition(idOfTuition, idOfDicount) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error('Not a valid idOfTuition');
+		}
+		if (!checkForHexRegExp.test(idOfDicount)) {
+			console.error('Not a valid idOfDicount');
+		}
+		return $.ajax({
+			type: 'DELETE',
+			url: `/tuition/${idOfTuition}/discount/${idOfDicount}`,
+		});
+	}
+
 	return {
 		getAllTuitions,
 		getAllClaimedTuitions,
@@ -590,6 +628,9 @@ const tuitionApiCalls = (() => {
 		putScheduleInBatch,
 		editScheduleInBatch,
 		deleteScheduleInBatch,
-		replaceAttendanceInSchedule
+		replaceAttendanceInSchedule,
+		putDiscountInTuition,
+		editDicountInTuition,
+		deleteDiscountInTuition
 	};
 })();
