@@ -70,10 +70,20 @@ const student = (() => {
 		if ($balancePending.val() < 0) alert('You are collecting more fee than necessary!');
 	}
 
+	async function alertStudentEmailAlreadyLinked() {
+		const studentEmail = $studentEmailInp.val();
+		const studentInfoIfExists = await userApiCalls.getSpecificUser({ primaryEmail: studentEmail });
+		if (studentInfoIfExists) {
+			const EAID = eAIdsAndNumbers.numberToEaId(studentInfoIfExists.eANumber);
+			alert(`this email already linked with Name: ${studentInfoIfExists.firstName} , EA id: ${EAID}`)
+		}
+	}
+
 	async function addStudent(event) {
 		try {
 			event.preventDefault();
 			alertForMoreOrLessFeeCollected();
+			alertStudentEmailAlreadyLinked();
 			const $form = $(event.target);
 			const tuitionId = $form.attr('data-id');
 			const newStudent = await tuitionApiCalls.putStudentInTuition(tuitionId, $form.serialize());
@@ -261,7 +271,6 @@ const student = (() => {
 			const tuitionId = $container.attr('data-tuition-id');
 
 			const studentsOfThisTuition = studentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
-
 			const studentCardsHtml = template.studentCard({ students: studentsOfThisTuition });
 			$container.html(studentCardsHtml);
 

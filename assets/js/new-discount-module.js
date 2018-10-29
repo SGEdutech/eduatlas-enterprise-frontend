@@ -11,7 +11,7 @@ const discounts = (() => {
 		return tuitionApiCalls.deleteDiscountInTuition(tuitionId, discountId);
 	}
 
-	async function addDiscount() {
+	async function addDiscount(event) {
 		event.preventDefault();
 		const $form = $(event.target);
 		const tuitionId = $form.attr('data-id');
@@ -19,6 +19,7 @@ const discounts = (() => {
 		newDiscount.tuitionId = tuitionId;
 		discountsArr.push(newDiscount);
 		$form.trigger('reset');
+		refresh();
 	}
 
 	async function deleteDiscount(event) {
@@ -33,6 +34,10 @@ const discounts = (() => {
 		} catch (err) {
 			console.error(err);
 		}
+	}
+
+	function submitEditRequest(tuitionId, discountId, editedData) {
+		return tuitionApiCalls.editDicountInTuition(tuitionId, discountId, editedData);
 	}
 
 	async function editDiscount(tuitionId, discountId) {
@@ -52,7 +57,7 @@ const discounts = (() => {
 	function editModalInit(event) {
 		const $editBtn = $(event.target);
 		const tuitionId = $editBtn.attr('data-tuition-id');
-		const discountId = $editBtn.attr('data-course-id');
+		const discountId = $editBtn.attr('data-discount-id');
 		const discountInfo = discountsArr.find(discountToBeEdited => discountToBeEdited._id === discountId);
 		const editDicountInputHTML = template.discountEditInputs(discountInfo);
 		modal.renderFormContent(editDicountInputHTML);
@@ -97,7 +102,7 @@ const discounts = (() => {
 		bindDynamicEvents();
 	}
 
-	function init() {
+	function init(discounts) {
 		if (Array.isArray(discounts) === false) throw new Error('Discounts must be an array');
 		discountsArr = discounts;
 
