@@ -130,6 +130,15 @@ const student = (() => {
 		});
 	}
 
+	function clearAndHideEaModal() {
+		$eAIdInp.val('');
+		$eAIdModal.modal('hide');
+	}
+
+	function showEaModal() {
+		$eAIdModal.modal('show');
+	}
+
 	function populateStudentInfo(userInfo, tuitionId) {
 		if (userInfo.firstName) $studentNameInp.filter(`[data-tuition-id="${tuitionId}"]`).val(userInfo.firstName);
 		if (userInfo.middleName) $studentNameInp.filter(`[data-tuition-id="${tuitionId}"]`).val(`${$studentNameInp.filter(`[data-tuition-id="${tuitionId}"]`).val()} ${userInfo.middleName}`);
@@ -157,14 +166,14 @@ const student = (() => {
 			const eANumber = eAIdsAndNumbers.eAIdToNumber($eAIdInp.val());
 			const userInfo = await userApiCalls.getSpecificUser({ eANumber });
 			populateStudentInfo(userInfo, tuitionId);
-			$eAIdModal.modal('hide');
+			clearAndHideEaModal();
 		} catch (error) {
 			console.error(error);
 		}
 	}
 
 	function initEAIdModal(event) {
-		$eAIdModal.modal('show');
+		showEaModal();
 		const $btn = $(event.target);
 		const tuitionId = $btn.attr('data-tuition-id');
 		$eASuceedBtn.attr('data-tuition-id', tuitionId);
