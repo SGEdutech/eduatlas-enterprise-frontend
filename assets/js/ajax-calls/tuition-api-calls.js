@@ -574,7 +574,7 @@ const tuitionApiCalls = (() => {
 		return $.ajax({
 			type: 'PUT',
 			url: `/tuition/${idOfTuition}/discount/${idOfDiscount}`,
-			data: bodyObj,
+			data: bodyObj
 		});
 	}
 
@@ -587,7 +587,7 @@ const tuitionApiCalls = (() => {
 		}
 		return $.ajax({
 			type: 'DELETE',
-			url: `/tuition/${idOfTuition}/discount/${idOfDicount}`,
+			url: `/tuition/${idOfTuition}/discount/${idOfDicount}`
 		});
 	}
 

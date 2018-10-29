@@ -23,6 +23,7 @@ const student = (() => {
 	let $eASuceedBtn;
 	let $modeOfPaymentSelect;
 	let $modeOfPaymentDetailsContainer;
+	let $exelUploadInp;
 
 	async function deleteStudent(event) {
 		try {
@@ -188,11 +189,18 @@ const student = (() => {
 			inputsHTML = template.modeOfPaymentChequeInputs();
 		} else if (selectedModeOfPayment === 'card') {
 			inputsHTML = template.modeOfPaymentCardInputs();
-		}
-		else if (selectedModeOfPayment === 'other') {
+		} else if (selectedModeOfPayment === 'other') {
 			inputsHTML = template.modeOfPaymentOtherInputs();
 		}
 		$modeOfPaymentDetailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).html(inputsHTML);
+	}
+
+	function displaystudents(studentsDetails) {
+		console.log(studentsDetails);
+	}
+
+	function parseAndDisplayStudents() {
+		$exelUploadInp.parse({ config: { complete: displaystudents, header: true } });
 	}
 
 	function cache() {
@@ -215,6 +223,7 @@ const student = (() => {
 		$eAIdModalTriggerBtn = $('.ea-id-modal-trigger');
 		$modeOfPaymentSelect = $('.mode-of-payment-select');
 		$modeOfPaymentDetailsContainer = $('.mode-of-payment-details-container');
+		$exelUploadInp = $('.exel-file-upload');
 	}
 
 	function cacheDynamic() {
@@ -234,7 +243,8 @@ const student = (() => {
 		$feeCollected.blur(renderBalancePending);
 		$eAIdModalTriggerBtn.click(initEAIdModal);
 		$eASuceedBtn.click(fetchAndRenderUserInfoAndCloseModal);
-		$modeOfPaymentSelect.change(showModeOfPaymentDetailsInputs)
+		$modeOfPaymentSelect.change(showModeOfPaymentDetailsInputs);
+		$exelUploadInp.change(parseAndDisplayStudents);
 	}
 
 	function bindDynamic() {

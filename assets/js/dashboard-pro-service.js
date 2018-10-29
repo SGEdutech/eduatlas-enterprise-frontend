@@ -23,7 +23,7 @@ async function initModules() {
 		batch.init(claimedBatches, claimedCourses, claimedStudents);
 		student.init(claimedStudents, claimedCourses, claimedBatches);
 		schedule.init(claimedBatches);
-		attendance.init(claimedBatches, claimedStudents);
+		// attendance.init(claimedBatches, claimedStudents);
 		forum.init(claimedForums);
 		announcement.init(claimedBatches, claimedStudents);
 		redirectTabs.init(queryString.loadQueryString());
