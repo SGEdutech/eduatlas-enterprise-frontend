@@ -591,6 +591,13 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
+	function getAllClaimedDiscounts() {
+		return $.ajax({
+			type: 'GET',
+			url: '/tuition/discount/claimed'
+		});
+	}
+
 	return {
 		getAllTuitions,
 		getAllClaimedTuitions,
@@ -631,6 +638,7 @@ const tuitionApiCalls = (() => {
 		replaceAttendanceInSchedule,
 		putDiscountInTuition,
 		editDicountInTuition,
-		deleteDiscountInTuition
+		deleteDiscountInTuition,
+		getAllClaimedDiscounts
 	};
 })();

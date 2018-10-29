@@ -13,9 +13,10 @@ async function initModules() {
 		promiseArr.push(schoolApiCalls.getAllClaimedSchools());
 		promiseArr.push(eventApiCalls.getAllClaimedEvents());
 		promiseArr.push(tuitionApiCalls.getAllClaimedForums());
+		promiseArr.push(tuitionApiCalls.getAllClaimedDiscounts());
 		promiseArr.push(user.getInfo());
 
-		const [claimedCourses, claimedBatches, claimedStudents, claimedInstitute, claimedSchools, claimedEvents, claimedForums, userInfo] =
+		const [claimedCourses, claimedBatches, claimedStudents, claimedInstitute, claimedSchools, claimedEvents, claimedForums, claimedDiscounts, userInfo] =
 		await Promise.all(promiseArr);
 
 		instituteInfo.init(claimedInstitute);
@@ -27,6 +28,7 @@ async function initModules() {
 		forum.init(claimedForums);
 		announcement.init(claimedBatches, claimedStudents);
 		redirectTabs.init(queryString.loadQueryString());
+		discounts.init(claimedDiscounts)
 
 		userImgAndName.init(userInfo);
 		modal.init();
