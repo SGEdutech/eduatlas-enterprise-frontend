@@ -921,11 +921,12 @@
 									<div class="col-12">
 										<label for="batchDropdown">Select Batch</label>
 										<select class="form-control attendance-batch-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
-											{{!-- FIXME: moved to new hbs file --}}
+										</select>
+										<label for="batchDropdown">Select Week</label>
+										<select class="form-control attendance-week-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
 										</select>
 										<label for="scheduleDropdown">Select Schedule</label>
 										<select class="form-control attendance-schedule-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
-											{{!-- FIXME: moved to new hbs file --}}
 										</select>
 									</div>
 									<div style="overflow-y: scroll;max-height: 279px;">
@@ -937,23 +938,12 @@
 														<th class="text-light">Student Name</th>
 														<th class="text-light">Roll No.</th>
 														<th class="text-light">Email</th>
-														<th class="text-light">Action</th>
-													</tr>
-												</thead>
-												<thead class="border bg-info border-light">
-													<tr>
-														<th class="text-light"></th>
-														<th class="text-light"></th>
-														<th class="text-light"></th>
-														<th class="text-light border border-light" colspan="1" style="font-size: 13px;">SELECT
+														<th class="text-light">SELECT
 															TO MARK ABSENT</th>
 													</tr>
 												</thead>
-
 												<tbody class="students-container" data-tuition-id="{{_id}}">
-
 													{{!-- FIXME: not moved to new hbs file --}}
-
 												</tbody>
 											</table>
 										</form>

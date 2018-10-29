@@ -1,5 +1,5 @@
-{{#each schedules as |schedule|}}
+{{#each schedules as |value key|}}
 <option value="{{schedule._id}}">
-    {{schedule.topic}} - {{schedule.date}}
+    {{@key}}
 </option>
 {{/each}}

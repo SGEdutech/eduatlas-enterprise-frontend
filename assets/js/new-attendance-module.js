@@ -4,6 +4,7 @@ const attendance = (() => {
 	let $batchDropDown;
 	let $scheduleDropDown;
 	let $absentStudentForm;
+	let $attendanceWeekDropdown;
 	let $saveAttendance;
 	let $studentsContainer;
 
@@ -39,7 +40,19 @@ const attendance = (() => {
 		}
 	}
 
-	function renderScheduleDropDownAndAttendancePallet() {
+	function sortByWeek(batchObj) {
+		return batchObj.schedules.reduce((accumulator, scheduleObj) => {
+			const weekOptions = moment(scheduleObj.date).week().startOf('isoWeek') + '-' + moment(scheduleObj.date).week().startOf('isoWeek');
+			// check if the week number exists
+			if (typeof accumulator[weekOptions] === 'undefined') {
+				accumulator[weekOptions] = [];
+			}
+			accumulator[weekOptions].push(scheduleObj);
+			return accumulator;
+		}, {});
+	}
+
+	function renderWeekDropDownAndAttendancePallet() {
 		$scheduleDropDown.each((__, dropdown) => {
 			const $dropdown = $(dropdown);
 			const tuitionId = $dropdown.attr('data-tuition-id');
@@ -47,12 +60,29 @@ const attendance = (() => {
 			const batchId = $batchDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
 			distinctBatchesArr.forEach(batch => {
 				if (batch._id === batchId) {
-					const scheduleOptionsHTML = template.scheduleOptions({ schedules: batch.schedules });
+					const schedulesByWeek = sortByWeek(batch);
+					const scheduleOptionsHTML = template.scheduleOptions({ schedules: schedulesByWeek });
 					$dropdown.html(scheduleOptionsHTML);
 				}
 			});
 		})
 		renderStudentAttandencePallet();
+	}
+
+	function renderScheduleDropDown() {
+		$scheduleDropDown.each((__, dropdown) => {
+			const $dropdown = $(dropdown);
+			const tuitionId = $dropdown.attr('data-tuition-id');
+
+			const batchId = $batchDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			distinctBatchesArr.forEach(batch => {
+				if (batch._id === batchId) {
+					const schedulesByWeek = sortByWeek(batch);
+					const scheduleOptionsHTML = template.scheduleOptions({ schedules: schedulesByWeek });
+					$dropdown.html(scheduleOptionsHTML);
+				}
+			});
+		})
 	}
 
 	function cache() {
@@ -62,6 +92,7 @@ const attendance = (() => {
 		$absentStudentForm = $('.absent-student-form');
 		$saveAttendance = $('.save-attendance-btn');
 		$studentsContainer = $('.students-container');
+		$attendanceWeekDropdown = $('.attendance-week-dropdown');
 	}
 
 	function cacheDynamic() {
@@ -103,7 +134,8 @@ const attendance = (() => {
 	}
 
 	function bindEvents() {
-		$batchDropDown.change(renderScheduleDropDownAndAttendancePallet);
+		$batchDropDown.change(renderWeekDropDownAndAttendancePallet);
+		$attendanceWeekDropdown.change(renderScheduleDropDown);
 		$scheduleDropDown.change(renderStudentAttandencePallet);
 		$saveAttendance.click(submitAttendance);
 	}
@@ -123,12 +155,12 @@ const attendance = (() => {
 	function refresh() {
 		cacheDynamic();
 		renderBatchDropdown();
-		renderScheduleDropDownAndAttendancePallet();
+		renderWeekDropDownAndAttendancePallet();
 	}
 
 	function render() {
 		renderBatchDropdown();
-		renderScheduleDropDownAndAttendancePallet();
+		renderWeekDropDownAndAttendancePallet();
 	}
 
 	function init(batches, students) {
