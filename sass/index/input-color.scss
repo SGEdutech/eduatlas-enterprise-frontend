@@ -10,7 +10,10 @@ input.form-control {
 	color: #00bcd4
 }
 
-.sm-tab input,
+.sm-tab input[type="text"],
+.sm-tab input[type="number"],
+.sm-tab input[type="email"],
+.sm-tab input[type="date"],
 .sm-tab textarea {
 	border: 0.5px solid #4caf50
 }

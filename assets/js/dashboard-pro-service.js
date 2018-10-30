@@ -39,12 +39,12 @@ async function initModules() {
 		dashboardAddTuition.init(userInfo);
 		dashboardAddSchool.init(userInfo);
 		dashboardAddEvent.init(userInfo);
-
-		triggerPills.init();
 	} catch (err) {
 		console.error(err);
 	}
 }
+
+triggerPills.init();
 
 initModules();
 

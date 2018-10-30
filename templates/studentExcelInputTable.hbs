@@ -1,0 +1,32 @@
+<table>
+    <thead>
+        <tr>
+            <td>
+                Roll Number
+            </td>
+            <td>
+                Name
+            </td>
+            <td>
+                E-Mail
+            </td>
+            <td>
+                Address
+            </td>
+            <td>
+                Contact Number
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each students as |student|}}
+        <tr class="student-row">
+            <td><input type="text" class="form-control row" value="{{[Roll Number]}}"></td>
+            <td><input type="text" value="{{Name}}"></td>
+            <td><input type="email" value="{{[E-Mail]}}"></td>
+            <td><input type="text" value="{{Address}}"></td>
+            <td><input type="number" value="{{[Contact Number]}}"></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

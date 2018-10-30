@@ -206,7 +206,7 @@ const student = (() => {
 	}
 
 	function displaystudents(studentsDetails) {
-		console.log(studentsDetails);
+		excelUploadModal.init(studentsDetails);
 	}
 
 	function parseAndDisplayStudents() {

@@ -18,7 +18,7 @@ const modal = (() => {
 	}
 
 	function bindEvent() {
-		$modal.on('hidden.bs.modal', () => $submitBtn.off())
+		$modal.on('hidden.bs.modal', () => $submitBtn.off());
 	}
 
 	function showModal() {
