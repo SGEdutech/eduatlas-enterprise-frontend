@@ -90,7 +90,8 @@ const student = (() => {
 			const tuitionId = $form.attr('data-id');
 			const newStudent = await tuitionApiCalls.putStudentInTuition(tuitionId, $form.serialize());
 			newStudent.tuitionId = tuitionId;
-			studentsArr.push(newStudent);
+			// Commented this out because we are listening to our own module
+			// studentsArr.push(newStudent);
 			PubSub.publish('student.add', newStudent);
 			$form.trigger('reset');
 			refresh();

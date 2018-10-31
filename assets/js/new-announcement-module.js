@@ -5,6 +5,9 @@ const announcement = (() => {
 	let $selectStudentContainer;
 	let $selectBatchContainer;
 	let $sendBtn;
+	let $studentCheckbox;
+	let $batchCheckbox;
+	// Delete 2 below
 	let $checkedStudents;
 	let $checkedBatches;
 	let $selectWholeInstitute;
@@ -42,6 +45,8 @@ const announcement = (() => {
 	}
 
 	function cacheDynamic() {
+		$studentCheckbox = $selectStudentContainer.find('input:checkbox');
+		$batchCheckbox = $selectBatchContainer.find('input:checkbox');
 		$checkedStudents = $selectStudentContainer.find('input:checkbox:checked');
 		$checkedBatches = $selectBatchContainer.find('input:checkbox:checked');
 	}
@@ -66,8 +71,20 @@ const announcement = (() => {
 		});
 	}
 
+	function markOrUnmarkAllStudents(event) {
+		const $checkBox = $(event.target);
+		const tuitionId = $checkBox.attr('data-tuition-id');
+		if ($checkBox.is(':checked')) {
+			$studentCheckbox.filter(`[data-tuition-id="${tuitionId}"]`).prop('checked', true);
+		} else {
+			$studentCheckbox.filter(`[data-tuition-id="${tuitionId}"]`).prop('checked', false);
+		}
+	}
+
 	function bindEvents() {
 		$sendBtn.click(addNotification);
+		$selectWholeInstitute.change(markOrUnmarkAllStudents);
+		// $a
 	}
 
 	function refresh() {

@@ -196,6 +196,11 @@ const schedule = (() => {
 	async function addSchedule(event) {
 		try {
 			event.preventDefault();
+			cacheDynamic();
+			if ($checkedBatchesInput.length === 0) {
+				alert('Please select batch to add schedule');
+				return;
+			}
 			const $form = $(event.target);
 			const tuitionId = $form.attr('data-tuition-id');
 			const schedulesToBeAddedArr = [];
@@ -206,7 +211,6 @@ const schedule = (() => {
 				inputsValues.toTime = dateAndTime.twelveHourToMinutesFromMidnight(inputsValues.toTime)
 				schedulesToBeAddedArr.push(inputsValues);
 			});
-			cacheDynamic();
 			const addSchedulesPromiseArr = [];
 			$checkedBatchesInput.each((__, checkedBatch) => {
 				const $checkedBatch = $(checkedBatch);
