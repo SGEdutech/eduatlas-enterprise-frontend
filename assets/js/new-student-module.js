@@ -24,6 +24,7 @@ const student = (() => {
 	let $modeOfPaymentSelect;
 	let $modeOfPaymentDetailsContainer;
 	let $exelUploadInp;
+	let $addStudentFromExcelBtn;
 
 	async function deleteStudent(event) {
 		try {
@@ -205,7 +206,19 @@ const student = (() => {
 		$modeOfPaymentDetailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).html(inputsHTML);
 	}
 
+	function sanitizeStudentExcelData(data) {
+		if (data === undefined) throw new Error('Student data not provided');
+		if (Array.isArray(data) === false) throw new Error('Student data must be an array');
+
+		data.forEach((studentDetailObj, index) => {
+			if (!studentDetailObj['Roll Number'] || !studentDetailObj['Name'] || !studentDetailObj['E-Mail'] || !studentDetailObj['Address'] || !studentDetailObj['Contact Number']) {
+				data.splice(index, 1);
+			}
+		});
+	}
+
 	function displaystudents(studentsDetails) {
+		sanitizeStudentExcelData(studentsDetails.data);
 		excelUploadModal.init(studentsDetails);
 	}
 
@@ -234,6 +247,7 @@ const student = (() => {
 		$modeOfPaymentSelect = $('.mode-of-payment-select');
 		$modeOfPaymentDetailsContainer = $('.mode-of-payment-details-container');
 		$exelUploadInp = $('.exel-file-upload');
+		$addStudentFromExcelBtn = $('.add-students-from-excel-btn');
 	}
 
 	function cacheDynamic() {
@@ -254,7 +268,7 @@ const student = (() => {
 		$eAIdModalTriggerBtn.click(initEAIdModal);
 		$eASuceedBtn.click(fetchAndRenderUserInfoAndCloseModal);
 		$modeOfPaymentSelect.change(showModeOfPaymentDetailsInputs);
-		$exelUploadInp.change(parseAndDisplayStudents);
+		$addStudentFromExcelBtn.click(parseAndDisplayStudents);
 	}
 
 	function bindDynamic() {

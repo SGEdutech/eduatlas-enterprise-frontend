@@ -2,7 +2,12 @@ const excelUploadModal = (() => {
 	let $studentsDisplayModal;
 	let $modalBody;
 	let $uploadBtn;
-	let $studentRow;
+	let $studentRows;
+	let $form;
+
+	function submitStudents() {
+		
+	}
 
 	function distroyModal() {
 		unbindEvents();
@@ -24,15 +29,17 @@ const excelUploadModal = (() => {
 		$studentsDisplayModal = $('#excel_upload_modal');
 		$modalBody = $('#excel_upload_modal_body');
 		$uploadBtn = $('#upload_excel_data');
+		$form = $('#upload_student_form');
 	}
 
 	function cacheDynamic() {
-		$studentRow = $('.student-row');
+		$studentRows = $('.student-row');
 	}
 
 	function bindEvents() {
 		$uploadBtn.click(uploadData);
 		$studentsDisplayModal.on('hidden.bs.modal', distroyModal);
+		$form.submit(submitStudents);
 	}
 
 	function unbindEvents() {
@@ -45,7 +52,6 @@ const excelUploadModal = (() => {
 
 	function render(studentsData) {
 		const bodyHtml = template.studentExcelInputTable({ students: studentsData.data });
-		console.log(bodyHtml);
 		$modalBody.html(bodyHtml);
 	}
 
