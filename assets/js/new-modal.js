@@ -39,7 +39,8 @@ const modal = (() => {
 
 	function calcTotalCourseFee(fee, gstPercentage) {
 		if (fee === undefined) throw new Error('Fee not provided!');
-		gstPercentage = gstPercentage || 0;
+		fee = parseInt(fee, 10);
+		gstPercentage = parseInt(gstPercentage, 10) || 0;
 
 		return fee + fee * (gstPercentage / 100);
 	}
