@@ -225,7 +225,7 @@ const student = (() => {
 	function parseAndDisplayStudents(event) {
 		const $btn = $(event.target);
 		const tuitionId = $btn.attr('data-tuition-id');
-		$exelUploadInp.parse({ config: { complete: data => displaystudents(data, tuitionId), header: true } });
+		$exelUploadInp.filter(`[data-tuition-id="${tuitionId}"]`).parse({ config: { complete: data => displaystudents(data, tuitionId), header: true } });
 	}
 
 	function cache() {
@@ -373,6 +373,15 @@ const student = (() => {
 
 	PubSub.subscribe('batch.delete', (msg, removedBatch) => {
 		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj._id !== removedBatch._id);
+		refresh();
+	});
+
+	PubSub.subscribe('student.add', (msg, newStudent) => {
+		if (Array.isArray(newStudent)) {
+			studentsArr = studentsArr.concat(newStudent);
+		} else {
+			studentsArr.push(newStudent);
+		}
 		refresh();
 	});
 

@@ -110,7 +110,11 @@ const announcement = (() => {
 	});
 
 	PubSub.subscribe('student.add', (msg, studentAdded) => {
-		studentsArr.push(studentAdded);
+		if (Array.isArray(studentAdded)) {
+			studentsArr = studentsArr.concat(studentAdded);
+		} else {
+			studentsArr.push(studentAdded);
+		}
 		refresh();
 	});
 

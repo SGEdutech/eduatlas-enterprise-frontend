@@ -33,6 +33,9 @@ const excelUploadModal = (() => {
 		try {
 			event.preventDefault();
 			const newStudents = await tuitionApiCalls.putStudentInTuition(tuitionId, { students: getStudentDataArr() });
+			newStudents.forEach(studentObj => studentObj.tuitionId = tuitionId);
+			PubSub.publish('student.add', newStudents);
+			hideModal();
 		} catch (error) {
 			console.error(error);
 		}

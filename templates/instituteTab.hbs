@@ -256,7 +256,12 @@
 											<button class="btn btn-info btn-sm ea-id-modal-trigger" data-tuition-id="{{_id}}">Enter EA ID</button>
 										</div>
 										<div class="col-4">
-											<input class="exel-file-upload" type="file">
+											<a href="/assets/excel/student-template.csv" download>
+												<button class="btn btn-round btn-success float-right add-students-from-excel-btn">Download Excel Template</button>
+											</a>
+										</div>
+										<div class="col-4">
+											<input class="exel-file-upload" type="file" data-tuition-id="{{_id}}">
 										</div>
 										<div class="col-4">
 											<button class="btn btn-round btn-success float-right add-students-from-excel-btn" data-tuition-id="{{_id}}">ADD STUDENTS FROM EXCEL</button>
