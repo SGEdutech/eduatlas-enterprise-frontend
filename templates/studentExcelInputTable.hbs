@@ -18,21 +18,21 @@
 		</div>
 	</div>
 	{{#each students as |student|}}
-		<div class="row">
+		<div class="row student-row" data-row-number="{{@index}}">
 			<div class="col-2">
-				<input type="text" class="form-control row" value="{{[Roll Number]}}">
+				<input name="rollNumber" type="text" class="form-control row" value="{{[Roll Number]}}" data-row-number="{{@index}}" required>
 			</div>
 			<div class="col-2">
-				<input type="text" value="{{Name}}" required>
+				<input name="name" type="text" value="{{Name}}" data-row-number="{{@index}}" required>
 			</div>
 			<div class="col-2">
-				<input type="email" value="{{[E-Mail]}}" required>
+				<input name="email" type="email" value="{{[E-Mail]}}" data-row-number="{{@index}}" required>
 			</div>
 			<div class="col-2">
-				<input type="text" value="{{Address}}" required>
+				<input name="address" type="text" value="{{Address}}" data-row-number="{{@index}}" required>
 			</div>
 			<div class="col-2">
-				<input type="number" value="{{[Contact Number]}}" required>
+				<input name="contactNumber" type="number" value="{{[Contact Number]}}" data-row-number="{{@index}}" required>
 			</div>
 		</div>
 	{{/each}}

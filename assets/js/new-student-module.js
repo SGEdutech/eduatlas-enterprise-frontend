@@ -217,13 +217,15 @@ const student = (() => {
 		});
 	}
 
-	function displaystudents(studentsDetails) {
+	function displaystudents(studentsDetails, tuitionId) {
 		sanitizeStudentExcelData(studentsDetails.data);
-		excelUploadModal.init(studentsDetails);
+		excelUploadModal.init(studentsDetails, tuitionId);
 	}
 
-	function parseAndDisplayStudents() {
-		$exelUploadInp.parse({ config: { complete: displaystudents, header: true } });
+	function parseAndDisplayStudents(event) {
+		const $btn = $(event.target);
+		const tuitionId = $btn.attr('data-tuition-id');
+		$exelUploadInp.parse({ config: { complete: data => displaystudents(data, tuitionId), header: true } });
 	}
 
 	function cache() {
