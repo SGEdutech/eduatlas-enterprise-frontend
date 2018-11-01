@@ -1,7 +1,7 @@
 const student = (() => {
 	let distinctCoursesArr;
 	let distinctBatchesArr;
-	let studentsArr;
+	let distinctStudentsArr;
 	let $addStudentForm;
 	let $editButton;
 	let $deleteButton;
@@ -25,6 +25,9 @@ const student = (() => {
 	let $modeOfPaymentDetailsContainer;
 	let $exelUploadInp;
 	let $addStudentFromExcelBtn;
+	let $studentSearchInp;
+	let $studentSearchTriggerBtn;
+	let $studentSearchReset;
 
 	async function deleteStudent(event) {
 		try {
@@ -32,7 +35,7 @@ const student = (() => {
 			const tuitionId = $deleteBtn.attr('data-tuition-id');
 			const studentId = $deleteBtn.attr('data-student-id');
 			const deletedStudent = await tuitionApiCalls.deleteStudentInTuition(tuitionId, studentId);
-			studentsArr = studentsArr.filter(studentObj => studentObj._id !== studentId);
+			distinctStudentsArr = distinctStudentsArr.filter(studentObj => studentObj._id !== studentId);
 			PubSub.publish('student.delete', deletedStudent);
 			refresh();
 		} catch (err) {
@@ -48,7 +51,7 @@ const student = (() => {
 			modal.hideModal();
 			console.log('Student was successfully edited');
 			editedStudent.tuitionId = tuitionId;
-			studentsArr = studentsArr.map(studentObj => studentObj._id === studentId ? editedStudent : studentObj)
+			distinctStudentsArr = distinctStudentsArr.map(studentObj => studentObj._id === studentId ? editedStudent : studentObj)
 			PubSub.publish('student.edit', editedStudent);
 			refresh();
 		} catch (err) {
@@ -60,7 +63,7 @@ const student = (() => {
 		const $editBtn = $(event.target);
 		const tuitionId = $editBtn.attr('data-tuition-id');
 		const studentId = $editBtn.attr('data-student-id');
-		const studentInfo = studentsArr.find(studentToBeEdited => studentToBeEdited._id === studentId);
+		const studentInfo = distinctStudentsArr.find(studentToBeEdited => studentToBeEdited._id === studentId);
 		if (studentInfo.nextInstallment) studentInfo.nextInstallment = studentInfo.nextInstallment.split('T')[0];
 		const editStudentInputHTML = template.studentEditInputs(studentInfo);
 		modal.renderFormContent(editStudentInputHTML);
@@ -251,6 +254,9 @@ const student = (() => {
 		$modeOfPaymentDetailsContainer = $('.mode-of-payment-details-container');
 		$exelUploadInp = $('.exel-file-upload');
 		$addStudentFromExcelBtn = $('.add-students-from-excel-btn');
+		$studentSearchInp = $('.student-search-inp');
+		$studentSearchTriggerBtn = $('.student-search-trigger');
+		$studentSearchReset = $('.student-search-reset');
 	}
 
 	function cacheDynamic() {
@@ -272,6 +278,8 @@ const student = (() => {
 		$eASuceedBtn.click(fetchAndRenderUserInfoAndCloseModal);
 		$modeOfPaymentSelect.change(showModeOfPaymentDetailsInputs);
 		$addStudentFromExcelBtn.click(parseAndDisplayStudents);
+		$studentSearchTriggerBtn.click(renderSearchResults);
+		$studentSearchReset.click(clearSearch);
 	}
 
 	function bindDynamic() {
@@ -292,7 +300,19 @@ const student = (() => {
 		});
 	}
 
-	function render() {
+	function clearSearch() {
+		refresh();
+	}
+
+	function renderSearchResults() {
+		const searchStr = $studentSearchInp.val();
+		const regex = new RegExp(searchStr, 'i');
+
+		const searchStudentArr = distinctStudentsArr.filter(studentObj => regex.test(studentObj.name));
+		refresh(searchStudentArr);
+	}
+
+	function render(studentsArr) {
 		$studentContainer.each((__, container) => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
@@ -320,20 +340,21 @@ const student = (() => {
 		renderBalancePending();
 	}
 
-	function refresh() {
-		render();
+	function refresh(studentsArr) {
+		studentsArr = studentsArr || distinctStudentsArr;
+		render(studentsArr);
 		cacheDynamic();
 		bindDynamic();
 	}
 
 	function init(studentsArray, courseArr, batchArr) {
 		if (studentsArray === undefined) throw new Error('Students array not defined');
-		studentsArr = JSON.parse(JSON.stringify(studentsArray));
+		distinctStudentsArr = JSON.parse(JSON.stringify(studentsArray));
 		distinctCoursesArr = JSON.parse(JSON.stringify(courseArr));
 		distinctBatchesArr = JSON.parse(JSON.stringify(batchArr));
 		cache();
 		bindevents();
-		render();
+		render(distinctStudentsArr);
 		cacheDynamic();
 		bindDynamic();
 	}
@@ -379,9 +400,9 @@ const student = (() => {
 
 	PubSub.subscribe('student.add', (msg, newStudent) => {
 		if (Array.isArray(newStudent)) {
-			studentsArr = studentsArr.concat(newStudent);
+			distinctStudentsArr = distinctStudentsArr.concat(newStudent);
 		} else {
-			studentsArr.push(newStudent);
+			distinctStudentsArr.push(newStudent);
 		}
 		refresh();
 	});

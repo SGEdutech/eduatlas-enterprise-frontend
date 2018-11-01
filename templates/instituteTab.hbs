@@ -242,6 +242,15 @@
 								Active Students
 							</div>
 							<div class="container">
+								<div class="row">
+									<div class="col-md-8"><input type="text" class="student-search-inp" placeholder="search students" data-tuition-id="{{_id}}"></div>
+									<div class="col-md-2">
+										<div class="btn btn-info btn-sm student-search-trigger" data-tuition-id="{{_id}}">SEARCH</div>
+									</div>
+									<div class="col-md-2">
+										<div class="btn btn-info btn-sm student-search-reset" data-tuition-id="{{_id}}">RESET</div>
+									</div>
+								</div>
 								<div class="section section-comments p-1">
 									<div class="row">
 										{{!-- FIXME: moved to new hbs file --}}
