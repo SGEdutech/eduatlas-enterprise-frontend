@@ -2,7 +2,7 @@
 <div class="col-md-4" id="{{_id}}">
     <div class="card">
         <div class="card-body ">
-            <h4 class="card-title" data-toggle="modal" data-target="#editBatchModal{{_id}}">
+            <h4 class="card-title" data-toggle="modal" data-target="#editBatchModal{{_id}}" style="text-transform: uppercase">
                 <a href="#pablo">{{code}}</a>
             </h4>
             <p class="card-text">
@@ -10,7 +10,11 @@
             </p>
             <p class="card-text">
                 <small class="text-secondary">Course:</small>
-                <small class="text-danger">{{courseCode}}</small>
+                <small class="text-danger" style="text-transform: uppercase">{{courseCode}}</small>
+            </p>
+            <p class="card-text">
+                <small class="text-secondary">Total Number Of Students :</small>
+                <small class="text-danger">{{students.length}}</small>
             </p>
         </div>
         <div class="card-footer ">

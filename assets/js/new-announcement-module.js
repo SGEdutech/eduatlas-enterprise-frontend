@@ -35,6 +35,28 @@ const announcement = (() => {
 		notificationApiCalls.putNewNotification(tuitionId, $announcementText.val(), userEmails, batchesArr[0], tuitionIdIfSendToAllTuition);
 	}
 
+	function markOrUnmarkBatchStudents(event) {
+		const $checkBox = $(event.target);
+		const tuitionId = $checkBox.attr('data-tuition-id');
+
+		const isChecked = $checkBox.is(':checked');
+		const batchId = $checkBox.val();
+		const batch = distinctBatchesArr.find(batchObj => batchObj._id === batchId);
+		$studentCheckbox.filter(`[data-tuition-id="${tuitionId}"]`)
+			.each((__, checkbox) => {
+				$checkbox = $(checkbox);
+				const studentId = $checkbox.attr('data-student-id');
+				const studentFound = Boolean(batch.students.find(idOfStudent => idOfStudent === studentId));
+				if (studentFound) {
+					if (isChecked) {
+						$checkbox.prop('checked', true);
+					} else {
+						$checkbox.prop('checked', false);
+					}
+				}
+			});
+	}
+
 	function cache() {
 		$newAnnouncementForm = $('.new_announcement_form');
 		$selectStudentContainer = $('.select-announcement-students');
@@ -49,6 +71,10 @@ const announcement = (() => {
 		$batchCheckbox = $selectBatchContainer.find('input:checkbox');
 		$checkedStudents = $selectStudentContainer.find('input:checkbox:checked');
 		$checkedBatches = $selectBatchContainer.find('input:checkbox:checked');
+	}
+
+	function bindDynamic() {
+		$batchCheckbox.off().change(markOrUnmarkBatchStudents);
 	}
 
 	function render() {
@@ -84,12 +110,12 @@ const announcement = (() => {
 	function bindEvents() {
 		$sendBtn.click(addNotification);
 		$selectWholeInstitute.change(markOrUnmarkAllStudents);
-		// $a
 	}
 
 	function refresh() {
 		render();
 		cacheDynamic();
+		bindDynamic();
 	}
 
 	function init(batchesArr, students) {
@@ -106,6 +132,7 @@ const announcement = (() => {
 		bindEvents();
 		render();
 		cacheDynamic();
+		bindDynamic();
 	}
 
 	PubSub.subscribe('batch.add', (msg, addedBatch) => {

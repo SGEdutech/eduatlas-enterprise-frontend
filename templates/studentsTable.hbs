@@ -5,7 +5,7 @@
     <td>{{rollNumber}}</td>
     <td>{{email}}</td>
     <td>
-        <input name="absentees" type="checkbox" class="student-absent" value="{{email}}" {{#if isAbsent}}checked{{/if}} data-tuition-id="{{tuitionId}}">
+        <input name="absentees" type="checkbox" class="student-absent" value="{{email}}" {{#if isAbsent}}checked{{/if}} data-student-id="{{_id}}" data-tuition-id="{{tuitionId}}">
     </td>
 </tr>
 {{/each}}

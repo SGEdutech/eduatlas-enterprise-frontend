@@ -2,20 +2,29 @@
 <div class="col-md-4" id="{{course._id}}">
     <div class="card">
         <div class="card-body ">
-            <h4 class="card-title">
+            <h4 class="card-title" style="text-transform: uppercase">
                 <a href="#pablo">{{course.code}}</a>
             </h4>
+            <p class="card-text">
+                <small class="text-secondary">Description :</small>
+                <small class="text-danger">{{course.description}}</small>
+            </p>
+            <p class="card-text">
+                <small class="text-secondary">Number Of Batches :</small>
+                <small class="text-danger">{{batches.length}}</small>
+            </p>
         </div>
         <div class="card-footer ">
             <div class="author">
                 <h6 class="card-category text-danger">
-                    Price {{course.totalFee}}/-
+                    Price :{{course.totalFee}}/-
                 </h6>
             </div>
             <div class="stats ml-auto">
-                <i class="material-icons delete-course-btn" style="top: 0%; cursor: pointer;" data-course-id="{{course._id}}" data-tuition-id="{{course.tuitionId}}"
-                    data-parent="{{course.parentId}}">delete</i>
-                <i class="material-icons course-edit" style="top: 0%; cursor: pointer;" data-course-id="{{course._id}}" data-tuition-id="{{course.tuitionId}}">edit</i>
+                <i class="material-icons delete-course-btn" style="top: 0%; cursor: pointer;" data-course-id="{{course._id}}"
+                    data-tuition-id="{{course.tuitionId}}" data-parent="{{course.parentId}}">delete</i>
+                <i class="material-icons course-edit" style="top: 0%; cursor: pointer;" data-course-id="{{course._id}}"
+                    data-tuition-id="{{course.tuitionId}}">edit</i>
             </div>
         </div>
     </div>
