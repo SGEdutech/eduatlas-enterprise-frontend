@@ -28,6 +28,11 @@ const student = (() => {
 	let $studentSearchInp;
 	let $studentSearchTriggerBtn;
 	let $studentSearchReset;
+	let $installmentDateInp;
+
+	function sortStudentArray(studentArr) {
+		studentArr.sort((a, b) => a.name > b.name ? 1 : -1);
+	}
 
 	async function deleteStudent(event) {
 		try {
@@ -84,6 +89,13 @@ const student = (() => {
 		}
 	}
 
+	function isInstallmentDatePassed(tuitionId) {
+		const installmentDate = new Date($installmentDateInp.filter(`[data-tuition-id="${tuitionId}"]`).val());
+		// This allows todays date to be added
+		installmentDate.setDate(installmentDate.getDate() + 1);
+		return installmentDate.getTime() < Date.now();
+	}
+
 	async function addStudent(event) {
 		try {
 			event.preventDefault();
@@ -91,6 +103,10 @@ const student = (() => {
 			alertStudentEmailAlreadyLinked();
 			const $form = $(event.target);
 			const tuitionId = $form.attr('data-id');
+			if (isInstallmentDatePassed(tuitionId)) {
+				alert('Installment date you have entered has already passed!');
+				return;
+			}
 			const newStudent = await tuitionApiCalls.putStudentInTuition(tuitionId, $form.serialize());
 			newStudent.tuitionId = tuitionId;
 			// Commented this out because we are listening to our own module
@@ -257,6 +273,7 @@ const student = (() => {
 		$studentSearchInp = $('.student-search-inp');
 		$studentSearchTriggerBtn = $('.student-search-trigger');
 		$studentSearchReset = $('.student-search-reset');
+		$installmentDateInp = $('.student-installment-date-inp');
 	}
 
 	function cacheDynamic() {
@@ -342,6 +359,7 @@ const student = (() => {
 
 	function refresh(studentsArr) {
 		studentsArr = studentsArr || distinctStudentsArr;
+		sortStudentArray(studentsArr);
 		render(studentsArr);
 		cacheDynamic();
 		bindDynamic();
@@ -349,6 +367,7 @@ const student = (() => {
 
 	function init(studentsArray, courseArr, batchArr) {
 		if (studentsArray === undefined) throw new Error('Students array not defined');
+		sortStudentArray(studentsArray);
 		distinctStudentsArr = JSON.parse(JSON.stringify(studentsArray));
 		distinctCoursesArr = JSON.parse(JSON.stringify(courseArr));
 		distinctBatchesArr = JSON.parse(JSON.stringify(batchArr));
