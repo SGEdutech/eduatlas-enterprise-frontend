@@ -31,7 +31,7 @@ const student = (() => {
 	let $installmentDateInp;
 
 	function sortStudentArray(studentArr) {
-		studentArr.sort((a, b) => a.name > b.name ? 1 : -1);
+		studentArr.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
 	}
 
 	async function deleteStudent(event) {
