@@ -99,11 +99,8 @@ const course = (() => {
 		refresh();
 	}
 
-	function updateTotalFee(event) {
+	function updateTotalFee(tuitionId) {
 		// FIXME: Too many $totalFee
-		// FIXME: Wrong event.target
-		const $input = $(event.target);
-		const tuitionId = $input.attr('data-tuition-id');
 		let courseFee = $feeInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
 		let gstPercentage = $gstInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
 		courseFee = parseInt(courseFee, 10) || 0;
@@ -112,10 +109,17 @@ const course = (() => {
 		$totalFee.filter(`[data-tuition-id="${tuitionId}"]`).val(totalFee);
 	}
 
-	function toggleGstInp(event) {
-		const $taxCheckbox = $(event.target);
-		const tuitionId = $taxCheckbox.attr('data-tuition-id');
-		const isChecked = $taxCheckbox.prop('checked');
+	function initUpdateTotalFee(event) {
+		const $input = $(event.target);
+		const tuitionId = $input.attr('data-tuition-id');
+
+		updateTotalFee(tuitionId);
+	}
+
+	function toggleGstInp(tuitionId, isChecked) {
+		if (tuitionId === undefined) throw new Error('Tuition fee not provided');
+		if (isChecked === undefined) throw new Error('Is Checked not provided');
+		if (typeof isChecked !== 'boolean') throw new Error('Is checked is not boolean');
 
 		if (isChecked) {
 			$gstInp.filter(`[data-tuition-id="${tuitionId}"]`).prop('disabled', true);
@@ -123,6 +127,15 @@ const course = (() => {
 		} else {
 			$gstInp.filter(`[data-tuition-id="${tuitionId}"]`).prop('disabled', false);
 		}
+	}
+
+	function toggleGstInpAndUpdateTotalFee(event) {
+		const $taxCheckbox = $(event.target);
+		const tuitionId = $taxCheckbox.attr('data-tuition-id');
+		const isChecked = $taxCheckbox.prop('checked');
+
+		toggleGstInp(tuitionId, isChecked);
+		updateTotalFee(tuitionId);
 	}
 
 	function injectTotalFees(arrayOfCourses) {
@@ -151,9 +164,9 @@ const course = (() => {
 
 	function bindEvents() {
 		$addCourseForm.submit(addCourse);
-		$feeInp.blur(updateTotalFee);
-		$gstInp.blur(updateTotalFee);
-		$inclusiveTaxCheckbox.change(toggleGstInp);
+		$feeInp.blur(initUpdateTotalFee);
+		$gstInp.blur(initUpdateTotalFee);
+		$inclusiveTaxCheckbox.change(toggleGstInpAndUpdateTotalFee);
 	}
 
 	function render() {
