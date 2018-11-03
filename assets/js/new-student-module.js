@@ -41,6 +41,7 @@ const student = (() => {
 			const studentId = $deleteBtn.attr('data-student-id');
 			const deletedStudent = await tuitionApiCalls.deleteStudentInTuition(tuitionId, studentId);
 			distinctStudentsArr = distinctStudentsArr.filter(studentObj => studentObj._id !== studentId);
+			notification.push(`${deletedStudent.name} has been successfully deleted`);
 			PubSub.publish('student.delete', deletedStudent);
 			refresh();
 		} catch (err) {
@@ -51,10 +52,9 @@ const student = (() => {
 	async function editStudent(tuitionId, studentId) {
 		try {
 			const editedData = modal.serializeForm();
-			console.log(tuitionId);
 			const editedStudent = await tuitionApiCalls.editStudentInTuition(tuitionId, studentId, editedData);
 			modal.hideModal();
-			console.log('Student was successfully edited');
+			notification.push('Student has been successfully edited');
 			editedStudent.tuitionId = tuitionId;
 			distinctStudentsArr = distinctStudentsArr.map(studentObj => studentObj._id === studentId ? editedStudent : studentObj)
 			PubSub.publish('student.edit', editedStudent);
@@ -112,6 +112,7 @@ const student = (() => {
 			// Commented this out because we are listening to our own module
 			// studentsArr.push(newStudent);
 			PubSub.publish('student.add', newStudent);
+			notification.push(`${newStudent.name} has been added`);
 			$form.trigger('reset');
 			refresh();
 		} catch (err) {
@@ -318,6 +319,7 @@ const student = (() => {
 	}
 
 	function clearSearch() {
+		$studentSearchInp.val('');
 		refresh();
 	}
 

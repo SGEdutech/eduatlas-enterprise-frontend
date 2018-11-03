@@ -123,6 +123,7 @@ const schedule = (() => {
 			modal.hideModal();
 			editedschedule.fromTime = dateAndTime.inverseMinutesFromMidnight(editedschedule.fromTime);
 			editedschedule.toTime = dateAndTime.inverseMinutesFromMidnight(editedschedule.toTime);
+			notification.push('Schedule has been successfully edited');
 			console.log('Schedule was successfully edited');
 			let objToBePublished;
 			distinctBatchesArr.forEach(batchObj => {
@@ -151,6 +152,7 @@ const schedule = (() => {
 			const courseId = $deleteBtn.attr('data-course-id');
 			const scheduleId = $deleteBtn.attr('data-schedule-id');
 			const deletedSchedule = await submitDeleteRequest(tuitionId, courseId, batchId, scheduleId);
+			notification.push('Schedule has been successfully deleted');
 			console.log('Schedule was successfully deleted');
 			distinctBatchesArr.forEach(batchObj => {
 				if (batchObj._id === batchId) {
@@ -234,6 +236,7 @@ const schedule = (() => {
 				batchInfo.schedules = batchInfo.schedules.concat(schedulesOfThisBatch);
 				// Preparing object to emit PubSub event
 				const schedulesWithBatchId = { batchId: batchInfo._id, schedules: schedulesOfThisBatch };
+				notification.push('Schedule has been successfully added');
 				PubSub.publish('schedule.add', schedulesWithBatchId);
 			});
 

@@ -33,6 +33,7 @@ const announcement = (() => {
 		tuitionIdIfSendToAllTuition = allInstitute ? tuitionId : null;
 
 		notificationApiCalls.putNewNotification(tuitionId, $announcementText.val(), userEmails, batchesArr[0], tuitionIdIfSendToAllTuition);
+		notification.push('Your Message has been successfully sent');
 	}
 
 	function markOrUnmarkBatchStudents(event) {

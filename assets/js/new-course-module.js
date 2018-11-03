@@ -30,7 +30,7 @@ const course = (() => {
 			const editedData = modal.serializeForm();
 			const editedCourse = await submitEditRequest(tuitionId, courseId, editedData);
 			modal.hideModal();
-			console.log('Course was successfully edited');
+			notification.push('Course has been successfully edited');
 			editedCourse.tuitionId = tuitionId;
 			coursesArr = coursesArr.map(courseObj => courseObj._id === courseId ? editedCourse : courseObj)
 			PubSub.publish('course.edit', editedCourse);
@@ -50,7 +50,7 @@ const course = (() => {
 			const tuitionId = $deleteBtn.attr('data-tuition-id');
 			const courseId = $deleteBtn.attr('data-course-id');
 			const deletedTuition = await submitDeleteRequest(tuitionId, courseId);
-			console.log('Tuition was successfully deleted');
+			notification.push('Course has been successfully deleted');
 			coursesArr = coursesArr.filter(courseObj => courseObj._id !== courseId);
 			PubSub.publish('course.delete', deletedTuition);
 			refresh();
@@ -91,6 +91,7 @@ const course = (() => {
 			return;
 		}
 		const newCourse = await submitAddCourse(tuitionId, $form.serialize());
+		notification.push('Course has been successfully added');
 		newCourse.tuitionId = tuitionId;
 		coursesArr.push(newCourse);
 		PubSub.publish('course.add', newCourse);

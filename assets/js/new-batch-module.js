@@ -59,7 +59,7 @@ const batch = (() => {
 			const editedData = modal.serializeForm();
 			const editedBatch = await submitEditRequest(tuitionId, courseId, batchId, editedData);
 			modal.hideModal();
-			console.log('Batch was successfully edited');
+			notification.push('Batch has been successfully edited');
 			editedBatch.tuitionId = tuitionId;
 			editedBatch.courseId = courseId;
 			editedBatch.courseCode = getCourseCode(courseId);
@@ -84,6 +84,7 @@ const batch = (() => {
 			const deletedBatch = await submitDeleteRequest(tuitionId, courseId, batchId);
 			deletedBatch.tuitionId = tuitionId;
 			deletedBatch.courseId = courseId;
+			notification.push('Batch has been successfully deleted');
 			console.log('Batch was successfully deleted');
 			batchesArr = batchesArr.filter(batchObj => batchObj._id !== deletedBatch._id);
 			PubSub.publish('batch.delete', deletedBatch);
@@ -129,6 +130,7 @@ const batch = (() => {
 			const courseId = $courseSelectMenu.filter(`[data-tuition-id="${tuitionId}"]`).val();
 			const courseCode = getCourseCode(courseId);
 			const newBatch = await requestAddBatch(tuitionId, courseId, serializedForm);
+			notification.push('Batch has been successfully added');
 			newBatch.courseId = courseId;
 			newBatch.courseCode = courseCode;
 			newBatch.tuitionId = tuitionId;

@@ -45,8 +45,8 @@ async function initModules() {
 }
 
 triggerPills.init();
+notification.init();
 
 initModules();
-
 setTimeout(loginModal.init());
 // setTimeout(promoterModal.init());

@@ -15,6 +15,7 @@
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill3{{tabNumber}}" data-toggle="tab">Communicator</a></li>
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill4{{tabNumber}}" data-toggle="tab">Schedule</a></li>
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill5{{tabNumber}}" data-toggle="tab">Attendance</a></li>
+		<li class="nav-item"><a class="nav-link rounded-0" href="#pill6{{tabNumber}}" data-toggle="tab">Upcoming Installments</a></li>
 	</ul>
 	<hr>
 	<div class="tab-content tab-space">
@@ -243,7 +244,8 @@
 							</div>
 							<div class="container">
 								<div class="row">
-									<div class="col-md-8"><input type="text" class="student-search-inp" placeholder="search students" data-tuition-id="{{_id}}"></div>
+									<div class="col-md-8"><input type="text" class="student-search-inp" placeholder="search students"
+										 data-tuition-id="{{_id}}"></div>
 									<div class="col-md-2">
 										<div class="btn btn-info btn-sm student-search-trigger" data-tuition-id="{{_id}}">SEARCH</div>
 									</div>
@@ -361,7 +363,8 @@
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="next_install" class="bmd-label-floating">Next Installment Date</label>
-														<input name="nextInstallment" type="date" class="form-control student-installment-date-inp" data-tuition-id="{{_id}}">
+														<input name="nextInstallment" type="date" class="form-control student-installment-date-inp"
+														 data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="balance_pending" class="bmd-label-floating">Balance Pending</label>
@@ -1038,5 +1041,52 @@
 				</div>
 			</div>
 		</div>
-
+		<div class="tab-pane" id="pill6{{tabNumber}}">
+			<div class="row m-0">
+				<div class="col-3">
+					<div class="card bg-info">
+						<div class="card-body">
+							<div class="card-title">Student Name</div>
+							<div class="card-text">
+								<p class="col-12">Installment Date: 23/11/96</p>
+								<p class="col-12">Remaining Balance: 20000 INR</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="card bg-warning">
+						<div class="card-body">
+							<div class="card-title">Student Name</div>
+							<div class="card-text">
+								<p class="col-12">Installment Date: 23/11/96</p>
+								<p class="col-12">Remaining Balance: 20000 INR</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="card bg-success">
+						<div class="card-body">
+							<div class="card-title">Student Name</div>
+							<div class="card-text">
+								<p class="col-12">Installment Date: 23/11/96</p>
+								<p class="col-12">Remaining Balance: 20000 INR</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="card bg-danger">
+						<div class="card-body">
+							<div class="card-title">Student Name</div>
+							<div class="card-text">
+								<p class="col-12">Installment Date: 23/11/96</p>
+								<p class="col-12">Remaining Balance: 20000 INR</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>

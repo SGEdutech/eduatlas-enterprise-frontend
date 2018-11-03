@@ -16,6 +16,7 @@ const discounts = (() => {
 		const $form = $(event.target);
 		const tuitionId = $form.attr('data-id');
 		const newDiscount = await submitAddDiscount(tuitionId, $form.serialize());
+		notification.push('Discount has been successfully added');
 		newDiscount.tuitionId = tuitionId;
 		discountsArr.push(newDiscount);
 		$form.trigger('reset');
@@ -28,6 +29,7 @@ const discounts = (() => {
 			const tuitionId = $deleteBtn.attr('data-tuition-id');
 			const discountId = $deleteBtn.attr('data-discount-id');
 			const deletedDiscount = await submitDeleteRequest(tuitionId, discountId);
+			notification.push('Discount has been successfully deleted');
 			console.log('Discount was successfully deleted');
 			discountsArr = discountsArr.filter(discountObj => discountObj._id !== discountId);
 			refresh();
@@ -45,6 +47,7 @@ const discounts = (() => {
 			const editedData = modal.serializeForm();
 			const editedDiscount = await submitEditRequest(tuitionId, discountId, editedData);
 			modal.hideModal();
+			notification.push('Discount has been successfully edited');
 			console.log('Discount was successfully edited');
 			editedDiscount.tuitionId = tuitionId;
 			discountsArr = discountsArr.map(discountObj => discountObj._id === discountId ? editedDiscount : discountObj)
