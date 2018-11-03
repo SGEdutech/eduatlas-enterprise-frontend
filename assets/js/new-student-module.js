@@ -310,10 +310,9 @@ const student = (() => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
 			const courseId = $courseSelectContainer.filter(`[data-tuition-id="${tuitionId}"]`).val();
-
 			const batchesOfThisCourse = distinctBatchesArr.filter(batchObj => batchObj.courseId === courseId);
 			// FIXME: Template Name
-			const batchOptionsHTML = template.courseOptions({ courses: batchesOfThisCourse });
+			const batchOptionsHTML = template.batchOptions({ batches: batchesOfThisCourse });
 			$container.html(batchOptionsHTML).selectpicker('refresh');
 		});
 	}
