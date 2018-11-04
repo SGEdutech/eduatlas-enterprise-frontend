@@ -5,6 +5,7 @@ const modal = (() => {
 	let $courseFeeEdit;
 	let $gstPercentageEdit;
 	let $totalFeeEdit;
+	let $gstCheckbox;
 
 	function cacheDynamic() {
 		$timePicker = $modalForm.find('.edit-time-picker');
@@ -45,6 +46,18 @@ const modal = (() => {
 		return fee + fee * (gstPercentage / 100);
 	}
 
+	function toggleGstInpAndUpdateTotalFee() {
+		const isChecked = $gstCheckbox.prop('checked');
+
+		if (isChecked) {
+			$gstPercentageEdit.prop('disabled', true);
+			$gstPercentageEdit.val(0);
+			updateTotalFee();
+		} else {
+			$gstPercentageEdit.prop('disabled', false);
+		}
+	}
+
 	// FIXME: Has been copied from other module! Centralise!!
 	function updateTotalFee() {
 		const totalFee = calcTotalCourseFee($courseFeeEdit.val(), $gstPercentageEdit.val());
@@ -56,11 +69,13 @@ const modal = (() => {
 		$courseFeeEdit = $modalForm.find('#course_fee_edit');
 		$gstPercentageEdit = $modalForm.find('#gst_precentage_edit');
 		$totalFeeEdit = $modalForm.find('#total_fee_edit');
+		$gstCheckbox = $('.edit-gst-checkbox');
 	}
 
 	function bindCoursesEvents() {
 		$courseFeeEdit.blur(updateTotalFee);
 		$gstPercentageEdit.blur(updateTotalFee);
+		$gstCheckbox.change(toggleGstInpAndUpdateTotalFee);
 	}
 
 	function cacheAndBindCoursesStuff() {
