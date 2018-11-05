@@ -1,5 +1,5 @@
 const discounts = (() => {
-	let discountsArr;
+	let distinctDiscountsArr;
 	let $activeDiscountsContainer;
 	let $addDiscountForm;
 
@@ -18,7 +18,8 @@ const discounts = (() => {
 		const newDiscount = await submitAddDiscount(tuitionId, $form.serialize());
 		notification.push('Discount has been successfully added');
 		newDiscount.tuitionId = tuitionId;
-		discountsArr.push(newDiscount);
+		distinctDiscountsArr.push(newDiscount);
+		PubSub.publish('discount.add', newDiscount);
 		$form.trigger('reset');
 		refresh();
 	}
@@ -30,8 +31,8 @@ const discounts = (() => {
 			const discountId = $deleteBtn.attr('data-discount-id');
 			const deletedDiscount = await submitDeleteRequest(tuitionId, discountId);
 			notification.push('Discount has been successfully deleted');
-			console.log('Discount was successfully deleted');
-			discountsArr = discountsArr.filter(discountObj => discountObj._id !== discountId);
+			PubSub.publish('discount.delete', deletedDiscount);
+			distinctDiscountsArr = distinctDiscountsArr.filter(discountObj => discountObj._id !== discountId);
 			refresh();
 		} catch (err) {
 			console.error(err);
@@ -48,9 +49,9 @@ const discounts = (() => {
 			const editedDiscount = await submitEditRequest(tuitionId, discountId, editedData);
 			modal.hideModal();
 			notification.push('Discount has been successfully edited');
-			console.log('Discount was successfully edited');
 			editedDiscount.tuitionId = tuitionId;
-			discountsArr = discountsArr.map(discountObj => discountObj._id === discountId ? editedDiscount : discountObj)
+			PubSub.publish('discount.edit', editDiscount);
+			distinctDiscountsArr = distinctDiscountsArr.map(discountObj => discountObj._id === discountId ? editedDiscount : discountObj)
 			refresh();
 		} catch (err) {
 			console.error(err);
@@ -61,7 +62,7 @@ const discounts = (() => {
 		const $editBtn = $(event.target);
 		const tuitionId = $editBtn.attr('data-tuition-id');
 		const discountId = $editBtn.attr('data-discount-id');
-		const discountInfo = discountsArr.find(discountToBeEdited => discountToBeEdited._id === discountId);
+		const discountInfo = distinctDiscountsArr.find(discountToBeEdited => discountToBeEdited._id === discountId);
 		const editDicountInputHTML = template.discountEditInputs(discountInfo);
 		modal.renderFormContent(editDicountInputHTML);
 		modal.bindSubmitEvent(() => editDiscount(tuitionId, discountId));
@@ -93,7 +94,7 @@ const discounts = (() => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
 
-			const discountsOfThisTuition = discountsArr.filter(discountObj => discountObj.tuitionId === tuitionId);
+			const discountsOfThisTuition = distinctDiscountsArr.filter(discountObj => discountObj.tuitionId === tuitionId);
 			const cardsHtml = template.discountCard({ discounts: discountsOfThisTuition });
 			$container.html(cardsHtml);
 		});
@@ -105,9 +106,9 @@ const discounts = (() => {
 		bindDynamicEvents();
 	}
 
-	function init(discounts) {
-		if (Array.isArray(discounts) === false) throw new Error('Discounts must be an array');
-		discountsArr = discounts;
+	function init(discountsArr) {
+		if (Array.isArray(discountsArr) === false) throw new Error('Discounts must be an array');
+		distinctDiscountsArr = discountsArr;
 
 		cache();
 		bindEvents();

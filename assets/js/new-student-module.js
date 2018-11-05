@@ -2,6 +2,7 @@ const student = (() => {
 	let distinctCoursesArr;
 	let distinctBatchesArr;
 	let distinctStudentsArr;
+	let distinctDiscountsArr;
 	let $addStudentForm;
 	let $editButton;
 	let $deleteButton;
@@ -366,12 +367,13 @@ const student = (() => {
 		bindDynamic();
 	}
 
-	function init(studentsArray, courseArr, batchArr) {
+	function init(studentsArray, courseArr, batchArr, discountArr) {
 		if (studentsArray === undefined) throw new Error('Students array not defined');
 		sortStudentArray(studentsArray);
 		distinctStudentsArr = JSON.parse(JSON.stringify(studentsArray));
 		distinctCoursesArr = JSON.parse(JSON.stringify(courseArr));
 		distinctBatchesArr = JSON.parse(JSON.stringify(batchArr));
+		distinctDiscountsArr = JSON.parse(JSON.stringify(discountArr));
 		cache();
 		bindevents();
 		render(distinctStudentsArr);
@@ -415,6 +417,24 @@ const student = (() => {
 
 	PubSub.subscribe('batch.delete', (msg, removedBatch) => {
 		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj._id !== removedBatch._id);
+		refresh();
+	});
+
+	PubSub.subscribe('discount.add', (msg, addedDiscount) => {
+		distinctDiscountsArr.push(addedDiscount);
+		refresh();
+	});
+
+	PubSub.subscribe('discount.edit', (msg, editedDiscount) => {
+		distinctDiscountsArr = distinctDiscountsArr.map(discountObj => {
+			if (discountObj._id === editedDiscount._id) return editedDiscount;
+			return discountObj;
+		});
+		refresh();
+	});
+
+	PubSub.subscribe('discount.delete', (msg, removedBatch) => {
+		distinctDiscountsArr = distinctBatchesArr.filter(discountObj => discountObj._id !== removedBatch._id);
 		refresh();
 	});
 
