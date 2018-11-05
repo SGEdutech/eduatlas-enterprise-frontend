@@ -1,0 +1,4 @@
+<option value="" disabled selected>Select Discount</option>
+{{#each discounts}}
+<option value="{{amount}}{{#if isPercentage}}%{{/if}}">{{code}}</option>
+{{/each}}

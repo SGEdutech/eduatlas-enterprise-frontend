@@ -34,7 +34,7 @@
 					<div class="tab-content">
 						<div class="tab-pane active" id="innertab1{{tabNumber}}">
 							<div class="row m-0">
-								<div class="card-title col-12 h3">
+								<div class="card-title col-12 h3 bg-info">
 									Active Courses
 								</div>
 								<div class="col-12">
@@ -49,7 +49,7 @@
 								<div class="card m-0 mb-4">
 									<form class="add_course_form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}">
 										<div class="row card-body">
-											<div class="card-title h3 col-12">
+											<div class="card-title h3 col-12 bg-info">
 												Add New Course/Product
 											</div>
 											<div class="col-md-6">
@@ -263,7 +263,7 @@
 							<br>
 
 							<div class="card card-profile main-raised m-0">
-								<div class="col-12 card-title h3 mt-4 text-left bg-info">
+								<div class="col-12 card-title h3 mt-3 px-3 text-left bg-info">
 									Add New Student
 								</div>
 								<div class="col-12 px-3 text-left">
@@ -351,8 +351,14 @@
 														<input type="number" class="form-control student-course-fee" data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-4 form-group">
-														<label for="discount_amount" class="bmd-label-floating">Discount Amount</label>
-														<input name="discountAmount" type="number" class="form-control student-discount-amount" data-tuition-id="{{_id}}">
+														<label for="batch_select" class="bmd-label-floating">Select Discount Code</label>
+														<select class="form-control student-discount-code-select" data-style="btn btn-link" name="discountCode"
+														 data-tuition-id="{{_id}}">
+														</select>
+													</div>
+													<div class="col-md-4 form-group">
+														<label for="discount_amount" class="bmd-label-floating">Discount Amount / Percentage</label>
+														<input name="discountAmount" type="text" class="form-control student-discount-amount" data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="discount_reason" class="bmd-label-floating">Discount Reason</label>
@@ -400,7 +406,7 @@
 						</div>
 						<div class="tab-pane" id="innertab3{{tabNumber}}">
 							<div class="row m-0">
-								<div class="card-title col-12 h3">
+								<div class="card-title col-12 h3 bg-info">
 									Active Batches
 								</div>
 								<div class="col-12">
@@ -413,7 +419,7 @@
 								<div class="inactive-batches-container"></div>
 								<div class="card m-0 mb-4">
 									<div class="row card-body">
-										<div class="card-title h3 col-12">
+										<div class="card-title h3 col-12 bg-info">
 											Add New Batch
 										</div>
 										<div class="col-md-6">
@@ -462,7 +468,7 @@
 						<div class="tab-pane" id="innertab4{{tabNumber}}"></div>
 						<div class="tab-pane" id="innertab5{{tabNumber}}">
 							<div class="row m-0">
-								<div class="card-title col-12 h3">
+								<div class="card-title col-12 h3 bg-info">
 									Active Discounts
 								</div>
 								<div class="col-12">
@@ -472,15 +478,24 @@
 								<div class="card m-0 mb-4">
 									<form class="add-discount-form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}">
 										<div class="row card-body">
-											<div class="card-title h3 col-12">
+											<div class="card-title h3 col-12 bg-info">
 												Define New Discount
 											</div>
 											<div class="col-md-12">
 												<div class="row">
-													<div class="col-6 form-group label-floating is-empty  bmd-form-group">
+													<div class="col-7 form-group label-floating is-empty  bmd-form-group">
 														<label for="bmd-label-floating">Discount Code (unique)</label>
 														<input name="code" class="form-control" type="text" data-tuition-id="{{_id}}" required>
 														<span class="material-input"></span>
+													</div>
+													<div class="col-6 form-group label-floating is-empty  bmd-form-group">
+														<div class="togglebutton">
+															<label>
+																<input name="isPercentage" type="checkbox" value="true" data-tuition-id="{{_id}}">
+																<span class="toggle"></span>
+																toogle to save discount as percentage
+															</label>
+														</div>
 													</div>
 													<div class="col-6 form-group label-floating  is-empty bmd-form-group">
 														<label for="bmd-label-floating">Amount</label>
@@ -497,135 +512,6 @@
 										</div>
 									</form>
 								</div>
-								{{!-- <div class="modal fade bd-example-modal-lg" id="editCourseModal{{course._id}}" tabindex="-1" role="dialog"
-								 aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-lg" role="document">
-										<div class="modal-content">
-											<div class="modal-body p-0">
-												<div class="card my-0 bg-info">
-													<div class="card-body pt-0 pb-0">
-														<h3 class="card-title my-2">
-															<a href="#pablo" class="text-dark">{{course.code}}</a>
-														</h3>
-													</div>
-												</div>
-												<div class="card my-0">
-													<div class="card-body ">
-														<div class="row align-items-center justify-content-around">
-															<div class="col-sm-12 col-xs-12 mt-1">
-																<div class="row">
-																	<div class="col-md-4 pt-0 pb-0 border border-white">
-																		<span class="input-group-addon" style="font-size: 12px;">
-																			COURSE CODE
-																		</span>
-																	</div>
-																	<div class="col-md-8 p-0">
-																		<input name="code" type="text" class="form-control bg-white" placeholder="COURSE CODE" value="{{course.code}}">
-																	</div>
-																</div>
-															</div>
-															<div class="col-sm-12 col-xs-12 mt-1">
-																<div class="row">
-																	<div class="col-md-4 pt-0 pb-0">
-																		<span class="input-group-addon" style="font-size: 12px;">
-																			DESCRIPTION
-																		</span>
-																	</div>
-																	<div class="col-md-8 p-0">
-																		<input name="description" type="text" class="form-control bg-white" placeholder="DESCRIPTION" value="{{course.description}}">
-																	</div>
-																</div>
-															</div>
-															<div class="col-sm-12 col-xs-12 mt-1">
-																<div class="row">
-																	<div class="col-md-4 pt-0 pb-0 border border-white">
-																		<span class="input-group-addon" style="font-size: 12px">
-																			COURSE FEE
-																		</span>
-																	</div>
-																	<div class="col-md-8 p-0">
-																		<input name="fees" type="text" class="form-control bg-white fee-inp" placeholder="COURSE FEE" value="{{course.fees}}"
-																		 data-tabNumber="{{course._id}}">
-																	</div>
-																</div>
-															</div>
-															<div class="col-sm-12 col-xs-12 mt-1">
-																<div class="row">
-																	<div class="col-md-4 pt-0 pb-0 border border-white">
-																		<span class="input-group-addon" style="font-size: 12px;">
-																		</span>
-																	</div>
-																	<div class="col-md-8 p-0">
-																		<div class="row">
-																			<div class="col-md-6">
-																				<div class="form-check">
-																					<label class="form-check-label">
-																						<input class="form-check-input gst-checkbox" type="checkbox" data-tabNumber="{{course._id}}">
-																						INCLUSIVE OF GST
-																						<span class="form-check-sign">
-																							<span class="check"></span>
-																						</span>
-																					</label>
-																				</div>
-																			</div>
-																			<div class="col-md-6">
-																				<div class="row">
-																					<div class="col-md-3 pl-0 pr-0">
-																						<input name="gst" type="text" class="form-control bg-white border rounded  mt-3 gst-inp" style="height:24px;"
-																						 value="{{course.gst}}" data-tabNumber="{{course._id}}">
-																					</div>
-																					<div class="col-md-9 pl-0 pr-0 mt-3">
-																						<p>GST PERCENTAGE</p>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="row align-items-center justify-content-around">
-															<div class="col-sm-12 col-xs-12 mt-1">
-																<div class="row">
-																	<div class="col-md-4 pt-0 pb-0 border border-white">
-																		<span class="input-group-addon" style="font-size: 12px;">
-																			TOTAL FEE
-																		</span>
-																	</div>
-																	<div class="col-md-8 p-0">
-																		<input type="text" class="form-control bg-white total-fee" placeholder="TOTAL FEE" data-tabNumber="{{course._id}}">
-																	</div>
-																</div>
-															</div>
-															<div class="col-sm-12 col-xs-12 mt-1">
-																<div class="row">
-																	<div class="col-md-4 pt-0 pb-0 border border-white">
-																		<span class="input-group-addon" style="font-size: 12px;">
-																			DEFINED BATCHES
-																		</span>
-																	</div>
-																	<div class="col-md-8 p-0">
-																		{{#each batches as |batch|}}
-																		<span class="badge badge-info">{{batch.code}}</span>
-																		{{/each}}
-																	</div>
-																</div>
-															</div>
-														</div>
-														<br>
-														<div class="col-sm-12 col-xs-12 mt-3 ml-3 text-right">
-															<button type="button" class="btn btn-danger" disabled>CHANGE
-																STATUS</button>
-															<button type="submit" class="btn btn-info">Save
-																changes</button>
-															<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div> --}}
 							</div>
 						</div>
 					</div>
@@ -793,8 +679,8 @@
 				<div class="col-md-10">
 					<div class="tab-content tab-space">
 						<div class="tab-pane active" id="announce{{tabNumber}}">
-							<div class="card-body card m-1">
-								<div class="card-title h3">
+							<div class="card-body card m-0">
+								<div class="card-title h3 bg-info">
 									New Announcement
 								</div>
 								<div class="form-group">
@@ -901,7 +787,7 @@
 								<div class="card">
 									<div class="card-body">
 										<div class="row m-0">
-											<div class="card-title col-12 h3 p-0">Add New Schedule</div>
+											<div class="card-title col-12 h3 p-0 bg-info">Add New Schedule</div>
 											<div class="col-12">
 												<div class="form-group">
 													<label for="week-number">Week Number</label>
@@ -973,7 +859,7 @@
 								</div>
 							</div>
 							<div class="row m-0">
-								<div class="card-title col-12 h3 p-0">Active Schedules</div>
+								<div class="card-title col-12 h3 p-0 bg-info">Active Schedules</div>
 								<div class="col-12 active-schedule-container" data-tuition-id="{{_id}}">
 									{{!-- FIXME: moved to new hbs file --}}
 								</div>
@@ -1001,7 +887,7 @@
 						<div class="tab-pane active" id="attandance{{tabNumber}}">
 							<div class="card">
 								<div class="card-body">
-									<div class="card-title h3">
+									<div class="card-title h3 bg-info">
 										Mark Attendence
 									</div>
 									<div class="col-12">

@@ -15,6 +15,7 @@ const discounts = (() => {
 		event.preventDefault();
 		const $form = $(event.target);
 		const tuitionId = $form.attr('data-id');
+		const discountData = {};
 		const newDiscount = await submitAddDiscount(tuitionId, $form.serialize());
 		notification.push('Discount has been successfully added');
 		newDiscount.tuitionId = tuitionId;
@@ -50,7 +51,7 @@ const discounts = (() => {
 			modal.hideModal();
 			notification.push('Discount has been successfully edited');
 			editedDiscount.tuitionId = tuitionId;
-			PubSub.publish('discount.edit', editDiscount);
+			PubSub.publish('discount.edit', editedDiscount);
 			distinctDiscountsArr = distinctDiscountsArr.map(discountObj => discountObj._id === discountId ? editedDiscount : discountObj)
 			refresh();
 		} catch (err) {

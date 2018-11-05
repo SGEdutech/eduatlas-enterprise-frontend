@@ -30,6 +30,17 @@ const student = (() => {
 	let $studentSearchTriggerBtn;
 	let $studentSearchReset;
 	let $installmentDateInp;
+	let $discountSelectContainer;
+
+	function getDiscountedAmount(totalAmount, discount) {
+		discount = discount.toString();
+		const isPercentage = discount.charAt(discount.length - 1) === '%';
+
+		if (isPercentage) {
+			return totalAmount - (totalAmount * (discount / 100));
+		}
+		return totalAmount - discount;
+	}
 
 	function sortStudentArray(studentArr) {
 		studentArr.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
@@ -129,7 +140,7 @@ const student = (() => {
 			const courseFee = $courseFee.filter(`[data-tuition-id="${tuitionId}"]`).val() || 0;
 			const discountAmount = $discountAmount.filter(`[data-tuition-id="${tuitionId}"]`).val() || 0;
 
-			$input.val(courseFee - discountAmount);
+			$input.val(getDiscountedAmount(courseFee, discountAmount));
 		});
 	}
 
@@ -250,6 +261,21 @@ const student = (() => {
 		$exelUploadInp.filter(`[data-tuition-id="${tuitionId}"]`).parse({ config: { complete: data => displaystudents(data, tuitionId), header: true } });
 	}
 
+	function renderDiscountAmount() {
+		$discountSelectContainer.each((__, selectInp) => {
+			const $selectInp = $(selectInp);
+			const tuitionId = $selectInp.attr('data-tuition-id');
+			const discount = $selectInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			$discountAmount.filter(`[data-tuition-id="${tuitionId}"]`).val(discount);
+		});
+	}
+
+	function renderDiscountAmountNetFeeAndBalancePending() {
+		renderDiscountAmount();
+		renderNetFee();
+		renderBalancePending();
+	}
+
 	function cache() {
 		$addStudentForm = $('.add-student-form');
 		$studentContainer = $('.student-container');
@@ -276,6 +302,7 @@ const student = (() => {
 		$studentSearchTriggerBtn = $('.student-search-trigger');
 		$studentSearchReset = $('.student-search-reset');
 		$installmentDateInp = $('.student-installment-date-inp');
+		$discountSelectContainer = $('.student-discount-code-select');
 	}
 
 	function cacheDynamic() {
@@ -299,6 +326,7 @@ const student = (() => {
 		$addStudentFromExcelBtn.click(parseAndDisplayStudents);
 		$studentSearchTriggerBtn.click(renderSearchResults);
 		$studentSearchReset.click(clearSearch);
+		$discountSelectContainer.change(renderDiscountAmountNetFeeAndBalancePending);
 	}
 
 	function bindDynamic() {
@@ -351,6 +379,15 @@ const student = (() => {
 			const coursesOfThisTuition = distinctCoursesArr.filter(courseObj => courseObj.tuitionId === tuitionId);
 			const courseOptionsHTML = template.courseOptions({ courses: coursesOfThisTuition });
 			$container.html(courseOptionsHTML).selectpicker('refresh');
+		});
+
+		$discountSelectContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+
+			const discountsOfThisTuition = distinctDiscountsArr.filter(discountObj => discountObj.tuitionId === tuitionId);
+			const discountOptionsHTML = template.discountSelectOptions({ discounts: discountsOfThisTuition });
+			$container.html(discountOptionsHTML).selectpicker('refresh');
 		});
 
 		renderBatchSelectMenu();
@@ -433,8 +470,8 @@ const student = (() => {
 		refresh();
 	});
 
-	PubSub.subscribe('discount.delete', (msg, removedBatch) => {
-		distinctDiscountsArr = distinctBatchesArr.filter(discountObj => discountObj._id !== removedBatch._id);
+	PubSub.subscribe('discount.delete', (msg, removenDiscount) => {
+		distinctDiscountsArr = distinctDiscountsArr.filter(discountObj => discountObj._id !== removenDiscount._id);
 		refresh();
 	});
 
