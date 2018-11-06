@@ -2,6 +2,8 @@ const discounts = (() => {
 	let distinctDiscountsArr;
 	let $activeDiscountsContainer;
 	let $addDiscountForm;
+	let $form;
+	let $inputs;
 
 	function submitAddDiscount(tuitionId, newDiscountDetails) {
 		return tuitionApiCalls.putDiscountInTuition(tuitionId, newDiscountDetails);
@@ -11,12 +13,25 @@ const discounts = (() => {
 		return tuitionApiCalls.deleteDiscountInTuition(tuitionId, discountId);
 	}
 
+	function getDiscountData(tuitionId) {
+		const discountData = {};
+		$inputs.filter(`[data-tuition-id="${tuitionId}"]`).each((__, input) => {
+			const $input = $(input);
+			if ($input.attr('type') === 'checkbox') {
+				discountData[$input.attr('name')] = $input.prop('checked');
+				return;
+			}
+			discountData[$input.attr('name')] = $input.val();
+		});
+		return discountData;
+	}
+
 	async function addDiscount(event) {
 		event.preventDefault();
 		const $form = $(event.target);
 		const tuitionId = $form.attr('data-id');
-		const discountData = {};
-		const newDiscount = await submitAddDiscount(tuitionId, $form.serialize());
+		const discountData = getDiscountData(tuitionId);
+		const newDiscount = await submitAddDiscount(tuitionId, discountData);
 		notification.push('Discount has been successfully added');
 		newDiscount.tuitionId = tuitionId;
 		distinctDiscountsArr.push(newDiscount);
@@ -74,6 +89,8 @@ const discounts = (() => {
 	function cache() {
 		$activeDiscountsContainer = $('.active-discounts-container');
 		$addDiscountForm = $('.add-discount-form');
+		$form = $('.add-discount-form');
+		$inputs = $form.find('input');
 	}
 
 	function cacheDynamic() {

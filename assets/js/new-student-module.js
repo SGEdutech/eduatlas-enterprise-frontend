@@ -35,6 +35,7 @@ const student = (() => {
 	function getDiscountedAmount(totalAmount, discount) {
 		discount = discount.toString();
 		const isPercentage = discount.charAt(discount.length - 1) === '%';
+		discount = parseInt(discount, 10);
 
 		if (isPercentage) {
 			return totalAmount - (totalAmount * (discount / 100));
@@ -266,6 +267,7 @@ const student = (() => {
 			const $selectInp = $(selectInp);
 			const tuitionId = $selectInp.attr('data-tuition-id');
 			const discount = $selectInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			console.log(discount);
 			$discountAmount.filter(`[data-tuition-id="${tuitionId}"]`).val(discount);
 		});
 	}
@@ -327,6 +329,7 @@ const student = (() => {
 		$studentSearchTriggerBtn.click(renderSearchResults);
 		$studentSearchReset.click(clearSearch);
 		$discountSelectContainer.change(renderDiscountAmountNetFeeAndBalancePending);
+		$courseFee.change(renderDiscountAmountNetFeeAndBalancePending);
 	}
 
 	function bindDynamic() {
