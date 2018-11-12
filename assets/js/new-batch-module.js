@@ -9,6 +9,9 @@ const batch = (() => {
 	let $courseSelectMenu;
 	let $studentChekboxContainer;
 	let $codeInp;
+	let $batchStudentSearchTrigger;
+	let $batchStudentSearchReset;
+	let $studentSearchInp;
 
 	function getCourseCode(courseId) {
 		let courseCode;
@@ -39,6 +42,9 @@ const batch = (() => {
 		$courseSelectMenu = $('.course-select-menu');
 		$studentChekboxContainer = $('.student-checkbox-container');
 		$codeInp = $('.add-batch-code-inp');
+		$batchStudentSearchTrigger = $('.batch-student-search-trigger');
+		$batchStudentSearchReset = $('.batch-student-search-reset');
+		$studentSearchInp = $('.batch-student-search-inp');
 	}
 
 	function cacheDynamic() {
@@ -157,8 +163,45 @@ const batch = (() => {
 		return uniqueCourseArr;
 	}
 
+	function renderStudentCheckbox(studentsInfoArr, renderTuitionId) {
+		if (studentsInfoArr === undefined) throw new Error('Students not provided');
+		if (Array.isArray(studentsInfoArr) === false) throw new Error('Students info array not an array');
+
+		$studentChekboxContainer.each((__, checkboxContainer) => {
+			const $checkboxContainer = $(checkboxContainer);
+			const tuitionId = $checkboxContainer.attr('data-tuition-id');
+
+			if (renderTuitionId && renderTuitionId !== tuitionId) return;
+
+			const studentsOfThisTuition = studentsInfoArr.filter(studentObj => studentObj.tuitionId === tuitionId);
+			const studentCheckboxesHTML = template.studentCheckboxes({ students: studentsOfThisTuition });
+			$checkboxContainer.html(studentCheckboxesHTML);
+		});
+	}
+
+	function filterAndRenderStudents(event) {
+		$btn = $(event.target);
+		const tuitionId = $btn.attr('data-tuition-id');
+
+		const searchStr = $studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		const regex = new RegExp(searchStr, 'i');
+
+		const searchStudentArr = studentsArr.filter(studentObj => regex.test(studentObj.name));
+		renderStudentCheckbox(searchStudentArr, tuitionId);
+	}
+
+	function clearSearchInpAndRenderStudents(event) {
+		$btn = $(event.target);
+		const tuitionId = $btn.attr('data-tuition-id');
+		renderStudentCheckbox(studentsArr, tuitionId);
+
+		$studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val('');
+	}
+
 	function bindEvents() {
 		$addBatchForm.submit(addBatch);
+		$batchStudentSearchTrigger.click(filterAndRenderStudents);
+		$batchStudentSearchReset.click(clearSearchInpAndRenderStudents);
 	}
 
 	function bindDynamicEvents() {
@@ -184,15 +227,7 @@ const batch = (() => {
 			$selectMenu.html(courseOptionsHTML).selectpicker('refresh');
 		});
 
-		$studentChekboxContainer.each((__, checkboxContainer) => {
-			const $checkboxContainer = $(checkboxContainer);
-			const tuitionId = $checkboxContainer.attr('data-tuition-id');
-
-			const studentsOfThisTuition = studentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
-
-			const studentCheckboxesHTML = template.studentCheckboxes({ students: studentsOfThisTuition });
-			$checkboxContainer.html(studentCheckboxesHTML);
-		});
+		renderStudentCheckbox(studentsArr);
 	}
 
 	function refresh() {

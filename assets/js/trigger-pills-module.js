@@ -15,7 +15,7 @@ const triggerPills = (() => {
 	}
 
 	function showEditTab() {
-		$dashboardNavPills.filter(`[href = "#tab3"]`).trigger('click');
+		$dashboardNavPills.filter('[href = "#tab3"]').trigger('click');
 	}
 
 

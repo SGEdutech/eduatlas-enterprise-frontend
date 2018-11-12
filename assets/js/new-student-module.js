@@ -31,6 +31,25 @@ const student = (() => {
 	let $studentSearchReset;
 	let $installmentDateInp;
 	let $discountSelectContainer;
+	let $calculateFeeBtn;
+	let $compulsoryFieldsContainer;
+	let $addStudentBtn;
+	let $additionalFieldsContainer;
+	let $studentInputs;
+
+	function getNameToValueObj($inputs) {
+		if ($inputs === undefined) throw new Error('Inputs not provided');
+		if ($inputs instanceof $ === false) throw new Error('Must be jquery element');
+
+		const nameToValueObj = {};
+
+		// FIXME: Check if all elements are inputs
+		$inputs.each((__, input) => {
+			const $input = $(input);
+			nameToValueObj[$input.attr('name')] = $input.val();
+		});
+		return nameToValueObj;
+	}
 
 	function getDiscountedAmount(totalAmount, discount) {
 		discount = discount.toString();
@@ -114,19 +133,27 @@ const student = (() => {
 			event.preventDefault();
 			alertForMoreOrLessFeeCollected();
 			alertStudentEmailAlreadyLinked();
-			const $form = $(event.target);
-			const tuitionId = $form.attr('data-id');
+			const $btn = $(event.target);
+			const tuitionId = $btn.attr('data-tuition-id');
 			if (isInstallmentDatePassed(tuitionId)) {
 				alert('Installment date you have entered has already passed!');
 				return;
 			}
-			const newStudent = await tuitionApiCalls.putStudentInTuition(tuitionId, $form.serialize());
+			const studentObj = getNameToValueObj($studentInputs.filter(`[data-tuition-id="${tuitionId}"]`));
+			studentObj.payments = getNameToValueObj($paymentDetailsInputs.filter(`[data-tuition-id="${tuitionId}"]`));
+			const batchInfo = getNameToValueObj($studentCourseBatchInputs.filter(`[data-tuition-id="${tuitionId}"]`));
+			if (batchInfo.batchId === undefined || batchInfo.batchId === null) {
+				alert('warning: no batch selected.');
+			} else {
+				studentObj.batchInfo = batchInfo;
+			}
+			const newStudent = await tuitionApiCalls.putStudentInTuition(tuitionId, studentObj);
 			newStudent.tuitionId = tuitionId;
 			// Commented this out because we are listening to our own module
 			// studentsArr.push(newStudent);
 			PubSub.publish('student.add', newStudent);
 			notification.push(`${newStudent.name} has been added`);
-			$form.trigger('reset');
+			$btn.trigger('reset');
 			refresh();
 		} catch (err) {
 			console.error(err);
@@ -267,7 +294,6 @@ const student = (() => {
 			const $selectInp = $(selectInp);
 			const tuitionId = $selectInp.attr('data-tuition-id');
 			const discount = $selectInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
-			console.log(discount);
 			$discountAmount.filter(`[data-tuition-id="${tuitionId}"]`).val(discount);
 		});
 	}
@@ -279,7 +305,7 @@ const student = (() => {
 	}
 
 	function cache() {
-		$addStudentForm = $('.add-student-form');
+		$addStudentForm = $('.new-student-form');
 		$studentContainer = $('.student-container');
 		$courseSelectContainer = $('.student-course-select-menu');
 		$batchSelectContainer = $('.student-batch-select-menu');
@@ -305,6 +331,17 @@ const student = (() => {
 		$studentSearchReset = $('.student-search-reset');
 		$installmentDateInp = $('.student-installment-date-inp');
 		$discountSelectContainer = $('.student-discount-code-select');
+		$calculateFeeBtn = $('.calculate-fee-btn');
+		$compulsoryFieldsContainer = $('.compulsory-fields-container');
+		$compulsoryFieldsInputs = $compulsoryFieldsContainer.find('input');
+		$paymentDetailsContainer = $('.payment-details-container');
+		$paymentDetailsInputs = $paymentDetailsContainer.find('input');
+		$addStudentBtn = $('.add-student-btn');
+		$additionalFieldsContainer = $('.additional-fields-container');
+		$additionalFieldsInputs = $additionalFieldsContainer.find('input');
+		$studentCourseBatchContainer = $('.student-course-batch-container');
+		$studentCourseBatchInputs = $studentCourseBatchContainer.find('select');
+		$studentInputs = $compulsoryFieldsInputs.add($additionalFieldsInputs);
 	}
 
 	function cacheDynamic() {
@@ -314,22 +351,16 @@ const student = (() => {
 
 	function bindevents() {
 		// Sort this mess
-		$addStudentForm.submit(addStudent);
+		$addStudentForm.submit(addStudent)
 		$courseSelectContainer.change(renderBatchSelectMenu);
-		$courseSelectContainer.change(renderCourseFee);
-		$courseSelectContainer.change(renderNetFee);
-		$courseSelectContainer.change(renderBalancePending);
-		$discountAmount.blur(renderNetFee);
-		$discountAmount.blur(renderBalancePending);
-		$feeCollected.blur(renderBalancePending);
 		$eAIdModalTriggerBtn.click(initEAIdModal);
 		$eASuceedBtn.click(fetchAndRenderUserInfoAndCloseModal);
 		$modeOfPaymentSelect.change(showModeOfPaymentDetailsInputs);
 		$addStudentFromExcelBtn.click(parseAndDisplayStudents);
 		$studentSearchTriggerBtn.click(renderSearchResults);
 		$studentSearchReset.click(clearSearch);
-		$discountSelectContainer.change(renderDiscountAmountNetFeeAndBalancePending);
-		$courseFee.change(renderDiscountAmountNetFeeAndBalancePending);
+		$calculateFeeBtn.click(renderBalancePending);
+		$calculateFeeBtn.click(renderNetFee);
 	}
 
 	function bindDynamic() {
@@ -349,23 +380,29 @@ const student = (() => {
 		});
 	}
 
-	function clearSearch() {
-		$studentSearchInp.val('');
-		refresh();
+	function clearSearch(event) {
+		$btn = $(event.target);
+		const tuitionId = $btn.attr('data-tuition-id');
+		$studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val('');
+		refresh(distinctStudentsArr, tuitionId);
 	}
 
-	function renderSearchResults() {
-		const searchStr = $studentSearchInp.val();
+	function renderSearchResults(event) {
+		const $btn = $(event.target);
+		const tuitionId = $btn.attr('data-tuition-id');
+		const searchStr = $studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
 		const regex = new RegExp(searchStr, 'i');
 
 		const searchStudentArr = distinctStudentsArr.filter(studentObj => regex.test(studentObj.name));
-		refresh(searchStudentArr);
+		refresh(searchStudentArr, tuitionId);
 	}
 
-	function render(studentsArr) {
+	function render(studentsArr, renderTuitionId) {
 		$studentContainer.each((__, container) => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
+
+			if (renderTuitionId && renderTuitionId !== tuitionId) return;
 
 			const studentsOfThisTuition = studentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
 			const studentCardsHtml = template.studentCard({ students: studentsOfThisTuition });
@@ -399,10 +436,10 @@ const student = (() => {
 		renderBalancePending();
 	}
 
-	function refresh(studentsArr) {
+	function refresh(studentsArr, renderTuitionId) {
 		studentsArr = studentsArr || distinctStudentsArr;
 		sortStudentArray(studentsArr);
-		render(studentsArr);
+		render(studentsArr, renderTuitionId);
 		cacheDynamic();
 		bindDynamic();
 	}
