@@ -277,6 +277,14 @@ const batch = (() => {
 		refresh();
 	});
 
+	PubSub.subscribe('batch.edit', (msg, editedBatch) => {
+		batchesArr = batchesArr.map(batchObj => {
+			if (batchObj._id === editedBatch._id) return editedBatch;
+			return batchObj;
+		});
+		refresh();
+	});
+
 	PubSub.subscribe('student.add', (msg, studentAdded) => {
 		if (Array.isArray(studentAdded)) {
 			studentsArr = studentsArr.concat(studentAdded);

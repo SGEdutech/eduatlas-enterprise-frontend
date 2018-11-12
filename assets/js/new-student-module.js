@@ -140,18 +140,21 @@ const student = (() => {
 				return;
 			}
 			const studentObj = getNameToValueObj($studentInputs.filter(`[data-tuition-id="${tuitionId}"]`));
-			studentObj.payments = getNameToValueObj($paymentDetailsInputs.filter(`[data-tuition-id="${tuitionId}"]`));
+			studentObj.payments = [getNameToValueObj($paymentDetailsInputs.filter(`[data-tuition-id="${tuitionId}"]`))];
 			const batchInfo = getNameToValueObj($studentCourseBatchInputs.filter(`[data-tuition-id="${tuitionId}"]`));
-			if (batchInfo.batchId === undefined || batchInfo.batchId === null) {
-				alert('warning: no batch selected.');
-			} else {
+			let isBatchAllocated = false;
+			if (batchInfo.courseId && batchInfo.batchId) {
 				studentObj.batchInfo = batchInfo;
+				isBatchAllocated = true;
 			}
 			const newStudent = await tuitionApiCalls.putStudentInTuition(tuitionId, studentObj);
 			newStudent.tuitionId = tuitionId;
-			// Commented this out because we are listening to our own module
-			// studentsArr.push(newStudent);
 			PubSub.publish('student.add', newStudent);
+			if (isBatchAllocated) {
+				const batchOfStudentAdded = distinctBatchesArr.find(batchObj => batchObj._id === batchInfo.batchId);
+				batchOfStudentAdded.students.push(newStudent._id);
+				PubSub.publish('batch.edit', batchOfStudentAdded);
+			}
 			notification.push(`${newStudent.name} has been added`);
 			$btn.trigger('reset');
 			refresh();
@@ -227,7 +230,7 @@ const student = (() => {
 		if (userInfo.pin) $studentAddressInp.filter(`[data-tuition-id="${tuitionId}"]`).val(`${$studentAddressInp.filter(`[data-tuition-id="${tuitionId}"]`).val()} ${userInfo.pin}`);
 	}
 
-	async function fetchAndRenderUserInfoAndCloseModal(event) {
+	async function fetchAndRenderUserInfoAndCloseModal() {
 		try {
 			const eAIdRegex = new RegExp('^[a-zA-z]{3}\\d{5}$', 'i');
 			if (eAIdRegex.test($eAIdInp.val()) === false) {
