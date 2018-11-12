@@ -275,7 +275,7 @@ const student = (() => {
 		if (Array.isArray(data) === false) throw new Error('Student data must be an array');
 
 		data.forEach((studentDetailObj, index) => {
-			if (!studentDetailObj['Roll Number'] || !studentDetailObj['Name'] || !studentDetailObj['E-Mail'] || !studentDetailObj['Address'] || !studentDetailObj['Contact Number']) {
+			if (!studentDetailObj['Roll Number*'] || !studentDetailObj['Name*'] || !studentDetailObj['E-Mail*']) {
 				data.splice(index, 1);
 			}
 		});
@@ -283,7 +283,7 @@ const student = (() => {
 
 	function displaystudents(studentsDetails, tuitionId) {
 		sanitizeStudentExcelData(studentsDetails.data);
-		excelUploadModal.init(studentsDetails, tuitionId);
+		excelUploadModal.init(studentsDetails, distinctCoursesArr, distinctBatchesArr, tuitionId);
 	}
 
 	function parseAndDisplayStudents(event) {

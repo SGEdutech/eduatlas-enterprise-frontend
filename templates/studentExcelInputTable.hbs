@@ -10,30 +10,24 @@
 		<div class="col-2">
 			E-Mail
 		</div>
-		<div class="col-2">
-			Address
-		</div>
-		<div class="col-2">
-			Contact Number
-		</div>
 	</div>
 	{{#each students as |student|}}
-		<div class="row student-row" data-row-number="{{@index}}">
-			<div class="col-2">
-				<input name="rollNumber" type="text" class="form-control row" value="{{[Roll Number]}}" data-row-number="{{@index}}" required>
-			</div>
-			<div class="col-2">
-				<input name="name" type="text" value="{{Name}}" data-row-number="{{@index}}" required>
-			</div>
-			<div class="col-2">
-				<input name="email" type="email" value="{{[E-Mail]}}" data-row-number="{{@index}}" required>
-			</div>
-			<div class="col-2">
-				<input name="address" type="text" value="{{Address}}" data-row-number="{{@index}}" required>
-			</div>
-			<div class="col-2">
-				<input name="contactNumber" type="number" value="{{[Contact Number]}}" data-row-number="{{@index}}" required>
-			</div>
+	<div class="row student-row" data-row-number="{{@index}}">
+		<div class="col">
+			<input name="rollNumber" type="text" class="form-control row" value="{{[Roll Number*]}}" data-row-number="{{@index}}"
+			 required>
 		</div>
+		<div class="col">
+			<input name="name" type="text" value="{{[Name*]}}" data-row-number="{{@index}}" required>
+		</div>
+		<div class="col">
+			<input name="email" type="email" value="{{[E-Mail*]}}" data-row-number="{{@index}}" required>
+		</div>
+		<input class="d-none" name="address" type="text" value="{{Address}}" data-row-number="{{@index}}">
+		<input class="d-none" name="contactNumber" type="number" value="{{[Contact Number]}}" data-row-number="{{@index}}">
+		<input class="d-none" name="discountAmount" type="number" value="{{[Discount Amount]}}" data-row-number="{{@index}}">
+		<input class="d-none" name="modeOfPayment" type="text" value="{{[Mode Of Payment]}}" data-row-number="{{@index}}">
+		<input class="d-none" name="feeCollected" type="number" value="{{[Fee Collected]}}" data-row-number="{{@index}}">
+	</div>
 	{{/each}}
 </div>

@@ -269,26 +269,25 @@
 									</div>
 									<div class="col-12 px-3 text-left">
 										<div class="row px-3">
-											<p class="text-success">Auto-populate student details using EA id</p>
+											<p class="text-success mx-3">Auto-populate student details using EA id</p>
 										</div>
 										<div class="row px-3">
 											<div class="col-12">
 												<button class="btn btn-info btn-sm ea-id-modal-trigger" data-tuition-id="{{_id}}">Enter EA ID</button>
 											</div>
 										</div>
-										<h6 class="card-title">OR</h6>
+										<h6 class="card-title mx-3">OR</h6>
 										<div class="row px-3">
 											<div class="col-4">
-												<a href="/assets/excel/student-template.csv" download>
-													<button class="btn btn-round btn-success add-students-from-excel-btn">Download Excel Template</button>
-												</a>
+												<a href="/assets/excel/student-template.csv" class="btn btn-round btn-success add-students-from-excel-btn text-white"
+												 download>Download Excel Template</a>
 											</div>
 											<div class="col-3">
 												<input class="exel-file-upload" type="file" data-tuition-id="{{_id}}">
 											</div>
 											<div class="col-3">
-												<button class="btn btn-round btn-success add-students-from-excel-btn" data-tuition-id="{{_id}}">ADD
-													STUDENTS FROM EXCEL</button>
+												<a class="btn btn-round btn-success add-students-from-excel-btn text-white" data-tuition-id="{{_id}}">ADD
+													STUDENTS FROM EXCEL</a>
 											</div>
 										</div>
 									</div>
@@ -459,8 +458,10 @@
 													<div class="row">
 														<div class="col-md-8"><input type="text" placeholder="search students" class="batch-student-search-inp"
 															 data-tuition-id="{{_id}}"></div>
-														<div class="col-md-2"><a class="btn btn-sm btn-info batch-student-search-trigger text-white" data-tuition-id="{{_id}}">search</a></div>
-														<div class="col-md-2"><a class="btn btn-sm btn-info batch-student-search-reset text-white" data-tuition-id="{{_id}}">reset</a></div>
+														<div class="col-md-2"><a class="btn btn-sm btn-info batch-student-search-trigger text-white"
+															 data-tuition-id="{{_id}}">search</a></div>
+														<div class="col-md-2"><a class="btn btn-sm btn-info batch-student-search-reset text-white"
+															 data-tuition-id="{{_id}}">reset</a></div>
 													</div>
 													<br>
 													<div class="px-2 student-checkbox-container" data-tuition-id="{{_id}}" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">

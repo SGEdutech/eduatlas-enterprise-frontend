@@ -261,7 +261,8 @@ const schedule = (() => {
 
 	function sortByWeek(batchObj) {
 		return batchObj.schedules.reduce((accumulator, scheduleObj) => {
-			const yearWeek = moment(scheduleObj.date).week() + '-' + moment(scheduleObj.date).year();
+			const yearWeek = moment(scheduleObj.date).startOf('isoweek').format("MMM Do") + '-' + moment(scheduleObj.date).endOf('isoweek').format("MMM Do");
+			// const yearWeek = moment(scheduleObj.date).week() + '-' + moment(scheduleObj.date).year();
 			// check if the week number exists
 			if (typeof accumulator[yearWeek] === 'undefined') {
 				accumulator[yearWeek] = [];

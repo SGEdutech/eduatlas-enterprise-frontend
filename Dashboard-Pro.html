@@ -49,7 +49,7 @@
 					</div>
 					<div class="card-subtitle text-info h5 my-0" id="ea_id_container"></div>
 					<div class="card-subtitle text-muted h5 text-capitalize my-0" id="userIdContainer"></div>
-					<button id="user_edit_profile" class="btn btn-outline-info btn-sm">Edit User Profile</button>
+					<button id="user_edit_profile" class="btn btn-outline-info btn-sm">Edit Profile</button>
 				</div>
 			</div>
 			<div class="card">
@@ -810,35 +810,31 @@
 			</div>
 		</div>
 	</div>
-	<!-- <div id="claim_modal_container">
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="claimOrNotModal" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="claimOrNotModal">Claim Newly Added Institute/Event</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-info">Save changes</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
 	<div id="upload_student_modal_container">
 		<div class="modal fade bd-example-modal-lg" id="excel_upload_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
-					<form id="upload_student_form">
-						<div id="excel_upload_modal_body"></div>
-						<div class="row justify-content-end m-2">
-							<button id="upload_excel_data" type="submit" class="btn btn-round btn-info">Upload</button>
-							<button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-4 form-group">
+								<label for="course_select" class="bmd-label-floating">Select Course</label>
+								<select class="form-control selectpicker" id="course_select_menu" data-style="btn btn-link" name="courseId" data-tuition-id="{{_id}}">
+								</select>
+							</div>
+							<div class="col-md-4 form-group">
+								<label for="batch_select" class="bmd-label-floating">Select Batch</label>
+								<select class="form-control selectpicker" id="batch_select_menu" data-style="btn btn-link" name="batchId" data-tuition-id="{{_id}}">
+								</select>
+							</div>
 						</div>
-					</form>
+						<form id="upload_student_form">
+							<div id="excel_upload_modal_body"></div>
+							<div class="row justify-content-end m-2">
+								<button id="upload_excel_data" type="submit" class="btn btn-round btn-info">Upload</button>
+								<button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
