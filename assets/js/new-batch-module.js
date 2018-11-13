@@ -60,8 +60,9 @@ const batch = (() => {
 		return tuitionApiCalls.editBatchInCourseInTuition(tuitionId, courseId, batchId, editedData);
 	}
 
-	async function editBatch(tuitionId, courseId, batchId) {
+	async function editBatch(event, tuitionId, courseId, batchId) {
 		try {
+			event.preventDefault();
 			const editedData = modal.serializeForm();
 			const editedBatch = await submitEditRequest(tuitionId, courseId, batchId, editedData);
 			modal.hideModal();
@@ -109,7 +110,7 @@ const batch = (() => {
 		batchInfo.allStudents = getAllStudensWithInThisBatch(batchInfo.students, tuitionId);
 		const editBatchInputHTML = template.batchEditInputs(batchInfo);
 		modal.renderFormContent(editBatchInputHTML);
-		modal.bindSubmitEvent(() => editBatch(tuitionId, courseId, batchId));
+		modal.bindSubmitEvent(e => editBatch(e, tuitionId, courseId, batchId));
 		modal.showModal();
 	}
 

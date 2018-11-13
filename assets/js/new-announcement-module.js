@@ -136,6 +136,18 @@ const announcement = (() => {
 		bindDynamic();
 	}
 
+	PubSub.subscribe('course.edit', (msg, editedCourse) => {
+		distinctBatchesArr.forEach(batchObj => {
+			if (editedCourse._id === batchObj.courseId) batchObj.courseCode = editedCourse.code;
+		});
+		refresh();
+	});
+
+	PubSub.subscribe('course.delete', (msg, deletedCourse) => {
+		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj.courseId !== deletedCourse._id);
+		refresh();
+	});
+
 	PubSub.subscribe('batch.add', (msg, addedBatch) => {
 		distinctBatchesArr.push(addedBatch);
 		refresh();

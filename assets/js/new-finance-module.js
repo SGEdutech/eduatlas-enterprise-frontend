@@ -6,7 +6,32 @@ const finance = (() => {
 	let $searchBtn;
 	let $resetBtn;
 	let $studentsContainer;
+	let $studentCards;
 	let $batchCheckboxContainer;
+	let $landingContainer;
+	let $detailsContainer;
+	let $detailsDisplayContainer;
+	let $backBtn;
+
+	function showLandingAndDistroyDatailsDisplay() {
+		$detailsDisplayContainer.html('');
+		$landingContainer.removeClass('d-none');
+		$detailsContainer.addClass('d-none');
+	}
+	
+	function renderDetails(studentId) {
+		const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+		const detailsHtml = template.financeDetailView({ student: studentInfo });
+		$detailsDisplayContainer.html(detailsHtml);
+	}
+
+	function showDetails() {
+		const $card = $(this);
+		const studentId = $card.attr('data-student-id');
+		renderDetails(studentId);
+		$landingContainer.addClass('d-none');
+		$detailsContainer.removeClass('d-none');
+	}
 
 	function renderAllStudents(event) {
 		const $btn = $(event.target);
@@ -75,8 +100,8 @@ const finance = (() => {
 		});
 	}
 
-	function render() {
-		renderStudents();
+	function render(opts) {
+		renderStudents(opts);
 		renderBatchCheckboxes();
 	}
 
@@ -86,24 +111,30 @@ const finance = (() => {
 		$resetBtn = $('.finance-search-reset');
 		$studentsContainer = $('.finance-student-container');
 		$batchCheckboxContainer = $('.finance-batch-container');
+		$landingContainer = $('.finance-landing-container');
+		$detailsContainer = $('.finance-detail-container');
+		$detailsDisplayContainer = $('.finance-dynamic-container');
+		$backBtn = $('.landing-view-btn');
 	}
 
 	function cacheDynamic() {
 		$batchCheckboxes = $('.finance-batches');
+		$studentCards = $('.finance-card');
 	}
 
 	function bindEvents() {
 		$searchBtn.click(renderFilteredStudents);
 		$resetBtn.click(renderAllStudents);
+		$backBtn.click(showLandingAndDistroyDatailsDisplay);
 	}
 
 	function bindDynamic() {
-
+		$studentCards.click(showDetails);
 	}
 
 	function refresh(opts) {
 		opts = opts || {};
-		renderStudents({ studentsArr: opts.studentsArr, renderTuitionId: opts.renderTuitionId });
+		render({ studentsArr: opts.studentsArr, renderTuitionId: opts.renderTuitionId });
 		cacheDynamic();
 		bindDynamic();
 	}
@@ -156,6 +187,11 @@ const finance = (() => {
 
 	PubSub.subscribe('batch.delete', (msg, removedBatch) => {
 		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj._id !== removedBatch._id);
+		refresh();
+	});
+
+	PubSub.subscribe('course.delete', (msg, deletedCourse) => {
+		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj.courseId !== deletedCourse._id);
 		refresh();
 	});
 

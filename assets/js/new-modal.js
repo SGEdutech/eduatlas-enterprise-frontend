@@ -33,11 +33,10 @@ const modal = (() => {
 	}
 
 	function renderFormContent(html) {
-		$modalForm.html(html);
+		$modalFormBody.html(html);
 	}
 
 	function bindSubmitEvent(cb) {
-		console.log('heyyy');
 		$modalForm.submit(cb);
 	}
 
