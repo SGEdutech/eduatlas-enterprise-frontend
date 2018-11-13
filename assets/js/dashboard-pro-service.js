@@ -40,13 +40,14 @@ async function initModules() {
 		dashboardAddTuition.init(userInfo);
 		dashboardAddSchool.init(userInfo);
 		dashboardAddEvent.init(userInfo);
+		triggerPills.init();
+		notification.init();
 	} catch (err) {
 		console.error(err);
 	}
 }
 
-triggerPills.init();
-notification.init();
+
 
 initModules();
 setTimeout(loginModal.init());

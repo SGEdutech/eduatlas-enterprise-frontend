@@ -104,8 +104,8 @@ const course = (() => {
 		// FIXME: Too many $totalFee
 		let courseFee = $feeInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
 		let gstPercentage = $gstInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
-		courseFee = parseInt(courseFee, 10) || 0;
-		gstPercentage = parseInt(gstPercentage, 10) || 0;
+		courseFee = parseFloat(courseFee, 10) || 0;
+		gstPercentage = parseFloat(gstPercentage, 10) || 0;
 		const totalFee = calcTotalFee(courseFee, gstPercentage);
 		$totalFee.filter(`[data-tuition-id="${tuitionId}"]`).val(totalFee);
 	}
