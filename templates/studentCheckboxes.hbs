@@ -20,7 +20,7 @@
     <tbody>
         {{#each students as |student|}}
         <tr id="{{randomId}}">
-            <td class="text-center">{{@index}}</td>
+            <td class="text-center">{{inc @index}}</td>
             <td>{{student.name}}</td>
             <td>{{student.rollNumber}}</td>
             <td>{{student.email}}</td>

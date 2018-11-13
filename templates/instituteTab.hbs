@@ -456,7 +456,14 @@
 														Add Students
 													</div>
 													<div class="row">
-														<div class="col-md-8"><input type="text" placeholder="search students" class="batch-student-search-inp"
+														<div class="col-md-4">
+															<select class="form-control batch-search-criteria-select" data-style="btn btn-link">
+																<option value="name">name</option>
+																<option value="roll number">roll number</option>
+																<option value="email">email</option>
+															</select>
+														</div>
+														<div class="col-md-4"><input type="text" placeholder="search students" class="batch-student-search-inp"
 															 data-tuition-id="{{_id}}"></div>
 														<div class="col-md-2"><a class="btn btn-sm btn-info batch-student-search-trigger text-white"
 															 data-tuition-id="{{_id}}">search</a></div>
