@@ -25,8 +25,9 @@ const course = (() => {
 		return tuitionApiCalls.editCourseInTuition(tuitionId, courseId, editedData);
 	}
 
-	async function editCourse(tuitionId, courseId) {
+	async function editCourse(event, tuitionId, courseId) {
 		try {
+			event.preventDefault();
 			const editedData = modal.serializeForm();
 			const editedCourse = await submitEditRequest(tuitionId, courseId, editedData);
 			modal.hideModal();
@@ -67,7 +68,7 @@ const course = (() => {
 		courseInfo.tatalFee = calcTotalFee(courseInfo.fees, courseInfo.gstPercentage);
 		const editCourseInputHTML = template.courseEditInputs(courseInfo);
 		modal.renderFormContent(editCourseInputHTML);
-		modal.bindSubmitEvent(() => editCourse(tuitionId, courseId));
+		modal.bindSubmitEvent(e => editCourse(e, tuitionId, courseId));
 		modal.cacheAndBindCoursesStuff();
 		modal.showModal();
 	}
