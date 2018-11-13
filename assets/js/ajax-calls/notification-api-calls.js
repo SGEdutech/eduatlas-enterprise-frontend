@@ -29,7 +29,7 @@ const notificationApiCalls = (() => {
 				receivers: receiversArr,
 				batchId: batchId,
 				instituteId : instituteId,
-			},
+			}
 		});
 	}
 

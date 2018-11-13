@@ -1,0 +1,14 @@
+{{#each batches as |batch|}}
+<div class="col-md-2">
+    <div class="form-check">
+        <label class="form-check-label">
+            <input class="form-check-input finance-batches" type="checkbox" value="{{batch._id}}" data-course-id="{{batch.courseId}}"
+                data-tuition-id="{{batch.tuitionId}}">
+            {{batch.code}}
+            <span class="form-check-sign">
+                <span class="check"></span>
+            </span>
+        </label>
+    </div>
+</div>
+{{/each}}

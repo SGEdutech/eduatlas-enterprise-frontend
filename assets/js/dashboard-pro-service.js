@@ -28,7 +28,8 @@ async function initModules() {
 		forum.init(claimedForums);
 		announcement.init(claimedBatches, claimedStudents);
 		redirectTabs.init(queryString.loadQueryString());
-		discounts.init(claimedDiscounts)
+		discounts.init(claimedDiscounts);
+		finance.init(claimedStudents, claimedBatches);
 
 		userImgAndName.init(userInfo);
 		modal.init();

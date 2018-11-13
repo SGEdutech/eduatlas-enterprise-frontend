@@ -32,7 +32,7 @@ const announcement = (() => {
 
 		tuitionIdIfSendToAllTuition = allInstitute ? tuitionId : null;
 
-		notificationApiCalls.putNewNotification(tuitionId, $announcementText.val(), userEmails, batchesArr[0], tuitionIdIfSendToAllTuition);
+		notificationApiCalls.putNewNotification(tuitionId, $announcementText.val(), userEmails);
 		notification.push('Your Message has been successfully sent');
 	}
 

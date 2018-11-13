@@ -6,6 +6,7 @@ const modal = (() => {
 	let $gstPercentageEdit;
 	let $totalFeeEdit;
 	let $gstCheckbox;
+	let $modalFormBody;
 
 	function cacheDynamic() {
 		$timePicker = $modalForm.find('.edit-time-picker');
@@ -16,6 +17,7 @@ const modal = (() => {
 		$submitBtn = $('#submit_edit_form_btn');
 		$modal = $('#edit_modal');
 		$modalForm = $('#edit_form');
+		$modalFormBody = $('#modal_form_body');
 	}
 
 	function bindEvent() {
@@ -35,7 +37,8 @@ const modal = (() => {
 	}
 
 	function bindSubmitEvent(cb) {
-		$submitBtn.click(cb);
+		console.log('heyyy');
+		$modalForm.submit(cb);
 	}
 
 	function calcTotalCourseFee(fee, gstPercentage) {

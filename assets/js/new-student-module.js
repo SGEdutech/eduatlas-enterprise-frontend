@@ -81,8 +81,9 @@ const student = (() => {
 		}
 	}
 
-	async function editStudent(tuitionId, studentId) {
+	async function editStudent(event, tuitionId, studentId) {
 		try {
+			event.preventDefault();
 			const editedData = modal.serializeForm();
 			const editedStudent = await tuitionApiCalls.editStudentInTuition(tuitionId, studentId, editedData);
 			modal.hideModal();
@@ -104,7 +105,7 @@ const student = (() => {
 		if (studentInfo.nextInstallment) studentInfo.nextInstallment = studentInfo.nextInstallment.split('T')[0];
 		const editStudentInputHTML = template.studentEditInputs(studentInfo);
 		modal.renderFormContent(editStudentInputHTML);
-		modal.bindSubmitEvent(() => editStudent(tuitionId, studentId));
+		modal.bindSubmitEvent(event => editStudent(event, tuitionId, studentId));
 		modal.showModal();
 	}
 

@@ -239,7 +239,7 @@
 							<br><br>
 						</div>
 						<div class="tab-pane" id="innertab2{{tabNumber}}">
-							<div class=" card-title col-12 h3 mt-4 bg-info">
+							<div class=" card-title col-12 h3 bg-info">
 								Active Students
 							</div>
 							<div class="container">
@@ -478,7 +478,284 @@
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane" id="innertab4{{tabNumber}}"></div>
+						<div class="tab-pane" id="innertab4{{tabNumber}}">
+							<div class="row m-0">
+								<div class="card-title col-12 h3 bg-info">
+									Finance
+								</div>
+								<div class="col-md-12">
+									<h4 class="card-title">Batch Filter</h4>
+									<div class="row mb-2 finance-batch-container" data-tuition-id="{{_id}}">
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="row">
+										<div class="col-md-8"><input type="text" class="finance-search-inp" placeholder="search students"
+											 data-tuition-id="{{_id}}"></div>
+										<div class="col-md-2">
+											<div class="btn btn-info btn-sm finance-search-trigger" data-tuition-id="{{_id}}">SEARCH</div>
+										</div>
+										<div class="col-md-2">
+											<div class="btn btn-info btn-sm finance-search-reset" data-tuition-id="{{_id}}">RESET</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="row finance-student-container" data-tuition-id="{{_id}}">
+									</div>
+								</div>
+								<div class="col-12 finance-detail-view" data-tuition-id="{{_id}}">
+									<div class="card-title h3">Batman</div>
+									<div class="row">
+										<div class="col-md-3 font-weight-bold">Course Name:</div>
+										<div class="col-md-3">JEE 18</div>
+										<div class="col-md-3 font-weight-bold">
+											Course Fee:
+										</div>
+										<div class="col-md-3">
+											50000
+										</div>
+										<div class="col-md-3 font-weight-bold">
+											Discount Amount:
+										</div>
+										<div class="col-md-3">
+											4000
+										</div>
+										<div class="col-md-3 font-weight-bold">
+											Discount Reason:
+										</div>
+										<div class="col-md-3">
+											Diwali Offer
+										</div>
+										<div class="col-md-3 font-weight-bold">
+											Net Fee:
+										</div>
+										<div class="col-md-3">
+											46000
+										</div>
+										<div class="col-md-3 font-weight-bold">
+											Pending Balance:
+										</div>
+										<div class="col-md-3">
+											2000
+										</div>
+										<div class="col-md-3 font-weight-bold">
+											Pending Balance:
+										</div>
+										<div class="col-md-3">
+											2000
+										</div>
+										<div class="col-md-3 font-weight-bold">
+											Next Installment Date:
+										</div>
+										<div class="col-md-3">
+											23/11/18
+										</div>
+									</div>
+									<div class="card">
+										<div class="card-body">
+											<div class="card-title m-0 text-info">Installment 1</div>
+											<div class="row">
+												<div class="col-md-3 font-weight-bold">
+													Collected Fee:
+												</div>
+												<div class="col-md-3">
+													50000
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Mode Of Paymnet:
+												</div>
+												<div class="col-md-3">
+													Cheque
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Bank Name:
+												</div>
+												<div class="col-md-3">
+													PNB
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Date Of Cheque:
+												</div>
+												<div class="col-md-3">
+													23/11/1996
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Cheque Number:
+												</div>
+												<div class="col-md-3">
+													345633
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Next Installment:
+												</div>
+												<div class="col-md-3 text-danger">
+													23/11/18
+												</div>
+											</div>
+											<div class="card-footer p-0">
+												<div class="stats ml-auto">
+													<i class="material-icons delete-batch-btn" style="top: 0%; cursor: pointer;" data-batch-id="{{_id}}"
+													 data-tuition-id="{{tuitionId}}" data-course-id="{{courseId}}">delete</i>
+													<i class="material-icons batch-edit" style="top: 0%; cursor: pointer;" data-batch-id="{{_id}}"
+													 data-tuition-id="{{tuitionId}}" data-course-id="{{courseId}}">edit</i>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="card">
+										<div class="card-body">
+											<div class="card-title m-0 text-info">Installment 1</div>
+											<div class="row">
+												<div class="col-md-3 font-weight-bold">
+													Collected Fee:
+												</div>
+												<div class="col-md-3">
+													50000
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Mode Of Paymnet:
+												</div>
+												<div class="col-md-3">
+													Cheque
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Bank Name:
+												</div>
+												<div class="col-md-3">
+													PNB
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Date Of Cheque:
+												</div>
+												<div class="col-md-3">
+													23/11/1996
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Cheque Number:
+												</div>
+												<div class="col-md-3">
+													345633
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Next Installment:
+												</div>
+												<div class="col-md-3 text-danger">
+													23/11/18
+												</div>
+											</div>
+											<div class="card-footer p-0">
+												<div class="stats ml-auto">
+													<i class="material-icons delete-batch-btn" style="top: 0%; cursor: pointer;" data-batch-id="{{_id}}"
+													 data-tuition-id="{{tuitionId}}" data-course-id="{{courseId}}">delete</i>
+													<i class="material-icons batch-edit" style="top: 0%; cursor: pointer;" data-batch-id="{{_id}}"
+													 data-tuition-id="{{tuitionId}}" data-course-id="{{courseId}}">edit</i>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="card">
+										<div class="card-body">
+											<div class="card-title m-0 text-info">Installment 1</div>
+											<div class="row">
+												<div class="col-md-3 font-weight-bold">
+													Collected Fee:
+												</div>
+												<div class="col-md-3">
+													50000
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Mode Of Paymnet:
+												</div>
+												<div class="col-md-3">
+													Cheque
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Bank Name:
+												</div>
+												<div class="col-md-3">
+													PNB
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Date Of Cheque:
+												</div>
+												<div class="col-md-3">
+													23/11/1996
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Cheque Number:
+												</div>
+												<div class="col-md-3">
+													345633
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Next Installment:
+												</div>
+												<div class="col-md-3 text-danger">
+													23/11/18
+												</div>
+											</div>
+											<div class="card-footer p-0">
+												<div class="stats ml-auto">
+													<i class="material-icons delete-batch-btn" style="top: 0%; cursor: pointer;" data-batch-id="{{_id}}"
+													 data-tuition-id="{{tuitionId}}" data-course-id="{{courseId}}">delete</i>
+													<i class="material-icons batch-edit" style="top: 0%; cursor: pointer;" data-batch-id="{{_id}}"
+													 data-tuition-id="{{tuitionId}}" data-course-id="{{courseId}}">edit</i>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="card bg-info">
+										<div class="card-body">
+											<div class="card-title m-0 text-dark">Installment 1</div>
+											<div class="row">
+												<div class="col-md-3 font-weight-bold">
+													Collected Fee:
+												</div>
+												<div class="col-md-3">
+													<input type="number">
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Mode Of Paymnet:
+												</div>
+												<div class="col-md-3">
+													<input type="text">
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Bank Name:
+												</div>
+												<div class="col-md-3">
+													<input type="text">
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Date Of Cheque:
+												</div>
+												<div class="col-md-3">
+													<input type="date">
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Cheque Number:
+												</div>
+												<div class="col-md-3">
+													<input type="number">
+												</div>
+												<div class="col-md-3 font-weight-bold">
+													Next Installment:
+												</div>
+												<div class="col-md-3 text-danger">
+													<input type="date">
+												</div>
+											</div>
+											<div class="card-footer p-0">
+												<div class="stats ml-auto">
+													<button class="btn btn-sm btn-success">ADD</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="tab-pane" id="innertab5{{tabNumber}}">
 							<div class="row m-0">
 								<div class="card-title col-12 h3 bg-info">
