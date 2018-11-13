@@ -94,7 +94,7 @@ const course = (() => {
 		const newCourse = await submitAddCourse(tuitionId, $form.serialize());
 		notification.push('Course has been successfully added');
 		newCourse.tuitionId = tuitionId;
-		coursesArr.push(newCourse);
+		coursesArr.unshift(newCourse);
 		PubSub.publish('course.add', newCourse);
 		$form.trigger('reset');
 		refresh();
