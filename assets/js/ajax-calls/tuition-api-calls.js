@@ -549,7 +549,7 @@ const tuitionApiCalls = (() => {
 		return $.ajax({
 			type: 'POST',
 			url: `/tuition/${idOfTuition}/course/${idOfCourse}/batch/${idOfBatch}/schedule/${idOfSchedule}/student-absent/new`,
-			data: absentArr
+			data: { absentees: absentArr }
 		});
 	}
 

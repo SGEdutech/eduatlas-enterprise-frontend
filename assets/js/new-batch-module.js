@@ -176,9 +176,6 @@ const batch = (() => {
 
 			const studentsOfThisTuition = studentsInfoArr.filter(studentObj => studentObj.tuitionId === tuitionId);
 			// to increment index
-			Handlebars.registerHelper("inc", function(value, options) {
-				return parseInt(value) + 1;
-			});
 			const studentCheckboxesHTML = template.studentCheckboxes({ students: studentsOfThisTuition });
 			$checkboxContainer.html(studentCheckboxesHTML);
 		});

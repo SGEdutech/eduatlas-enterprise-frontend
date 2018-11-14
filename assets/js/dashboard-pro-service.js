@@ -3,6 +3,10 @@ PubSub.subscribe('user', (msg, userInfo) => {
 	redirectOnLogout.init(userInfo);
 });
 
+Handlebars.registerHelper("inc", function(value, options) {
+	return parseInt(value) + 1;
+});
+
 async function initModules() {
 	try {
 		const promiseArr = [];
@@ -24,7 +28,7 @@ async function initModules() {
 		batch.init(claimedBatches, claimedCourses, claimedStudents);
 		student.init(claimedStudents, claimedCourses, claimedBatches, claimedDiscounts);
 		schedule.init(claimedBatches);
-		// attendance.init(claimedBatches, claimedStudents);
+		attendance.init(claimedBatches, claimedStudents);
 		forum.init(claimedForums);
 		announcement.init(claimedBatches, claimedStudents);
 		redirectTabs.init(queryString.loadQueryString());
@@ -51,4 +55,5 @@ async function initModules() {
 
 initModules();
 setTimeout(loginModal.init());
+
 // setTimeout(promoterModal.init());

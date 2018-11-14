@@ -267,20 +267,22 @@
 									<div class="card-title h3 mt-3 px-3 mx-3 text-left bg-info">
 										Add New Student
 									</div>
+									<div class="card-title h4 px-3 mx-3 text-left bg-info">
+										Auto-populate student details using EA id
+									</div>
 									<div class="col-12 px-3 text-left">
-										<div class="row px-3">
-											<p class="text-success mx-3">Auto-populate student details using EA id</p>
-										</div>
 										<div class="row px-3">
 											<div class="col-12">
 												<button class="btn btn-info btn-sm ea-id-modal-trigger" data-tuition-id="{{_id}}">Enter EA ID</button>
 											</div>
 										</div>
-										<h6 class="card-title mx-3">OR</h6>
+										<div class="card-title h4 px-3 bg-info">
+											Add New Student Through Excel
+										</div>
 										<div class="row px-3">
 											<div class="col-4">
-												<a href="/assets/excel/student-template.csv" class="btn btn-round btn-success add-students-from-excel-btn text-white"
-												 download>Download Excel Template</a>
+												<a href="/assets/excel/student-template.csv" class="btn btn-round btn-success text-white" download>Download
+													Excel Template</a>
 											</div>
 											<div class="col-3">
 												<input class="exel-file-upload" type="file" data-tuition-id="{{_id}}">
@@ -291,8 +293,10 @@
 											</div>
 										</div>
 									</div>
+									<div class="card-title h4 mx-3 text-left px-3 bg-info">
+										Add New Student Manually
+									</div>
 									<div class="card-body text-left">
-										<h6 class="card-title">OR</h6>
 										<div class="row">
 											<div class="col-md-12 compulsory-fields-container" data-tuition-id="{{_id}}">
 												<h4 class="card-title">Compulsory Fields</h4>
@@ -457,7 +461,8 @@
 													</div>
 													<div class="row">
 														<div class="col-md-4">
-															<select class="form-control batch-search-criteria-select" data-style="btn btn-link">
+															<select class="form-control batch-search-criteria-select selectpicker" data-style="btn btn-link">
+																<option value="" selected disabled>choose search criteria</option>
 																<option value="name">name</option>
 																<option value="roll number">roll number</option>
 																<option value="email">email</option>
@@ -739,7 +744,7 @@
 					<div class="tab-content tab-space">
 						<div class="tab-pane active" id="announce{{tabNumber}}">
 							<div class="card-body card m-0">
-								<div class="card-title h3 bg-info">
+								<div class="card-title h3 px-3 bg-info">
 									New Announcement
 								</div>
 								<div class="form-group">
@@ -801,26 +806,36 @@
 							</div>
 						</div>
 						<div class="tab-pane" id="forums{{tabNumber}}">
-							<form class="new-post-form" enctype="multipart/form-data" data-tuition-id="{{_id}}">
-								<div class="card mt-0">
-									<div class="row card-body">
-										<div class="card-title col-12 h3">
-											Add New Thread
-										</div>
-										<div class="col-md-12">
-											<input type="text" class="form-control" name="title" placeholder="Enter Title">
-										</div>
-										<div class="col-md-12">
-											<textarea class="form-control" rows="5" placeholder="Enter Content" name="body"></textarea>
-										</div>
-										<div class="col-md-12">
-											<button type="submit" class="btn btn-round btn-success float-right">ADD</button>
+							<div class="forum-landing-container" data-tuition-id="{{_id}}">
+								<form class="new-post-form" enctype="multipart/form-data" data-tuition-id="{{_id}}">
+									<div class="card mt-0">
+										<div class="row card-body">
+											<div class="card-title col-12 h3">
+												Add New Thread
+											</div>
+											<div class="col-md-12">
+												<input type="text" class="form-control" name="title" placeholder="Enter Title">
+											</div>
+											<div class="col-md-12">
+												<textarea class="form-control" rows="5" placeholder="Enter Content" name="body"></textarea>
+											</div>
+											<div class="col-md-12">
+												<button type="submit" class="btn btn-round btn-success float-right">ADD</button>
+											</div>
 										</div>
 									</div>
+								</form>
+								<div class="active-forum-container" data-tuition-id="{{_id}}">
+									{{!-- FIXME: moved to new hbs file --}}
 								</div>
-							</form>
-							<div class="active-forum-container" data-tuition-id="{{_id}}">
-								{{!-- FIXME: moved to new hbs file --}}
+							</div>
+							<div class="forum-detail-container d-none" data-tuition-id="{{_id}}">
+								<button class="btn btn-sm btn-info go-to-landing-page-btn" data-tuition-id="{{_id}}">
+									<i class="material-icons" data-tuition-id="{{_id}}">
+										arrow_back
+									</i>
+								</button>
+								<div class="forum-detail-body"></div>
 							</div>
 						</div>
 					</div>
@@ -846,7 +861,7 @@
 								<div class="card">
 									<div class="card-body">
 										<div class="row m-0">
-											<div class="card-title col-12 h3 p-0 bg-info">Add New Schedule</div>
+											<div class="card-title col-12 h3 p-0 bg-info px-3 ">Add New Schedule</div>
 											<div class="col-12">
 												<div class="form-group">
 													<label for="week-number">Week Number</label>
@@ -856,14 +871,14 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="label-control">From Date</label>
-													<input type="text" name="from-date" class="form-control date-picker from-date" required data-tuition-id="{{_id}}"
+													<input type="date" name="from-date" class="form-control date-picker from-date" required data-tuition-id="{{_id}}"
 													 data-tuition-id="{{_id}}">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="label-control">To Date</label>
-													<input name="to-date" type="text" class="form-control date-picker to-date" required data-tuition-id="{{_id}}"
+													<input name="to-date" type="date" class="form-control date-picker to-date" required data-tuition-id="{{_id}}"
 													 data-tuition-id="{{_id}}" disabled>
 												</div>
 											</div>
@@ -918,7 +933,7 @@
 								</div>
 							</div>
 							<div class="row m-0">
-								<div class="card-title col-12 h3 p-0 bg-info">Active Schedules</div>
+								<div class="card-title col-12 h3 p-0 bg-info px-3">Active Schedules</div>
 								<div class="col-12 active-schedule-container" data-tuition-id="{{_id}}">
 									{{!-- FIXME: moved to new hbs file --}}
 								</div>
@@ -946,7 +961,7 @@
 						<div class="tab-pane active" id="attandance{{tabNumber}}">
 							<div class="card">
 								<div class="card-body">
-									<div class="card-title h3 bg-info">
+									<div class="card-title h3 bg-info px-3">
 										Mark Attendence
 									</div>
 									<div class="col-12">
@@ -960,17 +975,36 @@
 										<select class="form-control attendance-schedule-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
 										</select>
 									</div>
-									<div style="overflow-y: scroll;max-height: 279px;">
+									<div class="card-title h4 bg-info px-3">
+										Mark Attendence Through Excel
+									</div>
+									<div class="row px-3">
+										<div class="col-4">
+											<a href="/assets/excel/attendance-template.csv" class="btn btn-round btn-success text-white" download>Download
+												Excel Template</a>
+										</div>
+										<div class="col-3">
+											<input class="attendance-exel-file-upload" type="file" data-tuition-id="{{_id}}">
+										</div>
+										<div class="col-3">
+											<a class="btn btn-round btn-success add-attendance-from-excel-btn text-white" data-tuition-id="{{_id}}">ADD
+												ATTENDANCE FROM EXCEL</a>
+										</div>
+									</div>
+									<div class="card-title h4 bg-info px-3">
+										Mark Attendence Manually
+									</div>
+									<div style="overflow-y: scroll;max-height: 500px;">
 										<form class="absent-student-form" data-tuition-id="{{_id}}">
 											<table class="table border border-light">
-												<thead class="bg-info">
+												<thead class="">
 													<tr>
-														<th class="text-light">#</th>
-														<th class="text-light">Student Name</th>
-														<th class="text-light">Roll No.</th>
-														<th class="text-light">Email</th>
-														<th class="text-light">SELECT
-															TO MARK ABSENT</th>
+														<th>#</th>
+														<th><small>Student Name</small></th>
+														<th><small>Roll No.</small></th>
+														<th><small>Outstanding Fee</small></th>
+														<th><small>SELECT
+																TO MARK ABSENT</small></th>
 													</tr>
 												</thead>
 												<tbody class="students-container" data-tuition-id="{{_id}}">

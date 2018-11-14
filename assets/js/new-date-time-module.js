@@ -93,9 +93,8 @@ const dateAndTime = (() => {
 
 	function getNextSunday(date) {
 		if (date instanceof Date === false) throw new Error('Type of date must be a date');
-
-		const numberOfDayToBeAdded = 7 - date.getDay();
-		return addDays(date, numberOfDayToBeAdded)
+		const dateToReturn = moment(date).endOf('isoweek');
+		return dateToReturn;
 	}
 	return {
 		getDaysTillSunday,

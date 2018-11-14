@@ -1,0 +1,46 @@
+<div class="card-title col-12 h3 bg-info">
+    {{title}}
+</div>
+<div class="col-12">
+    {{body}}
+</div>
+<hr>
+<div class="col-12">
+    <div class="row px-3">
+        <small class="text-danger">comments</small>
+    </div>
+    {{#each comments as |comment|}}
+    <div class="media">
+        <a class="float-left" href="#pablo">
+            <div class="avatar">
+                <img class="media-object" alt="Tim Picture" src="./assets/img/logo.png">
+            </div>
+        </a>
+        <div class="media-body">
+            <h4 class="media-heading">{{userEmail}} <small>· Yesterday</small></h4>
+
+            <p>{{content}}</p>
+
+            <div class="media-footer">
+                <a href="#pablo" class="btn btn-link float-right" rel="tooltip" title=""
+                    data-original-title="Reply to Comment">
+                    <i class="material-icons">delete</i> Delete Comment
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    <div class="media media-post">
+        <a class="author float-left" href="#pablo">
+            <div class="avatar">
+                <img class="media-object" alt="64x64" src="./assets/img/logo.png">
+            </div>
+        </a>
+        <div class="media-body">
+            <span class="bmd-form-group"><textarea class="form-control" placeholder="Write some nice stuff or nothing..."
+                    rows="6"></textarea></span>
+            <div class="media-footer">
+                <a href="#pablo" class="btn btn-success btn-round float-right">Post Comment</a>
+            </div>
+        </div>
+    </div>
+</div>

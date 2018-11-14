@@ -20,11 +20,11 @@
     <tbody>
         {{#each students as |student|}}
         <tr id="{{randomId}}">
-            <td class="text-center">{{inc @index}}</td>
-            <td>{{student.name}}</td>
-            <td>{{student.rollNumber}}</td>
-            <td>{{student.email}}</td>
-            <td>
+            <td class="text-center p-0">{{inc @index}}</td>
+            <td class="p-0">{{student.name}}</td>
+            <td class="p-0">{{student.rollNumber}}</td>
+            <td class="p-0">{{student.email}}</td>
+            <td class="p-0">
                 <input type="checkbox" name="students" value="{{student._id}}">
             </td>
         </tr> {{/each}} </tbody>

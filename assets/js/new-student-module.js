@@ -353,6 +353,10 @@ const student = (() => {
 		$deleteButton = $('.delete-student-btn');
 	}
 
+	function testFunction() {
+		console.log("hi");
+	}
+
 	function bindevents() {
 		// Sort this mess
 		$addStudentForm.submit(addStudent)
@@ -365,6 +369,7 @@ const student = (() => {
 		$studentSearchReset.click(clearSearch);
 		$calculateFeeBtn.click(renderBalancePending);
 		$calculateFeeBtn.click(renderNetFee);
+		$courseFee.on('textInput input', testFunction)
 	}
 
 	function bindDynamic() {
