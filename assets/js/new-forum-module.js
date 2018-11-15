@@ -22,7 +22,7 @@ const forum = (() => {
 	}
 
 	function showLandingPage(event) {
-		$btn = $(event.target);
+		const $btn = $(event.target);
 		const tuitionId = $btn.attr('data-tuition-id');
 		$forumPostContainer.html('');
 		$landingContainer.filter(`[data-tuition-id="${tuitionId}"]`).removeClass('d-none');

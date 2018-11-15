@@ -27,7 +27,6 @@ const student = (() => {
 	let $exelUploadInp;
 	let $addStudentFromExcelBtn;
 	let $studentSearchInp;
-	let $studentSearchTriggerBtn;
 	let $studentSearchReset;
 	let $installmentDateInp;
 	let $discountSelectContainer;
@@ -36,6 +35,10 @@ const student = (() => {
 	let $addStudentBtn;
 	let $additionalFieldsContainer;
 	let $studentInputs;
+
+	function calibrateBackslasses(str) {
+		return str.replace(/\\/g, '\\\\');
+	}
 
 	function getNameToValueObj($inputs) {
 		if ($inputs === undefined) throw new Error('Inputs not provided');
@@ -331,7 +334,6 @@ const student = (() => {
 		$exelUploadInp = $('.exel-file-upload');
 		$addStudentFromExcelBtn = $('.add-students-from-excel-btn');
 		$studentSearchInp = $('.student-search-inp');
-		$studentSearchTriggerBtn = $('.student-search-trigger');
 		$studentSearchReset = $('.student-search-reset');
 		$installmentDateInp = $('.student-installment-date-inp');
 		$discountSelectContainer = $('.student-discount-code-select');
@@ -365,11 +367,11 @@ const student = (() => {
 		$eASuceedBtn.click(fetchAndRenderUserInfoAndCloseModal);
 		$modeOfPaymentSelect.change(showModeOfPaymentDetailsInputs);
 		$addStudentFromExcelBtn.click(parseAndDisplayStudents);
-		$studentSearchTriggerBtn.click(renderSearchResults);
 		$studentSearchReset.click(clearSearch);
 		$calculateFeeBtn.click(renderBalancePending);
 		$calculateFeeBtn.click(renderNetFee);
-		$courseFee.on('textInput input', testFunction)
+		$studentSearchInp.on('paste keyup', renderSearchResults);
+		$courseFee.on('textInput input', testFunction);
 	}
 
 	function bindDynamic() {
@@ -399,7 +401,8 @@ const student = (() => {
 	function renderSearchResults(event) {
 		const $btn = $(event.target);
 		const tuitionId = $btn.attr('data-tuition-id');
-		const searchStr = $studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		let searchStr = $studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		searchStr = calibrateBackslasses(searchStr);
 		const regex = new RegExp(searchStr, 'i');
 
 		const searchStudentArr = distinctStudentsArr.filter(studentObj => regex.test(studentObj.name));
