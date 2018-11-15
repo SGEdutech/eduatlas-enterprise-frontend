@@ -173,8 +173,8 @@ const course = (() => {
 
 	function bindEvents() {
 		$addCourseForm.submit(addCourse);
-		$feeInp.blur(initUpdateTotalFee);
-		$gstInp.blur(initUpdateTotalFee);
+		$feeInp.on('input paste', initUpdateTotalFee);
+		$gstInp.on('input paste', initUpdateTotalFee);
 		$inclusiveTaxCheckbox.change(toggleGstInpAndUpdateTotalFee);
 	}
 
