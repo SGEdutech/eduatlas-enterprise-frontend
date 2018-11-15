@@ -376,6 +376,14 @@ const student = (() => {
 		$courseSelectContainer.change(renderNetFee);
 		$courseSelectContainer.change(renderBalancePending);
 
+		$courseFee.on('input paste', renderNetFee);
+		$courseFee.on('input paste', renderBalancePending);
+
+		console.log($discountAmount);
+		$discountAmount.on('input paste', renderNetFee);
+		$discountAmount.on('input paste', renderBalancePending);
+
+		
 		$discountSelectContainer.change(renderDiscountAmount);
 		$discountSelectContainer.change(renderNetFee);
 		$discountSelectContainer.change(renderBalancePending);

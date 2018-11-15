@@ -9,7 +9,6 @@ const batch = (() => {
 	let $courseSelectMenu;
 	let $studentChekboxContainer;
 	let $codeInp;
-	let $batchStudentSearchTrigger;
 	let $batchStudentSearchReset;
 	let $studentSearchInp;
 
@@ -42,7 +41,6 @@ const batch = (() => {
 		$courseSelectMenu = $('.course-select-menu');
 		$studentChekboxContainer = $('.student-checkbox-container');
 		$codeInp = $('.add-batch-code-inp');
-		$batchStudentSearchTrigger = $('.batch-student-search-trigger');
 		$batchStudentSearchReset = $('.batch-student-search-reset');
 		$studentSearchInp = $('.batch-student-search-inp');
 	}
@@ -202,7 +200,7 @@ const batch = (() => {
 
 	function bindEvents() {
 		$addBatchForm.submit(addBatch);
-		$batchStudentSearchTrigger.click(filterAndRenderStudents);
+		$studentSearchInp.on('input paste', filterAndRenderStudents);
 		$batchStudentSearchReset.click(clearSearchInpAndRenderStudents);
 	}
 

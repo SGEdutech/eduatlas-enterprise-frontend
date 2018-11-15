@@ -3,7 +3,7 @@
     <div class="form-check">
         <label class="form-check-label">
             <input class="form-check-input finance-batches" type="checkbox" value="{{batch._id}}" data-course-id="{{batch.courseId}}"
-                data-tuition-id="{{batch.tuitionId}}">
+                data-tuition-id="{{batch.tuitionId}}" {{#if batch.isChecked}}checked{{/if}}>
             {{batch.code}}
             <span class="form-check-sign">
                 <span class="check"></span>

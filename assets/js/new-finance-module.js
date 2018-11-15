@@ -3,7 +3,6 @@ const finance = (() => {
 	let distinctBatchesArr;
 	let $studentSearchInp;
 	let $batchCheckboxes;
-	let $searchBtn;
 	let $resetBtn;
 	let $studentsContainer;
 	let $studentCards;
@@ -18,7 +17,7 @@ const finance = (() => {
 		$landingContainer.removeClass('d-none');
 		$detailsContainer.addClass('d-none');
 	}
-	
+
 	function renderDetails(studentId) {
 		const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
 		const detailsHtml = template.financeDetailView({ student: studentInfo });
@@ -41,6 +40,8 @@ const finance = (() => {
 
 	function getStudentFromSelectedBatchArr(selectedBatchesArr) {
 		if (selectedBatchesArr === undefined) throw new Error('Selected batch array not provided');
+		// Return all students if no batch is selected
+		if (selectedBatchesArr.length === 0) return distinctStudentsArr;
 		const studentsArr = [];
 		selectedBatchesArr.forEach(batchId => {
 			const batchInfo = distinctBatchesArr.find(batchObj => batchObj._id === batchId);
@@ -51,12 +52,10 @@ const finance = (() => {
 		return studentsArr;
 	}
 
-	// If no batch is selected then all batch ids are returned
 	function getSelectedBatchesArr(tuitionId) {
 		if (tuitionId === undefined) throw new Error('Tuition id not provided');
 		const selectedBatchesArr = [];
-		let $selectedBatchesOfThisTuition = $batchCheckboxes.filter(`[data-tuition-id="${tuitionId}"]:checked`);
-		if ($selectedBatchesOfThisTuition.length === 0) $selectedBatchesOfThisTuition = $batchCheckboxes.filter(`[data-tuition-id="${tuitionId}"]`);
+		const $selectedBatchesOfThisTuition = $batchCheckboxes.filter(`[data-tuition-id="${tuitionId}"]:checked`);
 		$selectedBatchesOfThisTuition.each((__, checkbox) => {
 			const $checkbox = $(checkbox);
 			selectedBatchesArr.push($checkbox.val());
@@ -64,15 +63,26 @@ const finance = (() => {
 		return selectedBatchesArr;
 	}
 
+	function injectCheckedBatchInfo(batchInfoArr, checkedBatchesIdArr) {
+		if (batchInfoArr === undefined) throw new Error('Batch info array not provided');
+		if (checkedBatchesIdArr === undefined) throw new Error('Checked batches array not provided');
+
+		if (Array.isArray(batchInfoArr) === false) throw new Error('Batch info is not an array');
+		if (Array.isArray(checkedBatchesIdArr) === false) throw new Error('Checked Batches is not an array');
+
+		batchInfoArr.forEach(batchObj => batchObj.isChecked = checkedBatchesIdArr.indexOf(batchObj._id) !== -1);
+	}
+
 	function renderFilteredStudents(event) {
 		const $btn = $(event.target);
 		const tuitionId = $btn.attr('data-tuition-id');
-		const selectedBatchedArr = getSelectedBatchesArr(tuitionId);
-		const studentsOfSelectedBatchArr = getStudentFromSelectedBatchArr(selectedBatchedArr);
+		const selectedBatchesArr = getSelectedBatchesArr(tuitionId);
+		const studentsOfSelectedBatchArr = getStudentFromSelectedBatchArr(selectedBatchesArr);
 		const searchStr = $studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
 		const regex = new RegExp(searchStr, 'i');
 		const searchResultArr = studentsOfSelectedBatchArr.filter(studentObj => regex.test(studentObj.name));
-		refresh({ studentsArr: searchResultArr, renderTuitionId: tuitionId });
+		console.log();
+		refresh({ studentsArr: searchResultArr, renderTuitionId: tuitionId, batchesArr: selectedBatchesArr });
 	}
 
 	function renderStudents(opts) {
@@ -89,25 +99,29 @@ const finance = (() => {
 		});
 	}
 
-	function renderBatchCheckboxes() {
+	function renderBatchCheckboxes(opts) {
+		opts = opts || {};
+		opts.batchesArr = opts.batchesArr || [];
 		$batchCheckboxContainer.each((__, container) => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
+			if (opts.tuitionId && opts.tuitionId !== tuitionId) return;
 
 			const batchesOfThisTuition = distinctBatchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
-			const batchesCheckboxHtml = template.financeBatchesCheckboxes({ batches: batchesOfThisTuition });
+			const clonedBatchesOfThisTuition = JSON.parse(JSON.stringify(batchesOfThisTuition));
+			injectCheckedBatchInfo(clonedBatchesOfThisTuition, opts.batchesArr);
+			const batchesCheckboxHtml = template.financeBatchesCheckboxes({ batches: clonedBatchesOfThisTuition });
 			$container.html(batchesCheckboxHtml);
 		});
 	}
 
 	function render(opts) {
 		renderStudents(opts);
-		renderBatchCheckboxes();
+		renderBatchCheckboxes(opts);
 	}
 
 	function cache() {
 		$studentSearchInp = $('.finance-search-inp');
-		$searchBtn = $('.finance-search-trigger');
 		$resetBtn = $('.finance-search-reset');
 		$studentsContainer = $('.finance-student-container');
 		$batchCheckboxContainer = $('.finance-batch-container');
@@ -123,18 +137,18 @@ const finance = (() => {
 	}
 
 	function bindEvents() {
-		$searchBtn.click(renderFilteredStudents);
+		$studentSearchInp.on('input paste', renderFilteredStudents);
 		$resetBtn.click(renderAllStudents);
 		$backBtn.click(showLandingAndDistroyDatailsDisplay);
 	}
 
 	function bindDynamic() {
 		$studentCards.click(showDetails);
+		$batchCheckboxes.change(renderFilteredStudents);
 	}
 
 	function refresh(opts) {
-		opts = opts || {};
-		render({ studentsArr: opts.studentsArr, renderTuitionId: opts.renderTuitionId });
+		render(opts);
 		cacheDynamic();
 		bindDynamic();
 	}
