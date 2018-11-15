@@ -9,6 +9,8 @@ const forum = (() => {
 	let $forumPostContainer;
 	let $postHeading;
 	let $backBtn;
+	let $commentTextarea;
+	let $addCommentBtn;
 
 	function renderDetailsPage(event) {
 		$heading = $(event.target);
@@ -19,6 +21,8 @@ const forum = (() => {
 		$forumPostContainer.html(postHTML);
 		$landingContainer.filter(`[data-tuition-id="${tuitionId}"]`).addClass('d-none');
 		$detailContainer.filter(`[data-tuition-id="${tuitionId}"]`).removeClass('d-none');
+		cacheDynamic();
+		bindDynamic();
 	}
 
 	function showLandingPage(event) {
@@ -27,6 +31,22 @@ const forum = (() => {
 		$forumPostContainer.html('');
 		$landingContainer.filter(`[data-tuition-id="${tuitionId}"]`).removeClass('d-none');
 		$detailContainer.filter(`[data-tuition-id="${tuitionId}"]`).addClass('d-none');
+	}
+
+	async function addAndRenderComment(event) {
+		try {
+			const $btn = $(event.target);
+			const postId = $btn.attr('data-post-id');
+			const tuitionId = $btn.attr('data-tuition-id');
+			const commentContent = $commentTextarea.filter(`[data-post-id="${postId}"]`).val();
+			const newComment = await tuitionApiCalls.putCommentInPost(tuitionId, postId, { content: commentContent });
+			const updatedPost = forumArr.find(forumObj => forumObj._id === postId);
+			updatedPost.comments.push(newComment);
+			const postHTML = template.forumPostBody(updatedPost);
+			$forumPostContainer.html(postHTML);
+		} catch (e) {
+			console.error(e);
+		}
 	}
 
 	function cache() {
@@ -43,6 +63,8 @@ const forum = (() => {
 		$editForumBtn = $('.edit-forum-btn');
 		$deleteForumBtn = $('.delete-forum-btn');
 		$postHeading = $('.post-heading');
+		$commentTextarea = $('.comment-content-textarea');
+		$addCommentBtn = $('.add-comment-btn');
 	}
 
 	function bindEvents() {
@@ -54,6 +76,7 @@ const forum = (() => {
 		$editForumBtn.click(editModalInit);
 		$deleteForumBtn.click(deleteForum);
 		$postHeading.click(renderDetailsPage);
+		$addCommentBtn.click(addAndRenderComment);
 	}
 
 	async function submitAddForumRequest(event) {
@@ -129,6 +152,7 @@ const forum = (() => {
 				forumObj.fromNow = moment(forumObj.createdAt).fromNow()
 			})
 			const forumCardsHtml = template.forumCard({ forums: fourmsOfThisInstitutes });
+			console.log(fourmsOfThisInstitutes);
 			$container.html(forumCardsHtml);
 		});
 	}

@@ -173,6 +173,16 @@ const attendance = (() => {
 		});
 	}
 
+	function getBatchCodeOfStudent(idOfStudent) {
+		let batchCodeOfStudent;
+		distinctBatchesArr.forEach(batchObj => {
+			batchObj.students.forEach(studentId => {
+				if (studentId === idOfStudent) batchCodeOfStudent = batchObj.code;
+			});
+		});
+		return batchCodeOfStudent;
+	}
+
 	function getStudentDataAndErros(rollNumberArr, batchId) {
 		const studentDataObjsArr = [];
 		const studentsErrorObjsArr = [];
@@ -188,11 +198,17 @@ const attendance = (() => {
 					dataObj.name = studentInfo.name;
 					studentDataObjsArr.push(dataObj);
 				} else {
-					dataObj.message = 'Student not in this batch!';
-					studentsErrorObjsArr.push(dataObj);
+					const batchCode = getBatchCodeOfStudent(studentInfo._id);
+					if (batchCode) {
+						dataObj.message = `This student belongs in batch ${batchCode}!`;
+						studentsErrorObjsArr.push(dataObj);
+					} else {
+						dataObj.message = 'This student does not belong in any batch';
+						studentsErrorObjsArr.push(dataObj);
+					}
 				}
 			} else {
-				dataObj.message = 'Student not found!';
+				dataObj.message = 'This student does not belong in this institute!';
 				studentsErrorObjsArr.push(dataObj);
 			}
 		});

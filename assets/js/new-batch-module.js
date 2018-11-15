@@ -90,7 +90,6 @@ const batch = (() => {
 			deletedBatch.tuitionId = tuitionId;
 			deletedBatch.courseId = courseId;
 			notification.push('Batch has been successfully deleted');
-			console.log('Batch was successfully deleted');
 			batchesArr = batchesArr.filter(batchObj => batchObj._id !== deletedBatch._id);
 			PubSub.publish('batch.delete', deletedBatch);
 			refresh();
@@ -184,10 +183,8 @@ const batch = (() => {
 		const tuitionId = $btn.attr('data-tuition-id');
 
 		const searchStr = $studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
-		const regex = new RegExp(searchStr, 'i');
-
-		const searchStudentArr = studentsArr.filter(studentObj => regex.test(studentObj.name));
-		renderStudentCheckbox(searchStudentArr, tuitionId);
+		const searchResults = randomScripts.getStudentSearchResults(studentsArr, searchStr);
+		renderStudentCheckbox(searchResults, tuitionId);
 	}
 
 	function clearSearchInpAndRenderStudents(event) {

@@ -35,10 +35,6 @@ const student = (() => {
 	let $additionalFieldsContainer;
 	let $studentInputs;
 
-	function calibrateBackslasses(str) {
-		return str.replace(/\\/g, '\\\\');
-	}
-
 	function getNameToValueObj($inputs) {
 		if ($inputs === undefined) throw new Error('Inputs not provided');
 		if ($inputs instanceof $ === false) throw new Error('Must be jquery element');
@@ -379,11 +375,9 @@ const student = (() => {
 		$courseFee.on('input paste', renderNetFee);
 		$courseFee.on('input paste', renderBalancePending);
 
-		console.log($discountAmount);
 		$discountAmount.on('input paste', renderNetFee);
 		$discountAmount.on('input paste', renderBalancePending);
 
-		
 		$discountSelectContainer.change(renderDiscountAmount);
 		$discountSelectContainer.change(renderNetFee);
 		$discountSelectContainer.change(renderBalancePending);
@@ -406,12 +400,9 @@ const student = (() => {
 	function renderSearchResults(event) {
 		const $btn = $(event.target);
 		const tuitionId = $btn.attr('data-tuition-id');
-		let searchStr = $studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
-		searchStr = calibrateBackslasses(searchStr);
-		const regex = new RegExp(searchStr, 'i');
-
-		const searchStudentArr = distinctStudentsArr.filter(studentObj => regex.test(studentObj.name));
-		refresh(searchStudentArr, tuitionId);
+		const searchStr = $studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		const searchResultsArr = randomScripts.getStudentSearchResults(distinctStudentsArr, searchStr);
+		refresh(searchResultsArr, tuitionId);
 	}
 
 	function render(studentsArr, renderTuitionId) {

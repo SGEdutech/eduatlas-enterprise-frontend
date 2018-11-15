@@ -9,8 +9,8 @@
         <div class="card-footer ">
             <div class="author">
                 <h6 class="card-category text-danger">
-                    {{#if isPercentage}}Percentage: {{else}}Amount: {{/if}}
-                    {{discount.amount}}/-
+                    Magnitude:
+                    {{discount.amount}}{{#if isPercent}}% of course fee{{else}} bucks{{/if}}
                 </h6>
             </div>
             <div class="stats ml-auto">

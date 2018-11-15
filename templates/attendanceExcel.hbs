@@ -1,10 +1,10 @@
 <div style="padding: 30px">
 	<div class="row">
-		{{#each errors as |error|}}
 		<div class="alert alert-warning col-12" role="alert">
-			Roll Number: {{error.rollNumber}} Error: {{error.message}}
+			{{#each errors as |error|}}
+			<div class="row px-3"><div class="col-md-6">Roll Number: {{error.rollNumber}}</div><div class="col-md-6">Error: {{error.message}}</div></div>
+			{{/each}}
 		</div>
-		{{/each}}
 	</div>
 	<div class="row font-weight-bold my-2" id="header_row" data-tuition-id="{{tuitionId}}">
 		<div class="col-2">
