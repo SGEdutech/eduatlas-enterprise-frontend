@@ -44,7 +44,11 @@ const student = (() => {
 		// FIXME: Check if all elements are inputs
 		$inputs.each((__, input) => {
 			const $input = $(input);
-			nameToValueObj[$input.attr('name')] = $input.val();
+			if ($input.attr('name') === undefined) {
+				console.log($input);
+			}
+			const inputValue = $input.val();
+			if (inputValue) nameToValueObj[$input.attr('name')] = inputValue;
 		});
 		return nameToValueObj;
 	}
@@ -127,6 +131,17 @@ const student = (() => {
 		return installmentDate.getTime() < Date.now();
 	}
 
+	// Returns discount amount if in percentage
+	function calibrateDiscountAmount(courseFee, discountAmount) {
+		if (discountAmount === undefined) return 0;
+		if (typeof discountAmount !== 'string') throw new Error('Discount amount must be a string');
+		if (discountAmount.charAt(discountAmount.length - 1) !== '%') return parseFloat(discountAmount);
+
+		courseFee = parseFloat(courseFee);
+		discountAmount = parseFloat(discountAmount);
+		return courseFee * (discountAmount / 100);
+	}
+
 	async function addStudent(event) {
 		try {
 			event.preventDefault();
@@ -138,9 +153,16 @@ const student = (() => {
 				alert('Installment date you have entered has already passed!');
 				return;
 			}
-			const studentObj = getNameToValueObj($studentInputs.filter(`[data-tuition-id="${tuitionId}"]`));
-			studentObj.payments = [getNameToValueObj($paymentDetailsInputs.filter(`[data-tuition-id="${tuitionId}"]`))];
-			const batchInfo = getNameToValueObj($studentCourseBatchInputs.filter(`[data-tuition-id="${tuitionId}"]`));
+			const studentObj = getNameToValueObj($studentInputs.filter(`[data-tuition-id="${tuitionId}"]`).not('.not-submit'));
+			const payments = getNameToValueObj($paymentDetailsInputs.filter(`[data-tuition-id="${tuitionId}"]`).not('.not-submit'));
+			const courseFee = $courseFee.val();
+			if (courseFee && payments.discountAmount) {
+				payments.discountAmount = calibrateDiscountAmount(courseFee, payments.discountAmount);
+			} else if (courseFee) {
+				delete payments.discountAmount;
+			}
+			studentObj.payments = [payments];
+			const batchInfo = getNameToValueObj($studentCourseBatchInputs.filter(`[data-tuition-id="${tuitionId}"]`).not('.not-submit'));
 			let isBatchAllocated = false;
 			if (batchInfo.courseId && batchInfo.batchId) {
 				studentObj.batchInfo = batchInfo;
@@ -267,6 +289,8 @@ const student = (() => {
 			inputsHTML = template.modeOfPaymentCardInputs();
 		} else if (selectedModeOfPayment === 'other') {
 			inputsHTML = template.modeOfPaymentOtherInputs();
+		} else if (selectedModeOfPayment === 'cash') {
+			inputsHTML = template.modeOfPaymentCashInputs();
 		}
 		$modeOfPaymentDetailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).html(inputsHTML);
 	}
