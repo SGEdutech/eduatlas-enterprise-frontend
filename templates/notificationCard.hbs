@@ -1,0 +1,20 @@
+{{#each notifications as |notification|}}
+<div class="col-md-6 mb-3">
+    <div class="card m-0">
+        <div class="card-body">
+            <h4 class="card-title" style="text-transform: uppercase">
+                <p class="text-secondary">Message :</p>
+                <p class="text-danger">{{notification.message}}</p>
+            </h4>
+            <p class="card-text mb-0" style="overflow: hidden;text-overflow: ellipsis;max-height: 30px">
+                <small class="text-secondary">Time :</small>
+                <small class="text-danger">{{notification.fromNow}}</small>
+            </p>
+            <p class="card-text mb-0">
+                <small class="text-secondary">Number of Receivers:</small>
+                <small class="text-danger" style="text-transform: uppercase">{{notification.receivers.length}}</small>
+            </p>
+        </div>
+    </div>
+</div>
+{{/each}}

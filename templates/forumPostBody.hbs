@@ -17,12 +17,12 @@
             </div>
         </a>
         <div class="media-body">
-            <h4 class="media-heading">{{userEmail}} <small>· Yesterday</small></h4>
+            <h4 class="media-heading">{{userEmail}} <small>· {{fromNow}}</small></h4>
 
             <p>{{content}}</p>
 
-            <div class="media-footer">
-                    <i class="material-icons float-right" style="cursor: pointer">delete</i>
+            <div class="media-footer text-danger">
+                    <i class="material-icons float-right delete-comment-btn" style="cursor: pointer; font-size: 18px" data-comment-id="{{comment._id}}" data-post-id="{{../_id}}" data-tuition-id="{{../tuitionId}}">delete</i>
             </div>
         </div>
     </div>
@@ -37,7 +37,8 @@
             <span class="bmd-form-group"><textarea class="form-control comment-content-textarea" placeholder="Write some nice stuff or nothing..."
                     rows="6" data-post-id="{{_id}}"></textarea></span>
             <div class="media-footer">
-                <a href="#pablo" class="btn btn-success btn-round float-right add-comment-btn" data-post-id="{{_id}}" data-tuition-id="{{tuitionId}}">Post Comment</a>
+                <a href="#pablo" class="btn btn-success btn-round float-right add-comment-btn" data-post-id="{{_id}}"
+                    data-tuition-id="{{tuitionId}}">Post Comment</a>
             </div>
         </div>
     </div>

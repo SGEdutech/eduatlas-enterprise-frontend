@@ -34,6 +34,7 @@ const student = (() => {
 	let $addStudentBtn;
 	let $additionalFieldsContainer;
 	let $studentInputs;
+	let $rollNumberInp;
 
 	function getNameToValueObj($inputs) {
 		if ($inputs === undefined) throw new Error('Inputs not provided');
@@ -142,6 +143,18 @@ const student = (() => {
 		return courseFee * (discountAmount / 100);
 	}
 
+	function isRollNumberDuplicate(tuitionId) {
+		const rollNumber = $rollNumberInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		const studentsOfThisTuition = distinctStudentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
+		return Boolean(studentsOfThisTuition.find(studentObj => studentObj.rollNumber === rollNumber));
+	}
+
+	function isEmailDuplicate(tuitionId) {
+		const emailId = $studentEmailInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		const studentsOfThisTuition = distinctStudentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
+		return Boolean(studentsOfThisTuition.find(studentObj => studentObj.email === emailId));
+	}
+
 	async function addStudent(event) {
 		try {
 			event.preventDefault();
@@ -151,6 +164,14 @@ const student = (() => {
 			const tuitionId = $btn.attr('data-tuition-id');
 			if (isInstallmentDatePassed(tuitionId)) {
 				alert('Installment date you have entered has already passed!');
+				return;
+			}
+			if (isRollNumberDuplicate(tuitionId)) {
+				alert('A student with same roll number already exist!');
+				return;
+			}
+			if (isEmailDuplicate(tuitionId)) {
+				alert('A student with same email already exist!');
 				return;
 			}
 			const studentObj = getNameToValueObj($studentInputs.filter(`[data-tuition-id="${tuitionId}"]`).not('.not-submit'));
@@ -374,6 +395,7 @@ const student = (() => {
 		$studentCourseBatchContainer = $('.student-course-batch-container');
 		$studentCourseBatchInputs = $studentCourseBatchContainer.find('select');
 		$studentInputs = $compulsoryFieldsInputs.add($additionalFieldsInputs);
+		$rollNumberInp = $('.student-roll-number');
 	}
 
 	function cacheDynamic() {

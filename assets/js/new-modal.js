@@ -7,10 +7,14 @@ const modal = (() => {
 	let $totalFeeEdit;
 	let $gstCheckbox;
 	let $modalFormBody;
+	let $studentRow;
+	let $searchInp
 
 	function cacheDynamic() {
 		$timePicker = $modalForm.find('.edit-time-picker');
 		$datePicker = $modalForm.find('.edit-date-picker');
+		$studentRow = $modalForm.find('.student-row');
+		$searchInp = $modalForm.find('.edit-batch-student-search-inp');
 	}
 
 	function cache() {
@@ -38,6 +42,20 @@ const modal = (() => {
 
 	function bindSubmitEvent(cb) {
 		$modalForm.submit(cb);
+	}
+
+	function renderSearchResults(e) {
+		const $inp = $(e.target);
+		let filter = $inp.val();
+		filter = filter.toLowerCase();
+		$studentRow.each((__, row) => {
+			const $row = $(row);
+			$row.html().toLowerCase().includes(filter) ? $row.removeClass('d-none') : $row.addClass('d-none');
+		});
+	}
+
+	function bindSearchForStudents() {
+		$searchInp.on('input paste', renderSearchResults);
 	}
 
 	function calcTotalCourseFee(fee, gstPercentage) {
@@ -128,10 +146,12 @@ const modal = (() => {
 		hideModal,
 		renderFormContent,
 		bindSubmitEvent,
+		bindSearchForStudents,
 		serializeForm,
 		getInputValues,
 		initDatetimepicker,
 		cacheAndBindCoursesStuff,
+		cacheDynamic,
 		init
 	}
 })();

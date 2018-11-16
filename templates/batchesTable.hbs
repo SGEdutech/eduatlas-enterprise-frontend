@@ -1,8 +1,8 @@
 {{#each batches as |batch|}}
 <tr>
-    <td class="text-center">{{@index}}</td>
-    <td>{{batch.code}}</td>
-    <td>
+    <td class="text-center p-0">{{@index}}</td>
+    <td class="p-0">{{batch.code}}</td>
+    <td class="p-0">
         <input type="checkbox" name="batchId" value="{{batch._id}}" data-tuition-id="{{tuitionId}}">
     </td>
 </tr>

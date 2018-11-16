@@ -1,20 +1,20 @@
 {{#each courses as |course|}}
 <div class="col-md-4" id="{{course._id}}">
     <div class="card">
-        <div class="card-body ">
+        <div class="card-body pb-0">
             <h4 class="card-title" style="text-transform: uppercase">
                 <a href="#pablo">{{course.code}}</a>
             </h4>
-            <p class="card-text">
+            <p class="card-text mb-0" style="overflow: hidden;text-overflow: ellipsis;max-height: 30px">
                 <small class="text-secondary">Description :</small>
                 <small class="text-danger">{{course.description}}</small>
             </p>
-            <p class="card-text">
+            <p class="card-text mb-0">
                 <small class="text-secondary">Number Of Batches :</small>
                 <small class="text-danger">{{batches.length}}</small>
             </p>
         </div>
-        <div class="card-footer ">
+        <div class="card-footer">
             <div class="author">
                 <h6 class="card-category text-secondary">
                     Price : <span class="text-danger">{{course.totalFee}}/-</span>

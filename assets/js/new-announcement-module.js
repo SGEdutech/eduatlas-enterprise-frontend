@@ -1,4 +1,5 @@
 const announcement = (() => {
+	let distinctNotificationArr;
 	let studentsArr;
 	let distinctBatchesArr;
 	let $newAnnouncementForm;
@@ -7,33 +8,25 @@ const announcement = (() => {
 	let $sendBtn;
 	let $studentCheckbox;
 	let $batchCheckbox;
-	// Delete 2 below
-	let $checkedStudents;
-	let $checkedBatches;
 	let $selectWholeInstitute;
 	let $announcementText;
+	let $studentSearchInp;
+	let $studentSearchResetBtn;
+	let $notificationDisplayContainer;
 
-	function addNotification(event) {
-		cacheDynamic();
+	async function addNotification(event) {
 		const $button = $(event.target);
 		const tuitionId = $button.attr('data-tuition-id');
 
 		const userEmails = [];
-		const batchesArr = [];
-		$checkedStudents.filter(`[data-tuition-id="${tuitionId}"]`).each((__, inp) => {
+		$studentCheckbox.filter(`[data-tuition-id="${tuitionId}"]:checked`).each((__, inp) => {
 			const $inp = $(inp);
 			userEmails.push($inp.val());
-		})
-		$checkedBatches.filter(`[data-tuition-id="${tuitionId}"]`).each((__, inp) => {
-			const $inp = $(inp);
-			batchesArr.push($inp.val());
 		});
-		const allInstitute = $selectWholeInstitute.filter(`[data-tuition-id="${tuitionId}"]`).prop('checked');
-
-		tuitionIdIfSendToAllTuition = allInstitute ? tuitionId : null;
-
-		notificationApiCalls.putNewNotification(tuitionId, $announcementText.val(), userEmails);
-		notification.push('Your Message has been successfully sent');
+		const newNotification = await notificationApiCalls.putNewNotification(tuitionId, $announcementText.val(), userEmails);
+		notification.push('Your announcement has been successfully sent');
+		distinctNotificationArr.push(newNotification);
+		refresh({ renderTuitionId: tuitionId });
 	}
 
 	function markOrUnmarkBatchStudents(event) {
@@ -65,36 +58,68 @@ const announcement = (() => {
 		$sendBtn = $('.send-announcement-btn');
 		$selectWholeInstitute = $('.select-institute');
 		$announcementText = $('.announcement-text');
+		$studentSearchInp = $('.announcement-student-search-inp');
+		$studentSearchResetBtn = $('.announcement-student-search-reset');
+		$notificationDisplayContainer = $('.recent-notification-container');
 	}
 
 	function cacheDynamic() {
 		$studentCheckbox = $selectStudentContainer.find('input:checkbox');
 		$batchCheckbox = $selectBatchContainer.find('input:checkbox');
-		$checkedStudents = $selectStudentContainer.find('input:checkbox:checked');
-		$checkedBatches = $selectBatchContainer.find('input:checkbox:checked');
 	}
 
 	function bindDynamic() {
 		$batchCheckbox.off().change(markOrUnmarkBatchStudents);
 	}
 
-	function render() {
+	function filterAndRenderSearceResults(event) {
+		const $input = $(event.target);
+		const tuitionId = $input.attr('data-tuition-id');
+		const searchStr = $studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		const searchResultsArr = randomScripts.getStudentSearchResults(studentsArr, searchStr);
+		refresh({ renderStudentsArr: searchResultsArr, renderTuitionId: tuitionId });
+	}
+
+	function resetSearchResults(event) {
+		const $btn = $(event.target);
+		const tuitionId = $btn.attr('data-tuition-id');
+		$studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val('');
+		refresh({ renderTuitionId: tuitionId })
+	}
+
+	function render(opts) {
+		opts = opts || {};
+		opts.renderStudentsArr = opts.renderStudentsArr || studentsArr;
 		$selectStudentContainer.each((__, container) => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
+			if (opts.renderTuitionId && opts.renderTuitionId !== tuitionId) return
 
-			const studentsOfThisInstitute = studentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
-			const studentsOptionsHtml = template.studentsTable({ students: studentsOfThisInstitute });
+			const studentsOfThisInstitute = opts.renderStudentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
+			const studentsOptionsHtml = template.announcementStudentsTable({ students: studentsOfThisInstitute });
 			$container.html(studentsOptionsHtml);
 		});
 
 		$selectBatchContainer.each((__, container) => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
+			if (opts.tuitionId && opts.tuitionId !== tuitionId) return
 
 			const batchesOfThisInstitute = distinctBatchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
 			const batchesOptionsHtml = template.batchesTable({ batches: batchesOfThisInstitute });
 			$container.html(batchesOptionsHtml);
+		});
+
+		$notificationDisplayContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+			if (opts.tuitionId && opts.tuitionId !== tuitionId) return
+			const notificationOfThisTuitionArr = distinctNotificationArr.filter(notificationObj => notificationObj.senderId === tuitionId);
+			notificationOfThisTuitionArr.forEach(notificationObj => {
+				notificationObj.fromNow = moment(notificationObj.createdAt).fromNow();
+			})
+			const notificationDisplayCardsHtml = template.notificationCard({ notifications: notificationOfThisTuitionArr });
+			$container.html(notificationDisplayCardsHtml)
 		});
 	}
 
@@ -111,21 +136,27 @@ const announcement = (() => {
 	function bindEvents() {
 		$sendBtn.click(addNotification);
 		$selectWholeInstitute.change(markOrUnmarkAllStudents);
+		$studentSearchInp.on('input paste', filterAndRenderSearceResults);
+		$studentSearchResetBtn.click(resetSearchResults);
 	}
 
-	function refresh() {
-		render();
+	function refresh(opts) {
+		render(opts);
 		cacheDynamic();
 		bindDynamic();
 	}
 
-	function init(batchesArr, students) {
+	function init(notificationArr, batchesArr, students) {
 		if (batchesArr === undefined) throw new Error('Batch array not provided!');
 		if (Array.isArray(batchesArr) === false) throw new Error('Batches not an array');
 
 		if (students === undefined) throw new Error('Students array not provided!');
 		if (Array.isArray(students) === false) throw new Error('Students not an array');
 
+		if (notificationArr === undefined) throw new Error('Notification array not provided!');
+		if (Array.isArray(students) === false) throw new Error('Notification not an array');
+
+		distinctNotificationArr = JSON.parse(JSON.stringify(notificationArr));
 		studentsArr = JSON.parse(JSON.stringify(students));
 		distinctBatchesArr = JSON.parse(JSON.stringify(batchesArr));
 
