@@ -59,9 +59,41 @@ textarea.form-control {
 .modal input[type="number"],
 .modal input[type="email"],
 .modal input[type="date"],
-.modal textarea {
+.modal textarea,
+.modal .dropdown-toggle {
 	border: 0.5px solid #00bcd4
 }
+
+
+#edit_tuition_body input[type="text"],
+#edit_tuition_body input[type="number"],
+#edit_tuition_body input[type="email"],
+#edit_tuition_body input[type="date"],
+#edit_tuition_body textarea,
+#edit_tuition_body .dropdown-toggle {
+	border: 0.5px solid #00bcd4
+}
+
+#edit_school_body input[type="text"],
+#edit_school_body input[type="number"],
+#edit_school_body input[type="email"],
+#edit_school_body input[type="date"],
+#edit_school_body textarea,
+edit_school_body .dropdown-toggle {
+	border: 0.5px solid #00bcd4
+}
+
+#edit_event_body input[type="text"],
+#edit_event_body input[type="number"],
+#edit_event_body input[type="email"],
+#edit_event_body input[type="date"],
+#edit_event_body input[type="time"],
+#edit_event_body textarea,
+#edit_event_body select,
+#edit_event_body .dropdown-toggle {
+	border: 0.5px solid #00bcd4
+}
+
 
 .card-title.bg-info {
 	background-color: #00bcd44d !important;
