@@ -2,7 +2,7 @@
 <div class="card m-1" id="{{post._id}}">
     <div class="card-body">
         <div class="row">
-            <h3 class="card-heading font-weight-bold m-0 p-0 col-12 post-heading" data-post-id="{{post._id}}" data-tuition-id="{{tuitionId}}" style="cursor: pointer">{{post.title}}</h3>
+            <h4 class="card-title m-0 p-0 col-12 post-heading" data-post-id="{{post._id}}" data-tuition-id="{{tuitionId}}" style="cursor: pointer">{{post.title}}</h4>
             <small>
                 <span class="text-secondary">posted</span>
                 <span class="text-info">{{post.fromNow}}</span> <span class="text-secondary">by </span>
@@ -11,7 +11,7 @@
         </div>
         <div class="row">
             <small class="text-secondary">
-                {{post.numComments}} comments
+                <span class="text-info">{{post.comments.length}}</span> comments
             </small>
         </div>
         <div class="card-footer p-0">

@@ -1,5 +1,5 @@
 {{#each students}}
-<div class="col-md-4" id="{{_id}}">
+<div class="col-md-6" id="{{_id}}">
     <div class="media-area main-raised m-3">
         <div class="media">
             <a class="float-left" href="#pablo">
@@ -10,13 +10,13 @@
             <div class="media-body" style="overflow: hidden">
                 <h5 class="media-heading mb-0 pb-0">{{name}}
                 </h5>
-                <p class="card-text mb-0" style="overflow: hidden;text-overflow: ellipsis;max-height: 30px">
+                <p class="card-text mb-0">
                     <small class="text-secondary">R. No. :</small>
                     <small class="text-danger">{{rollNumber}}</small>
                 </p>
-                <p class="card-text mb-0" style="overflow: hidden;text-overflow: ellipsis;max-height: 30px">
-                    <small class="text-secondary">Ph. No. :</small>
-                    <small class="text-danger">{{contactNumber}}</small>
+                <p class="card-text mb-0">
+                    <small class="text-secondary">Email :</small>
+                    <small class="text-danger">{{email}}</small>
                 </p>
                 {{!-- <small class="text-danger">{{rollNumber}}</small> --}}
                 <div class="card-footer p-0 mb-3">

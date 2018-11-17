@@ -1,7 +1,7 @@
 {{#each discounts as |discount|}}
 <div class="col-md-4" id="{{discount._id}}">
     <div class="card">
-        <div class="card-body ">
+        <div class="card-body pb-0">
             <h4 class="card-title">
                 <a href="#pablo">{{discount.code}}</a>
             </h4>
@@ -9,8 +9,8 @@
         <div class="card-footer ">
             <div class="author">
                 <h6 class="card-category text-danger">
-                    Magnitude:
-                    {{discount.amount}}{{#if isPercent}}% of course fee{{else}} bucks{{/if}}
+                    Discount:
+                    {{discount.amount}}{{#if isPercent}}%{{else}} INR{{/if}}
                 </h6>
             </div>
             <div class="stats ml-auto">

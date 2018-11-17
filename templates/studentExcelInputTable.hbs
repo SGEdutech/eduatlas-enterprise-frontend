@@ -1,30 +1,35 @@
 {{!-- FIXME: hard coding so inputs don't slip out of the modal --}}
 <div style="padding: 30px">
 	<div class="row">
-		<div class="col-2">
+		<div class="col-3">
 			Roll Number
 		</div>
-		<div class="col-2">
+		<div class="col-3">
 			Name
 		</div>
-		<div class="col-2">
+		<div class="col-3">
 			E-Mail
+		</div>
+		<div class="col-3">
+			Contact Number
 		</div>
 	</div>
 	{{#each students as |student|}}
 	<div class="row student-row" data-row-number="{{@index}}">
-		<div class="col">
+		<div class="col-3">
 			<input name="rollNumber" type="text" class="form-control row" value="{{[Roll Number*]}}" data-row-number="{{@index}}"
 			 required>
 		</div>
-		<div class="col">
+		<div class="col-3">
 			<input name="name" type="text" value="{{[Name*]}}" data-row-number="{{@index}}" required>
 		</div>
-		<div class="col">
+		<div class="col-3">
 			<input name="email" type="email" value="{{[E-Mail*]}}" data-row-number="{{@index}}" required>
 		</div>
+		<div class="col-3">
+			<input name="contactNumber" type="number" value="{{[Contact Number*]}}" data-row-number="{{@index}}" required>
+		</div>
 		<input class="d-none" name="address" type="text" value="{{Address}}" data-row-number="{{@index}}">
-		<input class="d-none" name="contactNumber" type="number" value="{{[Contact Number]}}" data-row-number="{{@index}}">
 		<input class="d-none" name="discountAmount" type="number" value="{{[Discount Amount]}}" data-row-number="{{@index}}">
 		<input class="d-none" name="modeOfPayment" type="text" value="{{[Mode Of Payment]}}" data-row-number="{{@index}}">
 		<input class="d-none" name="feeCollected" type="number" value="{{[Fee Collected]}}" data-row-number="{{@index}}">

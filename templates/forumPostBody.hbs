@@ -2,7 +2,7 @@
     {{title}}
 </div>
 <div class="col-12">
-    {{body}}
+    <p style="font-size:1.188rem;line-height: 1.5em; color:#555">{{body}}</p>
 </div>
 <hr>
 <div class="col-12">
@@ -19,10 +19,11 @@
         <div class="media-body">
             <h4 class="media-heading">{{userEmail}} <small>· {{fromNow}}</small></h4>
 
-            <p>{{content}}</p>
+            <p style="color:#555">{{content}}</p>
 
             <div class="media-footer text-danger">
-                    <i class="material-icons float-right delete-comment-btn" style="cursor: pointer; font-size: 18px" data-comment-id="{{comment._id}}" data-post-id="{{../_id}}" data-tuition-id="{{../tuitionId}}">delete</i>
+                <i class="material-icons float-right delete-comment-btn" style="cursor: pointer; font-size: 18px"
+                    data-comment-id="{{comment._id}}" data-post-id="{{../_id}}" data-tuition-id="{{../tuitionId}}">delete</i>
             </div>
         </div>
     </div>
