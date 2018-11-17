@@ -27,10 +27,10 @@ const modal = (() => {
 	}
 
 	function unbindEvents() {
-		console.log('yooo');
 		$submitBtn.off();
 		$modalForm.off();
-		$searchInp.off();
+		// Since this is cacheDynamily
+		if ($searchInp) $searchInp.off();
 	}
 
 	function bindEvent() {
