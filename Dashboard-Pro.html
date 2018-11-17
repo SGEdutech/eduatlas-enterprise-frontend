@@ -34,7 +34,6 @@
 	<link rel="stylesheet" href="css/index/search-box.css">
 	<link rel="stylesheet" href="css/index/alert.css">
 </head>
-
 <body>
 	<div id="nav_container">
 	</div>
@@ -142,10 +141,8 @@
 								<button id="saveFrom1" class="btn btn-info btn-round">Save Personal Info</button>
 							</div>
 							<form id="Form2" method="" action="">
-
 								<div id="userSocialLinksContainer" class="p-3">
 								</div>
-
 							</form>
 							<div class="row justify-content-end mx-3">
 								<button id="saveFrom2" class="btn btn-info btn-round">Save Social Links</button>
@@ -159,7 +156,6 @@
 						</div>
 						<div class="tab-pane" id="tab6">
 							<form id="addTuition" method="POST" action="/tuition">
-
 								<div id="basicContainerTuition">
 									<div class="btn-group btn-group-raised justify-content-around m-0" role="group" aria-label="stepwise">
 										<button type="button btn" class="btn btn-info disabled" style="cursor: default" disabled>Step 1</button>
@@ -171,33 +167,22 @@
 									</div>
 									<div class="p-3">
 										<h2 class="card-title h3">Basic Details:</h2>
-										<div class="row align-items-center mb-3">
-											<div class="col-md-2">
-												<h6>Institute Name</h6>
-											</div>
+										<div class="row align-items-center mb-3">											
 											<div class="col-md-4">
-												<input id="tName" class="form-control" type="text" name="name" required>
+												<label for="tName">Institute Name</label>
+												<input id="tName" class="form-control" type="text" name="tName" required>
 											</div>
-											<div class="col-md-3 form-group">
+											<div class="col-md-4 form-group">
 												<label for="country">Country</label>
 												<input class="form-control" value="India" type="text" id="country" name="country" required>
 											</div>
-											<div class="col-md-3 form-group">
+											<div class="col-md-4 form-group">
 												<label for="pin">Pin</label>
 												<input class="form-control" type="number" id="pin" name="pin">
 											</div>
 										</div>
 
-										<div class="row px-3">
-											<div class="form-group col-md-6">
-												<label for="al1">Address Line 1</label>
-												<input class="form-control" type="text" id="al1" name="addressLine1" required>
-											</div>
-											<div class="form-group col-md-6">
-												<label for="al2">Address Line 2</label>
-												<input class="form-control" type="text" id="al2" name="addressLine2">
-											</div>
-										</div>
+										
 										<div class="row">
 											<div class="col-md-4 form-group">
 												<label for="inputCity">City</label>
@@ -214,13 +199,24 @@
 												<input class="form-control inputState" type="text" id="inputState" name="state" required>
 											</div>
 										</div>
+
+										<div class="row px-3">
+												<div class="form-group col-md-6">
+													<label for="al1">Address Line 1</label>
+													<input class="form-control" type="text" id="al1" name="addressLine1" required>
+												</div>
+												<div class="form-group col-md-6">
+													<label for="al2">Address Line 2</label>
+													<input class="form-control" type="text" id="al2" name="addressLine2">
+												</div>
+											</div>
 									</div>
 								</div>
 
 
 
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<div class="p-3">
 											<h2 class="card-title h3">Facilities:</h2>
 											<div id="facilityContainer">
@@ -286,27 +282,6 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="p-3">
-											<h2 class="card-title h3">Add/Change Cover Pic</h2>
-											<div class="fileinput fileinput-new text-center" data-provides="fileinput">
-												<div class="fileinput-new thumbnail img-raised">
-													<img src="assets/img/preview.jpg" ; style="-webkit-filter: grayscale(100%);
-											 filter: grayscale(100%);">
-												</div>
-												<div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
-												<div>
-													<span class="btn btn-raised btn-round btn-default btn-file">
-														<span class="fileinput-new">Select image</span>
-														<span class="fileinput-exists">Change</span>
-														<input type="file" name="tuitionCoverPic" />
-													</span>
-													<a class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
-														<i class="fa fa-times"></i> Remove</a>
-												</div>
-											</div>
-										</div>
-									</div>
 
 
 
@@ -314,34 +289,69 @@
 
 								</div>
 								<div class="row">
-									<div class="col-md-6">
-										<div class="p-3 ">
-											<h2 class="card-title h3">About Us</h2>
-											<div id="descriptionContainer">
-												<div class="form-group">
-													<textarea name="description" class="form-control" id="description" rows="2" placeholder="type here"></textarea>
+										<div class="col-md-12">
+											<div class="p-3 ">
+												<h2 class="card-title h3">About Us</h2>
+												<div id="descriptionContainer">
+													<div class="form-group">
+														<textarea name="description" class="form-control" id="description" rows="5" placeholder="Type here"></textarea>
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="p-3">
-											<h2 class="card-title h3">Category</h2>
-											<div id="cateContainer">
-												<select id="category" name="category" class="selectpicker form-control" data-style="btn btn-link" multiple required>
-													<option value="Tuition Centers">Tuition Centers</option>
-													<option value="Coaching Centers">Coaching Centers</option>
-													<option value="Enhanced Learning">Enhanced Learning</option>
-													<option value="Hobby Centers">Hobby Centers</option>
-													<option value="Sports Center">Sports Center</option>
-													<option value="Education Companies">Education Companies</option>
-												</select>
+								</div>
+										<div class="col-md-12">
+											<div class="p-3">
+												<h2 class="card-title h3">Category</h2>
+												<div id="cateContainer">
+													<select id="category" name="category" class="selectpicker form-control" data-style="btn btn-link" multiple required>
+														<option value="Tuition Centers">Tuition Centers</option>
+														<option value="Coaching Centers">Coaching Centers</option>
+														<option value="Enhanced Learning">Enhanced Learning</option>
+														<option value="Hobby Centers">Hobby Centers</option>
+														<option value="Sports Center">Sports Center</option>
+														<option value="Education Companies">Education Companies</option>
+													</select>
+												</div>
 											</div>
 										</div>
-									</div>
-									<!--todo- test if working-->
+										<!--todo- test if working-->
+										<div class="row">
+		<div class="col-md-6">
+				<div class="p-3">
+					<h2 class="card-title h3">Add/Change Cover Pic</h2>
+					<div class="fileinput fileinput-new text-center" data-provides="fileinput">
+						<div class="fileinput-new thumbnail img-raised">
+							<img src="assets/img/preview.jpg" ; style="-webkit-filter: grayscale(100%);
+					 filter: grayscale(100%);">
+						</div>
+						<div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+						<div>
+							<span class="btn btn-raised btn-round btn-default btn-file">
+								<span class="fileinput-new">Select image</span>
+								<span class="fileinput-exists">Change</span>
+								<input type="file" name="tuitionCoverPic" />
+							</span>
+							<a class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+								<i class="fa fa-times"></i> Remove</a>
+						</div>
+					</div>
+				</div>
+			</div>
 
-								</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+								
 								<input name="claimedBy" id="claimedByInput" type="hidden">
 								<div class="row justify-content-end px-3">
 									<button class="btn btn-info btn-round" type="submit">Proceed to Step 2</button>
@@ -362,32 +372,21 @@
 									</div>
 									<div class="p-3">
 										<h2 class="card-title h3">Basic Details:</h2>
-										<div class="row align-items-center mb-3">
-											<div class="col-md-2">
-												<h6>School Name</h6>
-											</div>
+										<div class="row align-items-center mb-3">											
 											<div class="col-md-4">
+													<label for="sName">School Name</label>
 												<input id="sName" class="form-control" type="text" name="name" required>
 											</div>
-											<div class="form-group col-md-3">
+											<div class="form-group col-md-4">
 												<label for="countrySchool">Country</label>
 												<input class="form-control" value="India" type="text" id="countrySchool" name="country" required>
 											</div>
-											<div class="form-group col-md-3">
+											<div class="form-group col-md-4">
 												<label for="pinSchool">Pin</label>
 												<input class="form-control" type="number" id="pinSchool" name="pin">
 											</div>
 										</div>
-										<div class="row px-3">
-											<div class="form-group col-md-6">
-												<label for="al1School">Address Line 1</label>
-												<input class="form-control" type="text" id="al1School" name="addressLine1" required>
-											</div>
-											<div class="form-group col-md-6">
-												<label for="al2School">Address Line 2</label>
-												<input class="form-control" type="text" id="al2School" name="addressLine2">
-											</div>
-										</div>
+										
 
 										<div class="row">
 											<div class="form-group col-md-4">
@@ -405,82 +404,22 @@
 												<input class="form-control inputState" type="text" id="inputStateSchool" name="state" required>
 											</div>
 										</div>
+
+										<div class="row px-3">
+												<div class="form-group col-md-6">
+													<label for="al1School">Address Line 1</label>
+													<input class="form-control" type="text" id="al1School" name="addressLine1" required>
+												</div>
+												<div class="form-group col-md-6">
+													<label for="al2School">Address Line 2</label>
+													<input class="form-control" type="text" id="al2School" name="addressLine2">
+												</div>
+										</div>
 									</div>
 								</div>
 
-
-
-								<div class="p-3">
-									<h2 class="card-title h3">Other Details:</h2>
-									<div id="otherDetailsContainerSchool" class="px-3">
-										<div class="row">
-											<div class="form-group mb-4 col-md-4">
-												<label for="curriculumSchool" class="text-dark">Curriculum</label>
-												<select id="curriculumSchool" name="curriculum" class="selectpicker form-control" data-style="btn btn-link" multiple required>
-													<option value="CBSE" selected>CBSE</option>
-													<option value="ICSE">ICSE</option>
-													<option value="State Board">State Board</option>
-													<option value="Open School">Open School</option>
-													<option value="IGCSE">IGCSE</option>
-													<option value="CIE">CIE</option>
-													<option value="IB">IB</option>
-													<option value="Others">Others</option>
-												</select>
-											</div>
-											<div class="form-group mb-4 col-md-4">
-												<label for="grades_for_school" class="text-dark ">Grades</label>
-												<select id="grades_for_school" name="grades" class="selectpicker form-control " data-style="btn btn-link" multiple required>
-													<option value="Nursery" selected>Nursery</option>
-													<option value="Kindergarten">Kindergarten</option>
-													<option value="1st">1st</option>
-													<option value="2nd">2nd</option>
-													<option value="3rd">3rd</option>
-													<option value="4th">4th</option>
-													<option value="5th">5th</option>
-													<option value="6th">6th</option>
-													<option value="7th">7th</option>
-													<option value="8th">8th</option>
-													<option value="9th">9th</option>
-													<option value="10th">10th</option>
-													<option value="11th">11th</option>
-													<option value="12th">12th</option>
-												</select>
-											</div>
-											<div class="col-md-4">
-												<button id="select_all_grades" class="btn btn-round btn-info btn-sm">select all grades</button>
-											</div>
-
-										</div>
-										<div class="row">
-											<div class="form-group mb-4 col-md-3">
-												<label for="type" class="text-dark">Category Of School</label>
-												<select id="categorySchool" name="category" class="selectpicker form-control" data-style="btn btn-link" multiple required>
-													<option value="Pre/Play School">Pre/Play School</option>
-													<option value="Day Care">Day Care</option>
-													<option value="Formal School" selected>Formal School</option>
-												</select>
-											</div>
-											<div class="form-group mb-4 col-md-3">
-												<label for="type" class="text-dark">Type Of School</label>
-												<select id="type" name="type" class="selectpicker form-control" data-style="btn btn-link" multiple required>
-													<option value="Day" selected>Day School</option>
-													<option value="Day Boarding">Day Boarding</option>
-													<option value="Boarding/Residential">Boarding/Residential</option>
-												</select>
-											</div>
-											<div class="form-group col-md-3">
-												<label for="principalName" class="text-dark">Head Of School</label>
-												<input id="principalName" class="form-control" type="text" name="principalName">
-											</div>
-											<div class="form-group col-md-3">
-												<label for="yearFounded" class="text-dark">Year of Foundation</label>
-												<input id="yearFounded" class="form-control" type="number" name="yearFounded">
-											</div>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-md-6">
+								<div class="row">
+										<div class="col-md-12">
 											<div class="p-3">
 												<h2 class="card-title h3">Facilities:</h2>
 												<div id="facilityContainerSchool">
@@ -629,10 +568,99 @@
 
 										</div>
 										<!--todo- test if working-->
-										<div class="col-md-6">
+										
+									</div>
+
+								<div class="p-3">
+									<h2 class="card-title h3">Other Details:</h2>
+									<div id="otherDetailsContainerSchool" class="px-3">
+										<div class="row">
+											<div class="form-group mb-4 col-md-4">
+												<label for="curriculumSchool" class="text-dark">Curriculum</label>
+												<select id="curriculumSchool" name="curriculum" class="selectpicker form-control" data-style="btn btn-link" multiple required>
+													<option value="CBSE" selected>CBSE</option>
+													<option value="ICSE">ICSE</option>
+													<option value="State Board">State Board</option>
+													<option value="Open School">Open School</option>
+													<option value="IGCSE">IGCSE</option>
+													<option value="CIE">CIE</option>
+													<option value="IB">IB</option>
+													<option value="Others">Others</option>
+												</select>
+											</div>
+											<div class="form-group mb-4 col-md-4">
+												<label for="grades_for_school" class="text-dark ">Grades</label>
+												<select id="grades_for_school" name="grades" class="selectpicker form-control " data-style="btn btn-link" multiple required>
+													<option value="Nursery" selected>Nursery</option>
+													<option value="Kindergarten">Kindergarten</option>
+													<option value="1st">1st</option>
+													<option value="2nd">2nd</option>
+													<option value="3rd">3rd</option>
+													<option value="4th">4th</option>
+													<option value="5th">5th</option>
+													<option value="6th">6th</option>
+													<option value="7th">7th</option>
+													<option value="8th">8th</option>
+													<option value="9th">9th</option>
+													<option value="10th">10th</option>
+													<option value="11th">11th</option>
+													<option value="12th">12th</option>
+												</select>
+											</div>
+											<div class="col-md-4">
+												<button id="select_all_grades" class="btn btn-round btn-info btn-sm">select all grades</button>
+											</div>
+
+										</div>
+										<div class="row">
+											<div class="form-group mb-4 col-md-3">
+												<label for="type" class="text-dark">Category Of School</label>
+												<select id="categorySchool" name="category" class="selectpicker form-control" data-style="btn btn-link" multiple required>
+													<option value="Pre/Play School">Pre/Play School</option>
+													<option value="Day Care">Day Care</option>
+													<option value="Formal School" selected>Formal School</option>
+												</select>
+											</div>
+											<div class="form-group mb-4 col-md-3">
+												<label for="type" class="text-dark">Type Of School</label>
+												<select id="type" name="type" class="selectpicker form-control" data-style="btn btn-link" multiple required>
+													<option value="Day" selected>Day School</option>
+													<option value="Day Boarding">Day Boarding</option>
+													<option value="Boarding/Residential">Boarding/Residential</option>
+												</select>
+											</div>
+											<div class="form-group col-md-3">
+												<label for="principalName" class="text-dark">Head Of School</label>
+												<input id="principalName" class="form-control" type="text" name="principalName">
+											</div>
+											<div class="form-group col-md-3">
+												<label for="yearFounded" class="text-dark">Year of Foundation</label>
+												<input id="yearFounded" class="form-control" type="number" name="yearFounded">
+											</div>
+										</div>
+									</div>
+
+									
+
+
+									<div class="row">
+										<div class="col-md-12">
+											<div class="p-3">
+												<h2 class="card-title h3">About Us</h2>
+												<div id="descriptionContainerSchool">
+													<div>
+														<textarea name="description" class="form-control" id="descriptionSchool" rows="3" placeholder="type here"></textarea>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+
+									<div class="col-md-12">
 											<div class="p-3">
 												<h2 class="card-title h3">Add/Change Cover Pic</h2>
-
 												<div class="fileinput fileinput-new text-center" data-provides="fileinput">
 													<div class="fileinput-new thumbnail img-raised">
 														<img src="assets/img/preview.jpg" ; style="-webkit-filter: grayscale(100%);
@@ -651,21 +679,8 @@
 												</div>
 											</div>
 										</div>
-									</div>
 
 
-									<div class="row">
-										<div class="col-md-12">
-											<div class="p-3">
-												<h2 class="card-title h3">About Us</h2>
-												<div id="descriptionContainerSchool">
-													<div>
-														<textarea name="description" class="form-control" id="descriptionSchool" rows="3" placeholder="type here"></textarea>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
 									<input name="claimedBy" id="claimedByInputSchool" type="hidden">
 									<div class="row px-3 justify-content-end">
 										<button class="btn btn-info btn-round" type="submit">Proceed to Step 2</button>
@@ -678,11 +693,9 @@
 							<form id="addEvent" method="POST" action="/event">
 								<div id="basicContainerEvent" class="p-3">
 									<h2 class="card-title h3">Basic Details:</h2>
-									<div class="row align-items-center mb-3">
-										<div class="col-md-3">
-											<h6>Event Name</h6>
-										</div>
-										<div class="col-md-9">
+									<div class="row align-items-center mb-3">							
+										<div class="col-md-12">
+											<label for="eName">Event Name</label>
 											<input id="eName" class="form-control" type="text" name="name" required>
 										</div>
 									</div>
