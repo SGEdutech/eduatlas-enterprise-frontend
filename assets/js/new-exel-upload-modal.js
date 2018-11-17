@@ -1,4 +1,5 @@
 const excelUploadModal = (() => {
+	let distinceStudentArr;
 	let coursesOfThisTuition;
 	let batchesOfThisTuition;
 	let tuitionId;
@@ -51,11 +52,78 @@ const excelUploadModal = (() => {
 		return allInputsDataArr;
 	}
 
+	// Checks duplicate against a certain key
+	function isDuplicateInStudentsDataArr(studentsDataArr, key) {
+		if (studentsDataArr === undefined) throw new Error('Students array not provided');
+		if (Array.isArray(studentsDataArr) === false) throw new Error('Student data array is not an array');
+		if (key === undefined) throw new Error('Key not provided');
+		if (typeof key !== 'string') throw new Error('Key must be a string');
+
+		const allSuspectsArr = studentsDataArr.map(studentObj => studentObj[key]);
+		let isDuplicate = false;
+		allSuspectsArr.forEach((suspect, index) => {
+			if (allSuspectsArr.indexOf(suspect) !== index) isDuplicate = true;
+		});
+		return isDuplicate;
+	}
+
+	function isRollNumberDuplicate(studentsDataArr) {
+		return isDuplicateInStudentsDataArr(studentsDataArr, 'rollNumber');
+	}
+
+	function isEmailDuplicate(studentsDataArr) {
+		return isDuplicateInStudentsDataArr(studentsDataArr, 'email');
+	}
+
+	function isAlreadyExist(studentsDataArr, key) {
+		if (studentsDataArr === undefined) throw new Error('Students array not provided');
+		if (Array.isArray(studentsDataArr) === false) throw new Error('Student data array is not an array');
+		if (key === undefined) throw new Error('Key not provided');
+		if (typeof key !== 'string') throw new Error('Key must be a string');
+
+		let isDuplicate = false;
+		studentsDataArr.forEach(studentObj => {
+			const doesStudentWithSameInfoExist = distinceStudentArr.some(allStudentObj => allStudentObj[key] === studentObj[key]);
+			if (doesStudentWithSameInfoExist) isDuplicate = true;
+		});
+		return isDuplicate;
+	}
+
+	function isRollNumberAlreadyExist(studentsDataArr) {
+		return isAlreadyExist(studentsDataArr, 'rollNumber');
+	}
+
+	function isEmailAlreadyExist(studentsDataArr) {
+		return isAlreadyExist(studentsDataArr, 'email');
+	}
+
+	function validateEntries(studentsDataArr) {
+		if (isRollNumberDuplicate(studentsDataArr)) {
+			alert('There are duplicate roll numbers!');
+			return false;
+		}
+		if (isEmailDuplicate(studentsDataArr)) {
+			alert('There are duplicate emails!');
+			return false;
+		}
+		if (isRollNumberAlreadyExist(studentsDataArr)) {
+			alert('One or more of the roll numbers that already exists!');
+			return false;
+		}
+		if (isEmailAlreadyExist(studentsDataArr)) {
+			alert('One or more of the emails that already exists!');
+			return false;
+		}
+		return true;
+	}
+
 	async function submitStudents(event) {
 		try {
 			event.preventDefault();
 			const data = {};
-			data.students = getStudentDataArr();
+			const studentsDataArr = getStudentDataArr();
+			if (validateEntries(studentsDataArr) === false) return;
+			data.students = studentsDataArr;
 			if ($batchSelectMenu.val()) {
 				const batchInfo = {};
 				batchInfo.courseId = $courseSelectMenu.val();
@@ -120,6 +188,7 @@ const excelUploadModal = (() => {
 	function unbindEvents() {
 		$uploadBtn.off();
 		$form.off();
+		$courseSelectMenu.off();
 	}
 
 	function bindDynamic() {
@@ -136,12 +205,15 @@ const excelUploadModal = (() => {
 		$modalBody.html(bodyHtml);
 	}
 
-	function init(studentsData, courses, batches, idOfTuition) {
+	function init(studentsData, allStudentsArr, courses, batches, idOfTuition) {
 		if (studentsData === undefined) throw new Error('Student data not provided');
 		if (courses === undefined) throw new Error('Courses not provided');
 		if (batches === undefined) throw new Error('Batches Id not provided');
 		if (idOfTuition === undefined) throw new Error('Tuition Id not provided');
+		if (allStudentsArr === undefined) throw new Error('All students array not provided');
+		if (Array.isArray(allStudentsArr) === false) throw new Error('All students array not an array');
 
+		distinceStudentArr = JSON.parse(JSON.stringify(allStudentsArr));
 		coursesOfThisTuition = courses.filter(courseObj => courseObj.tuitionId === idOfTuition);
 		batchesOfThisTuition = batches.filter(batchObj => batchObj.tuitionId === idOfTuition);
 		tuitionId = idOfTuition;
