@@ -14,7 +14,8 @@ const course = (() => {
 		if (fee === undefined) throw new Error('Fee not provided!');
 		gstPercentage = gstPercentage || 0;
 
-		return fee + fee * (gstPercentage / 100);
+		const totalFee = fee + fee * (gstPercentage / 100);
+		return totalFee.toFixed(2);
 	}
 
 	function submitAddCourse(tuitionId, newCourseDetails) {
