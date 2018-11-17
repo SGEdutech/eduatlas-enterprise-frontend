@@ -18,10 +18,51 @@ textarea.form-control {
 .sm-tab input[type="number"],
 .sm-tab input[type="email"],
 .sm-tab input[type="date"],
-.sm-tab textarea {
+.sm-tab textarea,
+.sm-tab select,
+.sm-tab .dropdown-toggle {
 	border: 0.5px solid #00bcd4
 }
 
-.card-title.bg-info{
-    background-color:#00bcd44d !important;
+#addTuition input[type="text"],
+#addTuition input[type="number"],
+#addTuition input[type="email"],
+#addTuition input[type="date"],
+#addTuition textarea,
+#addTuition select,
+#addTuition .dropdown-toggle {
+	border: 0.5px solid #00bcd4
+}
+
+#addSchool input[type="text"],
+#addSchool input[type="number"],
+#addSchool input[type="email"],
+#addSchool input[type="date"],
+#addSchool textarea,
+#addSchool select,
+#addSchool .dropdown-toggle {
+	border: 0.5px solid #00bcd4
+}
+
+#addEvent input[type="text"],
+#addEvent input[type="number"],
+#addEvent input[type="email"],
+#addEvent input[type="date"],
+#addEvent textarea,
+#addEvent select,
+#addEvent .dropdown-toggle {
+	border: 0.5px solid #00bcd4
+}
+
+
+.modal input[type="text"],
+.modal input[type="number"],
+.modal input[type="email"],
+.modal input[type="date"],
+.modal textarea {
+	border: 0.5px solid #00bcd4
+}
+
+.card-title.bg-info {
+	background-color: #00bcd44d !important;
 }

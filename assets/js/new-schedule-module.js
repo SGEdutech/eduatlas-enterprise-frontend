@@ -116,8 +116,9 @@ const schedule = (() => {
 		return tuitionApiCalls.editScheduleInBatch(tuitionId, courseId, batchId, scheduleId, editedData);
 	}
 
-	async function editschedule(tuitionId, courseId, batchId, scheduleId) {
+	async function editschedule(event, tuitionId, courseId, batchId, scheduleId) {
 		try {
+			event.preventDefault();
 			const editedData = modal.getInputValues();
 			editedData.fromTime = dateAndTime.twelveHourToMinutesFromMidnight(editedData.fromTime);
 			editedData.toTime = dateAndTime.twelveHourToMinutesFromMidnight(editedData.toTime);
@@ -182,9 +183,11 @@ const schedule = (() => {
 				scheduleInfo = batchObj.schedules.find(scheduleToBeEdited => scheduleToBeEdited._id === scheduleId);
 			}
 		});
+		console.log(scheduleInfo);
+		scheduleInfo.date = scheduleInfo.date.split('T')[0];
 		const editscheduleInputHTML = template.scheduleEditInputs(scheduleInfo);
 		modal.renderFormContent(editscheduleInputHTML);
-		modal.bindSubmitEvent(() => editschedule(tuitionId, courseId, batchId, scheduleId));
+		modal.bindSubmitEvent((e) => editschedule(e, tuitionId, courseId, batchId, scheduleId));
 		modal.initDatetimepicker();
 		modal.showModal();
 	}
