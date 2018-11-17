@@ -31,6 +31,10 @@ const modal = (() => {
 		$modalForm.off();
 		// Since this is cacheDynamily
 		if ($searchInp) $searchInp.off();
+		// Courses inputs
+		if ($courseFeeEdit) $courseFeeEdit.off();
+		if ($gstPercentageEdit) $gstPercentageEdit.off();
+		if ($gstCheckbox) $gstCheckbox.off();
 	}
 
 	function bindEvent() {
@@ -102,8 +106,8 @@ const modal = (() => {
 	}
 
 	function bindCoursesEvents() {
-		$courseFeeEdit.blur(updateTotalFee);
-		$gstPercentageEdit.blur(updateTotalFee);
+		$courseFeeEdit.on('input, paste', updateTotalFee);
+		$gstPercentageEdit.on('input paste', updateTotalFee);
 		$gstCheckbox.change(toggleGstInpAndUpdateTotalFee);
 	}
 
