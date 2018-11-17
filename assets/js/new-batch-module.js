@@ -108,6 +108,8 @@ const batch = (() => {
 		const editBatchInputHTML = template.batchEditInputs(batchInfo);
 		modal.renderFormContent(editBatchInputHTML);
 		modal.bindSubmitEvent(e => editBatch(e, tuitionId, courseId, batchId));
+		modal.cacheDynamic();
+		modal.bindSearchForStudents()
 		modal.showModal();
 	}
 

@@ -81,7 +81,6 @@ const finance = (() => {
 		const searchStr = $studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
 		const regex = new RegExp(searchStr, 'i');
 		const searchResultArr = studentsOfSelectedBatchArr.filter(studentObj => regex.test(studentObj.name));
-		console.log();
 		refresh({ studentsArr: searchResultArr, renderTuitionId: tuitionId, batchesArr: selectedBatchesArr });
 	}
 

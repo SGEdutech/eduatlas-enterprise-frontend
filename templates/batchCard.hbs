@@ -1,23 +1,24 @@
 {{#each batches}}
 <div class="col-md-4" id="{{_id}}">
     <div class="card">
-        <div class="card-body ">
+        <div class="card-body pb-0">
             <h4 class="card-title" data-toggle="modal" data-target="#editBatchModal{{_id}}" style="text-transform: uppercase">
                 <a href="#pablo">{{code}}</a>
             </h4>
-            <p class="card-text">
-                {{description}}
+            <p class="card-text mb-0" style="overflow: hidden;text-overflow: ellipsis;max-height: 30px">
+                <small class="text-secondary">Description :</small>
+                <small class="text-danger">{{description}}</small>
             </p>
-            <p class="card-text">
+            <p class="card-text mb-0">
                 <small class="text-secondary">Course:</small>
                 <small class="text-danger" style="text-transform: uppercase">{{courseCode}}</small>
             </p>
-            <p class="card-text">
+            <p class="card-text mb-0">
                 <small class="text-secondary">Total Number Of Students :</small>
                 <small class="text-danger">{{students.length}}</small>
             </p>
         </div>
-        <div class="card-footer ">
+        <div class="card-footer">
             <div class="stats ml-auto">
                 <i class="material-icons delete-batch-btn" style="top: 0%; cursor: pointer;" data-batch-id="{{_id}}"
                     data-tuition-id="{{tuitionId}}" data-course-id="{{courseId}}">delete</i>

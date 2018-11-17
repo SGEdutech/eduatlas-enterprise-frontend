@@ -12,17 +12,26 @@ const forum = (() => {
 	let $commentTextarea;
 	let $addCommentBtn;
 
+	function renderPost(postToShow) {
+		const postHTML = template.forumPostBody(postToShow);
+		$forumPostContainer.html(postHTML);
+		cacheDynamic();
+		bindDynamic();
+	}
+
 	function renderDetailsPage(event) {
 		$heading = $(event.target);
 		const postId = $heading.attr('data-post-id');
 		const tuitionId = $heading.attr('data-tuition-id');
 		const postToShow = forumArr.find(forumObj => forumObj._id === postId);
-		const postHTML = template.forumPostBody(postToShow);
-		$forumPostContainer.html(postHTML);
+		postToShow.comments.forEach(commentObj => {
+			if (commentObj.createdAt) {
+				commentObj.fromNow = moment(commentObj.createdAt).fromNow();
+			}
+		});
+		renderPost(postToShow);
 		$landingContainer.filter(`[data-tuition-id="${tuitionId}"]`).addClass('d-none');
 		$detailContainer.filter(`[data-tuition-id="${tuitionId}"]`).removeClass('d-none');
-		cacheDynamic();
-		bindDynamic();
 	}
 
 	function showLandingPage(event) {
@@ -42,8 +51,23 @@ const forum = (() => {
 			const newComment = await tuitionApiCalls.putCommentInPost(tuitionId, postId, { content: commentContent });
 			const updatedPost = forumArr.find(forumObj => forumObj._id === postId);
 			updatedPost.comments.push(newComment);
-			const postHTML = template.forumPostBody(updatedPost);
-			$forumPostContainer.html(postHTML);
+			renderPost(updatedPost);
+		} catch (e) {
+			console.error(e);
+		}
+	}
+
+	async function deleteCommentAndRenderPost(event) {
+		try {
+			const $btn = $(event.target);
+			const postId = $btn.attr('data-post-id');
+			const tuitionId = $btn.attr('data-tuition-id');
+			const commentId = $btn.attr('data-comment-id');
+			const deletedComment = await tuitionApiCalls.deleteCommentInPost(tuitionId, postId, commentId);
+			notification.push('comment deleted successfully');
+			const updatedPost = forumArr.find(forumObj => forumObj._id === postId);
+			updatedPost.comments = updatedPost.comments.filter(commentObj => commentObj._id != commentId);
+			renderPost(updatedPost);
 		} catch (e) {
 			console.error(e);
 		}
@@ -65,6 +89,7 @@ const forum = (() => {
 		$postHeading = $('.post-heading');
 		$commentTextarea = $('.comment-content-textarea');
 		$addCommentBtn = $('.add-comment-btn');
+		$deleteCommentBtn = $('.delete-comment-btn');
 	}
 
 	function bindEvents() {
@@ -77,6 +102,7 @@ const forum = (() => {
 		$deleteForumBtn.click(deleteForum);
 		$postHeading.click(renderDetailsPage);
 		$addCommentBtn.click(addAndRenderComment);
+		$deleteCommentBtn.click(deleteCommentAndRenderPost);
 	}
 
 	async function submitAddForumRequest(event) {
@@ -152,7 +178,6 @@ const forum = (() => {
 				forumObj.fromNow = moment(forumObj.createdAt).fromNow()
 			})
 			const forumCardsHtml = template.forumCard({ forums: fourmsOfThisInstitutes });
-			console.log(fourmsOfThisInstitutes);
 			$container.html(forumCardsHtml);
 		});
 	}

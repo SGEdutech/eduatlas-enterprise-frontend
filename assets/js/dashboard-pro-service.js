@@ -18,9 +18,10 @@ async function initModules() {
 		promiseArr.push(eventApiCalls.getAllClaimedEvents());
 		promiseArr.push(tuitionApiCalls.getAllClaimedForums());
 		promiseArr.push(tuitionApiCalls.getAllClaimedDiscounts());
+		promiseArr.push(notificationApiCalls.getClaimedNotifications());
 		promiseArr.push(user.getInfo());
 
-		const [claimedCourses, claimedBatches, claimedStudents, claimedInstitute, claimedSchools, claimedEvents, claimedForums, claimedDiscounts, userInfo] =
+		const [claimedCourses, claimedBatches, claimedStudents, claimedInstitute, claimedSchools, claimedEvents, claimedForums, claimedDiscounts, claimedNotifications, userInfo] =
 		await Promise.all(promiseArr);
 
 		instituteInfo.init(claimedInstitute);
@@ -30,7 +31,7 @@ async function initModules() {
 		schedule.init(claimedBatches);
 		attendance.init(claimedBatches, claimedStudents);
 		forum.init(claimedForums);
-		announcement.init(claimedBatches, claimedStudents);
+		announcement.init(claimedNotifications, claimedBatches, claimedStudents);
 		redirectTabs.init(queryString.loadQueryString());
 		discounts.init(claimedDiscounts);
 		finance.init(claimedStudents, claimedBatches);

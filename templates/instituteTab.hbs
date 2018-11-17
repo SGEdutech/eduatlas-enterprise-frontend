@@ -261,7 +261,7 @@
 
 							<div class="card card-profile main-raised m-0">
 								<form class="new-student-form" data-tuition-id="{{_id}}">
-									<div class="card-title h3 mt-3 px-3 mx-3 text-left bg-info">
+									<div class="card-title h3 mt-3 px-3 mx-3 text-left">
 										Add New Student
 									</div>
 									<div class="card-title h4 px-3 mx-3 text-left bg-info">
@@ -300,7 +300,8 @@
 												<div class="row">
 													<div class="col-md-4">
 														<label class="bmd-label-floating">Student Roll No.</label>
-														<input name="rollNumber" type="text" class="form-control" data-tuition-id="{{_id}}" required>
+														<input name="rollNumber" type="text" class="form-control student-roll-number" data-tuition-id="{{_id}}"
+														 required>
 													</div>
 													<div class="col-md-4">
 														<label class="bmd-label-floating">Student Name</label>
@@ -327,7 +328,7 @@
 												</div>
 											</div>
 											<div class="col-md-12 student-course-batch-container" data-tuition-id="{{_id}}">
-												<h4 class="card-title">Batch N Course Details</h4>
+												<h4 class="card-title">Batch And Course Details</h4>
 												<div class="row">
 													<div class="col-md-4 form-group">
 														<label for="course_select" class="bmd-label-floating">Select Course</label>
@@ -348,7 +349,7 @@
 												<div class="row">
 													<div class="col-md-4 form-group">
 														<label for="course_fee_inp" class="bmd-label-floating">Course Fee</label>
-														<input type="number" class="form-control student-course-fee" data-tuition-id="{{_id}}">
+														<input type="number" class="form-control student-course-fee not-submit" data-tuition-id="{{_id}}">
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="batch_select" class="bmd-label-floating">Select Discount Code</label>
@@ -366,7 +367,7 @@
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="net_fee" class="bmd-label-floating">Net Fee</label>
-														<input type="text" class="form-control student-net-fee" data-tuition-id="{{_id}}" disabled>
+														<input type="text" class="form-control student-net-fee not-submit" data-tuition-id="{{_id}}" disabled>
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="fee_collected" class="bmd-label-floating">Fee Collected</label>
@@ -379,7 +380,8 @@
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="balance_pending" class="bmd-label-floating">Balance Pending</label>
-														<input type="text" class="form-control student-balance-pending" data-tuition-id="{{_id}}" disabled>
+														<input type="text" class="form-control student-balance-pending not-submit" data-tuition-id="{{_id}}"
+														 disabled>
 													</div>
 													<div class="col-md-4 form-group">
 														<label for="modeOfPayment" class="bmd-label-floating">Mode Of Payment</label>
@@ -387,6 +389,7 @@
 														 data-tuition-id="{{_id}}">
 															<option value="cheque">Cheque</option>
 															<option value="card">Card</option>
+															<option value="cash">Cash</option>
 															<option value="other">Other</option>
 														</select>
 													</div>
@@ -425,7 +428,6 @@
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label for="courseIdSelect">Choose Course for your batch</label>
 												<select class="form-control selectpicker course-select-menu" data-style="btn btn-link" name="courseId"
 												 data-tuition-id="{{_id}}" required>
 													{{!-- FIXME: moved to new hbs file --}}
@@ -475,26 +477,28 @@
 						</div>
 						<div class="tab-pane" id="innertab4{{tabNumber}}">
 							<div class="row m-0">
-								<div class="finance-landing-container" data-tuition-id="{{_id}}">
-									<div class="card-title col-12 h3 bg-info">
-										Finance
-									</div>
-									<div class="col-md-12">
-										<h4 class="card-title">Batch Filter</h4>
-										<div class="row mb-2 finance-batch-container" data-tuition-id="{{_id}}">
+								<div class="finance-landing-container col-12" data-tuition-id="{{_id}}">
+									<div class="row">
+										<div class="card-title col-12 h3 bg-info">
+											Finance
 										</div>
-									</div>
-									<div class="col-12">
-										<div class="row">
-											<div class="col-md-10"><input type="text" class="form-control finance-search-inp" placeholder="search students"
-												 data-tuition-id="{{_id}}"></div>
-											<div class="col-md-2">
-												<div class="btn btn-info btn-sm finance-search-reset" data-tuition-id="{{_id}}">RESET</div>
+										<div class="col-md-12">
+											<h4 class="card-title">Batch Filter</h4>
+											<div class="row mb-2 finance-batch-container" data-tuition-id="{{_id}}">
 											</div>
 										</div>
-									</div>
-									<div class="col-12">
-										<div class="row finance-student-container" data-tuition-id="{{_id}}">
+										<div class="col-12">
+											<div class="row">
+												<div class="col-md-10"><input type="text" class="form-control finance-search-inp" placeholder="search students"
+													 data-tuition-id="{{_id}}"></div>
+												<div class="col-md-2">
+													<div class="btn btn-info btn-sm finance-search-reset" data-tuition-id="{{_id}}">RESET</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="row finance-student-container" data-tuition-id="{{_id}}">
+											</div>
 										</div>
 									</div>
 								</div>
@@ -527,12 +531,16 @@
 											</div>
 											<div class="col-md-12">
 												<div class="row">
-													<div class="col-7 form-group label-floating is-empty  bmd-form-group">
+													<div class="col-md-6 form-group label-floating is-empty  bmd-form-group">
 														<label for="bmd-label-floating">Discount Code (unique)</label>
 														<input name="code" class="form-control discount-code-inp" type="text" data-tuition-id="{{_id}}" required>
 														<span class="material-input"></span>
 													</div>
-													<div class="col-6 form-group label-floating is-empty bmd-form-group">
+													<div class="col-md-6 form-group label-floating is-empty bmd-form-group">
+														<label for="bmd-label-floating">Amount/Percentage</label>
+														<input name="amount" class="form-control amount-inp" type="number" data-tuition-id="{{_id}}" required>
+													</div>
+													<div class="col-md-6 form-group label-floating is-empty bmd-form-group">
 														<div class="togglebutton">
 															<label>
 																<input class="discount-is-percentage-inp" name="isPercent" type="checkbox" value="true" data-tuition-id="{{_id}}">
@@ -541,17 +549,13 @@
 															</label>
 														</div>
 													</div>
-													<div class="col-6 form-group label-floating  is-empty bmd-form-group">
-														<label for="bmd-label-floating">Amount</label>
-														<input name="amount" class="form-control amount-inp" type="number" data-tuition-id="{{_id}}" required>
+													<div class="col-md-6 form-group label-floating is-empty bmd-form-group">
+														<button type="submit" class="btn btn-round btn-success pull-right">
+															Define Discount
+															<div class="ripple-container"></div>
+														</button>
 													</div>
 												</div>
-											</div>
-											<div class="col-md-12">
-												<button type="submit" class="btn btn-round btn-success pull-right">
-													Define Discount
-													<div class="ripple-container"></div>
-												</button>
 											</div>
 										</div>
 									</form>
@@ -727,17 +731,23 @@
 								<div class="card-title h3 px-3 bg-info">
 									New Announcement
 								</div>
+								<div class="row">
+									<div class="col-md-10"><input type="text" placeholder="search students" class="form-control announcement-student-search-inp"
+										 data-tuition-id="{{_id}}"></div>
+									<div class="col-md-2"><a class="btn btn-sm btn-info announcement-student-search-reset text-white"
+										 data-tuition-id="{{_id}}">reset</a></div>
+								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1" class="text-dark">Select Students</label>
-									<div class="px-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:150px;">
+									<div class="px-2" style="height:299px;overflow-y: auto;max-height:500px;">
 										<table class="table">
 											<thead>
 												<tr>
 													<th class="text-center">#</th>
-													<th>Name</th>
-													<th>Roll Number</th>
-													<th>Email</th>
-													<th>Select</th>
+													<th><small>Name</small></th>
+													<th><small>Roll Number</small></th>
+													<th><small>Email</small></th>
+													<th><small>Select</small></th>
 												</tr>
 											</thead>
 											<tbody class="select-announcement-students" data-tuition-id="{{_id}}">
@@ -749,13 +759,13 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1" class="text-dark"><small class="text-danger">OR</small>
 										Select A Batch</label>
-									<div class="px-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:150px;">
+									<div class="px-2" style="height:299px;overflow-y: auto;max-height:250px;">
 										<table class="table">
 											<thead>
 												<tr>
 													<th class="text-center">#</th>
-													<th>Batch Code</th>
-													<th>Select</th>
+													<th><small>Batch Code</small></th>
+													<th><small>Select</small></th>
 												</tr>
 											</thead>
 											<tbody class="select-announcement-batches" data-tuition-id="{{_id}}">
@@ -782,6 +792,14 @@
 								</div>
 								<div class="col-12">
 									<button class="btn btn-round btn-success pull-right send-announcement-btn" type="button" data-tuition-id="{{_id}}">SEND</button>
+								</div>
+							</div>
+							<div class="card-title col-12 h3 bg-info">
+								Recent Notifications
+							</div>
+							<div class="col-12">
+								<div class="row recent-notification-container my-3" data-tuition-id="{{_id}}">
+
 								</div>
 							</div>
 						</div>
@@ -840,75 +858,77 @@
 							<div class="row m-0">
 								<div class="card">
 									<div class="card-body">
-										<div class="row m-0">
-											<div class="card-title col-12 h3 p-0 bg-info px-3 ">Add New Schedule</div>
-											<div class="col-12">
-												<div class="form-group">
-													<label for="week-number">Week Number</label>
-													<input type="number" name="week-number" id="week-number" class="form-control" value="1" disabled>
+										<form class="schedule-validation-form" data-tuition-id="{{_id}}">
+											<div class="row m-0">
+												<div class="card-title col-12 h3 p-0 bg-info px-3 ">Add New Schedule</div>
+												<div class="col-12">
+													<div class="form-group">
+														<label for="week-number">Week Number</label>
+														<input type="number" name="week-number" id="week-number" class="form-control" value="1" disabled>
+													</div>
 												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group">
-													<label class="label-control">From Date</label>
-													<input type="date" name="from-date" class="form-control date-picker from-date" required data-tuition-id="{{_id}}"
-													 data-tuition-id="{{_id}}">
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="label-control">From Date</label>
+														<input type="text" name="from-date" class="form-control date-picker from-date" required data-tuition-id="{{_id}}"
+														 data-tuition-id="{{_id}}">
+													</div>
 												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group">
-													<label class="label-control">To Date</label>
-													<input name="to-date" type="date" class="form-control date-picker to-date" required data-tuition-id="{{_id}}"
-													 data-tuition-id="{{_id}}" disabled>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="label-control">To Date</label>
+														<input name="to-date" type="text" class="form-control date-picker to-date" required data-tuition-id="{{_id}}"
+														 data-tuition-id="{{_id}}" disabled>
+													</div>
 												</div>
-											</div>
-											<div class="col-md-12 add-schedule-container" data-tuition-id="{{_id}}">
-												<div class="row">
-													<div class="col-2">Day</div>
-													<div class="col-2">From Time</div>
-													<div class="col-2">To Time</div>
-													<div class="col-3">Topic</div>
-													<div class="col-3">Faculty</div>
-												</div>
-												<div class="schedule-row row" data-tuition-id="{{_id}}">
-													<div class="col-2 schedule-col">
-														<div class="form-group">
-															<select name="date" class="form-control day-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
-															</select>
+												<div class="col-md-12 add-schedule-container" data-tuition-id="{{_id}}">
+													<div class="row">
+														<div class="col-2">Day</div>
+														<div class="col-2">From Time</div>
+														<div class="col-2">To Time</div>
+														<div class="col-3">Topic</div>
+														<div class="col-3">Faculty</div>
+													</div>
+													<div class="schedule-row row" data-tuition-id="{{_id}}">
+														<div class="col-2 schedule-col">
+															<div class="form-group">
+																<select name="date" class="form-control day-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
+																</select>
+															</div>
+														</div>
+														<div class="col-2 schedule-col">
+															<input name="fromTime" type="text" class="form-control time-picker from-time" required>
+														</div>
+														<div class="col-2 schedule-col">
+															<input name="toTime" type="text" class="form-control time-picker to-time" required>
+														</div>
+														<div class="col-3 schedule-col">
+															<input type="text" name="topic" required>
+														</div>
+														<div class="col-3 schedule-col">
+															<input type="text" name="faculty" required>
 														</div>
 													</div>
-													<div class="col-2 schedule-col">
-														<input name="fromTime" type="text" class="form-control time-picker from-time">
-													</div>
-													<div class="col-2 schedule-col">
-														<input name="toTime" type="text" class="form-control time-picker to-time">
-													</div>
-													<div class="col-3 schedule-col">
-														<input type="text" name="topic">
-													</div>
-													<div class="col-3 schedule-col">
-														<input type="text" name="faculty">
+												</div>
+												<div class="col-md-12 justify-content-end mx-2">
+													<a class="btn btn-round btn-success add-class-entry text-white" data-tuition-id="{{_id}}">
+														Add More Classes
+													</a>
+												</div>
+												<div class="col-md-12">
+													<div class="card-title">Select Batches For This Schedule</div>
+													<form class="add-schedule-form" data-tuition-id="{{_id}}">
+														<div class="p-2 batch-checkbox-container" data-tuition-id="{{_id}}" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
+															{{!-- FIXME: moved to new hbs file --}}
+														</div>
+													</form>
+													<div class="row justify-content-end mt-2">
+														<button class="btn btn-round btn-success save-schedule-btn" type="submit" data-tuition-id="{{_id}}">Save
+															Schedule</button>
 													</div>
 												</div>
 											</div>
-											<div class="col-md-12 justify-content-end mx-2">
-												<button class="btn btn-round btn-success add-class-entry" data-tuition-id="{{_id}}">
-													Add More Classes
-												</button>
-											</div>
-											<div class="col-md-12">
-												<div class="card-title">Select Batches For This Schedule</div>
-												<form class="add-schedule-form" data-tuition-id="{{_id}}">
-													<div class="p-2 batch-checkbox-container" data-tuition-id="{{_id}}" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
-														{{!-- FIXME: moved to new hbs file --}}
-													</div>
-												</form>
-												<div class="row justify-content-end mt-2">
-													<button class="btn btn-round btn-success save-schedule-btn" type="button" data-tuition-id="{{_id}}">Save
-														Schedule</button>
-												</div>
-											</div>
-										</div>
+										</form>
 									</div>
 								</div>
 							</div>

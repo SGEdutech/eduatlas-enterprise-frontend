@@ -10,13 +10,6 @@ const course = (() => {
 	let $totalFee;
 	let $inclusiveTaxCheckbox;
 
-	function roundNumberToTwoDecimalPlace(num) {
-		if (num === undefined) throw new Error('Number not provided');
-		if (typeof num !== 'number') throw new Error('Number must be of type number');
-
-		return Math.floor(num * 100) / 100;
-	}
-	
 	function calcTotalFee(fee, gstPercentage) {
 		if (fee === undefined) throw new Error('Fee not provided!');
 		gstPercentage = gstPercentage || 0;
@@ -103,6 +96,7 @@ const course = (() => {
 		newCourse.tuitionId = tuitionId;
 		coursesArr.unshift(newCourse);
 		PubSub.publish('course.add', newCourse);
+		$gstInp.filter(`[data-tuition-id="${tuitionId}"]`).prop('disabled', false);
 		$form.trigger('reset');
 		refresh();
 	}
@@ -113,8 +107,7 @@ const course = (() => {
 		let gstPercentage = $gstInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
 		courseFee = parseFloat(courseFee, 10) || 0;
 		gstPercentage = parseFloat(gstPercentage, 10) || 0;
-		let totalFee = calcTotalFee(courseFee, gstPercentage);
-		totalFee = roundNumberToTwoDecimalPlace(totalFee);
+		let totalFee = calcTotalFee(courseFee, gstPercentage).toFixed(2);
 		$totalFee.filter(`[data-tuition-id="${tuitionId}"]`).val(totalFee);
 	}
 

@@ -113,7 +113,6 @@ const discounts = (() => {
 			const tuitionId = $container.attr('data-tuition-id');
 
 			const discountsOfThisTuition = distinctDiscountsArr.filter(discountObj => discountObj.tuitionId === tuitionId);
-			console.log(discountsOfThisTuition);
 			const cardsHtml = template.discountCard({ discounts: discountsOfThisTuition });
 			$container.html(cardsHtml);
 		});

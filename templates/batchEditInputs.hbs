@@ -43,36 +43,31 @@
                         </span>
                     </div>
                     <div class="col-md-8 p-0">
-                        <div class="px-2" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
+                        <div class="row">
+                            <div class="col-md-9"><input type="text" placeholder="search students" class="form-control edit-batch-student-search-inp"
+                                    data-tuition-id="{{_id}}"></div>
+                            <div class="col-md-3"><a class="btn btn-sm btn-info edit-batch-student-search-reset text-white"
+                                    data-tuition-id="{{_id}}">reset</a></div>
+                        </div>
+                        <div class="px-2" style="height:299px;overflow-y: auto;max-height:500px;">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th>Name</th>
-                                        <th>Roll Number</th>
-                                        <th>Email</th>
-                                        <th>Add/Remove</th>
+                                        <th><small>Name</small></th>
+                                        <th><small>Roll Number</small></th>
+                                        <th><small>Email</small></th>
+                                        <th><small>Add/Remove</small></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {{#each allStudents as |student|}}
-                                    <tr id="{{randomId}}">
-                                        <td class="text-center">{{@index}}</td>
-                                        <td>{{student.name}}</td>
-                                        <td>{{student.rollNumber}}</td>
-                                        <td>{{student.email}}</td>
-                                        <td>
+                                    <tr id="{{randomId}}" class="student-row">
+                                        <td class="text-center p-0">{{inc @index}}</td>
+                                        <td class="p-0">{{student.name}}</td>
+                                        <td class="p-0">{{student.rollNumber}}</td>
+                                        <td class="p-0">{{student.email}}</td>
+                                        <td class="p-0">
                                             <input type="checkbox" name="students" value="{{student._id}}"
-                                                {{#if student.inThisBatch}} checked{{/if}}>
-                                        </td> 
-                                    </tr> 
-                                    {{/each}} 
-                                </tbody>
-                            </table> 
-                        </div> 
-                    </div> 
-                </div> 
-            </div> 
-        </div> 
-    </div> 
-</div>
+                                                {{#if student.inThisBatch}} checked{{/if}}> </td> </tr> {{/each}} </tbody>
+                                                </table> </div> </div> </div> </div> </div> </div> </div>

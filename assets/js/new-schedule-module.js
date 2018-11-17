@@ -17,6 +17,7 @@ const schedule = (() => {
 	let $staticScheduleCol;
 	let $staticInps;
 	let $staticSelects;
+	let $validationForm;
 
 	// function getCourseCode(batchId) {
 	// 	let batchCode;
@@ -92,7 +93,8 @@ const schedule = (() => {
 		$batchCheckboxContainer = $('.batch-checkbox-container');
 		$staticScheduleCol = $('.schedule-col');
 		$staticInps = $staticScheduleCol.find('input');
-		$staticSelects = $staticScheduleCol.find('select')
+		$staticSelects = $staticScheduleCol.find('select');
+		$validationForm = $('.schedule-validation-form');
 	}
 
 	function cacheDynamic() {
@@ -250,7 +252,7 @@ const schedule = (() => {
 
 	function bindEvents() {
 		$addClassEntryBtn.click(appendMoreAddScheduleInputs);
-		$saveScheduleBtn.click(addSchedule);
+		$validationForm.submit(addSchedule);
 	}
 
 	function bindDynamicEvents() {
