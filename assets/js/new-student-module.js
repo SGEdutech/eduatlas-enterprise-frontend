@@ -84,10 +84,35 @@ const student = (() => {
 		}
 	}
 
+	function isEditedEmailDuplicate(email, idOfStudentBeingEdited) {
+		if (email === undefined) throw new Error('Email not provided');
+		return randomScripts.isDuplicate(distinctStudentsArr, 'email', email, idOfStudentBeingEdited);
+	}
+
+	function isEditedRollNumberDuplicate(rollNumber, idOfStudentBeingEdited) {
+		if (rollNumber === undefined) throw new Error('Roll number not provided');
+		return randomScripts.isDuplicate(distinctStudentsArr, 'rollNumber', rollNumber, idOfStudentBeingEdited);
+	}
+
+	function validateEditedData(data, idOfStudentBeingEdited) {
+		if (data === undefined) throw new Error('Data not provide');
+		if (typeof data !== 'object') throw new Error('Data must be an object');
+		if (isEditedRollNumberDuplicate(data.rollNumber, idOfStudentBeingEdited)) {
+			alert('Roll number already exist');
+			return false;
+		}
+		if (isEditedEmailDuplicate(data.email, idOfStudentBeingEdited)) {
+			alert('Email already exist');
+			return false;
+		}
+		return true;
+	}
+
 	async function editStudent(event, tuitionId, studentId) {
 		try {
 			event.preventDefault();
-			const editedData = modal.serializeForm();
+			const editedData = modal.getInputsDataObj();
+			if (validateEditedData(editedData, studentId) === false) return;
 			const editedStudent = await tuitionApiCalls.editStudentInTuition(tuitionId, studentId, editedData);
 			modal.hideModal();
 			notification.push('Student has been successfully edited');

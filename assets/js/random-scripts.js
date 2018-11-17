@@ -30,5 +30,24 @@ const randomScripts = {
 			inputsDataObj[$input.attr('name')] = $input.val();
 		});
 		return inputsDataObj;
+	},
+
+	isDuplicate(databaseArr, key, value, exceptionObjId) {
+		if (databaseArr === undefined) throw new Error('Database array not provided');
+		if (key === undefined) throw new Error('Key not provided');
+		if (value === undefined) throw new Error('Value not provided');
+		if (Array.isArray(databaseArr) === false) throw new Error('Database array must be an array');
+		if (typeof key !== 'string') throw new Error('Key must be a string');
+
+		value = value.toLowerCase();
+		let isValueDuplicate = false;
+		databaseArr.forEach(obj => {
+			if (typeof obj !== 'object') throw new Error('All elements in database array must be an object');
+			if (exceptionObjId) {
+				if (obj._id === exceptionObjId) return;
+			}
+			if (obj[key] === value) isValueDuplicate = true;
+		});
+		return isValueDuplicate;
 	}
 };
