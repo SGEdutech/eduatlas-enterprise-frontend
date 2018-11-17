@@ -28,7 +28,7 @@ const course = (() => {
 	async function editCourse(event, tuitionId, courseId) {
 		try {
 			event.preventDefault();
-			const editedData = modal.serializeForm();
+			const editedData = modal.getInputsDataObj();
 			const editedCourse = await submitEditRequest(tuitionId, courseId, editedData);
 			modal.hideModal();
 			notification.push('Course has been successfully edited');
@@ -39,6 +39,19 @@ const course = (() => {
 		} catch (err) {
 			console.error(err);
 		}
+	}
+
+	function editModalInit(event) {
+		const $editBtn = $(event.target);
+		const tuitionId = $editBtn.attr('data-tuition-id');
+		const courseId = $editBtn.attr('data-course-id');
+		const courseInfo = coursesArr.find(courseToBeEdited => courseToBeEdited._id === courseId);
+		courseInfo.tatalFee = calcTotalFee(courseInfo.fees, courseInfo.gstPercentage);
+		const editCourseInputHTML = template.courseEditInputs(courseInfo);
+		modal.renderFormContent(editCourseInputHTML);
+		modal.bindSubmitEvent(e => editCourse(e, tuitionId, courseId));
+		modal.cacheAndBindCoursesStuff();
+		modal.showModal();
 	}
 
 	function submitDeleteRequest(tuitionId, courseId) {
@@ -58,19 +71,6 @@ const course = (() => {
 		} catch (err) {
 			console.error(err);
 		}
-	}
-
-	function editModalInit(event) {
-		const $editBtn = $(event.target);
-		const tuitionId = $editBtn.attr('data-tuition-id');
-		const courseId = $editBtn.attr('data-course-id');
-		const courseInfo = coursesArr.find(courseToBeEdited => courseToBeEdited._id === courseId);
-		courseInfo.tatalFee = calcTotalFee(courseInfo.fees, courseInfo.gstPercentage);
-		const editCourseInputHTML = template.courseEditInputs(courseInfo);
-		modal.renderFormContent(editCourseInputHTML);
-		modal.bindSubmitEvent(e => editCourse(e, tuitionId, courseId));
-		modal.cacheAndBindCoursesStuff();
-		modal.showModal();
 	}
 
 	function isDuplicateCode(tuitionId) {

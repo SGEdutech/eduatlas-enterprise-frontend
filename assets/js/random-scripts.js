@@ -18,5 +18,17 @@ const randomScripts = {
 		const allSearchResults = [...searchStudentBasedOnNameArr, ...searchStudentBasedOnRollNumArr, ...searchStudentBasedOnEmailArr];
 		// Removing duplicates
 		return allSearchResults.filter((studentObj, index) => index === allSearchResults.findIndex(indexStudentObj => indexStudentObj._id === studentObj._id));
+	},
+
+	getInputsDataObj($inputs) {
+		if ($inputs === undefined) return [];
+		if ($inputs instanceof $ === false) throw new Error('Inputs must be jquery object');
+
+		const inputsDataObj = {};
+		$inputs.each((__, input) => {
+			const $input = $(input);
+			inputsDataObj[$input.attr('name')] = $input.val();
+		});
+		return inputsDataObj;
 	}
 };

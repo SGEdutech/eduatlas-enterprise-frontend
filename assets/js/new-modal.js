@@ -8,13 +8,15 @@ const modal = (() => {
 	let $gstCheckbox;
 	let $modalFormBody;
 	let $studentRow;
-	let $searchInp
+	let $searchInp;
+	let $formInputs;
 
 	function cacheDynamic() {
 		$timePicker = $modalForm.find('.edit-time-picker');
 		$datePicker = $modalForm.find('.edit-date-picker');
 		$studentRow = $modalForm.find('.student-row');
 		$searchInp = $modalForm.find('.edit-batch-student-search-inp');
+		$formInputs = $modalForm.find('input');
 	}
 
 	function cache() {
@@ -24,8 +26,15 @@ const modal = (() => {
 		$modalFormBody = $('#modal_form_body');
 	}
 
+	function unbindEvents() {
+		console.log('yooo');
+		$submitBtn.off();
+		$modalForm.off();
+		$searchInp.off();
+	}
+
 	function bindEvent() {
-		$modal.on('hidden.bs.modal', () => $submitBtn.off());
+		$modal.on('hidden.bs.modal', unbindEvents);
 	}
 
 	function showModal() {
@@ -107,6 +116,11 @@ const modal = (() => {
 		return $modalForm.serialize();
 	}
 
+	function getInputsDataObj() {
+		cacheDynamic();
+		return randomScripts.getInputsDataObj($formInputs);
+	}
+
 	function getInputValues() {
 		const $inputs = $modalForm.find('input');
 		const nameToValueMap = {};
@@ -148,6 +162,7 @@ const modal = (() => {
 		bindSubmitEvent,
 		bindSearchForStudents,
 		serializeForm,
+		getInputsDataObj,
 		getInputValues,
 		initDatetimepicker,
 		cacheAndBindCoursesStuff,

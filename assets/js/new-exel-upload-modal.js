@@ -28,25 +28,13 @@ const excelUploadModal = (() => {
 		});
 	}
 
-	function getInputValues($inputs) {
-		if ($inputs === undefined) return [];
-		if ($inputs instanceof $ === false) throw new Error('Inputs must be jquery object');
-
-		const inputsDataObj = {};
-		$inputs.each((__, input) => {
-			const $input = $(input);
-			inputsDataObj[$input.attr('name')] = $input.val();
-		});
-		return inputsDataObj;
-	}
-
 	function getStudentDataArr() {
 		const allInputsDataArr = [];
 		$studentRows.each((__, studentRow) => {
 			const $studentRow = $(studentRow);
 			const rowNumber = $studentRow.attr('data-row-number');
 			const inputsOfThisRow = $inputsInsideStudentRows.filter(`[data-row-number="${rowNumber}"]`);
-			allInputsDataArr.push(getInputValues(inputsOfThisRow));
+			allInputsDataArr.push(randomScripts.getInputsDataObj(inputsOfThisRow));
 		});
 		putPaymentStuffInArr(allInputsDataArr);
 		return allInputsDataArr;
