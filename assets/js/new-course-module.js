@@ -100,7 +100,8 @@ const course = (() => {
 		if (tuitionId === undefined) throw new Error('Tuition id not provided');
 		if (typeof tuitionId !== 'string') throw new Error('Tuition id must be a string');
 		const code = $codeInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
-		return randomScripts.isDuplicate(coursesArr, 'code', code);
+		const courseOfThisTuition = coursesArr.filter(courseObj => courseObj.tuitionId === tuitionId);
+		return randomScripts.isDuplicate(courseOfThisTuition, 'code', code);
 	}
 
 	async function addCourse(event) {
