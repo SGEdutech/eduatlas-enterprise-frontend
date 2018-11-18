@@ -39,7 +39,7 @@ const randomScripts = {
 		if (Array.isArray(databaseArr) === false) throw new Error('Database array must be an array');
 		if (typeof key !== 'string') throw new Error('Key must be a string');
 
-		value = value.toLowerCase();
+		if (typeof value === 'string') value = value.toLowerCase();
 		let isValueDuplicate = false;
 		databaseArr.forEach(obj => {
 			if (typeof obj !== 'object') throw new Error('All elements in database array must be an object');

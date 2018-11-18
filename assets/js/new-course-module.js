@@ -26,10 +26,32 @@ const course = (() => {
 		return tuitionApiCalls.editCourseInTuition(tuitionId, courseId, editedData);
 	}
 
+	function isEditedCodeDuplicate(code, courseId) {
+		if (code === undefined) throw new Error('Code not provided');
+		if (courseId === undefined) throw new Error('Course ID not provided');
+		if (typeof courseId !== 'string') throw new Error('Course ID must be a string');
+
+		return randomScripts.isDuplicate(coursesArr, 'code', code, courseId);
+	}
+
+	function isEditedDataValid(editedData, courseId) {
+		if (editedData === undefined) throw new Error('Edited data not provided');
+		if (courseId === undefined) throw new Error('Course ID not provided');
+		if (typeof editedData !== 'object') throw new Error('Edited data must be an object');
+		if (typeof courseId !== 'string') throw new Error('Course ID must be a string');
+
+		if (isEditedCodeDuplicate(editedData.code, courseId)) {
+			alert('A Course with same code exists');
+			return false;
+		}
+		return true;
+	}
+
 	async function editCourse(event, tuitionId, courseId) {
 		try {
 			event.preventDefault();
 			const editedData = modal.getInputsDataObj();
+			if (isEditedDataValid(editedData, courseId) === false) return;
 			const editedCourse = await submitEditRequest(tuitionId, courseId, editedData);
 			modal.hideModal();
 			notification.push('Course has been successfully edited');
@@ -75,13 +97,10 @@ const course = (() => {
 	}
 
 	function isDuplicateCode(tuitionId) {
+		if (tuitionId === undefined) throw new Error('Tuition id not provided');
+		if (typeof tuitionId !== 'string') throw new Error('Tuition id must be a string');
 		const code = $codeInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
-		const coursesOfThisTuition = coursesArr.filter(courseObj => courseObj.tuitionId === tuitionId);
-		let isCodeDuplicate = false;
-		coursesOfThisTuition.forEach(courseObj => {
-			if (courseObj.code === code) isCodeDuplicate = true;
-		});
-		return isCodeDuplicate;
+		return randomScripts.isDuplicate(coursesArr, 'code', code);
 	}
 
 	async function addCourse(event) {
@@ -108,7 +127,7 @@ const course = (() => {
 		let gstPercentage = $gstInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
 		courseFee = parseFloat(courseFee, 10) || 0;
 		gstPercentage = parseFloat(gstPercentage, 10) || 0;
-		let totalFee = calcTotalFee(courseFee, gstPercentage).toFixed(2);
+		const totalFee = calcTotalFee(courseFee, gstPercentage);
 		$totalFee.filter(`[data-tuition-id="${tuitionId}"]`).val(totalFee);
 	}
 
