@@ -26,21 +26,24 @@ const course = (() => {
 		return tuitionApiCalls.editCourseInTuition(tuitionId, courseId, editedData);
 	}
 
-	function isEditedCodeDuplicate(code, courseId) {
+	function isEditedCodeDuplicate(code, courseId, tuitionId) {
 		if (code === undefined) throw new Error('Code not provided');
 		if (courseId === undefined) throw new Error('Course ID not provided');
+		if (tuitionId === undefined) throw new Error('Tuition ID not provided');
 		if (typeof courseId !== 'string') throw new Error('Course ID must be a string');
 
-		return randomScripts.isDuplicate(coursesArr, 'code', code, courseId);
+		const coursesOfThisInstitute = coursesArr.filter(courseObj => courseObj.tuitionId === tuitionId);
+		return randomScripts.isDuplicate(coursesOfThisInstitute, 'code', code, courseId);
 	}
 
-	function isEditedDataValid(editedData, courseId) {
+	function isEditedDataValid(editedData, courseId, tuitionId) {
 		if (editedData === undefined) throw new Error('Edited data not provided');
 		if (courseId === undefined) throw new Error('Course ID not provided');
+		if (tuitionId === undefined) throw new Error('Tuition ID not provided');
 		if (typeof editedData !== 'object') throw new Error('Edited data must be an object');
 		if (typeof courseId !== 'string') throw new Error('Course ID must be a string');
 
-		if (isEditedCodeDuplicate(editedData.code, courseId)) {
+		if (isEditedCodeDuplicate(editedData.code, courseId, tuitionId)) {
 			alert('A Course with same code exists');
 			return false;
 		}
@@ -51,7 +54,7 @@ const course = (() => {
 		try {
 			event.preventDefault();
 			const editedData = modal.getInputsDataObj();
-			if (isEditedDataValid(editedData, courseId) === false) return;
+			if (isEditedDataValid(editedData, courseId, tuitionId) === false) return;
 			const editedCourse = await submitEditRequest(tuitionId, courseId, editedData);
 			modal.hideModal();
 			notification.push('Course has been successfully edited');

@@ -122,7 +122,7 @@ const modal = (() => {
 
 	function getInputsDataObj() {
 		cacheDynamic();
-		return randomScripts.getInputsDataObj($formInputs);
+		return randomScripts.getInputsAndSelectDataObj($formInputs);
 	}
 
 	function getInputValues() {

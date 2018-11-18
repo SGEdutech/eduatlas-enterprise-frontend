@@ -20,7 +20,7 @@ const randomScripts = {
 		return allSearchResults.filter((studentObj, index) => index === allSearchResults.findIndex(indexStudentObj => indexStudentObj._id === studentObj._id));
 	},
 
-	getInputsDataObj($inputs) {
+	getInputsAndSelectDataObj($inputs) {
 		if ($inputs === undefined) return [];
 		if ($inputs instanceof $ === false) throw new Error('Inputs must be jquery object');
 

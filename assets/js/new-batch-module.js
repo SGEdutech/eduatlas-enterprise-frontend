@@ -58,10 +58,33 @@ const batch = (() => {
 		return tuitionApiCalls.editBatchInCourseInTuition(tuitionId, courseId, batchId, editedData);
 	}
 
+	function isEditedCodeDuplicate(code, batchId, tuitionId) {
+		if (code === undefined) throw new Error('Code is not provided');
+		if (tuitionId === undefined) throw new Error('Tuition id is not provided');
+		if (batchId === undefined) throw new Error('Batch ID not provided');
+
+		const batchesOfThisTuition = batchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
+		return randomScripts.isDuplicate(batchesOfThisTuition, 'code', code, batchId);
+	}
+
+	function isEditedDataValid(editedData, batchId, tuitionId) {
+		if (editedData === undefined) throw new Error('Edited data not provided');
+		if (typeof editedData !== 'object') throw new Error('Edited data must be an object');
+		if (batchId === undefined) throw new Error('Batch ID not provided');
+		if (tuitionId === undefined) throw new Error('Tuition ID not provided');
+
+		if (isEditedCodeDuplicate(editedData.code, batchId, tuitionId)) {
+			alert('A batch with same code exists');
+			return false;
+		}
+		return true;
+	}
+
 	async function editBatch(event, tuitionId, courseId, batchId) {
 		try {
 			event.preventDefault();
-			const editedData = modal.serializeForm();
+			const editedData = modal.getInputsDataObj();
+			if (isEditedDataValid(editedData, batchId, tuitionId) === false) return;
 			const editedBatch = await submitEditRequest(tuitionId, courseId, batchId, editedData);
 			modal.hideModal();
 			notification.push('Batch has been successfully edited');
@@ -114,13 +137,15 @@ const batch = (() => {
 	}
 
 	function isDuplicateCode(tuitionId) {
+		if (tuitionId === undefined) throw new Error('Tuition Id not provided');
+
 		const code = $codeInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
 		const batchesOfThisTuition = batchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
-		let isCodeDuplicate = false;
-		batchesOfThisTuition.forEach(batchObj => {
-			if (batchObj.code === code) isCodeDuplicate = true;
-		});
-		return isCodeDuplicate;
+		if (randomScripts.isDuplicate(batchesOfThisTuition, 'code', code)) {
+			alert('A batch with this code already exists');
+			return true;
+		}
+		return false;
 	}
 
 	async function addBatch(event) {
@@ -128,10 +153,7 @@ const batch = (() => {
 			event.preventDefault();
 			const $form = $(event.target);
 			const tuitionId = $form.attr('data-id');
-			if (isDuplicateCode(tuitionId)) {
-				alert('A batch with same code has already been added');
-				return;
-			}
+			if (isDuplicateCode(tuitionId)) return;
 			const serializedForm = $form.serialize();
 			const courseId = $courseSelectMenu.filter(`[data-tuition-id="${tuitionId}"]`).val();
 			const courseCode = getCourseCode(courseId);
@@ -220,7 +242,6 @@ const batch = (() => {
 		$courseSelectMenu.each((__, selectMenu) => {
 			const $selectMenu = $(selectMenu);
 			const tuitionId = $selectMenu.attr('data-tuition-id');
-
 			const coursesOfThisTuition = distinctCoursesArr.filter(courseObj => courseObj.tuitionId === tuitionId);
 			const courseOptionsHTML = template.courseOptions({ courses: coursesOfThisTuition });
 			$selectMenu.html(courseOptionsHTML).selectpicker('refresh');
