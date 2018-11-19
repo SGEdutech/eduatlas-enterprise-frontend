@@ -49,5 +49,12 @@ const randomScripts = {
 			if (obj[key] === value) isValueDuplicate = true;
 		});
 		return isValueDuplicate;
+	},
+
+	isObjEmpty(obj) {
+		if (obj === undefined) throw new Error('Object is not provided')
+		if (typeof obj !== 'object') throw new Error('Object must be an object')
+
+		return Object.keys(obj).length === 0;
 	}
 };

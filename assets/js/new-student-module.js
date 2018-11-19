@@ -45,11 +45,9 @@ const student = (() => {
 		// FIXME: Check if all elements are inputs
 		$inputs.each((__, input) => {
 			const $input = $(input);
-			if ($input.attr('name') === undefined) {
-				console.log($input);
-			}
+			const inputName = $input.attr('name');
 			const inputValue = $input.val();
-			if (inputValue) nameToValueObj[$input.attr('name')] = inputValue;
+			if (inputName && inputValue) nameToValueObj[inputName] = inputValue;
 		});
 		return nameToValueObj;
 	}
@@ -150,13 +148,6 @@ const student = (() => {
 		}
 	}
 
-	function isInstallmentDatePassed(tuitionId) {
-		const installmentDate = new Date($installmentDateInp.filter(`[data-tuition-id="${tuitionId}"]`).val());
-		// This allows todays date to be added
-		installmentDate.setDate(installmentDate.getDate() + 1);
-		return installmentDate.getTime() < Date.now();
-	}
-
 	// Returns discount amount if in percentage
 	function calibrateDiscountAmount(courseFee, discountAmount) {
 		if (discountAmount === undefined) return 0;
@@ -168,16 +159,58 @@ const student = (() => {
 		return courseFee * (discountAmount / 100);
 	}
 
-	function isRollNumberDuplicate(tuitionId) {
-		const rollNumber = $rollNumberInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
-		const studentsOfThisTuition = distinctStudentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
-		return Boolean(studentsOfThisTuition.find(studentObj => studentObj.rollNumber === rollNumber));
+	function isDatePassed(installmentDate, tuitionId) {
+		if (installmentDate === undefined) throw new Error('Installment date is not provided')
+		if (installmentDate instanceof Date === false) throw new Error('Installment date must be date');
+		if (tuitionId === undefined) throw new Error('Tuition id is not provided')
+
+		// This allows todays date to be added
+		installmentDate.setDate(installmentDate.getDate() + 1);
+		return installmentDate.getTime() < Date.now();
 	}
 
-	function isEmailDuplicate(tuitionId) {
-		const emailId = $studentEmailInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+	function isRollNumberDuplicate(rollNumber, tuitionId) {
+		if (rollNumber === undefined) throw new Error('Roll number is not provided')
+		if (tuitionId === undefined) throw new Error('Tuition id is not provided')
+
 		const studentsOfThisTuition = distinctStudentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
-		return Boolean(studentsOfThisTuition.find(studentObj => studentObj.email === emailId));
+		return randomScripts.isDuplicate(studentsOfThisTuition, 'rollNumber', rollNumber);
+	}
+
+	function isEmailDuplicate(email, tuitionId) {
+		if (email === undefined) throw new Error('Email is not provided')
+		if (tuitionId === undefined) throw new Error('Tuition id is not provided')
+
+		const studentsOfThisTuition = distinctStudentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
+		return randomScripts.isDuplicate(studentsOfThisTuition, 'email', email);
+	}
+
+	// FIXME: Can be optimised if we filter students of this tuition in this function once
+	function isNewStudentDataValid(newStudentData, tuitionId) {
+		if (newStudentData === undefined) throw new Error('Student data is not provided')
+		if (typeof newStudentData !== 'object') throw new Error('Student data must be an object')
+		if (tuitionId === undefined) throw new Error('Tuition ID is not provided')
+
+		const isNextinstallmentDateDefined = Boolean(newStudentData.payments &&
+			typeof newStudentData.payments === 'object' &&
+			typeof newStudentData.payments[0] === 'object' &&
+			newStudentData.payments[0].nextInstallment);
+		if (isNextinstallmentDateDefined) {
+			const nextInstallmentDate = new Date(newStudentData.payments[0].nextInstallment);
+			if (isDatePassed(nextInstallmentDate, tuitionId)) {
+				alert('Installment date you have entered has already passed!');
+				return false;
+			}
+		}
+		if (isRollNumberDuplicate(newStudentData.rollNumber, tuitionId)) {
+			alert('A student with same roll number already exist!');
+			return false;
+		}
+		if (isEmailDuplicate(newStudentData.email, tuitionId)) {
+			alert('A student with same email already exist!');
+			return false;
+		}
+		return true;
 	}
 
 	async function addStudent(event) {
@@ -187,33 +220,23 @@ const student = (() => {
 			alertStudentEmailAlreadyLinked();
 			const $btn = $(event.target);
 			const tuitionId = $btn.attr('data-tuition-id');
-			if (isInstallmentDatePassed(tuitionId)) {
-				alert('Installment date you have entered has already passed!');
-				return;
-			}
-			if (isRollNumberDuplicate(tuitionId)) {
-				alert('A student with same roll number already exist!');
-				return;
-			}
-			if (isEmailDuplicate(tuitionId)) {
-				alert('A student with same email already exist!');
-				return;
-			}
 			const studentObj = getNameToValueObj($studentInputs.filter(`[data-tuition-id="${tuitionId}"]`).not('.not-submit'));
 			const payments = getNameToValueObj($paymentDetailsInputs.filter(`[data-tuition-id="${tuitionId}"]`).not('.not-submit'));
-			const courseFee = $courseFee.val();
-			if (courseFee && payments.discountAmount) {
-				payments.discountAmount = calibrateDiscountAmount(courseFee, payments.discountAmount);
-			} else if (courseFee) {
-				delete payments.discountAmount;
+			if (randomScripts.isObjEmpty(payments) === false) {
+				if (payments.courseFee) {
+					payments.discountAmount = calibrateDiscountAmount(payments.courseFee, payments.discountAmount);
+					studentObj.payments = [payments];
+				} else {
+					alert('Payment details won\'t be updated as course fee is not provided');
+				}
 			}
-			studentObj.payments = [payments];
 			const batchInfo = getNameToValueObj($studentCourseBatchInputs.filter(`[data-tuition-id="${tuitionId}"]`).not('.not-submit'));
 			let isBatchAllocated = false;
 			if (batchInfo.courseId && batchInfo.batchId) {
 				studentObj.batchInfo = batchInfo;
 				isBatchAllocated = true;
 			}
+			if (isNewStudentDataValid(studentObj, tuitionId) === false) return;
 			const newStudent = await tuitionApiCalls.putStudentInTuition(tuitionId, studentObj);
 			newStudent.tuitionId = tuitionId;
 			PubSub.publish('student.add', newStudent);
@@ -271,6 +294,7 @@ const student = (() => {
 					courseFee = fees + (fees * (gstPercentage / 100));
 				}
 			});
+			courseFee = courseFee === 0 ? '' : courseFee;
 			$input.val(courseFee);
 		});
 	}
