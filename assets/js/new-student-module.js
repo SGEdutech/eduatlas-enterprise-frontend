@@ -33,8 +33,10 @@ const student = (() => {
 	let $compulsoryFieldsContainer;
 	let $addStudentBtn;
 	let $additionalFieldsContainer;
+	let $installmentDetailsContainers;
 	let $studentInputs;
 	let $rollNumberInp;
+	let $installmentDetailsInputs;
 
 	function getNameToValueObj($inputs) {
 		if ($inputs === undefined) throw new Error('Inputs not provided');
@@ -231,14 +233,20 @@ const student = (() => {
 			const $btn = $(event.target);
 			const tuitionId = $btn.attr('data-tuition-id');
 			const studentObj = getNameToValueObj($studentInputs.filter(`[data-tuition-id="${tuitionId}"]`).not('.not-submit'));
-			const payments = getNameToValueObj($paymentDetailsInputs.filter(`[data-tuition-id="${tuitionId}"]`).not('.not-submit'));
-			if (randomScripts.isObjEmpty(payments) === false) {
-				if (payments.courseFee) {
-					payments.discountAmount = calibrateDiscountAmount(payments.courseFee, payments.discountAmount);
-					studentObj.payments = [payments];
+			const payment = getNameToValueObj($paymentDetailsInputs.filter(`[data-tuition-id="${tuitionId}"]`).not('.not-submit'));
+			const installment = getNameToValueObj($installmentDetailsInputs.filter(`[data-tuition-id="${tuitionId}"]`).not('.not-submit'));
+			if (randomScripts.isObjEmpty(payment) === false) {
+				if (payment.courseFee) {
+					payment.discountAmount = calibrateDiscountAmount(payment.courseFee, payment.discountAmount);
+					studentObj.payments = [payment];
+					if (randomScripts.isObjEmpty(installment) === false) {
+						payment.installments = [installment];
+					}
 				} else {
 					alert('Payment details won\'t be updated as course fee is not provided');
 				}
+			} else if (randomScripts.isObjEmpty(installment)) {
+				alert('Installment details won\'t be updated as you haven\'t setup payment details yet');
 			}
 			const batchInfo = getNameToValueObj($studentCourseBatchInputs.filter(`[data-tuition-id="${tuitionId}"]`).not('.not-submit'));
 			let isBatchAllocated = false;
@@ -452,6 +460,8 @@ const student = (() => {
 		$studentCourseBatchInputs = $studentCourseBatchContainer.find('select');
 		$studentInputs = $compulsoryFieldsInputs.add($additionalFieldsInputs);
 		$rollNumberInp = $('.student-roll-number');
+		$installmentDetailsContainers = $('.student-fee-container');
+		$installmentDetailsInputs = $installmentDetailsContainers.find('input');
 	}
 
 	function cacheDynamic() {
