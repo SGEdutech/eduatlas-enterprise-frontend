@@ -94,6 +94,28 @@ edit_school_body .dropdown-toggle {
 	border: 0.5px solid #00bcd4
 }
 
+#Form1 input[type="text"],
+#Form1 input[type="number"],
+#Form1 input[type="email"],
+#Form1 input[type="date"],
+#Form1 input[type="time"],
+#Form1 textarea,
+#Form1 select,
+#Form1 .dropdown-toggle {
+	border: 0.5px solid #00bcd4
+}
+
+#Form2 input[type="text"],
+#Form2 input[type="number"],
+#Form2 input[type="email"],
+#Form2 input[type="date"],
+#Form2 input[type="time"],
+#Form2 textarea,
+#Form2 select,
+#Form2 .dropdown-toggle {
+	border: 0.5px solid #00bcd4
+}
+
 
 .card-title.bg-info {
 	background-color: #00bcd44d !important;

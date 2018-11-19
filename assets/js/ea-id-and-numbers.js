@@ -32,7 +32,7 @@ const eAIdsAndNumbers = (() => {
 	}
 
 	function numberToEaId(currentNumber, currentString) {
-		if (currentNumber === undefined) throw new Error('Number not provided');
+		if (currentNumber === undefined) return
 		if (typeof currentNumber !== 'number') throw new Error('Type of current number is not number');
 		if (currentString === undefined) currentString = 'aaa'
 

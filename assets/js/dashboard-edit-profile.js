@@ -24,14 +24,14 @@ const dashboardEditProfile = (() => {
 	}
 
 	function submitForm(user, formNumber) {
-		console.log(formNumber);
+		// console.log(formNumber);
 		let formToSubmit;
 		if (formNumber === 1) {
 			formToSubmit = $Form1;
 		} else if (formNumber === 2) {
 			formToSubmit = $Form2;
 		}
-		console.log(formToSubmit)
+		// console.log(formToSubmit)
 		const editUserPromise = $.ajax({
 			url: '/user/' + user._id,
 			type: 'PUT',
@@ -39,7 +39,7 @@ const dashboardEditProfile = (() => {
 		});
 
 		editUserPromise.then(data => {
-			console.log(data);
+			// console.log(data);
 			alert("Saved SuccessFully")
 		}).catch((err) => {
 			console.log(err);
