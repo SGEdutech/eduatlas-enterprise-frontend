@@ -82,24 +82,34 @@ const student = (() => {
 		}
 	}
 
-	function isEditedEmailDuplicate(email, idOfStudentBeingEdited) {
+	function isEditedEmailDuplicate(email, idOfStudentBeingEdited, tuitionId) {
 		if (email === undefined) throw new Error('Email not provided');
-		return randomScripts.isDuplicate(distinctStudentsArr, 'email', email, idOfStudentBeingEdited);
+		if (idOfStudentBeingEdited === undefined) throw new Error('Id of student being edited is not provided')
+
+		const studentsOfThisTuititon = distinctStudentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
+		return randomScripts.isDuplicate(studentsOfThisTuititon, 'email', email, idOfStudentBeingEdited);
 	}
 
-	function isEditedRollNumberDuplicate(rollNumber, idOfStudentBeingEdited) {
+	function isEditedRollNumberDuplicate(rollNumber, idOfStudentBeingEdited, tuitionId) {
 		if (rollNumber === undefined) throw new Error('Roll number not provided');
-		return randomScripts.isDuplicate(distinctStudentsArr, 'rollNumber', rollNumber, idOfStudentBeingEdited);
+		if (idOfStudentBeingEdited === undefined) throw new Error('Id of student being edited is not provided')
+		if (tuitionId === undefined) throw new Error('Tutition id is not provided')
+
+		const studentsOfThisTuititon = distinctStudentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
+		return randomScripts.isDuplicate(studentsOfThisTuititon, 'rollNumber', rollNumber, idOfStudentBeingEdited);
 	}
 
-	function validateEditedData(data, idOfStudentBeingEdited) {
-		if (data === undefined) throw new Error('Data not provide');
-		if (typeof data !== 'object') throw new Error('Data must be an object');
-		if (isEditedRollNumberDuplicate(data.rollNumber, idOfStudentBeingEdited)) {
+	function validateEditedData(editedData, idOfStudentBeingEdited, tuitionId) {
+		if (editedData === undefined) throw new Error('Data not provide');
+		if (typeof editedData !== 'object') throw new Error('Data must be an object');
+		if (idOfStudentBeingEdited === undefined) throw new Error('Id of student being edited is not provided')
+		if (tuitionId === undefined) throw new Error('Tutition id is not provided')
+
+		if (isEditedRollNumberDuplicate(editedData.rollNumber, idOfStudentBeingEdited, tuitionId)) {
 			alert('Roll number already exist');
 			return false;
 		}
-		if (isEditedEmailDuplicate(data.email, idOfStudentBeingEdited)) {
+		if (isEditedEmailDuplicate(editedData.email, idOfStudentBeingEdited, tuitionId)) {
 			alert('Email already exist');
 			return false;
 		}
@@ -110,7 +120,7 @@ const student = (() => {
 		try {
 			event.preventDefault();
 			const editedData = modal.getInputsDataObj();
-			if (validateEditedData(editedData, studentId) === false) return;
+			if (validateEditedData(editedData, studentId, tuitionId) === false) return;
 			const editedStudent = await tuitionApiCalls.editStudentInTuition(tuitionId, studentId, editedData);
 			modal.hideModal();
 			notification.push('Student has been successfully edited');
@@ -286,15 +296,12 @@ const student = (() => {
 			const tuitionId = $input.attr('data-tuition-id');
 
 			const courseId = $courseSelectContainer.filter(`[data-tuition-id="${tuitionId}"]`).val();
-			let courseFee = 0;
-			distinctCoursesArr.forEach(courseObj => {
-				if (courseObj._id === courseId) {
-					const fees = parseFloat(courseObj.fees, 10) || 0;
-					const gstPercentage = parseFloat(courseObj.gstPercentage, 10) || 0;
-					courseFee = fees + (fees * (gstPercentage / 100));
-				}
-			});
-			courseFee = courseFee === 0 ? '' : courseFee;
+			const courseInfo = distinctCoursesArr.find(courseObj => courseObj._id === courseId);
+			if (courseInfo === undefined) {
+				$input.val('');
+				return;
+			}
+			const courseFee = randomScripts.calcTotalCourseFee(courseInfo.fees, courseInfo.gstPercentage);
 			$input.val(courseFee);
 		});
 	}
