@@ -10,14 +10,6 @@ const course = (() => {
 	let $totalFee;
 	let $inclusiveTaxCheckbox;
 
-	function calcTotalFee(fee, gstPercentage) {
-		if (fee === undefined) throw new Error('Fee not provided!');
-		gstPercentage = gstPercentage || 0;
-
-		const totalFee = fee + fee * (gstPercentage / 100);
-		return totalFee.toFixed(2);
-	}
-
 	function submitAddCourse(tuitionId, newCourseDetails) {
 		return tuitionApiCalls.putCourseInTuition(tuitionId, newCourseDetails);
 	}
@@ -72,7 +64,7 @@ const course = (() => {
 		const tuitionId = $editBtn.attr('data-tuition-id');
 		const courseId = $editBtn.attr('data-course-id');
 		const courseInfo = coursesArr.find(courseToBeEdited => courseToBeEdited._id === courseId);
-		courseInfo.tatalFee = calcTotalFee(courseInfo.fees, courseInfo.gstPercentage);
+		courseInfo.tatalFee = randomScripts.calcTotalCourseFee(courseInfo.fees, courseInfo.gstPercentage);
 		const editCourseInputHTML = template.courseEditInputs(courseInfo);
 		modal.renderFormContent(editCourseInputHTML);
 		modal.bindSubmitEvent(e => editCourse(e, tuitionId, courseId));
@@ -131,7 +123,7 @@ const course = (() => {
 		let gstPercentage = $gstInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
 		courseFee = parseFloat(courseFee, 10) || 0;
 		gstPercentage = parseFloat(gstPercentage, 10) || 0;
-		const totalFee = calcTotalFee(courseFee, gstPercentage);
+		const totalFee = randomScripts.calcTotalCourseFee(courseFee, gstPercentage);
 		$totalFee.filter(`[data-tuition-id="${tuitionId}"]`).val(totalFee);
 	}
 
@@ -165,7 +157,7 @@ const course = (() => {
 	}
 
 	function injectTotalFees(arrayOfCourses) {
-		arrayOfCourses.forEach(courseObj => courseObj.totalFee = calcTotalFee(courseObj.fees, courseObj.gstPercentage));
+		arrayOfCourses.forEach(courseObj => courseObj.totalFee = randomScripts.calcTotalCourseFee(courseObj.fees, courseObj.gstPercentage));
 	}
 
 	function cache() {

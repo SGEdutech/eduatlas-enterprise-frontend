@@ -56,5 +56,13 @@ const randomScripts = {
 		if (typeof obj !== 'object') throw new Error('Object must be an object')
 
 		return Object.keys(obj).length === 0;
+	},
+
+	calcTotalCourseFee(fee, gstPercentage) {
+		if (fee === undefined) throw new Error('Fee not provided!');
+		gstPercentage = gstPercentage || 0;
+
+		const totalFee = fee + fee * (gstPercentage / 100);
+		return totalFee.toFixed(2);
 	}
 };
