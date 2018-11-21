@@ -95,6 +95,7 @@ const schedule = (() => {
 		$staticInps = $staticScheduleCol.find('input');
 		$staticSelects = $staticScheduleCol.find('select');
 		$validationForm = $('.schedule-validation-form');
+		$fromDate = $('.from-date');
 	}
 
 	function cacheDynamic() {
@@ -102,7 +103,6 @@ const schedule = (() => {
 		$deleteButton = $('.delete-schedule-btn');
 		$addScheduleContainer = $('.add-schedule-container');
 		$scheduleRow = $addScheduleContainer.find('.schedule-row');
-		$fromDate = $('.from-date');
 		$toDate = $('.to-date');
 		$timePicker = $('.time-picker');
 		$datePicker = $('.date-picker');
@@ -183,11 +183,10 @@ const schedule = (() => {
 				scheduleInfo = batchObj.schedules.find(scheduleToBeEdited => scheduleToBeEdited._id === scheduleId);
 			}
 		});
-		console.log(scheduleInfo);
 		scheduleInfo.date = scheduleInfo.date.split('T')[0];
 		const editscheduleInputHTML = template.scheduleEditInputs(scheduleInfo);
 		modal.renderFormContent(editscheduleInputHTML);
-		modal.bindSubmitEvent((e) => editschedule(e, tuitionId, courseId, batchId, scheduleId));
+		modal.bindSubmitEvent(e => editschedule(e, tuitionId, courseId, batchId, scheduleId));
 		modal.initDatetimepicker();
 		modal.showModal();
 	}
@@ -256,12 +255,12 @@ const schedule = (() => {
 	function bindEvents() {
 		$addClassEntryBtn.click(appendMoreAddScheduleInputs);
 		$validationForm.submit(addSchedule);
+		$fromDate.blur(updateTodateAndSelectDays);
 	}
 
 	function bindDynamicEvents() {
 		$editButton.click(editModalInit);
 		$deleteButton.click(deleteSchedule);
-		$fromDate.blur(updateTodateAndSelectDays);
 	}
 
 	function sortByWeek(batchObj) {

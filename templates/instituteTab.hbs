@@ -351,7 +351,7 @@
 															</div>
 															<div class="col-md-6 form-group">
 																<label for="next_install" class="bmd-label-floating">Next Installment Date</label>
-																<input name="nextInstallment" type="date" class="form-control student-installment-date-inp" data-tuition-id="{{_id}}">
+																<input name="nextInstallmentDate" type="date" class="form-control student-installment-date-inp" data-tuition-id="{{_id}}">
 															</div>
 														</div>
 													</div>
@@ -879,13 +879,13 @@
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="label-control">From Date</label>
-														<input type="text" name="from-date" class="form-control date-picker from-date" required data-tuition-id="{{_id}}" data-tuition-id="{{_id}}">
+														<input type="date" name="from-date" class="form-control from-date" required data-tuition-id="{{_id}}">
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="label-control">To Date</label>
-														<input name="to-date" type="text" class="form-control date-picker to-date" required data-tuition-id="{{_id}}" data-tuition-id="{{_id}}" disabled>
+														<input name="to-date" type="text" class="form-control date-picker to-date" required data-tuition-id="{{_id}}" disabled>
 													</div>
 												</div>
 												<div class="col-md-12 add-schedule-container" data-tuition-id="{{_id}}">

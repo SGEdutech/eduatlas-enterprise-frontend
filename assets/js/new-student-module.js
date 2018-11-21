@@ -274,8 +274,6 @@ const student = (() => {
 			} else if (randomScripts.isObjEmpty(installment)) {
 				alert('Installment details won\'t be updated as you haven\'t setup payment details yet');
 			}
-			console.log(payment);
-			return;
 			const batchInfo = getNameToValueObj($studentCourseBatchInputs.filter(`[data-tuition-id="${tuitionId}"]`).not('.not-submit'));
 			let isBatchAllocated = false;
 			if (batchInfo.courseId && batchInfo.batchId) {
