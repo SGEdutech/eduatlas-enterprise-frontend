@@ -92,13 +92,13 @@ const finance = (() => {
 		$modeOfPaymentDetailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).html(inputsHTML);
 	}
 
+	// FIXME: Find a more efficient way to unbind
 	function unbindAllDetailsElements(tuitionId) {
-		if (tuitionId === undefined) {
-			console.error('Tuition id not provided');
-			return;
+		if (tuitionId) {
+			$detailsDisplayContainer.filter(`[data-tuition-id="${tuitionId}"]`).find('*').off();
+		} else {
+			$detailsDisplayContainer.filter(`[data-tuition-id="${tuitionId}"]`).find('*').off();
 		}
-		// FIXME: Find a more efficient way to unbind
-		$detailsDisplayContainer.filter(`[data-tuition-id="${tuitionId}"]`).find('*').off();
 	}
 
 	async function addInstallment(event) {
@@ -372,6 +372,7 @@ const finance = (() => {
 	}
 
 	function refresh(opts) {
+		unbindAllDetailsElements()
 		render(opts);
 		cacheDynamic();
 		bindDynamic();
@@ -398,7 +399,7 @@ const finance = (() => {
 		bindDynamic();
 	}
 
-	PubSub.subscribe('students.add', (msg, studentAdded) => {
+	PubSub.subscribe('student.add', (msg, studentAdded) => {
 		if (Array.isArray(studentAdded)) {
 			distinctStudentsArr = studentsArr.concat(studentAdded);
 		} else {
@@ -407,28 +408,13 @@ const finance = (() => {
 		refresh();
 	});
 
-	PubSub.subscribe('students.edit', (msg, studentEdited) => {
+	PubSub.subscribe('student.edit', (msg, studentEdited) => {
 		distinctStudentsArr = distinctStudentsArr.map(studentObj => studentObj._id === studentEdited._id ? studentEdited : studentObj);
 		refresh();
 	});
 
-	PubSub.subscribe('students.delete', (msg, studentDeleted) => {
+	PubSub.subscribe('student.delete', (msg, studentDeleted) => {
 		distinctStudentsArr = distinctStudentsArr.filter(studentObj => studentObj._id !== studentDeleted._id);
-		refresh();
-	});
-
-	PubSub.subscribe('batch.add', (msg, addedBatch) => {
-		distinctBatchesArr.push(addedBatch);
-		refresh();
-	});
-
-	PubSub.subscribe('batch.edit', (msg, editedBatch) => {
-		distinctBatchesArr = distinctBatchesArr.map(batchObj => batchObj._id === editedBatch._id ? editedBatch : batchObj);
-		refresh();
-	});
-
-	PubSub.subscribe('batch.delete', (msg, removedBatch) => {
-		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj._id !== removedBatch._id);
 		refresh();
 	});
 

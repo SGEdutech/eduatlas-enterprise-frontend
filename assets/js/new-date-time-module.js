@@ -1,5 +1,4 @@
 const dateAndTime = (() => {
-
 	function inverseMinutesFromMidnight(minutesFromMidnight) {
 		const dt = new Date(0, 0, 0);
 		const time = new Date(dt.getTime() + minutesFromMidnight * 60000);
@@ -96,6 +95,7 @@ const dateAndTime = (() => {
 		const dateToReturn = moment(date).endOf('isoweek');
 		return dateToReturn;
 	}
+
 	return {
 		getDaysTillSunday,
 		getNextSunday,
