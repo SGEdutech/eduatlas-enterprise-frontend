@@ -9,9 +9,12 @@ const student = (() => {
 	let $studentContainer;
 	let $courseSelectContainer;
 	let $batchSelectContainer;
+	let $courseCode;
 	let $courseFee;
 	let $netFee;
-	let $discountAmount;
+	let $totalDiscountAmount;
+	let $additionalDiscountInp;
+	let $discountReason;
 	let $feeCollectedInp;
 	let $balancePending;
 	let $studentNameInp;
@@ -54,15 +57,38 @@ const student = (() => {
 		return nameToValueObj;
 	}
 
-	function getDiscountedAmount(totalAmount, discount) {
-		discount = discount.toString();
-		const isPercentage = discount.charAt(discount.length - 1) === '%';
-		discount = parseFloat(discount, 10);
-
-		if (isPercentage) {
-			return totalAmount - (totalAmount * (discount / 100));
+	function calcTotalDiscountedAmount({ baseFee, discount, isPercent }) {
+		if (baseFee === undefined) throw new Error('Base fee is not provided')
+		if (discount === undefined) throw new Error('Discount is not provided')
+		if (isPercent) {
+			return baseFee * (discount / 100);
 		}
-		return totalAmount - discount;
+		return discount;
+	}
+
+	function getTotalDiscountAmount(tuitionId) {
+		if (tuitionId === undefined) throw new Error('Tuition Id is not provided')
+
+		const baseFee = $courseFee.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		const discountId = $discountSelectContainer.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		const discountCoupenInfo = distinctDiscountsArr.find(discountObj => discountObj._id === discountId);
+		let totalDiscount = 0;
+		if (discountCoupenInfo) {
+			const { amount, isPercent } = discountCoupenInfo;
+			totalDiscount += calcTotalDiscountedAmount({ baseFee, discount: amount, isPercent });
+		}
+		const additionalDiscount = parseInt($additionalDiscountInp.filter(`[data-tuition-id="${tuitionId}"]`).val(), 10) || 0;
+		totalDiscount += additionalDiscount;
+		return totalDiscount;
+	}
+
+	function getNetFee(tuitionId) {
+		if (tuitionId === undefined) throw new Error('Tuition Id is not provided')
+
+		const courseId = $courseSelectContainer.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		if (Boolean(courseId) === false) return 0;
+		const courseFee = parseFloat(distinctCoursesArr.find(courseObj => courseObj._id === courseId).fees);
+		return courseFee - getTotalDiscountAmount(tuitionId);
 	}
 
 	function sortStudentArray(studentArr) {
@@ -248,6 +274,8 @@ const student = (() => {
 			} else if (randomScripts.isObjEmpty(installment)) {
 				alert('Installment details won\'t be updated as you haven\'t setup payment details yet');
 			}
+			console.log(payment);
+			return;
 			const batchInfo = getNameToValueObj($studentCourseBatchInputs.filter(`[data-tuition-id="${tuitionId}"]`).not('.not-submit'));
 			let isBatchAllocated = false;
 			if (batchInfo.courseId && batchInfo.batchId) {
@@ -276,26 +304,44 @@ const student = (() => {
 			const $input = $(input);
 			const tuitionId = $input.attr('data-tuition-id');
 
-			const courseFee = $courseFee.filter(`[data-tuition-id="${tuitionId}"]`).val() || 0;
-			const discountAmount = $discountAmount.filter(`[data-tuition-id="${tuitionId}"]`).val() || 0;
-
-			const netFee = getDiscountedAmount(courseFee, discountAmount).toFixed(2);
-			$input.val(netFee);
+			const courseId = $courseSelectContainer.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			if (Boolean(courseId) === false) {
+				$input.val(0);
+				return;
+			}
+			const courseFee = distinctCoursesArr.find(courseObj => courseObj._id === courseId).fees;
+			const totalDiscountAmount = getTotalDiscountAmount(tuitionId);
+			$input.val(courseFee - totalDiscountAmount);
 		});
 	}
 
 	function renderBalancePending() {
-		// FIXME: Make a function for calculation of net fee
 		$balancePending.each((__, input) => {
 			const $input = $(input);
 			const tuitionId = $input.attr('data-tuition-id');
 
-			const netFee = $netFee.filter(`[data-tuition-id="${tuitionId}"]`).val();
-			const feeCollected = $feeCollectedInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const netFee = getNetFee(tuitionId);
+			const feeCollected = parseInt($feeCollectedInp.filter(`[data-tuition-id="${tuitionId}"]`).val(), 10) || 0;
 
 			const balancePending = (netFee - feeCollected).toFixed(2);
 			$input.val(balancePending);
 		});
+	}
+
+	function renderDiscountReason(event) {
+		const $select = $(event.target);
+		const discountId = $select.val();
+		const tuitionId = $select.attr('data-tuition-id');
+		const discountCode = distinctDiscountsArr.find(discountObj => discountObj._id === discountId).code;
+		$discountReason.filter(`[data-tuition-id="${tuitionId}"]`).val(discountCode);
+	}
+
+	function renderCourseCode(event) {
+		const $select = $(event.target);
+		const courseId = $select.val();
+		const tuitionId = $select.attr('data-tuition-id');
+		const courseCode = distinctCoursesArr.find(courseObj => courseObj._id === courseId).code;
+		$courseCode.filter(`[data-tuition-id="${tuitionId}"]`).val(courseCode);
 	}
 
 	function renderCourseFee() {
@@ -402,12 +448,13 @@ const student = (() => {
 		$exelUploadInp.filter(`[data-tuition-id="${tuitionId}"]`).parse({ config: { complete: data => displaystudents(data, tuitionId), header: true } });
 	}
 
-	function renderDiscountAmount() {
-		$discountSelectContainer.each((__, selectInp) => {
-			const $selectInp = $(selectInp);
-			const tuitionId = $selectInp.attr('data-tuition-id');
-			const discount = $selectInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
-			$discountAmount.filter(`[data-tuition-id="${tuitionId}"]`).val(discount);
+	function renderTotalDiscountAmount() {
+		$totalDiscountAmount.each((__, inp) => {
+			const $inp = $(inp);
+			const tuitionId = $inp.attr('data-tuition-id');
+
+			const totalDiscountAmount = getTotalDiscountAmount(tuitionId);
+			$inp.val(totalDiscountAmount);
 		});
 	}
 
@@ -429,8 +476,10 @@ const student = (() => {
 		$courseSelectContainer = $('.student-course-select-menu');
 		$batchSelectContainer = $('.student-batch-select-menu');
 		$courseFee = $('.student-course-fee');
+		$courseCode = $('.student-course-code');
 		$netFee = $('.student-net-fee');
-		$discountAmount = $('.student-discount-amount');
+		$totalDiscountAmount = $('.student-total-discount-amount');
+		$additionalDiscountInp = $('.student-additional-discount');
 		$feeCollectedInp = $('.student-fee-colected');
 		$balancePending = $('.student-balance-pending');
 		$studentNameInp = $('.student-name-inp');
@@ -449,6 +498,7 @@ const student = (() => {
 		$studentSearchReset = $('.student-search-reset');
 		$installmentDateInp = $('.student-installment-date-inp');
 		$discountSelectContainer = $('.student-discount-code-select');
+		$discountReason = $('.student-discount-reason');
 		$compulsoryFieldsContainer = $('.compulsory-fields-container');
 		$compulsoryFieldsInputs = $compulsoryFieldsContainer.find('input');
 		$paymentDetailsContainer = $('.payment-details-container');
@@ -480,19 +530,19 @@ const student = (() => {
 		$studentSearchInp.on('input paste', renderSearchResults);
 
 		$courseSelectContainer.change(renderBatchSelectMenu);
+		$courseSelectContainer.change(renderCourseCode);
 		$courseSelectContainer.change(renderCourseFee);
 		$courseSelectContainer.change(renderNetFee);
 		$courseSelectContainer.change(renderBalancePending);
 
-		$courseFee.on('input paste', renderNetFee);
-		$courseFee.on('input paste', renderBalancePending);
+		$additionalDiscountInp.on('input paste', renderNetFee);
+		$additionalDiscountInp.on('input paste', renderTotalDiscountAmount);
+		$additionalDiscountInp.on('input paste', renderBalancePending);
 
-		$discountAmount.on('input paste', renderNetFee);
-		$discountAmount.on('input paste', renderBalancePending);
-
-		$discountSelectContainer.change(renderDiscountAmount);
+		$discountSelectContainer.change(renderTotalDiscountAmount);
 		$discountSelectContainer.change(renderNetFee);
 		$discountSelectContainer.change(renderBalancePending);
+		$discountSelectContainer.change(renderDiscountReason);
 
 		$feeCollectedInp.on('input paste', renderBalancePending);
 	}
@@ -549,11 +599,6 @@ const student = (() => {
 			const discountOptionsHTML = template.discountSelectOptions({ discounts: discountsOfThisTuition });
 			$container.html(discountOptionsHTML).selectpicker('refresh');
 		});
-
-		renderBatchSelectMenu();
-		renderCourseFee();
-		renderNetFee();
-		renderBalancePending();
 	}
 
 	function refresh(studentsArr, renderTuitionId) {
