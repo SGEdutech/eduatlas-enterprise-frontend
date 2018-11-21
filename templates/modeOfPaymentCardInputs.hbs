@@ -1,12 +1,23 @@
+{{#if financeModule}}
+<div class="col-md-3 font-weight-bold">
+    Bank Name:
+</div>
+<div class="col-md-3">
+    <input name="bank" type="text" class="form-control" data-tuition-id="{{_id}}">
+</div>
+<div class="col-md-3 font-weight-bold">
+    Transaction Id:
+</div>
+<div class="col-md-3">
+    <input name="transactionId" type="text" class="form-control" data-tuition-id="{{_id}}">
+</div>
+{{else}}
 <div class="col-md-4 form-group">
     <label class="bmd-label-floating">Bank Name</label>
     <input name="bank" type="text" class="form-control" data-tuition-id="{{_id}}">
 </div>
 <div class="col-md-4 form-group">
-    <label class="bmd-label-floating">Card Number</label>
-    <input name="cardNumber" type="text" class="form-control" data-tuition-id="{{_id}}">
-</div>
-<div class="col-md-4 form-group">
     <label class="bmd-label-floating">Transaction Id</label>
     <input name="transactionId" type="text" class="form-control" data-tuition-id="{{_id}}">
 </div>
+{{/if}}

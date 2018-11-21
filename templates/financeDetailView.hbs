@@ -1,248 +1,223 @@
-<div class="card-title h3">Batman</div>
-<div class="row">
-    <div class="col-md-3 font-weight-bold">Course Name:</div>
-    <div class="col-md-3">JEE 18</div>
-    <div class="col-md-3 font-weight-bold">
-        Course Fee:
-    </div>
-    <div class="col-md-3">
-        50000
-    </div>
-    <div class="col-md-3 font-weight-bold">
-        Discount Amount:
-    </div>
-    <div class="col-md-3">
-        4000
-    </div>
-    <div class="col-md-3 font-weight-bold">
-        Discount Reason:
-    </div>
-    <div class="col-md-3">
-        Diwali Offer
-    </div>
-    <div class="col-md-3 font-weight-bold">
-        Net Fee:
-    </div>
-    <div class="col-md-3">
-        46000
-    </div>
-    <div class="col-md-3 font-weight-bold">
-        Pending Balance:
-    </div>
-    <div class="col-md-3">
-        2000
-    </div>
-    <div class="col-md-3 font-weight-bold">
-        Pending Balance:
-    </div>
-    <div class="col-md-3">
-        2000
-    </div>
-    <div class="col-md-3 font-weight-bold">
-        Next Installment Date:
-    </div>
-    <div class="col-md-3">
-        23/11/18
-    </div>
-</div>
+<div class="card-title h3 bg-info">{{name}}</div>
+{{#each payments as |payment|}}
 <div class="card">
-    <div class="card-body">
-        <div class="card-title m-0 text-info">Installment 1</div>
-        <div class="row">
-            <div class="col-md-3 font-weight-bold">
-                Collected Fee:
+    <div class="card-body p-0">
+        <div class="card bg-info m-0 rounded-0">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 font-weight-bold">Course Code:</div>
+                    <div class="col-md-3">{{payment.courseCode}}</div>
+                    <div class="col-md-3 font-weight-bold">
+                        Course Fee:
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.courseFee}}
+                    </div>
+                    <div class="col-md-3 font-weight-bold">
+                        Discount Amount:
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.discountAmount}}
+                    </div>
+                    <div class="col-md-3 font-weight-bold">
+                        Discount Reason:
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.discountReason}}
+                    </div>
+                    <div class="col-md-3 font-weight-bold">
+                        Net Fee:
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.netFee}}
+                    </div>
+                    <div class="col-md-3 font-weight-bold">
+                        Pending Balance:
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.pendingBalance}}
+                    </div>
+                    <div class="col-md-3 font-weight-bold">
+                        Next Installment Date:
+                    </div>
+                    <div class="col-md-3 text-danger">
+                        {{payment.nextInstallmentDate}}
+                    </div>
+                </div>
             </div>
-            <div class="col-md-3">
-                50000
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Mode Of Paymnet:
-            </div>
-            <div class="col-md-3">
-                Cheque
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Bank Name:
-            </div>
-            <div class="col-md-3">
-                PNB
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Date Of Cheque:
-            </div>
-            <div class="col-md-3">
-                23/11/1996
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Cheque Number:
-            </div>
-            <div class="col-md-3">
-                345633
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Next Installment:
-            </div>
-            <div class="col-md-3 text-danger">
-                23/11/18
+            <div class="card-footer">
+                <div class="stats ml-auto">
+                    <i class="material-icons delete-payment-btn" style="top: 0%; cursor: pointer;" data-student-id="{{../_id}}"
+                        data-payment-id="{{payment._id}}" data-tuition-id="{{../tuitionId}}">delete</i>
+                    <i class="material-icons payment-edit-btn" style="top: 0%; cursor: pointer;" data-student-id="{{../_id}}"
+                        data-payment-id="{{payment._id}}" data-tuition-id="{{../tuitionId}}">edit</i>
+                </div>
             </div>
         </div>
-        <div class="card-footer p-0">
-            <div class="stats ml-auto">
-                <i class="material-icons delete-batch-btn" style="top: 0%; cursor: pointer;" data-batch-id="{{_id}}"
-                    data-tuition-id="{{tuitionId}}" data-course-id="{{courseId}}">delete</i>
-                <i class="material-icons batch-edit" style="top: 0%; cursor: pointer;" data-batch-id="{{_id}}"
-                    data-tuition-id="{{tuitionId}}" data-course-id="{{courseId}}">edit</i>
+        <div class="px-3">
+            {{#each payment.installments as |installment|}}
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title m-0 h4 mb-3">Installment {{inc @index}}</div>
+                    <div class="row">
+                        <div class="col-md-3 font-weight-bold">
+                            Collected Fee:
+                        </div>
+                        <div class="col-md-3">
+                            {{installment.feeCollected}}
+                        </div>
+                        <div class="col-md-3 font-weight-bold">
+                            Mode Of Payment:
+                        </div>
+                        <div class="col-md-3">
+                            {{installment.modeOfPayment}}
+                        </div>
+                        {{#if installment.bank}}
+                        <div class="col-md-3 font-weight-bold">
+                            Bank Name:
+                        </div>
+                        <div class="col-md-3">
+                            {{installment.bank}}
+                        </div>
+                        {{/if}}
+                        {{#if installment.dateOfCheque}}
+                        <div class="col-md-3 font-weight-bold">
+                            Date Of Cheque:
+                        </div>
+                        <div class="col-md-3">
+                            {{installment.dateOfCheque}}
+                        </div>
+                        {{/if}}
+                        {{#if installment.chequeNumber}}
+                        <div class="col-md-3 font-weight-bold">
+                            Cheque Number:
+                        </div>
+                        <div class="col-md-3">
+                            {{installment.chequeNumber}}
+                        </div>
+                        {{/if}}
+                        {{#if installment.cardNumber}}
+                        <div class="col-md-3 font-weight-bold">
+                            Card Number:
+                        </div>
+                        <div class="col-md-3">
+                            {{installment.cardNumber}}
+                        </div>
+                        {{/if}}
+                        {{#if installment.transactionId}}
+                        <div class="col-md-3 font-weight-bold">
+                            Transaction Id:
+                        </div>
+                        <div class="col-md-3">
+                            {{installment.transactionId}}
+                        </div>
+                        {{/if}}
+                    </div>
+                    <div class="card-footer p-0">
+                        <div class="stats ml-auto">
+                            <i class="material-icons delete-installment-btn" style="top: 0%; cursor: pointer;"
+                                data-student-id="{{../../_id}}" data-payment-id="{{payment._id}}" data-tuition-id="{{../../tuitionId}}"
+                                data-installment-id="{{installment._id}}">delete</i>
+                            <i class="material-icons installment-edit-btn" style="top: 0%; cursor: pointer;"
+                                data-student-id="{{../../_id}}" data-payment-id="{{payment._id}}" data-tuition-id="{{../../tuitionId}}"
+                                data-installment-id="{{installment._id}}">edit</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            <div class="card">
+                <form class="add-installment-form" data-tuition-id="{{../tuitionId}}" data-student-id="{{../_id}}"
+                    data-payment-id="{{payment._id}}">
+                    <div class="card-body">
+                        <div class="card-title m-0 h4 text-info mb-3">Add New Installment</div>
+                        <div class="row">
+                            <div class="col-md-3 font-weight-bold">
+                                Collected Fee:
+                            </div>
+                            <div class="col-md-3">
+                                <input class="w-100 form-control" type="number" name="feeCollected">
+                            </div>
+                            <div class="col-md-3 font-weight-bold">
+                                Mode Of Payment:
+                            </div>
+                            <div class="col-md-3">
+                                <select name="modeOfPayment" class="form-control w-100 mode-of-payment-select"
+                                    data-tuition-id={{../tuitionId}}>
+                                    <option value="cash">Cash</option>
+                                    <option value="cheque">Cheque</option>
+                                    <option value="card">Card</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <div class="row mode-of-payment-details-container" data-tuition-id="{{../tuitionId}}"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer p-0">
+                            <div class="stats ml-auto">
+                                <button class="btn btn-sm btn-round btn-success" style="top: 0%; cursor: pointer;">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-<div class="card">
-    <div class="card-body">
-        <div class="card-title m-0 text-info">Installment 1</div>
-        <div class="row">
-            <div class="col-md-3 font-weight-bold">
-                Collected Fee:
-            </div>
-            <div class="col-md-3">
-                50000
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Mode Of Paymnet:
-            </div>
-            <div class="col-md-3">
-                Cheque
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Bank Name:
-            </div>
-            <div class="col-md-3">
-                PNB
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Date Of Cheque:
-            </div>
-            <div class="col-md-3">
-                23/11/1996
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Cheque Number:
-            </div>
-            <div class="col-md-3">
-                345633
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Next Installment:
-            </div>
-            <div class="col-md-3 text-danger">
-                23/11/18
-            </div>
-        </div>
-        <div class="card-footer p-0">
-            <div class="stats ml-auto">
-                <i class="material-icons delete-batch-btn" style="top: 0%; cursor: pointer;" data-batch-id="{{_id}}"
-                    data-tuition-id="{{tuitionId}}" data-course-id="{{courseId}}">delete</i>
-                <i class="material-icons batch-edit" style="top: 0%; cursor: pointer;" data-batch-id="{{_id}}"
-                    data-tuition-id="{{tuitionId}}" data-course-id="{{courseId}}">edit</i>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="card">
-    <div class="card-body">
-        <div class="card-title m-0 text-info">Installment 1</div>
-        <div class="row">
-            <div class="col-md-3 font-weight-bold">
-                Collected Fee:
-            </div>
-            <div class="col-md-3">
-                50000
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Mode Of Paymnet:
-            </div>
-            <div class="col-md-3">
-                Cheque
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Bank Name:
-            </div>
-            <div class="col-md-3">
-                PNB
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Date Of Cheque:
-            </div>
-            <div class="col-md-3">
-                23/11/1996
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Cheque Number:
-            </div>
-            <div class="col-md-3">
-                345633
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Next Installment:
-            </div>
-            <div class="col-md-3 text-danger">
-                23/11/18
-            </div>
-        </div>
-        <div class="card-footer p-0">
-            <div class="stats ml-auto">
-                <i class="material-icons delete-batch-btn" style="top: 0%; cursor: pointer;" data-batch-id="{{_id}}"
-                    data-tuition-id="{{tuitionId}}" data-course-id="{{courseId}}">delete</i>
-                <i class="material-icons batch-edit" style="top: 0%; cursor: pointer;" data-batch-id="{{_id}}"
-                    data-tuition-id="{{tuitionId}}" data-course-id="{{courseId}}">edit</i>
-            </div>
-        </div>
-    </div>
-</div>
+{{else}}
+<small class="text-danger">No Payment Initiated</small>
+{{/each}}
+
 <div class="card bg-info">
-    <div class="card-body">
-        <div class="card-title m-0 text-dark">Installment 1</div>
-        <div class="row">
-            <div class="col-md-3 font-weight-bold">
-                Collected Fee:
+    <form class="add-payment-form" data-tuition-id="{{tuitionId}}" data-student-id="{{_id}}">
+        <div class="card-body">
+            <div class="card-title h4 m-0 text-dark mb-3">Initiate New Payment</div>
+            <div class="row">
+                <div class="col-md-3 font-weight-bold">Course Code:</div>
+                <div class="col-md-3"><select class="w-100 finance-course-select" name="courseCode" data-tuition-id="{{tuitionId}}"></select></div>
+                <div class="col-md-3 font-weight-bold">
+                    Course Fee:
+                </div>
+                <div class="col-md-3">
+                    <input name="courseFee" class="w-100" type="number">
+                </div>
+                <div class="col-md-3 font-weight-bold">
+                    Discount Amount:
+                </div>
+                <div class="col-md-3">
+                    <input name="discountAmount" class="w-100" type="number">
+                </div>
+                <div class="col-md-3 font-weight-bold">
+                    Discount Reason:
+                </div>
+                <div class="col-md-3">
+                    <input name="discountReason" class="w-100" type="text">
+                </div>
+                <div class="col-md-3 font-weight-bold">
+                    Net Fee:
+                </div>
+                <div class="col-md-3">
+                    <input class="w-100" type="number" disabled>
+                </div>
+                <div class="col-md-3 font-weight-bold">
+                    Pending Balance:
+                </div>
+                <div class="col-md-3">
+                    <input class="w-100" type="number" disabled>
+                </div>
+                <div class="col-md-3 font-weight-bold">
+                    Next Installment Date:
+                </div>
+                <div class="col-md-3">
+                    <input name="nextInstallmentDate" class="w-100" type="date">
+                </div>
             </div>
-            <div class="col-md-3">
-                <input type="number">
+            <div class="card-footer p-0">
+                <div class="stats ml-auto">
+                    <button class="btn btn-sm btn-success btn-round">ADD</button>
+                </div>
             </div>
-            <div class="col-md-3 font-weight-bold">
-                Mode Of Paymnet:
-            </div>
-            <div class="col-md-3">
-                <input type="text">
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Bank Name:
-            </div>
-            <div class="col-md-3">
-                <input type="text">
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Date Of Cheque:
-            </div>
-            <div class="col-md-3">
-                <input type="date">
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Cheque Number:
-            </div>
-            <div class="col-md-3">
-                <input type="number">
-            </div>
-            <div class="col-md-3 font-weight-bold">
-                Next Installment:
-            </div>
-            <div class="col-md-3 text-danger">
-                <input type="date">
-            </div>
-        </div>
-        <div class="card-footer p-0">
-            <div class="stats ml-auto">
-                <button class="btn btn-sm btn-success">ADD</button>
-            </div>
-        </div>
-    </div>
+    </form>
+</div>
 </div>

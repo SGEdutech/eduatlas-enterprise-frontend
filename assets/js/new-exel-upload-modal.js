@@ -12,7 +12,7 @@ const excelUploadModal = (() => {
 	let $batchSelectMenu;
 
 	function putPaymentStuffInArr(allInputsDataArr) {
-		const paymentStuffArr = ['discountAmount', 'discountReason', 'feeCollected', 'modeOfPayment', 'bank', 'dateOfCheck', 'checkNumber', 'cardNumber', 'transactionId', 'nextInstallment'];
+		const paymentStuffArr = ['discountAmount', 'discountReason', 'feeCollected', 'modeOfPayment', 'bank', 'dateOfCheque', 'chequeNumber', 'cardNumber', 'transactionId', 'nextInstallment'];
 
 		allInputsDataArr.forEach(studentObj => {
 			const keys = Object.keys(studentObj);

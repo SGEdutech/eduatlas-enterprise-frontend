@@ -1,6 +1,7 @@
 const finance = (() => {
 	let distinctStudentsArr;
 	let distinctBatchesArr;
+	let distinctCoursesArr;
 	let $studentSearchInp;
 	let $batchCheckboxes;
 	let $resetBtn;
@@ -11,25 +12,233 @@ const finance = (() => {
 	let $detailsContainer;
 	let $detailsDisplayContainer;
 	let $backBtn;
+	let $paymentEditBtn;
+	let $deletePaymentBtn;
+	let $financeCourseSelect;
+	let $addPaymentForm;
+	let $addInstallmentForm;
+	let $modeOfPaymentSelect;
+	let $modeOfPaymentDetailsContainer;
+	let $deleteInstallmentBtn;
+	let $editInstallmentBtn;
 
-	function showLandingAndDistroyDatailsDisplay() {
-		$detailsDisplayContainer.html('');
-		$landingContainer.removeClass('d-none');
-		$detailsContainer.addClass('d-none');
+	async function deleteInstallemnt(event) {
+		try {
+			event.preventDefault();
+			$btn = $(event.target);
+			const tuitionId = $btn.attr('data-tuition-id');
+			const studentId = $btn.attr('data-student-id');
+			const paymentId = $btn.attr('data-payment-id');
+			const installmentId = $btn.attr('data-installment-id');
+			await tuitionApiCalls.deleteInstallmentInStudent(tuitionId, studentId, paymentId, installmentId);
+			const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+			const paymentInfo = studentInfo.payments.find(paymentObj => paymentObj._id === paymentId);
+			paymentInfo.installments = paymentInfo.installments.filter(installmentObj => installmentObj._id !== installmentId)
+			notification.push('Installment has been successfully deleted');
+			unbindAllDetailsElements(tuitionId);
+			renderDetails(tuitionId, studentId);
+		} catch (err) {
+			console.error(err);
+		}
 	}
 
-	function renderDetails(studentId) {
+	function initInstallmentEditModal(event) {
+		$btn = $(event.target);
+		const tuitionId = $btn.attr('data-tuition-id');
+		const studentId = $btn.attr('data-student-id');
+		const paymentId = $btn.attr('data-payment-id');
+		const installmentId = $btn.attr('data-installment-id');
+		const studentToEdit = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+		const paymentInfo = studentToEdit.payments.find(paymentObj => paymentObj._id === paymentId);
+		const installmentInfo = paymentInfo.installments.find(installmentObj => installmentObj._id === installmentId);
+		console.log(installmentInfo);
+		const editInstallmentInputHTML = template.installmentEditInputs(installmentInfo);
+		modal.renderFormContent(editInstallmentInputHTML);
+		modal.bindSubmitEvent(e => editInstallment(e, tuitionId, studentId, paymentId, installmentId));
+		modal.showModal();
+	}
+
+	async function editInstallment(event, tuitionId, studentId, paymentId, installmentId) {
+		try {
+			event.preventDefault();
+			const editedData = modal.getInputsDataObj();
+			const editedInstallment = await tuitionApiCalls.editInstallmentInStudent(tuitionId, studentId, paymentId, installmentId, editedData);
+			modal.hideModal();
+			const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+			const paymentInfo = studentInfo.payments.find(paymentObj => paymentObj._id === paymentId);
+			paymentInfo.installments = paymentInfo.installments.map(installmentObj => installmentObj._id === installmentId ? editedInstallment : installmentObj);
+			unbindAllDetailsElements(tuitionId);
+			notification.push('Installment has been successfully edited');
+			renderDetails(tuitionId, studentId);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	function showModeOfPaymentDetailsInputs(event) {
+		const $modeSelect = $(event.target);
+		const tuitionId = $modeSelect.attr('data-tuition-id');
+		const selectedModeOfPayment = $modeSelect.val();
+		let inputsHTML = '';
+		if (selectedModeOfPayment === 'cheque') {
+			inputsHTML = template.modeOfPaymentChequeInputs({ financeModule: true });
+		} else if (selectedModeOfPayment === 'card') {
+			inputsHTML = template.modeOfPaymentCardInputs({ financeModule: true });
+		} else if (selectedModeOfPayment === 'other') {
+			inputsHTML = template.modeOfPaymentOtherInputs({ financeModule: true });
+		} else if (selectedModeOfPayment === 'cash') {
+			inputsHTML = template.modeOfPaymentCashInputs({ financeModule: true });
+		}
+		$modeOfPaymentDetailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).html(inputsHTML);
+	}
+
+	function unbindAllDetailsElements(tuitionId) {
+		if (tuitionId === undefined) {
+			console.error('Tuition id not provided');
+			return;
+		}
+		// FIXME: Find a more efficient way to unbind
+		$detailsDisplayContainer.filter(`[data-tuition-id="${tuitionId}"]`).find('*').off();
+	}
+
+	async function addInstallment(event) {
+		try {
+			event.preventDefault();
+			const $form = $(event.target);
+			const tuitionId = $form.attr('data-tuition-id');
+			const studentId = $form.attr('data-student-id');
+			const paymentId = $form.attr('data-payment-id');
+			const addedInstallment = await tuitionApiCalls.putInstallmentInStudent(tuitionId, studentId, paymentId, $form.serialize());
+			distinctStudentsArr.forEach((studentObj, stuIndex) => {
+				if (studentObj._id === studentId) {
+					studentObj.payments.forEach((paymentObj, payIndex) => {
+						if (paymentObj._id === paymentId) {
+							distinctStudentsArr[stuIndex].payments[payIndex].installments.push(addedInstallment);
+						}
+					})
+				}
+			})
+			notification.push('Installment has been successfully added');
+			renderDetails(tuitionId, studentId);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	async function addPayment(event) {
+		try {
+			event.preventDefault();
+			const $form = $(event.target);
+			const tuitionId = $form.attr('data-tuition-id');
+			const studentId = $form.attr('data-student-id');
+			const addedPayment = await tuitionApiCalls.putPaymentDetailsInStudent(tuitionId, studentId, $form.serialize());
+			const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+			studentInfo.payments.push(addedPayment);
+			notification.push('Payment Details has been successfully added');
+			unbindAllDetailsElements(tuitionId);
+			renderDetails(tuitionId, studentId);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	async function editPayment(event, tuitionId, studentId, paymentId) {
+		try {
+			event.preventDefault();
+			const editedData = modal.getInputsDataObj();
+			const editedPayment = await tuitionApiCalls.editPaymentDetailsInStudent(tuitionId, studentId, paymentId, editedData);
+			modal.hideModal();
+			const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+			studentInfo.payments = studentInfo.payments.map(paymentObj => paymentObj._id === paymentId ? editedPayment : paymentObj);
+			unbindAllDetailsElements(tuitionId);
+			notification.push('Payment Details has been successfully edited');
+			renderDetails(tuitionId, studentId);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	async function deletePayment(event) {
+		try {
+			event.preventDefault();
+			$btn = $(event.target);
+			const tuitionId = $btn.attr('data-tuition-id');
+			const studentId = $btn.attr('data-student-id');
+			const paymentId = $btn.attr('data-payment-id');
+			await tuitionApiCalls.deletePaymentDetailsInStudent(tuitionId, studentId, paymentId);
+			const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+			studentInfo.payments = studentInfo.payments.filter(paymentObj => paymentObj !== paymentId);
+			notification.push('Payment Details has been successfully deleted');
+			unbindAllDetailsElements(tuitionId);
+			renderDetails(tuitionId, studentId);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	function initPaymentEditModal(event) {
+		$btn = $(event.target);
+		const tuitionId = $btn.attr('data-tuition-id');
+		const studentId = $btn.attr('data-student-id');
+		const paymentId = $btn.attr('data-payment-id');
+		const studentToEdit = distinctStudentsArr.filter(studentObj => studentObj._id === studentId);
+		let paymentInfo;
+		studentToEdit[0].payments.forEach(paymentObj => {
+			if (paymentObj._id === paymentId) {
+				paymentInfo = paymentObj;
+			}
+		})
+
+		const editPaymentInputHTML = template.paymentEditInputs(paymentInfo);
+		modal.renderFormContent(editPaymentInputHTML);
+		modal.bindSubmitEvent(e => editPayment(e, tuitionId, studentId, paymentId));
+		modal.showModal();
+	}
+
+	function showLandingAndDistroyDatailsDisplay(event) {
+		const $btn = $(event.target);
+		const tuitionId = $btn.attr('data-tuition-id');
+		unbindAllDetailsElements(tuitionId);
+		$detailsDisplayContainer.filter(`[data-tuition-id="${tuitionId}"]`).html('');
+		$landingContainer.filter(`[data-tuition-id="${tuitionId}"]`).removeClass('d-none');
+		$detailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).addClass('d-none');
+	}
+
+	function initCourseSelect(tuitionId) {
+		const courseList = distinctCoursesArr.filter(obj => obj.tuitionId === tuitionId);
+		const courseOptionsHTML = template.financeCourseOptions({ courses: courseList });
+		$financeCourseSelect.filter(`[data-tuition-id="${tuitionId}"]`).html(courseOptionsHTML);
+	}
+
+	function renderDetails(tuitionId, studentId) {
 		const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
-		const detailsHtml = template.financeDetailView({ student: studentInfo });
-		$detailsDisplayContainer.html(detailsHtml);
+		studentInfo.payments.forEach(paymentObj => {
+			if (paymentObj.nextInstallmentDate) {
+				paymentObj.nextInstallmentDate = moment(paymentObj.nextInstallmentDate).format("MMM Do");
+			}
+			paymentObj.installments.forEach(installmentObj => {
+				if (installmentObj.nextInstallment) {
+					installmentObj.nextInstallment = moment(installmentObj.nextInstallment).format("MMM Do");
+				}
+				if (installmentObj.dateOfCheque) {
+					installmentObj.dateOfCheque = moment(installmentObj.dateOfCheque).format("MMM Do");
+				}
+			})
+		})
+		const detailsHtml = template.financeDetailView(studentInfo);
+		$detailsDisplayContainer.filter(`[data-tuition-id="${tuitionId}"]`).html(detailsHtml);
+		cacheDynamic();
+		bindDynamic();
+		initCourseSelect(tuitionId);
 	}
 
 	function showDetails() {
 		const $card = $(this);
 		const studentId = $card.attr('data-student-id');
-		renderDetails(studentId);
-		$landingContainer.addClass('d-none');
-		$detailsContainer.removeClass('d-none');
+		const tuitionId = $card.attr('data-tuition-id');
+		renderDetails(tuitionId, studentId);
+		$landingContainer.filter(`[data-tuition-id="${tuitionId}"]`).addClass('d-none');
+		$detailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).removeClass('d-none');
 	}
 
 	function renderAllStudents(event) {
@@ -133,6 +342,15 @@ const finance = (() => {
 	function cacheDynamic() {
 		$batchCheckboxes = $('.finance-batches');
 		$studentCards = $('.finance-card');
+		$paymentEditBtn = $('.payment-edit-btn');
+		$deletePaymentBtn = $('.delete-payment-btn');
+		$financeCourseSelect = $('.finance-course-select');
+		$addPaymentForm = $('.add-payment-form');
+		$addInstallmentForm = $('.add-installment-form');
+		$modeOfPaymentSelect = $('.mode-of-payment-select');
+		$modeOfPaymentDetailsContainer = $('.mode-of-payment-details-container');
+		$deleteInstallmentBtn = $('.delete-installment-btn');
+		$editInstallmentBtn = $('.installment-edit-btn');
 	}
 
 	function bindEvents() {
@@ -144,6 +362,13 @@ const finance = (() => {
 	function bindDynamic() {
 		$studentCards.click(showDetails);
 		$batchCheckboxes.change(renderFilteredStudents);
+		$paymentEditBtn.click(initPaymentEditModal);
+		$deletePaymentBtn.click(deletePayment);
+		$addPaymentForm.submit(addPayment);
+		$addInstallmentForm.submit(addInstallment);
+		$modeOfPaymentSelect.change(showModeOfPaymentDetailsInputs);
+		$deleteInstallmentBtn.click(deleteInstallemnt);
+		$editInstallmentBtn.click(initInstallmentEditModal);
 	}
 
 	function refresh(opts) {
@@ -152,14 +377,18 @@ const finance = (() => {
 		bindDynamic();
 	}
 
-	function init(studentsArr, batchesArr) {
+	function init(studentsArr, coursesArr, batchesArr) {
 		if (studentsArr === undefined) throw new Error('Students not provided');
 		if (Array.isArray(studentsArr) === false) throw new Error('Students array must be an array');
+
+		if (coursesArr === undefined) throw new Error('Courses not provided');
+		if (Array.isArray(coursesArr) === false) throw new Error('Courses array must be an array');
 
 		if (batchesArr === undefined) throw new Error('Batches not provided');
 		if (Array.isArray(batchesArr) === false) throw new Error('Batches array must be an array');
 
 		distinctStudentsArr = JSON.parse(JSON.stringify(studentsArr));
+		distinctCoursesArr = JSON.parse(JSON.stringify(coursesArr));
 		distinctBatchesArr = JSON.parse(JSON.stringify(batchesArr));
 
 		cache();

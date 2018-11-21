@@ -1,6 +1,26 @@
+{{#if financeModule}}
+<div class="col-md-3 font-weight-bold">
+    Date:
+</div>
+<div class="col-md-3">
+    <input name="dateOfCheque" type="date" class="form-control" data-tuition-id="{{_id}}">
+</div>
+<div class="col-md-3 font-weight-bold">
+    Bank:
+</div>
+<div class="col-md-3">
+    <input name="bank" type="text" class="form-control" data-tuition-id="{{_id}}">
+</div>
+<div class="col-md-3 font-weight-bold">
+    Cheque Number:
+</div>
+<div class="col-md-3">
+    <input name="chequeNumber" type="text" class="form-control my-1" data-tuition-id="{{_id}}">
+</div>
+{{else}}
 <div class="col-md-4 form-group">
     <label class="bmd-label-floating">Date</label>
-    <input name="dateOfCheck" type="date" class="form-control" data-tuition-id="{{_id}}">
+    <input name="dateOfCheque" type="date" class="form-control" data-tuition-id="{{_id}}">
 </div>
 <div class="col-md-4 form-group">
     <label class="bmd-label-floating">Bank</label>
@@ -8,5 +28,6 @@
 </div>
 <div class="col-md-4 form-group">
     <label class="bmd-label-floating">Cheque Number</label>
-    <input name="checkNumber" type="text" class="form-control" data-tuition-id="{{_id}}">
+    <input name="chequeNumber" type="text" class="form-control" data-tuition-id="{{_id}}">
 </div>
+{{/if}}

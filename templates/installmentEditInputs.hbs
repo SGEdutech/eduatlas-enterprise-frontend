@@ -1,0 +1,61 @@
+<div class="row p-3">
+    <div class="col-md-3 font-weight-bold">
+        Collected Fee:
+    </div>
+    <div class="col-md-3">
+        <input class="form-control" type="number" name="feeCollected" value="{{feeCollected}}">
+    </div>
+    <div class="col-md-3 font-weight-bold">
+        Mode Of Payment:
+    </div>
+    <div class="col-md-3">
+        <input class="form-control" type="text" name="modeOfPayment" value="{{modeOfPayment}}">
+    </div>
+    {{#if bank}}
+    <div class="col-md-3 font-weight-bold">
+        Bank Name:
+    </div>
+    <div class="col-md-3">
+        <input class="form-control" type="text" name="bank" value="{{bank}}">
+    </div>
+    {{/if}}
+    {{#if dateOfCheque}}
+    <div class="col-md-3 font-weight-bold">
+        Date Of Cheque:
+    </div>
+    <div class="col-md-3">
+        <input class="form-control" type="date" name="dateOfCheque" value="{{dateOfCheque}}">
+    </div>
+    {{/if}}
+    {{#if chequeNumber}}
+    <div class="col-md-3 font-weight-bold">
+        Cheque Number:
+    </div>
+    <div class="col-md-3">
+        <input class="form-control" type="text" name="chequeNumber" value="{{chequeNumber}}">
+    </div>
+    {{/if}}
+    {{#if cardNumber}}
+    <div class="col-md-3 font-weight-bold">
+        Card Number:
+    </div>
+    <div class="col-md-3">
+        <input class="form-control" type="text" name="cardNumber" value="{{cardNumber}}">
+        {{cardNumber}}
+    </div>
+    {{/if}}
+    {{#if transactionId}}
+    <div class="col-md-3 font-weight-bold">
+        Transaction Id:
+    </div>
+    <div class="col-md-3">
+        <input class="form-control" type="text" name="transactionId" value="{{transactionId}}">
+    </div>
+    {{/if}}
+    <div class="col-md-3 font-weight-bold">
+        Next Installment:
+    </div>
+    <div class="col-md-3">
+        <input class="form-control" type="date" name="nextInstallment" value="{{nextInstallment}}">
+    </div>
+</div>
