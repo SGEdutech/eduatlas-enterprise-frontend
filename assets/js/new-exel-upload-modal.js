@@ -34,7 +34,7 @@ const excelUploadModal = (() => {
 			const $studentRow = $(studentRow);
 			const rowNumber = $studentRow.attr('data-row-number');
 			const inputsOfThisRow = $inputsInsideStudentRows.filter(`[data-row-number="${rowNumber}"]`);
-			allInputsDataArr.push(randomScripts.getInputsDataObj(inputsOfThisRow));
+			allInputsDataArr.push(randomScripts.getInputsAndSelectDataObj(inputsOfThisRow));
 		});
 		putPaymentStuffInArr(allInputsDataArr);
 		return allInputsDataArr;
