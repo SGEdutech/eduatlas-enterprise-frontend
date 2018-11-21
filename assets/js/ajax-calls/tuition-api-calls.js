@@ -607,7 +607,7 @@ const tuitionApiCalls = (() => {
 		}
 		return $.ajax({
 			type: 'POST',
-			url: `/${idOfTuition}/student/${idOfStudent}/payment`,
+			url: `/tuition/${idOfTuition}/student/${idOfStudent}/payment`,
 			data: bodyObj
 		});
 	}
@@ -624,7 +624,7 @@ const tuitionApiCalls = (() => {
 		}
 		return $.ajax({
 			type: 'PUT',
-			url: `/${idOfTuition}/student/${idOfStudent}/payment/${idOfPayment}`,
+			url: `/tuition/${idOfTuition}/student/${idOfStudent}/payment/${idOfPayment}`,
 			data: bodyObj
 		});
 	}
@@ -641,7 +641,63 @@ const tuitionApiCalls = (() => {
 		}
 		return $.ajax({
 			type: 'DELETE',
-			url: `/${idOfTuition}/student/${idOfStudent}/payment/${idOfPayment}`,
+			url: `/tuition/${idOfTuition}/student/${idOfStudent}/payment/${idOfPayment}`,
+		});
+	}
+
+	function putInstallmentInStudent(idOfTuition, idOfStudent, idOfPayment, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error('Not a valid idOfTuition');
+		}
+		if (!checkForHexRegExp.test(idOfStudent)) {
+			console.error('Not a valid idOfStudent');
+		}
+		if (!checkForHexRegExp.test(idOfPayment)) {
+			console.error('Not a valid idOfPayment');
+		}
+		return $.ajax({
+			type: 'POST',
+			url: `/tuition/${idOfTuition}/student/${idOfStudent}/payment/${idOfPayment}/installment`,
+			data: bodyObj
+		});
+	}
+
+	function editInstallmentInStudent(idOfTuition, idOfStudent, idOfPayment, idOfInstallment, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error('Not a valid idOfTuition');
+		}
+		if (!checkForHexRegExp.test(idOfStudent)) {
+			console.error('Not a valid idOfStudent');
+		}
+		if (!checkForHexRegExp.test(idOfPayment)) {
+			console.error('Not a valid idOfPayment');
+		}
+		if (!checkForHexRegExp.test(idOfInstallment)) {
+			console.error('Not a valid idOfInstallment');
+		}
+		return $.ajax({
+			type: 'PUT',
+			url: `/tuition/${idOfTuition}/student/${idOfStudent}/payment/${idOfPayment}/installment/${idOfInstallment}`,
+			data: bodyObj
+		});
+	}
+
+	function deleteInstallmentInStudent(idOfTuition, idOfStudent, idOfPayment, idOfInstallment) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error('Not a valid idOfTuition');
+		}
+		if (!checkForHexRegExp.test(idOfStudent)) {
+			console.error('Not a valid idOfStudent');
+		}
+		if (!checkForHexRegExp.test(idOfPayment)) {
+			console.error('Not a valid idOfPayment');
+		}
+		if (!checkForHexRegExp.test(idOfInstallment)) {
+			console.error('Not a valid idOfInstallment');
+		}
+		return $.ajax({
+			type: 'DELETE',
+			url: `/tuition/${idOfTuition}/student/${idOfStudent}/payment/${idOfPayment}/installment/${idOfInstallment}`,
 		});
 	}
 
@@ -689,6 +745,9 @@ const tuitionApiCalls = (() => {
 		getAllClaimedDiscounts,
 		putPaymentDetailsInStudent,
 		editPaymentDetailsInStudent,
-		deletePaymentDetailsInStudent
+		deletePaymentDetailsInStudent,
+		putInstallmentInStudent,
+		editInstallmentInStudent,
+		deleteInstallmentInStudent
 	};
 })();
