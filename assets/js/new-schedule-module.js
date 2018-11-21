@@ -59,7 +59,7 @@ const schedule = (() => {
 
 	function updateTodate(fromDate, tuitionId) {
 		const nextSunday = dateAndTime.getNextSunday(fromDate);
-		$toDate.filter(`[data-tuition-id="${tuitionId}"]`).val(nextSunday.toISOString().split('T')[0]);
+		$toDate.filter(`[data-tuition-id="${tuitionId}"]`).val(nextSunday.format('DD MM YYYY'));
 	}
 
 	function updateDays(fromDate, tuitionId) {
@@ -96,6 +96,7 @@ const schedule = (() => {
 		$staticSelects = $staticScheduleCol.find('select');
 		$validationForm = $('.schedule-validation-form');
 		$fromDate = $('.from-date');
+		$toDate = $('.to-date');
 	}
 
 	function cacheDynamic() {
@@ -103,7 +104,6 @@ const schedule = (() => {
 		$deleteButton = $('.delete-schedule-btn');
 		$addScheduleContainer = $('.add-schedule-container');
 		$scheduleRow = $addScheduleContainer.find('.schedule-row');
-		$toDate = $('.to-date');
 		$timePicker = $('.time-picker');
 		$datePicker = $('.date-picker');
 		$dayDropdown = $('.day-dropdown');
@@ -127,7 +127,6 @@ const schedule = (() => {
 			editedschedule.fromTime = dateAndTime.inverseMinutesFromMidnight(editedschedule.fromTime);
 			editedschedule.toTime = dateAndTime.inverseMinutesFromMidnight(editedschedule.toTime);
 			notification.push('Schedule has been successfully edited');
-			console.log('Schedule was successfully edited');
 			let objToBePublished;
 			distinctBatchesArr.forEach(batchObj => {
 				if (batchObj._id !== batchId) return;
@@ -255,7 +254,7 @@ const schedule = (() => {
 	function bindEvents() {
 		$addClassEntryBtn.click(appendMoreAddScheduleInputs);
 		$validationForm.submit(addSchedule);
-		$fromDate.blur(updateTodateAndSelectDays);
+		$fromDate.on('input paste', updateTodateAndSelectDays);
 	}
 
 	function bindDynamicEvents() {
@@ -265,7 +264,7 @@ const schedule = (() => {
 
 	function sortByWeek(batchObj) {
 		return batchObj.schedules.reduce((accumulator, scheduleObj) => {
-			const yearWeek = moment(scheduleObj.date).startOf('isoweek').format("MMM Do") + '-' + moment(scheduleObj.date).endOf('isoweek').format("MMM Do");
+			const yearWeek = moment(scheduleObj.date).startOf('isoweek').format('MMM Do') + '-' + moment(scheduleObj.date).endOf('isoweek').format("MMM Do");
 			// const yearWeek = moment(scheduleObj.date).week() + '-' + moment(scheduleObj.date).year();
 			// check if the week number exists
 			if (typeof accumulator[yearWeek] === 'undefined') {
