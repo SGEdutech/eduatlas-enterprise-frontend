@@ -95,16 +95,26 @@ const userApiCalls = (() => {
 		}
 	}
 
-	function updateInUser(idOfUser, bodyObj) {
+	function updateInUser(idOfUser, bodyObj, isForm = false) {
 		if (!checkForHexRegExp.test(idOfUser)) {
 			console.error("Not a valid idOfUser");
 		}
-
-		return $.ajax({
-			type: "PUT",
-			url: `/user/${idOfUser}`,
-			data: bodyObj,
-		});
+		if (isForm) {
+			return $.ajax({
+				type: "PUT",
+				url: `/user/${idOfUser}`,
+				data: bodyObj,
+				cache: false,
+				contentType: false,
+				processData: false,
+			});
+		} else {
+			return $.ajax({
+				type: "PUT",
+				url: `/user/${idOfUser}`,
+				data: bodyObj,
+			});
+		}
 	}
 
 	function deleteInArrayInUser(idOfUser, arrayName, bodyObj) {
