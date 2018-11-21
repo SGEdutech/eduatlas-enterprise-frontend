@@ -167,7 +167,7 @@ const finance = (() => {
 			const paymentId = $btn.attr('data-payment-id');
 			await tuitionApiCalls.deletePaymentDetailsInStudent(tuitionId, studentId, paymentId);
 			const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
-			studentInfo.payments = studentInfo.payments.filter(paymentObj => paymentObj !== paymentId);
+			studentInfo.payments = studentInfo.payments.filter(paymentObj => paymentObj._id !== paymentId);
 			notification.push('Payment Details has been successfully deleted');
 			unbindAllDetailsElements(tuitionId);
 			renderDetails(tuitionId, studentId);
@@ -347,8 +347,8 @@ const finance = (() => {
 		$financeCourseSelect = $('.finance-course-select');
 		$addPaymentForm = $('.add-payment-form');
 		$addInstallmentForm = $('.add-installment-form');
-		$modeOfPaymentSelect = $('.mode-of-payment-select');
-		$modeOfPaymentDetailsContainer = $('.mode-of-payment-details-container');
+		$modeOfPaymentSelect = $('.finance-mode-of-payment-select');
+		$modeOfPaymentDetailsContainer = $('.finance-mode-of-payment-details-container');
 		$deleteInstallmentBtn = $('.delete-installment-btn');
 		$editInstallmentBtn = $('.installment-edit-btn');
 	}

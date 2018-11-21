@@ -6,19 +6,22 @@ const dashboardEditProfile = (() => {
 	let $Form1, $Form2;
 
 	function cache() {
-		$profilePicContainer = $('#profilePicContainer');
+		$profilePicContainer = $('#img_container');
 		$basicContainer = $("#basicContainer");
 		$userSocialLinksContainer = $("#userSocialLinksContainer");
+		$saveForm0 = $('#saveFrom0');
 		$saveForm1 = $('#saveFrom1');
 		$saveForm2 = $('#saveFrom2');
 	}
 
 	function cacheDynamicDom() {
+		$Form0 = $('#Form0');
 		$Form1 = $('#Form1');
 		$Form2 = $('#Form2');
 	}
 
 	function bindEvents(user) {
+		$saveForm0.click(() => submitForm(user, 0));
 		$saveForm1.click(() => submitForm(user, 1));
 		$saveForm2.click(() => submitForm(user, 2));
 	}
@@ -30,13 +33,18 @@ const dashboardEditProfile = (() => {
 			formToSubmit = $Form1;
 		} else if (formNumber === 2) {
 			formToSubmit = $Form2;
+		} else if (formNumber === 0) {
+			formToSubmit = $Form0;
 		}
 		// console.log(formToSubmit)
-		const editUserPromise = $.ajax({
-			url: '/user/' + user._id,
-			type: 'PUT',
-			data: formToSubmit.serialize()
-		});
+		let data;
+		if (formNumber === 0) {
+			data = formToSubmit;
+		} else {
+			data = formToSubmit.serialize();
+		}
+
+		const editUserPromise = userApiCalls.updateInUser(user._id, data, formNumber === 0);
 
 		editUserPromise.then(data => {
 			// console.log(data);
@@ -48,13 +56,14 @@ const dashboardEditProfile = (() => {
 	}
 
 	function getProfileEditor(user) {
-		let pic = '';
+		let picPath = '';
 		if (user.img_userProfilePic === '' || user.img_userProfilePic === undefined) {
-			pic = `<img src="/assets/img/logo.png" alt="...">`;
+			picPath = `/assets/img/logo.png`;
 		} else {
-			pic = `<img src="images/${user.img_userProfilePic}" alt="..." class="image profilePic rounded">`;
+			picPath = `/images/${user.img_userProfilePic}`;
 		}
-		$profilePicContainer.html(pic);
+		let result0 = template.userProfilePicInput({ path: picPath });
+		$profilePicContainer.append(result0);
 
 		if (user.gender === 'male') {
 			user.maleChecked = 'checked'

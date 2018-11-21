@@ -576,7 +576,7 @@ const student = (() => {
 			const studentCardsHtml = template.studentCard({ students: studentsOfThisTuition });
 			$container.html(studentCardsHtml);
 
-			const modeOfPaymentDetailInputsHTML = template.modeOfPaymentChequeInputs();
+			const modeOfPaymentDetailInputsHTML = template.modeOfPaymentCashInputs();
 			$modeOfPaymentDetailsContainer.html(modeOfPaymentDetailInputsHTML);
 		});
 
