@@ -11,10 +11,12 @@
 	</div>
 	<ul class="nav nav-pills nav-pills-success mt-3">
 		<li class="nav-item"><a class="nav-link active rounded-0" href="#pill1{{tabNumber}}" data-toggle="tab">Configure</a></li>
-		<li class="nav-item"><a class="nav-link rounded-0" href="#pill2{{tabNumber}}" data-toggle="tab">Promoter</a></li>
+		{{!-- <li class="nav-item"><a class="nav-link rounded-0" href="#pill2{{tabNumber}}" data-toggle="tab">Promoter</a></li>
+		--}}
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill3{{tabNumber}}" data-toggle="tab">Communicator</a></li>
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill4{{tabNumber}}" data-toggle="tab">Schedule</a></li>
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill5{{tabNumber}}" data-toggle="tab">Attendance</a></li>
+		<li class="nav-item"><a class="nav-link rounded-0" href="#pill7{{tabNumber}}" data-toggle="tab">Reports</a></li>
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill6{{tabNumber}}" data-toggle="tab">Upcoming Installments</a></li>
 	</ul>
 	<hr>
@@ -26,7 +28,6 @@
 						<li class="nav-item"><a class="nav-link active rounded-0" href="#innertab1{{tabNumber}}" data-toggle="tab">Courses</a></li>
 						<li class="nav-item"><a class="nav-link rounded-0" href="#innertab3{{tabNumber}}" data-toggle="tab">Batches</a></li>
 						<li class="nav-item"><a class="nav-link rounded-0" href="#innertab2{{tabNumber}}" data-toggle="tab">Students</a></li>
-						<li class="nav-item"><a class="nav-link rounded-0" href="#innertab4{{tabNumber}}" data-toggle="tab">Finance</a></li>
 						<li class="nav-item"><a class="nav-link rounded-0" href="#innertab5{{tabNumber}}" data-toggle="tab">Discounts</a></li>
 					</ul>
 				</div>
@@ -55,7 +56,8 @@
 											<div class="col-md-6">
 												<div class="form-group label-floating is-empty  bmd-form-group">
 													<label for="bmd-label-floating">Course Code (unique)</label>
-													<input name="code" class="form-control add-course-code-input" type="text" data-tuition-id="{{_id}}" required>
+													<input name="code" class="form-control add-course-code-input" type="text" data-tuition-id="{{_id}}"
+													 required>
 													<span class="material-input"></span>
 												</div>
 												<div class="form-group label-floating  is-empty bmd-form-group">
@@ -67,12 +69,14 @@
 											<div class="col-md-6">
 												<div class="form-group label-floating is-empty  bmd-form-group">
 													<label for="bmd-label-floating">Course Fee</label>
-													<input name="fees" type="number" class="form-control fee-inp" data-tuition-id="{{_id}}" required data-tabNumber="{{tabNumber}}">
+													<input name="fees" type="number" class="form-control fee-inp" data-tuition-id="{{_id}}" required
+													 data-tabNumber="{{tabNumber}}">
 													<span class="material-input"></span>
 												</div>
 												<div class="form-check">
 													<label class="form-check-label">
-														<input class="form-check-input gst-checkbox" type="checkbox" value="true" data-tuition-id="{{_id}}" data-tabNumber="{{tabNumber}}">
+														<input class="form-check-input gst-checkbox" type="checkbox" value="true" data-tuition-id="{{_id}}"
+														 data-tabNumber="{{tabNumber}}">
 														inclusive of taxes
 														<span class="form-check-sign">
 															<span class="check"></span>
@@ -81,12 +85,14 @@
 												</div>
 												<div class="form-group label-floating  is-empty bmd-form-group">
 													<label for="bmd-label-floating">GST (%)</label>
-													<input name="gstPercentage" type="number" step="0.01" class="form-control gst-inp" data-tuition-id="{{_id}}" data-tabNumber="{{tabNumber}}">
+													<input name="gstPercentage" type="number" step="0.01" class="form-control gst-inp" data-tuition-id="{{_id}}"
+													 data-tabNumber="{{tabNumber}}">
 													<span class="material-input"></span>
 												</div>
 												<div class="form-group label-floating  is-empty bmd-form-group">
 													<label for="bmd-label-floating">Total Fee</label>
-													<input type="number" class="form-control total-fee" data-tabNumber="{{tabNumber}}" data-tuition-id="{{_id}}" disabled>
+													<input type="number" class="form-control total-fee" data-tabNumber="{{tabNumber}}" data-tuition-id="{{_id}}"
+													 disabled>
 													<span class="material-input"></span>
 												</div>
 											</div>
@@ -101,7 +107,8 @@
 										</div>
 									</form>
 								</div>
-								<div class="modal fade bd-example-modal-lg" id="editCourseModal{{course._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal fade bd-example-modal-lg" id="editCourseModal{{course._id}}" tabindex="-1" role="dialog"
+								 aria-labelledby="exampleModalLabel" aria-hidden="true">
 									<div class="modal-dialog modal-lg" role="document">
 										<div class="modal-content">
 											<div class="modal-body p-0">
@@ -147,7 +154,8 @@
 																		</span>
 																	</div>
 																	<div class="col-md-8 p-0">
-																		<input name="fees" type="text" class="form-control bg-white fee-inp" placeholder="COURSE FEE" value="{{course.fees}}" data-tabNumber="{{course._id}}">
+																		<input name="fees" type="text" class="form-control bg-white fee-inp" placeholder="COURSE FEE" value="{{course.fees}}"
+																		 data-tabNumber="{{course._id}}">
 																	</div>
 																</div>
 															</div>
@@ -173,7 +181,8 @@
 																			<div class="col-md-6">
 																				<div class="row">
 																					<div class="col-md-3 pl-0 pr-0">
-																						<input name="gst" type="text" class="form-control bg-white border rounded  mt-3 gst-inp" style="height:24px;" value="{{course.gst}}" data-tabNumber="{{course._id}}">
+																						<input name="gst" type="text" class="form-control bg-white border rounded  mt-3 gst-inp" style="height:24px;"
+																						 value="{{course.gst}}" data-tabNumber="{{course._id}}">
 																					</div>
 																					<div class="col-md-9 pl-0 pr-0 mt-3">
 																						<p>GST PERCENTAGE</p>
@@ -207,7 +216,7 @@
 																	</div>
 																	<div class="col-md-8 p-0">
 																		{{#each batches as |batch|}}
-																			<span class="badge badge-info">{{batch.code}}</span>
+																		<span class="badge badge-info">{{batch.code}}</span>
 																		{{/each}}
 																	</div>
 																</div>
@@ -236,7 +245,8 @@
 							</div>
 							<div class="container">
 								<div class="row">
-									<div class="col-md-10"><input type="text" class="form-control student-search-inp" placeholder="search students" data-tuition-id="{{_id}}"></div>
+									<div class="col-md-10"><input type="text" class="form-control student-search-inp" placeholder="search students"
+										 data-tuition-id="{{_id}}"></div>
 									<div class="col-md-2">
 										<div class="btn btn-info btn-sm student-search-reset" data-tuition-id="{{_id}}">RESET</div>
 									</div>
@@ -291,7 +301,8 @@
 												<div class="row">
 													<div class="col-md-4">
 														<label class="bmd-label-floating">Student Roll No.</label>
-														<input name="rollNumber" type="text" class="form-control student-roll-number" data-tuition-id="{{_id}}" required>
+														<input name="rollNumber" type="text" class="form-control student-roll-number" data-tuition-id="{{_id}}"
+														 required>
 													</div>
 													<div class="col-md-4">
 														<label class="bmd-label-floating">Student Name</label>
@@ -299,7 +310,8 @@
 													</div>
 													<div class="col-md-4">
 														<label class="bmd-label-floating">Student E-mail</label>
-														<input name="email" type="email" class="form-control student-email-inp" data-tuition-id="{{_id}}" required>
+														<input name="email" type="email" class="form-control student-email-inp" data-tuition-id="{{_id}}"
+														 required>
 													</div>
 												</div>
 											</div>
@@ -321,13 +333,15 @@
 												<div class="row">
 													<div class="col-md-4 form-group">
 														<label for="course_select" class="bmd-label-floating">Select Course</label>
-														<select class="form-control selectpicker student-course-select-menu" data-style="btn btn-link" name="courseId" data-tuition-id="{{_id}}">
+														<select class="form-control selectpicker student-course-select-menu" data-style="btn btn-link" name="courseId"
+														 data-tuition-id="{{_id}}">
 															<option value="">Select Course</option>
 														</select>
 													</div>
 													<div class="col-md-4 form-group">
 														<label class="bmd-label-floating">Select Batch</label>
-														<select class="form-control selectpicker student-batch-select-menu" data-style="btn btn-link" name="batchId" data-tuition-id="{{_id}}">
+														<select class="form-control selectpicker student-batch-select-menu" data-style="btn btn-link" name="batchId"
+														 data-tuition-id="{{_id}}">
 															<option value="">Select Batch</option>
 														</select>
 													</div>
@@ -342,16 +356,19 @@
 															<input name="discountReason" type="text" class="d-none student-discount-reason" data-tuition-id="{{_id}}">
 															<div class="col-md-6 form-group">
 																<label class="bmd-label-floating">Select Discount Code</label>
-																<select class="form-control student-discount-code-select" data-style="btn btn-link" name="discountCode" data-tuition-id="{{_id}}">
+																<select class="form-control student-discount-code-select" data-style="btn btn-link" name="discountCode"
+																 data-tuition-id="{{_id}}">
 																</select>
 															</div>
 															<div class="col-md-6 form-group">
 																<label for="additionalDiscount" class="bmd-label-floating">Additional Discount</label>
-																<input name="additionalDiscount" type="number" class="form-control student-additional-discount not-submit" data-tuition-id="{{_id}}">
+																<input name="additionalDiscount" type="number" class="form-control student-additional-discount not-submit"
+																 data-tuition-id="{{_id}}">
 															</div>
 															<div class="col-md-6 form-group">
 																<label for="next_install" class="bmd-label-floating">Next Installment Date</label>
-																<input name="nextInstallmentDate" type="date" class="form-control student-installment-date-inp" data-tuition-id="{{_id}}">
+																<input name="nextInstallmentDate" type="date" class="form-control student-installment-date-inp"
+																 data-tuition-id="{{_id}}">
 															</div>
 														</div>
 													</div>
@@ -361,11 +378,13 @@
 																<div class="row">
 																	<div class="col-md-12 form-group">
 																		<label class="bmd-label-floating text-dark">Base Fee</label>
-																		<input name="courseFee" type="number" class="w-100 student-course-fee" data-tuition-id="{{_id}}" disabled>
+																		<input name="courseFee" type="number" class="w-100 student-course-fee" data-tuition-id="{{_id}}"
+																		 disabled>
 																	</div>
 																	<div class="col-md-12 form-group">
 																		<label class="bmd-label-floating text-dark">Total Discount Amount</label>
-																		<input name="discountAmount" type="number" class="w-100 student-total-discount-amount" data-tuition-id="{{_id}}" disabled>
+																		<input name="discountAmount" type="number" class="w-100 student-total-discount-amount"
+																		 data-tuition-id="{{_id}}" disabled>
 																	</div>
 																	<div class="col-md-12 form-group">
 																		<label class="bmd-label-floating text-dark">Net Fee</label>
@@ -388,7 +407,8 @@
 															</div>
 															<div class="col-md-6 form-group">
 																<label for="modeOfPayment" class="bmd-label-floating">Mode Of Payment</label>
-																<select class="form-control mode-of-payment-select" data-style="btn btn-link" name="modeOfPayment" data-tuition-id="{{_id}}">
+																<select class="form-control mode-of-payment-select" data-style="btn btn-link" name="modeOfPayment"
+																 data-tuition-id="{{_id}}">
 																	<option value="cash">Cash</option>
 																	<option value="cheque">Cheque</option>
 																	<option value="card">Card</option>
@@ -407,7 +427,8 @@
 																<div class="row">
 																	<div class="col-md-12 form-group">
 																		<label for="balance_pending" class="bmd-label-floating text-dark">Balance Pending</label>
-																		<input type="text" class="w-100 student-balance-pending not-submit" data-tuition-id="{{_id}}" disabled>
+																		<input type="text" class="w-100 student-balance-pending not-submit" data-tuition-id="{{_id}}"
+																		 disabled>
 																	</div>
 																</div>
 															</div>
@@ -446,7 +467,8 @@
 											<div class="row">
 												<div class="col-md-6">
 													<div class="form-group">
-														<select class="form-control selectpicker course-select-menu" data-style="btn btn-link" name="courseId" data-tuition-id="{{_id}}" required>
+														<select class="form-control selectpicker course-select-menu" data-style="btn btn-link" name="courseId"
+														 data-tuition-id="{{_id}}" required>
 															{{!-- FIXME: moved to new hbs file --}}
 														</select>
 													</div>
@@ -470,8 +492,10 @@
 														Add Students
 													</div>
 													<div class="row">
-														<div class="col-md-10"><input type="text" placeholder="search students" class="form-control batch-student-search-inp" data-tuition-id="{{_id}}"></div>
-														<div class="col-md-2"><a class="btn btn-sm btn-info batch-student-search-reset text-white" data-tuition-id="{{_id}}">reset</a></div>
+														<div class="col-md-10"><input type="text" placeholder="search students" class="form-control batch-student-search-inp"
+															 data-tuition-id="{{_id}}"></div>
+														<div class="col-md-2"><a class="btn btn-sm btn-info batch-student-search-reset text-white"
+															 data-tuition-id="{{_id}}">reset</a></div>
 													</div>
 													<br>
 													<div class="px-2 student-checkbox-container" data-tuition-id="{{_id}}" style="height:299px;overflow-y: auto;max-height:500px;">
@@ -488,44 +512,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane" id="innertab4{{tabNumber}}">
-							<div class="row m-0">
-								<div class="finance-landing-container col-12" data-tuition-id="{{_id}}">
-									<div class="row">
-										<div class="card-title col-12 h3 bg-info">
-											Finance
-										</div>
-										<div class="col-md-12">
-											<h4 class="card-title">Batch Filter</h4>
-											<div class="row mb-2 finance-batch-container" data-tuition-id="{{_id}}">
-											</div>
-										</div>
-										<div class="col-12">
-											<div class="row">
-												<div class="col-md-10"><input type="text" class="form-control finance-search-inp" placeholder="search students" data-tuition-id="{{_id}}"></div>
-												<div class="col-md-2">
-													<div class="btn btn-info btn-sm finance-search-reset" data-tuition-id="{{_id}}">RESET</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-12">
-											<div class="row finance-student-container" data-tuition-id="{{_id}}">
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-12 finance-detail-container d-none" data-tuition-id="{{_id}}">
-									<div class="row">
-										<button class="btn btn-sm btn-info landing-view-btn" data-tuition-id="{{_id}}">
-											<i class="material-icons" data-tuition-id="{{_id}}">
-												arrow_back
-											</i>
-										</button>
-									</div>
-									<div class="finance-dynamic-container" data-tuition-id="{{_id}}"></div>
-								</div>
-							</div>
-						</div>
+
 						<div class="tab-pane" id="innertab5{{tabNumber}}">
 							<div class="row m-0">
 								<div class="card-title col-12 h3 bg-info">
@@ -555,7 +542,8 @@
 													<div class="col-md-6 form-group label-floating is-empty bmd-form-group">
 														<div class="togglebutton">
 															<label>
-																<input class="discount-is-percentage-inp" name="isPercent" type="checkbox" value="true" data-tuition-id="{{_id}}">
+																<input class="discount-is-percentage-inp" name="isPercent" type="checkbox"
+																 data-tuition-id="{{_id}}">
 																<span class="toggle"></span>
 																toggle to save discount as percentage
 															</label>
@@ -578,156 +566,156 @@
 				</div>
 			</div>
 		</div>
-		<div class="tab-pane" id="pill2{{tabNumber}}">
+		{{!-- <div class="tab-pane" id="pill2{{tabNumber}}">
 			<ul class="nav nav-pills nav-pills-success nav-pills-icons" role="tablist">
 				<li class="nav-item col-3">
 					{{#if promotedHome}}
-						<a class="nav-link active" href="#dashboard-1{{tabNumber}}" role="tab" data-toggle="tab">
-							<i class="material-icons" style="font-size: 48px">
-								home
-							</i>
-							Ad Stats for
-							<h4 class="info-title">
-								HOMEPAGE</h4>
-						</a>
+					<a class="nav-link active" href="#dashboard-1{{tabNumber}}" role="tab" data-toggle="tab">
+						<i class="material-icons" style="font-size: 48px">
+							home
+						</i>
+						Ad Stats for
+						<h4 class="info-title">
+							HOMEPAGE</h4>
+					</a>
 					{{else}}
-						<a class="nav-link" href="#dashboard-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
-							<span class="badge badge-pill badge-danger">Not purchased</span>
-							<i class="material-icons" style="font-size: 48px">
-								home
-							</i>
-							Ad Stats for
-							<h4 class="info-title">
-								HOMEPAGE</h4>
-						</a>
+					<a class="nav-link" href="#dashboard-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
+						<span class="badge badge-pill badge-danger">Not purchased</span>
+						<i class="material-icons" style="font-size: 48px">
+							home
+						</i>
+						Ad Stats for
+						<h4 class="info-title">
+							HOMEPAGE</h4>
+					</a>
 					{{/if}}
 
 				</li>
 				<li class="nav-item col-3">
 					{{#if promotedSearch}}
-						<a class="nav-link" href="#schedule-1{{tabNumber}}" role="tab" data-toggle="tab">
-							<i class="material-icons" style="font-size: 48px">
-								search
-							</i>
-							Ad Stats for
-							<h4 class="info-title">
-								SEARCHPAGE</h4>
-						</a>
+					<a class="nav-link" href="#schedule-1{{tabNumber}}" role="tab" data-toggle="tab">
+						<i class="material-icons" style="font-size: 48px">
+							search
+						</i>
+						Ad Stats for
+						<h4 class="info-title">
+							SEARCHPAGE</h4>
+					</a>
 					{{else}}
-						<a class="nav-link" href="#schedule-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
-							<span class="badge badge-pill badge-danger">Not purchased</span>
-							<i class="material-icons" style="font-size: 48px">
-								search
-							</i>
-							Ad Stats for
-							<h4 class="info-title">
-								SEARCHPAGE</h4>
-						</a>
+					<a class="nav-link" href="#schedule-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
+						<span class="badge badge-pill badge-danger">Not purchased</span>
+						<i class="material-icons" style="font-size: 48px">
+							search
+						</i>
+						Ad Stats for
+						<h4 class="info-title">
+							SEARCHPAGE</h4>
+					</a>
 					{{/if}}
 				</li>
 				<li class="nav-item col-3">
 					{{#if promotedRelated}}
-						<a class="nav-link" href="#tasks-1{{tabNumber}}" role="tab" data-toggle="tab">
-							<span class="badge badge-pill badge-danger">Not purchased</span>
-							<i class="material-icons" style="font-size: 48px">
-								format_list_bulleted
-							</i>
-							Ad Stats for
-							<h4 class="info-title">
-								RELATED LISTING</h4>
-						</a>
+					<a class="nav-link" href="#tasks-1{{tabNumber}}" role="tab" data-toggle="tab">
+						<span class="badge badge-pill badge-danger">Not purchased</span>
+						<i class="material-icons" style="font-size: 48px">
+							format_list_bulleted
+						</i>
+						Ad Stats for
+						<h4 class="info-title">
+							RELATED LISTING</h4>
+					</a>
 					{{else}}
-						<a class="nav-link" href="##tasks-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
-							<span class="badge badge-pill badge-danger">Not purchased</span>
-							<i class="material-icons" style="font-size: 48px">
-								format_list_bulleted
-							</i>
-							Ad Stats for
-							<h4 class="info-title">
-								RELATED LISTING</h4>
-						</a>
+					<a class="nav-link" href="##tasks-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
+						<span class="badge badge-pill badge-danger">Not purchased</span>
+						<i class="material-icons" style="font-size: 48px">
+							format_list_bulleted
+						</i>
+						Ad Stats for
+						<h4 class="info-title">
+							RELATED LISTING</h4>
+					</a>
 					{{/if}}
 				</li>
 			</ul>
 			<div class="tab-content tab-space">
 				<div class="tab-pane active" id="dashboard-1{{tabNumber}}">
 					{{#if promotedHome}}
-						<div class="row mx-3 justify-content-around">
-							<div class="col-md-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="card-stats justify-content-around">
-											<canvas id="myChart{{tabNumber}}"></canvas>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 ">
-								<div class="card">
-									<div class="card-body">
-										<div class="card-stats justify-content-around">
-											<canvas id="myChart2{{tabNumber}}"></canvas>
-										</div>
+					<div class="row mx-3 justify-content-around">
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-stats justify-content-around">
+										<canvas id="myChart{{tabNumber}}"></canvas>
 									</div>
 								</div>
 							</div>
 						</div>
+						<div class="col-md-6 ">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-stats justify-content-around">
+										<canvas id="myChart2{{tabNumber}}"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					{{else}}
-						<div class="row mx-3">
-							<small>You Don't have promoter subscription, click on above buttons to activate promoter</small>
-						</div>
+					<div class="row mx-3">
+						<small>You Don't have promoter subscription, click on above buttons to activate promoter</small>
+					</div>
 					{{/if}}
 				</div>
 				<div class="tab-pane" id="schedule-1{{tabNumber}}">
 					{{#if promotedSearch}}
-						<div class="row mx-3 justify-content-around">
-							<div class="col-md-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="card-stats justify-content-around">
-											<canvas id="myChart{{tabNumber}}1"></canvas>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 ">
-								<div class="card">
-									<div class="card-body">
-										<div class="card-stats justify-content-around">
-											<canvas id="myChart2{{tabNumber}}1"></canvas>
-										</div>
+					<div class="row mx-3 justify-content-around">
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-stats justify-content-around">
+										<canvas id="myChart{{tabNumber}}1"></canvas>
 									</div>
 								</div>
 							</div>
 						</div>
+						<div class="col-md-6 ">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-stats justify-content-around">
+										<canvas id="myChart2{{tabNumber}}1"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					{{/if}}
 				</div>
 				<div class="tab-pane" id="tasks-1{{tabNumber}}">
 					{{#if promotedRelated}}
-						<div class="row mx-3 justify-content-around">
-							<div class="col-md-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="card-stats justify-content-around">
-											<canvas id="myChart{{tabNumber}}2"></canvas>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 ">
-								<div class="card">
-									<div class="card-body">
-										<div class="card-stats justify-content-around">
-											<canvas id="myChart2{{tabNumber}}2"></canvas>
-										</div>
+					<div class="row mx-3 justify-content-around">
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-stats justify-content-around">
+										<canvas id="myChart{{tabNumber}}2"></canvas>
 									</div>
 								</div>
 							</div>
 						</div>
+						<div class="col-md-6 ">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-stats justify-content-around">
+										<canvas id="myChart2{{tabNumber}}2"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					{{/if}}
 				</div>
 			</div>
-		</div>
+		</div> --}}
 		<div class="tab-pane" id="pill3{{tabNumber}}">
 			<div class="row m-0">
 				<div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
@@ -744,12 +732,14 @@
 									New Announcement
 								</div>
 								<div class="row">
-									<div class="col-md-10"><input type="text" placeholder="search students" class="form-control announcement-student-search-inp" data-tuition-id="{{_id}}"></div>
-									<div class="col-md-2"><a class="btn btn-sm btn-info announcement-student-search-reset text-white" data-tuition-id="{{_id}}">reset</a></div>
+									<div class="col-md-10"><input type="text" placeholder="search students" class="form-control announcement-student-search-inp"
+										 data-tuition-id="{{_id}}"></div>
+									<div class="col-md-2"><a class="btn btn-sm btn-info announcement-student-search-reset text-white"
+										 data-tuition-id="{{_id}}">reset</a></div>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1" class="text-dark">Select Students</label>
-									<div class="px-2" style="height:299px;overflow-y: auto;max-height:500px;">
+									<div class="px-2" style="width:100%;max-height:500px!important;overflow-y: scroll!important;">
 										<table class="table">
 											<thead>
 												<tr>
@@ -769,7 +759,7 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1" class="text-dark"><small class="text-danger">OR</small>
 										Select A Batch</label>
-									<div class="px-2" style="height:299px;overflow-y: auto;max-height:250px;">
+									<div class="px-2" style="width:100%;max-height:300px!important;overflow-y: scroll!important;">
 										<table class="table">
 											<thead>
 												<tr>
@@ -797,14 +787,15 @@
 								<br>
 								<div class="form-group">
 									<label class="text-dark">Announcement Text</label>
-									<textarea class="form-control announcement-text" placeholder="TYPE YOUR MESSAGE/NOTICE/ANNOUNCEMENT HERE" rows="5" name="message"></textarea>
+									<textarea class="form-control announcement-text" placeholder="TYPE YOUR MESSAGE/NOTICE/ANNOUNCEMENT HERE" rows="5"
+									 name="message"></textarea>
 								</div>
 								<div class="col-12">
 									<button class="btn btn-round btn-success pull-right send-announcement-btn" type="button" data-tuition-id="{{_id}}">SEND</button>
 								</div>
 							</div>
 							<div class="card-title col-12 h3 bg-info">
-								Recent Notifications
+								Recently Sent Announcements
 							</div>
 							<div class="col-12">
 								<div class="row recent-notification-container my-3" data-tuition-id="{{_id}}">
@@ -1074,6 +1065,58 @@
 							<div class="card-text">
 								<p class="col-12">Installment Date: 23/11/96</p>
 								<p class="col-12">Remaining Balance: 20000 INR</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane" id="pill7{{tabNumber}}">
+			<div class="row m-0">
+				<div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
+					<ul class="nav nav-pills nav-pills-success flex-column">
+						<li class="nav-item"><a class="nav-link active rounded-0" href="#financeReport{{tabNumber}}" data-toggle="tab">Finance</a></li>
+					</ul>
+				</div>
+				<div class="col-md-10">
+					<div class="tab-content">
+						<div class="tab-pane active" id="financeReport{{tabNumber}}">
+							<div class="row m-0">
+								<div class="finance-landing-container col-12" data-tuition-id="{{_id}}">
+									<div class="row">
+										<div class="card-title col-12 h3 bg-info">
+											Finance
+										</div>
+										<div class="col-md-12">
+											<h4 class="card-title">Batch Filter</h4>
+											<div class="row mb-2 finance-batch-container" data-tuition-id="{{_id}}">
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="row">
+												<div class="col-md-10"><input type="text" class="form-control finance-search-inp" placeholder="search students"
+													 data-tuition-id="{{_id}}"></div>
+												<div class="col-md-2">
+													<div class="btn btn-info btn-sm finance-search-reset" data-tuition-id="{{_id}}">RESET</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="row finance-student-container" data-tuition-id="{{_id}}">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-12 finance-detail-container d-none" data-tuition-id="{{_id}}">
+									<div class="row">
+										<button class="btn btn-sm btn-info landing-view-btn" data-tuition-id="{{_id}}">
+											<i class="material-icons" data-tuition-id="{{_id}}">
+												arrow_back
+											</i>
+										</button>
+									</div>
+									<div class="finance-dynamic-container" data-tuition-id="{{_id}}"></div>
+								</div>
 							</div>
 						</div>
 					</div>

@@ -26,11 +26,23 @@ const discounts = (() => {
 		return discountData;
 	}
 
+	function isAddedDiscountCodeDuplicate(addedCode, tuitionId) {
+		if (addedCode === undefined) throw new Error('Code is not provided');
+		if (tuitionId === undefined) throw new Error('Tuition id is not provided');
+		const discountsOfThisTuition = distinctDiscountsArr.filter(discountObj => discountObj.tuitionId === tuitionId);
+		if (randomScripts.isDuplicate(discountsOfThisTuition, 'code', addedCode)) {
+			alert('A discount with same code has already been added');
+			return true;
+		}
+		return false;
+	}
+
 	async function addDiscount(event) {
 		event.preventDefault();
 		const $form = $(event.target);
 		const tuitionId = $form.attr('data-id');
 		const discountData = getDiscountData(tuitionId);
+		if (isAddedDiscountCodeDuplicate(discountData.code, tuitionId)) return;
 		const newDiscount = await submitAddDiscount(tuitionId, discountData);
 		notification.push('Discount has been successfully added');
 		newDiscount.tuitionId = tuitionId;
@@ -59,9 +71,23 @@ const discounts = (() => {
 		return tuitionApiCalls.editDicountInTuition(tuitionId, discountId, editedData);
 	}
 
-	async function editDiscount(tuitionId, discountId) {
+	function isEditedCodeDuplicate(editedData, discountId, tuitionId) {
+		if (editedData === undefined) throw new Error('Discount data is not provided');
+		if (discountId === undefined) throw new Error('Discount Id is not provided');
+		if (tuitionId === undefined) throw new Error('Tuition Id is not provided');
+		const discountsOfThisTuition = distinctDiscountsArr.filter(discountObj => discountObj.tuitionId === tuitionId);
+		if (randomScripts.isDuplicate(discountsOfThisTuition, 'code', editedData.code, discountId)) {
+			alert('A discount with same code already exist');
+			return true;
+		}
+		return false;
+	}
+
+	async function editDiscount(event, tuitionId, discountId) {
 		try {
-			const editedData = modal.serializeForm();
+			event.preventDefault();
+			const editedData = modal.getInputsDataObj();
+			if (isEditedCodeDuplicate(editedData, discountId, tuitionId)) return;
 			const editedDiscount = await submitEditRequest(tuitionId, discountId, editedData);
 			modal.hideModal();
 			notification.push('Discount has been successfully edited');
@@ -81,7 +107,7 @@ const discounts = (() => {
 		const discountInfo = distinctDiscountsArr.find(discountToBeEdited => discountToBeEdited._id === discountId);
 		const editDicountInputHTML = template.discountEditInputs(discountInfo);
 		modal.renderFormContent(editDicountInputHTML);
-		modal.bindSubmitEvent(() => editDiscount(tuitionId, discountId));
+		modal.bindSubmitEvent(e => editDiscount(e, tuitionId, discountId));
 		modal.cacheAndBindCoursesStuff();
 		modal.showModal();
 	}
