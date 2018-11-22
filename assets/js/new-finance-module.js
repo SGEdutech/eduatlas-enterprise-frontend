@@ -2,6 +2,7 @@ const finance = (() => {
 	let distinctStudentsArr;
 	let distinctBatchesArr;
 	let distinctCoursesArr;
+	let distinctDiscountsArr;
 	let $studentSearchInp;
 	let $batchCheckboxes;
 	let $resetBtn;
@@ -21,7 +22,21 @@ const finance = (() => {
 	let $modeOfPaymentDetailsContainer;
 	let $deleteInstallmentBtn;
 	let $editInstallmentBtn;
+	let $financeDiscountSelect;
+	let $courseFeeInp;
+	let $discountAmountInp;
+	let $discountReasonInp;
+	let $netFeeInp;
+	let $additionalDiscountInp;
 
+	// function renderCourseFee() {
+	// 	$courseFeeInp.each((__, inp) => {
+	// 		const $inp = $(inp);
+	// 		const tuitionId = $inp.attr('data-tuition-id');
+
+	// 	});
+	// }
+	
 	async function deleteInstallemnt(event) {
 		try {
 			event.preventDefault();
@@ -43,7 +58,7 @@ const finance = (() => {
 	}
 
 	function initInstallmentEditModal(event) {
-		$btn = $(event.target);
+		const $btn = $(event.target);
 		const tuitionId = $btn.attr('data-tuition-id');
 		const studentId = $btn.attr('data-student-id');
 		const paymentId = $btn.attr('data-payment-id');
@@ -51,7 +66,6 @@ const finance = (() => {
 		const studentToEdit = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
 		const paymentInfo = studentToEdit.payments.find(paymentObj => paymentObj._id === paymentId);
 		const installmentInfo = paymentInfo.installments.find(installmentObj => installmentObj._id === installmentId);
-		console.log(installmentInfo);
 		const editInstallmentInputHTML = template.installmentEditInputs(installmentInfo);
 		modal.renderFormContent(editInstallmentInputHTML);
 		modal.bindSubmitEvent(e => editInstallment(e, tuitionId, studentId, paymentId, installmentId));
@@ -81,23 +95,23 @@ const finance = (() => {
 		const selectedModeOfPayment = $modeSelect.val();
 		let inputsHTML = '';
 		if (selectedModeOfPayment === 'cheque') {
-			inputsHTML = template.modeOfPaymentChequeInputs({ financeModule: true });
+			inputsHTML = template.modeOfPaymentChequeInputs();
 		} else if (selectedModeOfPayment === 'card') {
-			inputsHTML = template.modeOfPaymentCardInputs({ financeModule: true });
+			inputsHTML = template.modeOfPaymentCardInputs();
 		} else if (selectedModeOfPayment === 'other') {
-			inputsHTML = template.modeOfPaymentOtherInputs({ financeModule: true });
+			inputsHTML = template.modeOfPaymentOtherInputs();
 		} else if (selectedModeOfPayment === 'cash') {
-			inputsHTML = template.modeOfPaymentCashInputs({ financeModule: true });
+			inputsHTML = template.modeOfPaymentCashInputs();
 		}
-		$modeOfPaymentDetailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).html(inputsHTML);
+		$modeOfPaymentDetailsContainer.filter(`[data-tuition-id='${tuitionId}']`).html(inputsHTML);
 	}
 
 	// FIXME: Find a more efficient way to unbind
 	function unbindAllDetailsElements(tuitionId) {
 		if (tuitionId) {
-			$detailsDisplayContainer.filter(`[data-tuition-id="${tuitionId}"]`).find('*').off();
+			$detailsDisplayContainer.filter(`[data-tuition-id='${tuitionId}']`).find('*').off();
 		} else {
-			$detailsDisplayContainer.filter(`[data-tuition-id="${tuitionId}"]`).find('*').off();
+			$detailsDisplayContainer.filter(`[data-tuition-id='${tuitionId}']`).find('*').off();
 		}
 	}
 
@@ -198,21 +212,27 @@ const finance = (() => {
 		const $btn = $(event.target);
 		const tuitionId = $btn.attr('data-tuition-id');
 		unbindAllDetailsElements(tuitionId);
-		$detailsDisplayContainer.filter(`[data-tuition-id="${tuitionId}"]`).html('');
-		$landingContainer.filter(`[data-tuition-id="${tuitionId}"]`).removeClass('d-none');
-		$detailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).addClass('d-none');
+		$detailsDisplayContainer.filter(`[data-tuition-id='${tuitionId}']`).html('');
+		$landingContainer.filter(`[data-tuition-id='${tuitionId}']`).removeClass('d-none');
+		$detailsContainer.filter(`[data-tuition-id='${tuitionId}']`).addClass('d-none');
 	}
 
 	function initCourseSelect(tuitionId) {
 		const courseList = distinctCoursesArr.filter(obj => obj.tuitionId === tuitionId);
 		const courseOptionsHTML = template.financeCourseOptions({ courses: courseList });
-		$financeCourseSelect.filter(`[data-tuition-id="${tuitionId}"]`).html(courseOptionsHTML);
+		$financeCourseSelect.filter(`[data-tuition-id='${tuitionId}']`).html(courseOptionsHTML);
+	}
+
+	function initDiscountSelect(tuitionId) {
+		const discountList = distinctDiscountsArr.filter(discountObj => discountObj.tuitionId === tuitionId);
+		const dicountOptionsHTML = template.discountSelectOptions({ discounts: discountList });
+		$financeDiscountSelect.filter(`[data-tuition-id='${tuitionId}']`).html(dicountOptionsHTML);
 	}
 
 	function fixDateFormatAndCalculateFee(studentInfo) {
 		studentInfo.payments.forEach(paymentObj => {
 			if (paymentObj.nextInstallmentDate) {
-				paymentObj.nextInstallmentDate = moment(paymentObj.nextInstallmentDate).format("MMM Do");
+				paymentObj.nextInstallmentDate = moment(paymentObj.nextInstallmentDate).format('MMM Do');
 			}
 			if (paymentObj.discountAmount && paymentObj.courseFee) {
 				paymentObj.netFee = paymentObj.courseFee - paymentObj.discountAmount;
@@ -223,10 +243,10 @@ const finance = (() => {
 					totalFeeCollected += installmentObj.feeCollected;
 				}
 				if (installmentObj.nextInstallment) {
-					installmentObj.nextInstallment = moment(installmentObj.nextInstallment).format("MMM Do");
+					installmentObj.nextInstallment = moment(installmentObj.nextInstallment).format('MMM Do');
 				}
 				if (installmentObj.dateOfCheque) {
-					installmentObj.dateOfCheque = moment(installmentObj.dateOfCheque).format("MMM Do");
+					installmentObj.dateOfCheque = moment(installmentObj.dateOfCheque).format('MMM Do');
 				}
 			});
 			if (paymentObj.discountAmount && paymentObj.courseFee) {
@@ -239,10 +259,11 @@ const finance = (() => {
 		const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
 		fixDateFormatAndCalculateFee(studentInfo);
 		const detailsHtml = template.financeDetailView(studentInfo);
-		$detailsDisplayContainer.filter(`[data-tuition-id="${tuitionId}"]`).html(detailsHtml);
+		$detailsDisplayContainer.filter(`[data-tuition-id='${tuitionId}']`).html(detailsHtml);
 		cacheDynamic();
 		bindDynamic();
 		initCourseSelect(tuitionId);
+		initDiscountSelect(tuitionId);
 	}
 
 	function showDetails() {
@@ -250,8 +271,8 @@ const finance = (() => {
 		const studentId = $card.attr('data-student-id');
 		const tuitionId = $card.attr('data-tuition-id');
 		renderDetails(tuitionId, studentId);
-		$landingContainer.filter(`[data-tuition-id="${tuitionId}"]`).addClass('d-none');
-		$detailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).removeClass('d-none');
+		$landingContainer.filter(`[data-tuition-id='${tuitionId}']`).addClass('d-none');
+		$detailsContainer.filter(`[data-tuition-id='${tuitionId}']`).removeClass('d-none');
 	}
 
 	function renderAllStudents(event) {
@@ -277,7 +298,7 @@ const finance = (() => {
 	function getSelectedBatchesArr(tuitionId) {
 		if (tuitionId === undefined) throw new Error('Tuition id not provided');
 		const selectedBatchesArr = [];
-		const $selectedBatchesOfThisTuition = $batchCheckboxes.filter(`[data-tuition-id="${tuitionId}"]:checked`);
+		const $selectedBatchesOfThisTuition = $batchCheckboxes.filter(`[data-tuition-id='${tuitionId}']:checked`);
 		$selectedBatchesOfThisTuition.each((__, checkbox) => {
 			const $checkbox = $(checkbox);
 			selectedBatchesArr.push($checkbox.val());
@@ -300,7 +321,7 @@ const finance = (() => {
 		const tuitionId = $btn.attr('data-tuition-id');
 		const selectedBatchesArr = getSelectedBatchesArr(tuitionId);
 		const studentsOfSelectedBatchArr = getStudentFromSelectedBatchArr(selectedBatchesArr);
-		const searchStr = $studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		const searchStr = $studentSearchInp.filter(`[data-tuition-id='${tuitionId}']`).val();
 		const regex = new RegExp(searchStr, 'i');
 		const searchResultArr = studentsOfSelectedBatchArr.filter(studentObj => regex.test(studentObj.name));
 		refresh({ studentsArr: searchResultArr, renderTuitionId: tuitionId, batchesArr: selectedBatchesArr });
@@ -364,6 +385,12 @@ const finance = (() => {
 		$modeOfPaymentDetailsContainer = $('.finance-mode-of-payment-details-container');
 		$deleteInstallmentBtn = $('.delete-installment-btn');
 		$editInstallmentBtn = $('.installment-edit-btn');
+		$financeDiscountSelect = $('.finance-discount-select');
+		$courseFeeInp = $('.finance-course-fee');
+		$discountAmountInp = $('.finance-discount-amount');
+		$discountReasonInp = $('.finance-discount-reason');
+		$netFeeInp = $('.finance-net-fee');
+		$additionalDiscountInp = $('.finance-additional-discount');
 	}
 
 	function bindEvents() {
@@ -382,6 +409,17 @@ const finance = (() => {
 		$modeOfPaymentSelect.change(showModeOfPaymentDetailsInputs);
 		$deleteInstallmentBtn.click(deleteInstallemnt);
 		$editInstallmentBtn.click(initInstallmentEditModal);
+
+		// $financeCourseSelect.change(renderCourseFee);
+		// $financeCourseSelect.change(renderNetFee);
+
+		// $financeDiscountSelect.change(renderDiscountAmount);
+		// $financeDiscountSelect.change(renderDiscountReason);
+		// $financeDiscountSelect.change(renderNetFee);
+
+		// $additionalDiscountInp.on('input paste', renderDiscountAmount);
+		// $additionalDiscountInp.on('input paste', renderDiscountReason);
+		// $additionalDiscountInp.on('input paste', renderNetFee);
 	}
 
 	function refresh(opts) {
@@ -391,7 +429,7 @@ const finance = (() => {
 		bindDynamic();
 	}
 
-	function init(studentsArr, coursesArr, batchesArr) {
+	function init(studentsArr, coursesArr, batchesArr, discountsArr) {
 		if (studentsArr === undefined) throw new Error('Students not provided');
 		if (Array.isArray(studentsArr) === false) throw new Error('Students array must be an array');
 
@@ -401,9 +439,13 @@ const finance = (() => {
 		if (batchesArr === undefined) throw new Error('Batches not provided');
 		if (Array.isArray(batchesArr) === false) throw new Error('Batches array must be an array');
 
+		if (discountsArr === undefined) throw new Error('Discounts is not provided');
+		if (Array.isArray(discountsArr) === false) throw new Error('Discounts is not an array');
+
 		distinctStudentsArr = JSON.parse(JSON.stringify(studentsArr));
 		distinctCoursesArr = JSON.parse(JSON.stringify(coursesArr));
 		distinctBatchesArr = JSON.parse(JSON.stringify(batchesArr));
+		distinctDiscountsArr = JSON.parse(JSON.stringify(discountsArr));
 
 		cache();
 		bindEvents();

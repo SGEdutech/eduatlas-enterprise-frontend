@@ -4,7 +4,7 @@ PubSub.subscribe('user', (msg, userInfo) => {
 });
 
 Handlebars.registerHelper('inc', function(value, options) {
-	return parseInt(value) + 1;
+	return parseInt(value, 10) + 1;
 });
 
 async function initModules() {
@@ -34,7 +34,7 @@ async function initModules() {
 		announcement.init(claimedNotifications, claimedBatches, claimedStudents);
 		redirectTabs.init(queryString.loadQueryString());
 		discounts.init(claimedDiscounts);
-		finance.init(claimedStudents, claimedCourses, claimedBatches);
+		finance.init(claimedStudents, claimedCourses, claimedBatches, claimedDiscounts);
 
 		userImgAndName.init(userInfo);
 		modal.init();

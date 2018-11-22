@@ -2,7 +2,7 @@
 {{#each payments as |payment|}}
 <div class="card">
     <div class="card-body p-0">
-        <div class="card bg-info m-0 rounded-0">
+        <div class="card bg-info m-0 rounded-top-0">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-3 font-weight-bold">Course Code:</div>
@@ -132,13 +132,27 @@
                     <div class="card-body">
                         <div class="card-title m-0 h4 text-info mb-3">Add New Installment</div>
                         <div class="row">
-                            <div class="col-md-3 font-weight-bold">
+                            <div class="col-md-6 form-group">
+                                <label class="bmd-label-floating">Collected Fee</label>
+                                <input class="w-100 form-control" type="number" name="feeCollected">
+                            </div>
+                            {{!-- <div class="col-md-3 font-weight-bold">
                                 Collected Fee:
                             </div>
                             <div class="col-md-3">
                                 <input class="w-100 form-control" type="number" name="feeCollected">
+                            </div> --}}
+                            <div class="col-md-6 form-group">
+                                <label class="bmd-label-floating">Mode Of Payment</label>
+                                <select name="modeOfPayment" class="form-control w-100 finance-mode-of-payment-select"
+                                    data-tuition-id={{../tuitionId}}>
+                                    <option value="cash">Cash</option>
+                                    <option value="cheque">Cheque</option>
+                                    <option value="card">Card</option>
+                                    <option value="other">Other</option>
+                                </select>
                             </div>
-                            <div class="col-md-3 font-weight-bold">
+                            {{!-- <div class="col-md-3 font-weight-bold">
                                 Mode Of Payment:
                             </div>
                             <div class="col-md-3">
@@ -149,7 +163,7 @@
                                     <option value="card">Card</option>
                                     <option value="other">Other</option>
                                 </select>
-                            </div>
+                            </div> --}}
                             <div class="col-12 mt-3">
                                 <div class="row finance-mode-of-payment-details-container" data-tuition-id="{{../tuitionId}}"></div>
                             </div>
@@ -182,11 +196,12 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="bmd-label-floating">Select Discount Code</label>
-                            <select class="w-100 finance-discount-select form-control" name="discountCode" data-tuition-id="{{tuitionId}}"></select>
+                            <select class="w-100 finance-discount-select form-control" name="discountCode"
+                                data-tuition-id="{{tuitionId}}"></select>
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="bmd-label-floating">Additional Discount</label>
-                            <input name="additionalDiscount" class="w-100 form-control" type="number">
+                            <input name="additionalDiscount" class="w-100 form-control finance-additional-discount" type="number" data-tuition-id="{{tuitionId}}">
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="bmd-label-floating">Next Installment Date</label>
@@ -200,19 +215,21 @@
                             <div class="row">
                                 <div class="col-md-12 form-group">
                                     <label class="bmd-label-floating text-dark">Course Fee</label>
-                                    <input name="courseFee" class="w-100 " type="number">
+                                    <input name="courseFee" class="w-100 finance-course-fee" type="number" data-tuition-id="{{tuitionId}}" disabled>
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <label class="bmd-label-floating text-dark">Discount Amount</label>
-                                    <input name="discountAmount" class="w-100 " type="number">
+                                    <input name="discountAmount" class="w-100 finance-discount-amount" type="number" data-tuition-id="{{tuitionId}}"
+                                        disabled>
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <label class="bmd-label-floating text-dark">Discount Reason</label>
-                                    <input name="discountReason" class="w-100 " type="text">
+                                    <input name="discountReason" class="w-100 finance-discount-reason" type="text" data-tuition-id="{{tuitionId}}"
+                                        disabled>
                                 </div>
                                 <div class="col-md-12 form-group">
-                                    <label class="bmd-label-floating text-dark">Net Fee</label>
-                                    <input class="w-100 " type="number" disabled>
+                                    <label class="bmd-label-floating text-dark finance-net-fee">Net Fee</label>
+                                    <input class="w-100 " type="number" data-tuition-id="{{tuitionId}}" disabled>
                                 </div>
                             </div>
                         </div>
