@@ -169,51 +169,57 @@
 <small class="text-danger">No Payment Initiated</small>
 {{/each}}
 
-<div class="card bg-info">
+<div class="card">
     <form class="add-payment-form" data-tuition-id="{{tuitionId}}" data-student-id="{{_id}}">
         <div class="card-body">
             <div class="card-title h4 m-0 text-dark mb-3">Initiate New Payment</div>
             <div class="row">
-                <div class="col-md-3 font-weight-bold">Course Code:</div>
-                <div class="col-md-3"><select class="w-100 finance-course-select" name="courseCode" data-tuition-id="{{tuitionId}}"></select></div>
-                <div class="col-md-3 font-weight-bold">
-                    Course Fee:
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="bmd-label-floating">Course Code</label>
+                            <select class="w-100 finance-course-select form-control" name="courseCode" data-tuition-id="{{tuitionId}}"></select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="bmd-label-floating">Select Discount Code</label>
+                            <select class="w-100 finance-discount-select form-control" name="discountCode" data-tuition-id="{{tuitionId}}"></select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="bmd-label-floating">Additional Discount</label>
+                            <input name="additionalDiscount" class="w-100 form-control" type="number">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="bmd-label-floating">Next Installment Date</label>
+                            <input name="nextInstallmentDate" class="w-100 form-control" type="date">
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <input name="courseFee" class="w-100" type="number">
-                </div>
-                <div class="col-md-3 font-weight-bold">
-                    Discount Amount:
-                </div>
-                <div class="col-md-3">
-                    <input name="discountAmount" class="w-100" type="number">
-                </div>
-                <div class="col-md-3 font-weight-bold">
-                    Discount Reason:
-                </div>
-                <div class="col-md-3">
-                    <input name="discountReason" class="w-100" type="text">
-                </div>
-                <div class="col-md-3 font-weight-bold">
-                    Net Fee:
-                </div>
-                <div class="col-md-3">
-                    <input class="w-100" type="number" disabled>
-                </div>
-                <div class="col-md-3 font-weight-bold">
-                    Pending Balance:
-                </div>
-                <div class="col-md-3">
-                    <input class="w-100" type="number" disabled>
-                </div>
-                <div class="col-md-3 font-weight-bold">
-                    Next Installment Date:
-                </div>
-                <div class="col-md-3">
-                    <input name="nextInstallmentDate" class="w-100" type="date">
+                <div class="col-md-4">
+                    <div class="card bg-info m-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label class="bmd-label-floating text-dark">Course Fee</label>
+                                    <input name="courseFee" class="w-100 " type="number">
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label class="bmd-label-floating text-dark">Discount Amount</label>
+                                    <input name="discountAmount" class="w-100 " type="number">
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label class="bmd-label-floating text-dark">Discount Reason</label>
+                                    <input name="discountReason" class="w-100 " type="text">
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label class="bmd-label-floating text-dark">Net Fee</label>
+                                    <input class="w-100 " type="number" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card-footer p-0">
+            <div class="card-footer p-0 mt-3">
                 <div class="stats ml-auto">
                     <button class="btn btn-sm btn-success btn-round">ADD</button>
                 </div>

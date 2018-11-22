@@ -188,7 +188,6 @@ const finance = (() => {
 				paymentInfo = paymentObj;
 			}
 		})
-
 		const editPaymentInputHTML = template.paymentEditInputs(paymentInfo);
 		modal.renderFormContent(editPaymentInputHTML);
 		modal.bindSubmitEvent(e => editPayment(e, tuitionId, studentId, paymentId));
@@ -210,21 +209,35 @@ const finance = (() => {
 		$financeCourseSelect.filter(`[data-tuition-id="${tuitionId}"]`).html(courseOptionsHTML);
 	}
 
-	function renderDetails(tuitionId, studentId) {
-		const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+	function fixDateFormatAndCalculateFee(studentInfo) {
 		studentInfo.payments.forEach(paymentObj => {
 			if (paymentObj.nextInstallmentDate) {
 				paymentObj.nextInstallmentDate = moment(paymentObj.nextInstallmentDate).format("MMM Do");
 			}
+			if (paymentObj.discountAmount && paymentObj.courseFee) {
+				paymentObj.netFee = paymentObj.courseFee - paymentObj.discountAmount;
+			}
+			let totalFeeCollected = 0;
 			paymentObj.installments.forEach(installmentObj => {
+				if (installmentObj.feeCollected) {
+					totalFeeCollected += installmentObj.feeCollected;
+				}
 				if (installmentObj.nextInstallment) {
 					installmentObj.nextInstallment = moment(installmentObj.nextInstallment).format("MMM Do");
 				}
 				if (installmentObj.dateOfCheque) {
 					installmentObj.dateOfCheque = moment(installmentObj.dateOfCheque).format("MMM Do");
 				}
-			})
-		})
+			});
+			if (paymentObj.discountAmount && paymentObj.courseFee) {
+				paymentObj.pendingBalance = paymentObj.netFee - totalFeeCollected;
+			}
+		});
+	}
+
+	function renderDetails(tuitionId, studentId) {
+		const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+		fixDateFormatAndCalculateFee(studentInfo);
 		const detailsHtml = template.financeDetailView(studentInfo);
 		$detailsDisplayContainer.filter(`[data-tuition-id="${tuitionId}"]`).html(detailsHtml);
 		cacheDynamic();

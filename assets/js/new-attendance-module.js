@@ -76,6 +76,18 @@ const attendance = (() => {
 		$excelUploadModal.modal('hide');
 	}
 
+	function changeformatOfDateAndFromTime(schedulesArr) {
+		// console.log(schedulesArr);
+		schedulesArr.forEach(scheduleObj => {
+			if (scheduleObj.date) {
+				scheduleObj.date = moment(scheduleObj.date).format('MMM Do');
+			}
+			if (scheduleObj.fromTime) {
+				scheduleObj.fromTime = dateAndTime.inverseMinutesFromMidnight(scheduleObj.fromTime);
+			}
+		})
+	}
+
 	function renderScheduleDropdown() {
 		$scheduleDropDown.each((__, dropdown) => {
 			const $dropdown = $(dropdown);
@@ -86,6 +98,7 @@ const attendance = (() => {
 				const schedulesByWeek = sortByWeek(batchInfo);
 				const selectedWeek = $attendanceWeekDropdown.filter(`[data-tuition-id="${tuitionId}"]`).val();
 				const schedulesArr = schedulesByWeek[selectedWeek];
+				changeformatOfDateAndFromTime(schedulesArr);
 				const scheduleOptionsHtml = template.scheduleOptions2({ schedules: schedulesArr });
 				$dropdown.html(scheduleOptionsHtml);
 			} else {
@@ -162,7 +175,7 @@ const attendance = (() => {
 				const studentsOfThisBatch = studentsOfThisInstituteArr.filter(studentObj => batchInfo.students.indexOf(studentObj._id) !== -1);
 				const studentsOfThisBatchAbsentInfo = studentsOfThisBatch.map(studentObj => {
 					const cloneStudentObj = JSON.parse(JSON.stringify(studentObj));
-					cloneStudentObj.isAbsent = scheduleInfo.studentsAbsent.indexOf(studentObj._id) === -1;
+					cloneStudentObj.isAbsent = scheduleInfo.studentsAbsent.indexOf(studentObj._id) !== -1;
 					return cloneStudentObj;
 				});
 				const studentTableHtml = template.studentsTable({ students: studentsOfThisBatchAbsentInfo });

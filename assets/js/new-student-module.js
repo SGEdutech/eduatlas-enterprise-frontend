@@ -597,6 +597,7 @@ const student = (() => {
 			const discountOptionsHTML = template.discountSelectOptions({ discounts: discountsOfThisTuition });
 			$container.html(discountOptionsHTML).selectpicker('refresh');
 		});
+		$batchSelectContainer.selectpicker('refresh');
 	}
 
 	function refresh(studentsArr, renderTuitionId) {
