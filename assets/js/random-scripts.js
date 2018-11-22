@@ -20,6 +20,7 @@ const randomScripts = {
 		return allSearchResults.filter((studentObj, index) => index === allSearchResults.findIndex(indexStudentObj => indexStudentObj._id === studentObj._id));
 	},
 
+	// Toggle inputs must have class toggle-checkbox for this function to return true or false
 	getInputsAndSelectDataObj($inputs) {
 		if ($inputs === undefined) return [];
 		if ($inputs instanceof $ === false) throw new Error('Inputs must be jquery object');
@@ -27,7 +28,25 @@ const randomScripts = {
 		const inputsDataObj = {};
 		$inputs.each((__, input) => {
 			const $input = $(input);
-			inputsDataObj[$input.attr('name')] = $input.val();
+			const name = $input.attr('name');
+			const value = $input.val();
+			if (Boolean(name) === false || Boolean(value) === false) return;
+			if ($input.attr('type') === 'checkbox') {
+				const isChecked = $input.is(':checked');
+				if ($input.hasClass('toggle-checkbox')) {
+					inputsDataObj[name] = isChecked;
+					return;
+				}
+				// We do not need to include unchecked inp which are not toggle in our obj
+				if (isChecked === false) return;
+			}
+			// If name already exists, we will squash all values in array
+			if (inputsDataObj[name]) {
+				inputsDataObj[name] = [inputsDataObj[name]];
+				inputsDataObj[name].push(value);
+				return;
+			}
+			inputsDataObj[name] = value;
 		});
 		return inputsDataObj;
 	},

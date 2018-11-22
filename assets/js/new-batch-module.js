@@ -84,6 +84,7 @@ const batch = (() => {
 		try {
 			event.preventDefault();
 			const editedData = modal.getInputsDataObj();
+			console.log(editedData);
 			if (isEditedDataValid(editedData, batchId, tuitionId) === false) return;
 			const editedBatch = await submitEditRequest(tuitionId, courseId, batchId, editedData);
 			modal.hideModal();
