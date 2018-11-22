@@ -83,5 +83,14 @@ const randomScripts = {
 
 		const totalFee = courseFee + courseFee * (gstPercentage / 100);
 		return totalFee.toFixed(2);
+	},
+
+	calcTotalDiscountedAmount({ baseFee, discount, isPercent }) {
+		if (baseFee === undefined) throw new Error('Base fee is not provided')
+		if (discount === undefined) throw new Error('Discount is not provided')
+		if (isPercent) {
+			return baseFee * (discount / 100);
+		}
+		return discount;
 	}
 };

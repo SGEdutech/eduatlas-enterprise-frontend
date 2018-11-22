@@ -29,14 +29,80 @@ const finance = (() => {
 	let $netFeeInp;
 	let $additionalDiscountInp;
 
-	// function renderCourseFee() {
-	// 	$courseFeeInp.each((__, inp) => {
-	// 		const $inp = $(inp);
-	// 		const tuitionId = $inp.attr('data-tuition-id');
+	function getCourseFee(tuitionId) {
+		if (tuitionId === undefined) throw new Error('Tuition Id is not provided');
 
-	// 	});
-	// }
-	
+		const courseId = $financeCourseSelect.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		if (Boolean(courseId) === false) return 0;
+		return distinctCoursesArr.find(courseObj => courseObj._id === courseId).fees;
+	}
+
+	function getTotalDiscountAmount(tuitionId) {
+		if (tuitionId === undefined) throw new Error('Tuition Id is not provided');
+		let totalDiscount = 0;
+		const discountId = $financeDiscountSelect.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		if (discountId) {
+			const { amount, isPercent } = distinctDiscountsArr.find(discountObj => discountObj._id === discountId);
+			const baseFee = getCourseFee(tuitionId);
+			totalDiscount += randomScripts.calcTotalDiscountedAmount({ baseFee, discount: amount, isPercent });
+		}
+		let additionalDiscount = $additionalDiscountInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		additionalDiscount = parseInt(additionalDiscount, 10) || 0;
+		totalDiscount += additionalDiscount;
+		return totalDiscount;
+	}
+
+	function renderNetFee() {
+		$netFeeInp.each((__, inp) => {
+			const $inp = $(inp);
+			const tuitionId = $inp.attr('data-tuition-id');
+			const baseFee = getCourseFee(tuitionId);
+			const totalDiscountAmount = getTotalDiscountAmount(tuitionId);
+			$inp.val(baseFee - totalDiscountAmount);
+		});
+	}
+
+	function renderDiscountReason() {
+		$discountReasonInp.each((__, inp) => {
+			const $inp = $(inp);
+			const tuitionId = $inp.attr('data-tuition-id');
+			let discountReason = '';
+			const discountId = $financeDiscountSelect.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const additionalDiscount = $additionalDiscountInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			if (discountId) {
+				let { code } = distinctDiscountsArr.find(discountObj => discountObj._id === discountId);
+				code = code.toUpperCase();
+				discountReason = code;
+			}
+			if (additionalDiscount) {
+				if (discountReason) {
+					discountReason = `${discountReason} + Additional Discount(${additionalDiscount})`
+				} else {
+					discountReason = `Additional Discount(${additionalDiscount})`
+				}
+			}
+			$inp.val(discountReason);
+		});
+	}
+
+	function renderDiscountAmount() {
+		$discountAmountInp.each((__, inp) => {
+			const $inp = $(inp);
+			const tuitionId = $inp.attr('data-tuition-id');
+			const totalDiscount = getTotalDiscountAmount(tuitionId);
+			$inp.val(totalDiscount);
+		});
+	}
+
+	function renderCourseFee() {
+		$courseFeeInp.each((__, inp) => {
+			const $inp = $(inp);
+			const tuitionId = $inp.attr('data-tuition-id');
+			const courseFee = getCourseFee(tuitionId);
+			$inp.val(courseFee);
+		});
+	}
+
 	async function deleteInstallemnt(event) {
 		try {
 			event.preventDefault();
@@ -410,16 +476,16 @@ const finance = (() => {
 		$deleteInstallmentBtn.click(deleteInstallemnt);
 		$editInstallmentBtn.click(initInstallmentEditModal);
 
-		// $financeCourseSelect.change(renderCourseFee);
-		// $financeCourseSelect.change(renderNetFee);
+		$financeCourseSelect.change(renderCourseFee);
+		$financeCourseSelect.change(renderNetFee);
 
-		// $financeDiscountSelect.change(renderDiscountAmount);
-		// $financeDiscountSelect.change(renderDiscountReason);
-		// $financeDiscountSelect.change(renderNetFee);
+		$financeDiscountSelect.change(renderDiscountAmount);
+		$financeDiscountSelect.change(renderDiscountReason);
+		$financeDiscountSelect.change(renderNetFee);
 
-		// $additionalDiscountInp.on('input paste', renderDiscountAmount);
-		// $additionalDiscountInp.on('input paste', renderDiscountReason);
-		// $additionalDiscountInp.on('input paste', renderNetFee);
+		$additionalDiscountInp.on('input paste', renderDiscountAmount);
+		$additionalDiscountInp.on('input paste', renderDiscountReason);
+		$additionalDiscountInp.on('input paste', renderNetFee);
 	}
 
 	function refresh(opts) {

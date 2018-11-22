@@ -57,15 +57,6 @@ const student = (() => {
 		return nameToValueObj;
 	}
 
-	function calcTotalDiscountedAmount({ baseFee, discount, isPercent }) {
-		if (baseFee === undefined) throw new Error('Base fee is not provided')
-		if (discount === undefined) throw new Error('Discount is not provided')
-		if (isPercent) {
-			return baseFee * (discount / 100);
-		}
-		return discount;
-	}
-
 	function getTotalDiscountAmount(tuitionId) {
 		if (tuitionId === undefined) throw new Error('Tuition Id is not provided')
 
@@ -75,7 +66,7 @@ const student = (() => {
 		let totalDiscount = 0;
 		if (discountCoupenInfo) {
 			const { amount, isPercent } = discountCoupenInfo;
-			totalDiscount += calcTotalDiscountedAmount({ baseFee, discount: amount, isPercent });
+			totalDiscount += randomScripts.calcTotalDiscountedAmount({ baseFee, discount: amount, isPercent });
 		}
 		const additionalDiscount = parseInt($additionalDiscountInp.filter(`[data-tuition-id="${tuitionId}"]`).val(), 10) || 0;
 		totalDiscount += additionalDiscount;
