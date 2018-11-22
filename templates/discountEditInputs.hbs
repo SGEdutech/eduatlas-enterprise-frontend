@@ -1,38 +1,55 @@
 <div class="card my-0 bg-info">
-    <div class="card-body pt-0 pb-0">
-        <h3 class="card-title my-2">
-            <a href="#pablo" class="text-dark">{{code}}</a>
-        </h3>
-    </div>
+	<div class="card-body pt-0 pb-0">
+		<h3 class="card-title my-2">
+			<a href="#pablo" class="text-dark">{{code}}</a>
+		</h3>
+	</div>
 </div>
 <div class="card my-0">
-    <div class="card-body ">
-        <div class="row align-items-center justify-content-around">
-            <div class="col-sm-12 col-xs-12 mt-1">
-                <div class="row">
-                    <div class="col-md-4 pt-0 pb-0 border border-white">
-                        <span class="input-group-addon" style="font-size: 12px;">
-                            DISCOUNT CODE
-                        </span>
-                    </div>
-                    <div class="col-md-8 p-0">
-                        <input name="code" type="text" class="form-control bg-white" placeholder="DISCOUNT CODE" value="{{code}}">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-xs-12 mt-1">
-                <div class="row">
-                    <div class="col-md-4 pt-0 pb-0">
-                        <span class="input-group-addon" style="font-size: 12px;">
-                            AMOUNT
-                        </span>
-                    </div>
-                    <div class="col-md-8 p-0">
-                        <input name="description" type="number" class="form-control bg-white" placeholder="AMOUNT"
-                            value="{{amount}}">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="card-body ">
+		<div class="row align-items-center justify-content-around">
+			<div class="col-sm-12 col-xs-12 mt-1">
+				<div class="row">
+					<div class="col-md-4 pt-0 pb-0 border border-white">
+						<span class="input-group-addon" style="font-size: 12px;">
+							DISCOUNT CODE
+						</span>
+					</div>
+					<div class="col-md-8 p-0">
+						<input name="code" type="text" class="form-control bg-white" placeholder="DISCOUNT CODE" value="{{code}}">
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 col-xs-12 mt-1">
+				<div class="row">
+					<div class="col-md-4 pt-0 pb-0">
+						<span class="input-group-addon" style="font-size: 12px;">
+							AMOUNT
+						</span>
+					</div>
+					<div class="col-md-8 p-0">
+						<input name="amount" type="number" class="form-control bg-white" placeholder="AMOUNT" value="{{amount}}">
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 col-xs-12 mt-1">
+				<div class="row">
+					<div class="col-md-4 pt-0 pb-0">
+						<span class="input-group-addon" style="font-size: 12px;">
+							IS PERCENT
+						</span>
+					</div>
+					<div class="col-md-8 p-0">
+						<div class="togglebutton">
+							<label>
+								<input class="toggle-checkbox" name="isPercent" type="checkbox" value="true" {{#if isPercent}} checked{{/if}}> 
+                                <span class="toggle"></span>
+								toggle to save discount as percentage
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
