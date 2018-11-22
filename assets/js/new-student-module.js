@@ -317,12 +317,27 @@ const student = (() => {
 		});
 	}
 
-	function renderDiscountReason(event) {
-		const $select = $(event.target);
-		const discountId = $select.val();
-		const tuitionId = $select.attr('data-tuition-id');
-		const discountCode = distinctDiscountsArr.find(discountObj => discountObj._id === discountId).code;
-		$discountReason.filter(`[data-tuition-id="${tuitionId}"]`).val(discountCode);
+	function renderDiscountReason() {
+		$discountReason.each((__, inp) => {
+			const $inp = $(inp);
+			const tuitionId = $inp.attr('data-tuition-id');
+			const discountId = $discountSelectContainer.val();
+			const additionalDiscount = $additionalDiscountInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			let discountReason = '';
+			if (discountId) {
+				let discountCode = distinctDiscountsArr.find(discountObj => discountObj._id === discountId).code;
+				discountCode = discountCode.toUpperCase();
+				discountReason = discountCode;
+			}
+			if (additionalDiscount) {
+				if (discountReason) {
+					discountReason = `${discountReason} + Additional Discount(${additionalDiscount})`
+				} else {
+					discountReason = `Additional Discount(${additionalDiscount})`
+				}
+			}
+			$inp.val(discountReason);
+		});
 	}
 
 	function renderCourseCode(event) {
@@ -527,6 +542,7 @@ const student = (() => {
 		$additionalDiscountInp.on('input paste', renderNetFee);
 		$additionalDiscountInp.on('input paste', renderTotalDiscountAmount);
 		$additionalDiscountInp.on('input paste', renderBalancePending);
+		$additionalDiscountInp.on('input paste', renderDiscountReason);
 
 		$discountSelectContainer.change(renderTotalDiscountAmount);
 		$discountSelectContainer.change(renderNetFee);

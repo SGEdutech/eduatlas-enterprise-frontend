@@ -353,7 +353,6 @@
 													<div class="col-md-8">
 														<div class="row">
 															<input name="courseCode" type="text" class="d-none student-course-code" data-tuition-id="{{_id}}">
-															<input name="discountReason" type="text" class="d-none student-discount-reason" data-tuition-id="{{_id}}">
 															<div class="col-md-6 form-group">
 																<label class="bmd-label-floating">Select Discount Code</label>
 																<select class="form-control student-discount-code-select" data-style="btn btn-link" name="discountCode"
@@ -384,6 +383,11 @@
 																	<div class="col-md-12 form-group">
 																		<label class="bmd-label-floating text-dark">Total Discount Amount</label>
 																		<input name="discountAmount" type="number" class="w-100 student-total-discount-amount"
+																		 data-tuition-id="{{_id}}" disabled>
+																	</div>
+																	<div class="col-md-12 form-group">
+																		<label class="bmd-label-floating text-dark">Discount Reason</label>
+																		<input name="discountReason" type="text" class="w-100 student-discount-reason"
 																		 data-tuition-id="{{_id}}" disabled>
 																	</div>
 																	<div class="col-md-12 form-group">
