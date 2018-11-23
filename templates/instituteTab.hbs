@@ -35,7 +35,7 @@
 					<div class="tab-content">
 						<div class="tab-pane active" id="innertab1{{tabNumber}}">
 							<div class="row m-0">
-								<div class="card card-nav-tabs mb-5">
+								<div class="card mb-5">
 									<div class="card-header card-header-info py-2">
 										<div class="title h4 m-0">Active Courses</div>
 									</div>
@@ -52,9 +52,7 @@
 								{{!-- <div class="card-title col-12 h3 bg-info">
 									Active Courses
 								</div> --}}
-
-								<div class="inactive-course-container"></div>
-								<div class="card m-0 mb-4">
+								<div class="card mb-3">
 									<div class="card-header card-header-info py-2">
 										<div class="title h4 m-0">Add New Course/Product</div>
 									</div>
@@ -247,287 +245,256 @@
 							<br><br>
 						</div>
 						<div class="tab-pane" id="innertab2{{tabNumber}}">
-							<div class=" card-title col-12 h3 bg-info">
+							{{!-- <div class=" card-title col-12 h3 bg-info">
 								Active Students
-							</div>
-							<div class="container">
-								<div class="row">
-									<div class="col-md-10"><input type="text" class="form-control student-search-inp" placeholder="search students"
-										 data-tuition-id="{{_id}}"></div>
-									<div class="col-md-2">
-										<div class="btn btn-info btn-sm student-search-reset" data-tuition-id="{{_id}}">RESET</div>
+							</div> --}}
+							<div class="row m-0">
+								<div class="card mb-5">
+									<div class="card-header card-header-info py-2">
+										<div class="title h4 m-0">Active Students</div>
 									</div>
-								</div>
-								<div class="section section-comments p-1">
-									<div class="row">
-										{{!-- FIXME: moved to new hbs file --}}
-									</div>
-									<div class="row mt-2 student-container" data-tuition-id="{{_id}}"></div>
-								</div>
-							</div>
-							<br>
-
-							<div class="card card-profile main-raised m-0 mt-5">
-								<div class="card-header card-header-info py-2">
-									<div class="title h4 m-0">Add New Student</div>
-								</div>
-								<div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
-									<div class="card card-plain m-0">
-										<div class="card-header pt-1 mt-3" role="tab" id="headingOne">
-											<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-												Auto-populate student details using EA id
-
-												<i class="material-icons">keyboard_arrow_down</i>
-											</a>
-										</div>
-
-										<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-											<div class="card-body">
-												<button class="btn btn-info btn-sm ea-id-modal-trigger" data-tuition-id="{{_id}}">Enter EA ID</button>
+									<div class="card-body">
+										<div class="row">
+											<div class="col-md-10"><input type="text" class="form-control student-search-inp" placeholder="search students"
+												 data-tuition-id="{{_id}}"></div>
+											<div class="col-md-2">
+												<div class="btn btn-info btn-sm student-search-reset" data-tuition-id="{{_id}}">RESET</div>
 											</div>
 										</div>
+										<div class="row mt-2 student-container" data-tuition-id="{{_id}}"></div>
 									</div>
-									<div class="card card-plain m-0">
-										<div class="card-header pt-1" role="tab" id="headingTwo">
-											<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
-											 aria-controls="collapseTwo">
-												Bulk Upload Students Through Excel
-												<i class="material-icons">keyboard_arrow_down</i>
-											</a>
-										</div>
-										<div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-											<div class="card-body">
-												<div class="row px-3">
-													<div class="col-4">
-														<a href="/assets/excel/student-template.csv" class="btn btn-round btn-success text-white" download>Download
-															Excel Template</a>
-													</div>
-													<div class="col-3">
-														<input class="exel-file-upload" type="file" data-tuition-id="{{_id}}">
-													</div>
-													<div class="col-3">
-														<a class="btn btn-round btn-success add-students-from-excel-btn text-white" data-tuition-id="{{_id}}">ADD
-															STUDENTS FROM EXCEL</a>
-													</div>
+								</div>
+								<div class="card mb-3">
+									<div class="card-header card-header-info py-2">
+										<div class="title h4 m-0">Add New Student</div>
+									</div>
+									<div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
+										<div class="card card-plain m-0 px-3">
+											<div class="card-header pt-1 mt-3" role="tab" id="headingOne" style="border:solid 2px #eee">
+												<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+													Auto-populate student details using EA id
+													<i class="material-icons">keyboard_arrow_down</i>
+												</a>
+											</div>
+											<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+												<div class="card-body">
+													<button class="btn btn-info btn-sm ea-id-modal-trigger" data-tuition-id="{{_id}}">Enter EA ID</button>
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-								<form class="new-student-form" data-tuition-id="{{_id}}">
-									{{!-- <div class="card-title h3 mt-3 px-3 mx-3 text-left">
-										Add New Student
-									</div> --}}
-									{{!-- <div class="card-title h4 px-3 mx-3 text-left bg-info">
-										Auto-populate student details using EA id
-									</div>
-									<div class="col-12 px-3 text-left">
-										<div class="row px-3">
-											<div class="col-12">
-												<button class="btn btn-info btn-sm ea-id-modal-trigger" data-tuition-id="{{_id}}">Enter EA ID</button>
+										<div class="card card-plain m-0 px-3">
+											<div class="card-header pt-1" role="tab" id="headingTwo" style="border:solid 2px #eee">
+												<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+												 aria-controls="collapseTwo">
+													Bulk Upload Students Through Excel
+													<i class="material-icons">keyboard_arrow_down</i>
+												</a>
 											</div>
-										</div>
-										<div class="card-title h4 px-3 bg-info">
-											Add New Student Through Excel
-										</div>
-										<div class="row px-3">
-											<div class="col-4">
-												<a href="/assets/excel/student-template.csv" class="btn btn-round btn-success text-white" download>Download
-													Excel Template</a>
-											</div>
-											<div class="col-3">
-												<input class="exel-file-upload" type="file" data-tuition-id="{{_id}}">
-											</div>
-											<div class="col-3">
-												<a class="btn btn-round btn-success add-students-from-excel-btn text-white" data-tuition-id="{{_id}}">ADD
-													STUDENTS FROM EXCEL</a>
-											</div>
-										</div>
-									</div> --}}
-									{{!-- <div class="card-title h4 mx-3 text-left px-3 bg-info">
-										Add New Student Manually
-									</div> --}}
-									<div class="card-body text-left">
-										<div class="row" style="border: solid 2px #eee">
-											<div class="col-md-12 compulsory-fields-container" data-tuition-id="{{_id}}">
-												<h4 class="card-title">Compulsory Fields</h4>
-												<div class="row">
-													<div class="col-md-4">
-														<label class="bmd-label-floating">Student Roll No.</label>
-														<input name="rollNumber" type="text" class="form-control student-roll-number" data-tuition-id="{{_id}}"
-														 required>
-													</div>
-													<div class="col-md-4">
-														<label class="bmd-label-floating">Student Name</label>
-														<input name="name" type="text" class="form-control student-name-inp" data-tuition-id="{{_id}}" required>
-													</div>
-													<div class="col-md-4">
-														<label class="bmd-label-floating">Student E-mail</label>
-														<input name="email" type="email" class="form-control student-email-inp" data-tuition-id="{{_id}}"
-														 required>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-12 additional-fields-container" data-tuition-id="{{_id}}">
-												<h4 class="card-title">Additional Fields</h4>
-												<div class="row">
-													<div class="col-md-6">
-														<label class="bmd-label-floating">Address</label>
-														<input name="address" type="text" class="form-control student-address-inp" data-tuition-id="{{_id}}">
-													</div>
-													<div class="col-md-6">
-														<label class="bmd-label-floating">Contact No.</label>
-														<input name="contactNumber" type="text" class="form-control student-phone-inp" data-tuition-id="{{_id}}">
-													</div>
-												</div>
-											</div>
-											<div class="col-md-12 student-course-batch-container" data-tuition-id="{{_id}}">
-												<div class="row justify-content-around pt-3">
-													<div class="col-md-8" style="border: solid 2px #eee">
-														<h4 class="card-title">Batch And Course Details</h4>
-														<div class="row">
-															<input name="courseCode" type="text" class="d-none student-course-code" data-tuition-id="{{_id}}">
-															<div class="col-md-6 form-group">
-																<label for="course_select" class="bmd-label-floating">Select Course</label>
-																<select class="form-control selectpicker student-course-select-menu" data-style="btn btn-link" name="courseId"
-																 data-tuition-id="{{_id}}">
-																	<option value="">Select Course</option>
-																</select>
-															</div>
-															<div class="col-md-6 form-group">
-																<label class="bmd-label-floating">Select Batch</label>
-																<select class="form-control selectpicker student-batch-select-menu" data-style="btn btn-link" name="batchId"
-																 data-tuition-id="{{_id}}">
-																	<option value="">Select Batch</option>
-																</select>
-															</div>
-															<div class="col-md-6 form-group">
-																<label class="bmd-label-floating">Select Discount Code</label>
-																<select class="form-control student-discount-code-select" data-style="btn btn-link" name="discountCode"
-																 data-tuition-id="{{_id}}">
-																</select>
-															</div>
-															<div class="col-md-6 form-group">
-																<label for="additionalDiscount" class="bmd-label-floating">Additional Discount</label>
-																<input name="additionalDiscount" type="number" class="form-control student-additional-discount not-submit"
-																 data-tuition-id="{{_id}}">
-															</div>
-															<h4 class="col-12 card-title">Payment Details</h4>
-															<div class="col-md-6 form-group">
-																<label for="fee_collected" class="bmd-label-floating">Fee Collected</label>
-																<input name="feeCollected" type="number" class="form-control student-fee-colected" data-tuition-id="{{_id}}">
-															</div>
-															<div class="col-md-6 form-group">
-																<label for="modeOfPayment" class="bmd-label-floating">Mode Of Payment</label>
-																<select class="form-control mode-of-payment-select" data-style="btn btn-link" name="modeOfPayment"
-																 data-tuition-id="{{_id}}">
-																	<option value="cash">Cash</option>
-																	<option value="cheque">Cheque</option>
-																	<option value="card">Card</option>
-																	<option value="other">Other</option>
-																</select>
-															</div>
-															<div class="col-md-12">
-																<div class="row mode-of-payment-details-container" data-tuition-id="{{_id}}">
-																</div>
-															</div>
-															<h4 class="col-12 card-title">Installment Details</h4>
-															<div class="col-md-6 form-group">
-																<label for="next_install" class="bmd-label-floating">Next Installment Date</label>
-																<input name="nextInstallmentDate" type="date" class="form-control student-installment-date-inp"
-																 data-tuition-id="{{_id}}">
-															</div>
+											<div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+												<div class="card-body">
+													<div class="row px-3">
+														<div class="col-4">
+															<a href="/assets/excel/student-template.csv" class="btn btn-round btn-success text-white" download>Download
+																Excel Template</a>
+														</div>
+														<div class="col-3">
+															<input class="exel-file-upload" type="file" data-tuition-id="{{_id}}">
+														</div>
+														<div class="col-3">
+															<a class="btn btn-round btn-success add-students-from-excel-btn text-white" data-tuition-id="{{_id}}">ADD
+																STUDENTS FROM EXCEL</a>
 														</div>
 													</div>
-													<div class="col-md-3 px-0">
-														<div class="card bg-info m-0" style="background-color: #b2ebf2 !important">
-															<div class="card-body">
-																<div class="row">
-																	<div class="col-md-12 form-group">
-																		<label class="bmd-label-floating text-dark">Base Fee</label>
-																		<input name="courseFee" type="text" class="w-100 student-course-fee" data-tuition-id="{{_id}}"
-																		 disabled>
+												</div>
+											</div>
+										</div>
+									</div>
+									<form class="new-student-form" data-tuition-id="{{_id}}">
+										<div class="card-body text-left">
+											<div class="row" style="border: solid 2px #eee">
+												<div class="col-md-12 compulsory-fields-container" data-tuition-id="{{_id}}">
+													<h4 class="card-title">Compulsory Fields</h4>
+													<div class="row">
+														<div class="col-md-4">
+															<label class="bmd-label-floating">Student Roll No.</label>
+															<input name="rollNumber" type="text" class="form-control student-roll-number" data-tuition-id="{{_id}}"
+															 required>
+														</div>
+														<div class="col-md-4">
+															<label class="bmd-label-floating">Student Name</label>
+															<input name="name" type="text" class="form-control student-name-inp" data-tuition-id="{{_id}}" required>
+														</div>
+														<div class="col-md-4">
+															<label class="bmd-label-floating">Student E-mail</label>
+															<input name="email" type="email" class="form-control student-email-inp" data-tuition-id="{{_id}}"
+															 required>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-12 additional-fields-container" data-tuition-id="{{_id}}">
+													<h4 class="card-title">Additional Fields</h4>
+													<div class="row">
+														<div class="col-md-6">
+															<label class="bmd-label-floating">Address</label>
+															<input name="address" type="text" class="form-control student-address-inp" data-tuition-id="{{_id}}">
+														</div>
+														<div class="col-md-6">
+															<label class="bmd-label-floating">Contact No.</label>
+															<input name="contactNumber" type="text" class="form-control student-phone-inp" data-tuition-id="{{_id}}">
+														</div>
+													</div>
+												</div>
+												<div class="col-md-12 student-course-batch-container" data-tuition-id="{{_id}}">
+													<div class="row justify-content-around pt-3">
+														<div class="col-md-8" style="border: solid 2px #eee">
+															<h4 class="card-title">Batch And Course Details</h4>
+															<div class="row">
+																<input name="courseCode" type="text" class="d-none student-course-code" data-tuition-id="{{_id}}">
+																<div class="col-md-6 form-group">
+																	<label for="course_select" class="bmd-label-floating">Select Course</label>
+																	<select class="form-control selectpicker student-course-select-menu" data-style="btn btn-link" name="courseId"
+																	 data-tuition-id="{{_id}}">
+																		<option value="">Select Course</option>
+																	</select>
+																</div>
+																<div class="col-md-6 form-group">
+																	<label class="bmd-label-floating">Select Batch</label>
+																	<select class="form-control selectpicker student-batch-select-menu" data-style="btn btn-link" name="batchId"
+																	 data-tuition-id="{{_id}}">
+																		<option value="">Select Batch</option>
+																	</select>
+																</div>
+																<div class="col-md-6 form-group">
+																	<label class="bmd-label-floating">Select Discount Code</label>
+																	<select class="form-control student-discount-code-select" data-style="btn btn-link" name="discountCode"
+																	 data-tuition-id="{{_id}}">
+																	</select>
+																</div>
+																<div class="col-md-6 form-group">
+																	<label for="additionalDiscount" class="bmd-label-floating">Additional Discount</label>
+																	<input name="additionalDiscount" type="number" class="form-control student-additional-discount not-submit"
+																	 data-tuition-id="{{_id}}">
+																</div>
+																<h4 class="col-12 card-title">Payment Details</h4>
+																<div class="col-md-6 form-group">
+																	<label for="fee_collected" class="bmd-label-floating">Fee Collected</label>
+																	<input name="feeCollected" type="number" class="form-control student-fee-colected" data-tuition-id="{{_id}}">
+																</div>
+																<div class="col-md-6 form-group">
+																	<label for="modeOfPayment" class="bmd-label-floating">Mode Of Payment</label>
+																	<select class="form-control mode-of-payment-select" data-style="btn btn-link" name="modeOfPayment"
+																	 data-tuition-id="{{_id}}">
+																		<option value="cash">Cash</option>
+																		<option value="cheque">Cheque</option>
+																		<option value="card">Card</option>
+																		<option value="other">Other</option>
+																	</select>
+																</div>
+																<div class="col-md-12">
+																	<div class="row mode-of-payment-details-container" data-tuition-id="{{_id}}">
 																	</div>
-																	<div class="col-md-12 form-group">
-																		<label class="bmd-label-floating text-dark">Total Discount Amount</label>
-																		<input name="discountAmount" type="text" class="w-100 student-total-discount-amount" data-tuition-id="{{_id}}"
-																		 disabled>
-																	</div>
-																	<div class="col-md-12 form-group">
-																		<label class="bmd-label-floating text-dark">Discount Reason</label>
-																		<input name="discountReason" type="text" class="w-100 student-discount-reason"
-																		 data-tuition-id="{{_id}}" disabled>
-																	</div>
-																	<div class="col-md-12 form-group">
-																		<label class="bmd-label-floating text-dark">Net Fee</label>
-																		<input type="text" class="w-100 student-net-fee not-submit" data-tuition-id="{{_id}}" disabled>
-																	</div>
-																	<div class="col-md-12 form-group">
-																		<label for="balance_pending" class="bmd-label-floating text-dark">Balance Pending</label>
-																		<input type="text" class="w-100 student-balance-pending not-submit" data-tuition-id="{{_id}}"
-																		 disabled>
-																	</div>
+																</div>
+																<h4 class="col-12 card-title">Installment Details</h4>
+																<div class="col-md-6 form-group">
+																	<label for="next_install" class="bmd-label-floating">Next Installment Date</label>
+																	<input name="nextInstallmentDate" type="date" class="form-control student-installment-date-inp"
+																	 data-tuition-id="{{_id}}">
 																</div>
 															</div>
 														</div>
-														<div class="row justify-content-center"><button class="btn btn-round btn-success" type="submit">ADD
-																STUDENTS</button></div>
+														<div class="col-md-3 px-0">
+															<div class="card bg-info m-0" style="background-color: #b2ebf2 !important">
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-md-12 form-group">
+																			<label class="bmd-label-floating text-dark">Base Fee</label>
+																			<input name="courseFee" type="text" class="w-100 student-course-fee" data-tuition-id="{{_id}}"
+																			 disabled>
+																		</div>
+																		<div class="col-md-12 form-group">
+																			<label class="bmd-label-floating text-dark">Total Discount Amount</label>
+																			<input name="discountAmount" type="text" class="w-100 student-total-discount-amount" data-tuition-id="{{_id}}"
+																			 disabled>
+																		</div>
+																		<div class="col-md-12 form-group">
+																			<label class="bmd-label-floating text-dark">Discount Reason</label>
+																			<input name="discountReason" type="text" class="w-100 student-discount-reason" data-tuition-id="{{_id}}"
+																			 disabled>
+																		</div>
+																		<div class="col-md-12 form-group">
+																			<label class="bmd-label-floating text-dark">Net Fee</label>
+																			<input type="text" class="w-100 student-net-fee not-submit" data-tuition-id="{{_id}}" disabled>
+																		</div>
+																		<div class="col-md-12 form-group">
+																			<label for="balance_pending" class="bmd-label-floating text-dark">Balance Pending</label>
+																			<input type="text" class="w-100 student-balance-pending not-submit" data-tuition-id="{{_id}}"
+																			 disabled>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="row justify-content-center mt-3"><button class="btn btn-round btn-success" type="submit">ADD
+																	STUDENTS</button></div>
+														</div>
 													</div>
 												</div>
-											</div>
-											<div class="col-12 payment-details-container" data-tuition-id="{{_id}}">
-												<div class="row">
-													<div class="col-md-8">
-														{{!-- <div class="row">
-															<input name="courseCode" type="text" class="d-none student-course-code" data-tuition-id="{{_id}}">
-															<input name="discountReason" type="text" class="d-none student-discount-reason" data-tuition-id="{{_id}}">
+												<div class="col-12 payment-details-container" data-tuition-id="{{_id}}">
+													<div class="row">
+														<div class="col-md-8">
+															{{!-- <div class="row">
+																<input name="courseCode" type="text" class="d-none student-course-code" data-tuition-id="{{_id}}">
+																<input name="discountReason" type="text" class="d-none student-discount-reason" data-tuition-id="{{_id}}">
 
-														</div> --}}
-													</div>
-													<div class="col-md-4">
-
-													</div>
-												</div>
-											</div>
-											<div class="col-md-12 student-fee-container" data-tuition-id="{{_id}}">
-												<div class="row">
-													<div class="col-md-8">
-														<div class="row">
+															</div> --}}
+														</div>
+														<div class="col-md-4">
 
 														</div>
 													</div>
-													<div class="col-md-4">
+												</div>
+												<div class="col-md-12 student-fee-container" data-tuition-id="{{_id}}">
+													<div class="row">
+														<div class="col-md-8">
+															<div class="row">
+
+															</div>
+														</div>
+														<div class="col-md-4">
+
+														</div>
+													</div>
+													<div class="col-md-12 mt-3">
 
 													</div>
 												</div>
-												<div class="col-md-12 mt-3">
-
-												</div>
 											</div>
 										</div>
-									</div>
-
-								</form>
+									</form>
+								</div>
 							</div>
+
 						</div>
 						<div class="tab-pane" id="innertab3{{tabNumber}}">
 							<div class="row m-0">
-								<div class="card-title col-12 h3 bg-info">
-									Active Batches
-								</div>
-								<div class="col-12">
-									<div class="row">
-										{{!-- FIXME: moved to new hbs file --}}
+								<div class="card mb-5">
+									<div class="card-header card-header-info py-2">
+										<div class="title h4 m-0">Active Batches</div>
 									</div>
-									<div class="row active-batch-container" data-tuition-id="{{_id}}">
-									</div>
-								</div>
-								<div class="inactive-batches-container"></div>
-								<div class="card m-0 mb-4">
-									<div class="row card-body">
-										<div class="card-title h3 col-12 bg-info">
-											Add New Batch
+									<div class="card-body">
+										<div class="col-12">
+											<div class="row active-batch-container" data-tuition-id="{{_id}}">
+											</div>
 										</div>
+									</div>
+								</div>
+								<div class="card mb-3">
+									<div class="card-header card-header-info py-2">
+										<div class="title h4 m-0">Add New Batch</div>
+									</div>
+									<div class="row card-body">
+										{{!-- <div class="card-title h3 col-12 bg-info">
+											Add New Batch
+										</div> --}}
 										<form class="add_batch_form col-12" data-tabNumber="{{tabNumber}}" data-id="{{_id}}" enctype="multipart/form-data">
 											<div class="row">
 												<div class="col-md-6">
@@ -563,7 +530,7 @@
 															 data-tuition-id="{{_id}}">reset</a></div>
 													</div>
 													<br>
-													<div class="px-2 student-checkbox-container" data-tuition-id="{{_id}}" style="height:299px;overflow-y: auto;max-height:500px;border:solid #eee 2px">
+													<div class="px-2 student-checkbox-container" data-tuition-id="{{_id}}" style="width:100%;max-height:500px!important;overflow-y: scroll!important;border:solid #eee 2px">
 														{{!-- FIXME: moved to new hbs file --}}
 													</div>
 													<button type="submit" class="btn btn-round btn-success pull-right mt-4">
@@ -580,19 +547,27 @@
 
 						<div class="tab-pane" id="innertab5{{tabNumber}}">
 							<div class="row m-0">
-								<div class="card-title col-12 h3 bg-info">
-									Active Discounts
-								</div>
-								<div class="col-12">
-									<div class="row active-discounts-container" data-tuition-id="{{_id}}">
+								<div class="card mb-5">
+									<div class="card-header card-header-info py-2">
+										<div class="title h4 m-0">Active Discounts</div>
+									</div>
+									<div class="card-body">
+										<div class="col-12">
+											<div class="row active-discounts-container" data-tuition-id="{{_id}}">
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="card m-0 mb-4">
+
+								<div class="card mb-3">
+									<div class="card-header card-header-info py-2">
+										<div class="title h4 m-0">Define New Discount</div>
+									</div>
 									<form class="add-discount-form" data-tabNumber="{{tabNumber}}" data-id="{{_id}}" data-tuition-id="{{_id}}">
 										<div class="row card-body">
-											<div class="card-title h3 col-12 bg-info">
+											{{!-- <div class="card-title h3 col-12 bg-info">
 												Define New Discount
-											</div>
+											</div> --}}
 											<div class="col-md-12">
 												<div class="row">
 													<div class="col-md-6 form-group label-floating is-empty  bmd-form-group">
