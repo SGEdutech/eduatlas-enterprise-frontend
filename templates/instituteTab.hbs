@@ -270,7 +270,7 @@
 									</div>
 									<div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
 										<div class="card card-plain m-0 px-3">
-											<div class="card-header pt-1 mt-3" role="tab" id="headingOne" style="border:solid 2px #eee">
+											<div class="card-header pt-1 mt-3" role="tab" id="headingOne" style="border: solid 2px #eee">
 												<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 													Auto-populate student details using EA id
 													<i class="material-icons">keyboard_arrow_down</i>
@@ -283,7 +283,7 @@
 											</div>
 										</div>
 										<div class="card card-plain m-0 px-3">
-											<div class="card-header pt-1" role="tab" id="headingTwo" style="border:solid 2px #eee">
+											<div class="card-header pt-1" role="tab" id="headingTwo" style="border: solid 2px #eee">
 												<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
 												 aria-controls="collapseTwo">
 													Bulk Upload Students Through Excel
@@ -311,7 +311,7 @@
 									</div>
 									<form class="new-student-form" data-tuition-id="{{_id}}">
 										<div class="card-body text-left">
-											<div class="row" style="border: solid 2px #eee">
+											<div class="row border-grey">
 												<div class="col-md-12 compulsory-fields-container" data-tuition-id="{{_id}}">
 													<h4 class="card-title">Compulsory Fields</h4>
 													<div class="row">
@@ -346,7 +346,7 @@
 												</div>
 												<div class="col-md-12 student-course-batch-container" data-tuition-id="{{_id}}">
 													<div class="row justify-content-around pt-3">
-														<div class="col-md-8" style="border: solid 2px #eee">
+														<div class="col-md-8 border-grey">
 															<h4 class="card-title">Batch And Course Details</h4>
 															<div class="row">
 																<input name="courseCode" type="text" class="d-none student-course-code" data-tuition-id="{{_id}}">
@@ -397,7 +397,7 @@
 																<h4 class="col-12 card-title">Installment Details</h4>
 																<div class="col-md-6 form-group">
 																	<label for="next_install" class="bmd-label-floating">Next Installment Date</label>
-																	<input name="nextInstallmentDate" type="date" class="form-control student-installment-date-inp"
+																	<input name="nextInstallmentDate" type="text" class="form-control student-installment-date-inp datetimepicker"
 																	 data-tuition-id="{{_id}}">
 																</div>
 															</div>
@@ -530,7 +530,7 @@
 															 data-tuition-id="{{_id}}">reset</a></div>
 													</div>
 													<br>
-													<div class="px-2 student-checkbox-container" data-tuition-id="{{_id}}" style="width:100%;max-height:500px!important;overflow-y: scroll!important;border:solid #eee 2px">
+													<div class="px-2 student-checkbox-container border-grey" data-tuition-id="{{_id}}" style="width:100%;max-height:500px!important;overflow-y: scroll!important;">
 														{{!-- FIXME: moved to new hbs file --}}
 													</div>
 													<button type="submit" class="btn btn-round btn-success pull-right mt-4">
@@ -764,75 +764,80 @@
 					</ul>
 				</div>
 				<div class="col-md-10">
-					<div class="tab-content tab-space">
+					<div class="tab-content">
 						<div class="tab-pane active" id="announce{{tabNumber}}">
-							<div class="card-body card m-0">
-								<div class="card-title h3 px-3 bg-info">
-									New Announcement
-								</div>
-								<div class="row">
-									<div class="col-md-10"><input type="text" placeholder="search students" class="form-control announcement-student-search-inp"
-										 data-tuition-id="{{_id}}"></div>
-									<div class="col-md-2"><a class="btn btn-sm btn-info announcement-student-search-reset text-white"
-										 data-tuition-id="{{_id}}">reset</a></div>
-								</div>
-								<div class="form-group">
-									<label for="exampleInputEmail1" class="text-dark">Select Students</label>
-									<div class="px-2" style="width:100%;max-height:500px!important;overflow-y: scroll!important;">
-										<table class="table">
-											<thead>
-												<tr>
-													<th class="text-center">#</th>
-													<th><small>Name</small></th>
-													<th><small>Roll Number</small></th>
-													<th><small>Email</small></th>
-													<th><small>Select</small></th>
-												</tr>
-											</thead>
-											<tbody class="select-announcement-students" data-tuition-id="{{_id}}">
-												{{!-- FIXME: moved to new hbs file --}}
-											</tbody>
-										</table>
+							<div class="row m-0">
+								<div class="card mb-5">
+									<div class="card-header card-header-info py-2">
+										<div class="title h4 m-0">New Announcement</div>
 									</div>
-								</div>
-								<div class="form-group">
-									<label for="exampleInputEmail1" class="text-dark"><small class="text-danger">OR</small>
-										Select A Batch</label>
-									<div class="px-2" style="width:100%;max-height:300px!important;overflow-y: scroll!important;">
-										<table class="table">
-											<thead>
-												<tr>
-													<th class="text-center">#</th>
-													<th><small>Batch Code</small></th>
-													<th><small>Select</small></th>
-												</tr>
-											</thead>
-											<tbody class="select-announcement-batches" data-tuition-id="{{_id}}">
-												{{!-- FIXME: moved to new hbs file --}}
-											</tbody>
-										</table>
+									<div class="card-body">
+										<div class="row">
+											<div class="col-md-10"><input type="text" placeholder="search students" class="form-control announcement-student-search-inp"
+												 data-tuition-id="{{_id}}"></div>
+											<div class="col-md-2"><a class="btn btn-sm btn-info announcement-student-search-reset text-white"
+												 data-tuition-id="{{_id}}">reset</a></div>
+										</div>
+										<div class="form-group border-grey">
+											<div class="card-title">Select Students</div>
+											<div class="px-2" style="width:100%;max-height:500px!important;overflow-y: scroll!important;">
+												<table class="table">
+													<thead>
+														<tr>
+															<th class="text-center">#</th>
+															<th><small>Name</small></th>
+															<th><small>Roll Number</small></th>
+															<th><small>Email</small></th>
+															<th><small>Select</small></th>
+														</tr>
+													</thead>
+													<tbody class="select-announcement-students" data-tuition-id="{{_id}}">
+														{{!-- FIXME: moved to new hbs file --}}
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputEmail1" class="text-dark"><small class="text-danger">OR</small>
+												Select A Batch</label>
+											<div class="px-2" style="width:100%;max-height:300px!important;overflow-y: scroll!important;">
+												<table class="table">
+													<thead>
+														<tr>
+															<th class="text-center">#</th>
+															<th><small>Batch Code</small></th>
+															<th><small>Select</small></th>
+														</tr>
+													</thead>
+													<tbody class="select-announcement-batches" data-tuition-id="{{_id}}">
+														{{!-- FIXME: moved to new hbs file --}}
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputEmail1" class="text-dark"><small class="text-danger">OR</small>
+												Send To All Students</label>
+											<div class="togglebutton">
+												<label>
+													<input class="select-institute" type="checkbox" name="instituteId" value="{{_id}}" data-tuition-id="{{_id}}">
+													<span class="toggle"></span>
+												</label>
+											</div>
+										</div>
+										<br>
+										<div class="form-group">
+											<label class="text-dark">Announcement Text</label>
+											<textarea class="form-control announcement-text" placeholder="TYPE YOUR MESSAGE/NOTICE/ANNOUNCEMENT HERE"
+											 rows="5" name="message"></textarea>
+										</div>
+										<div class="col-12">
+											<button class="btn btn-round btn-success pull-right send-announcement-btn" type="button" data-tuition-id="{{_id}}">SEND</button>
+										</div>
 									</div>
-								</div>
-								<div class="form-group">
-									<label for="exampleInputEmail1" class="text-dark"><small class="text-danger">OR</small>
-										Send To All Students</label>
-									<div class="togglebutton">
-										<label>
-											<input class="select-institute" type="checkbox" name="instituteId" value="{{_id}}" data-tuition-id="{{_id}}">
-											<span class="toggle"></span>
-										</label>
-									</div>
-								</div>
-								<br>
-								<div class="form-group">
-									<label class="text-dark">Announcement Text</label>
-									<textarea class="form-control announcement-text" placeholder="TYPE YOUR MESSAGE/NOTICE/ANNOUNCEMENT HERE" rows="5"
-									 name="message"></textarea>
-								</div>
-								<div class="col-12">
-									<button class="btn btn-round btn-success pull-right send-announcement-btn" type="button" data-tuition-id="{{_id}}">SEND</button>
 								</div>
 							</div>
+
 							<div class="card-title col-12 h3 bg-info">
 								Recent Announcements
 							</div>
