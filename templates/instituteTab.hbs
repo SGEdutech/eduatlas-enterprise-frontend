@@ -778,8 +778,8 @@
 											<div class="col-md-2"><a class="btn btn-sm btn-info announcement-student-search-reset text-white"
 												 data-tuition-id="{{_id}}">reset</a></div>
 										</div>
-										<div class="form-group border-grey">
-											<div class="card-title">Select Students</div>
+										<div class="form-group border-grey mt-2">
+											<div class="card-title px-3">Select Students</div>
 											<div class="px-2" style="width:100%;max-height:500px!important;overflow-y: scroll!important;">
 												<table class="table">
 													<thead>
@@ -797,9 +797,10 @@
 												</table>
 											</div>
 										</div>
-										<div class="form-group">
-											<label for="exampleInputEmail1" class="text-dark"><small class="text-danger">OR</small>
-												Select A Batch</label>
+										<small class="text-danger">OR</small>
+										<div class="form-group border-grey">
+											<div class="card-title px-3">
+												Select A Batch</div>
 											<div class="px-2" style="width:100%;max-height:300px!important;overflow-y: scroll!important;">
 												<table class="table">
 													<thead>
@@ -815,9 +816,10 @@
 												</table>
 											</div>
 										</div>
-										<div class="form-group">
-											<label for="exampleInputEmail1" class="text-dark"><small class="text-danger">OR</small>
-												Send To All Students</label>
+										<small class="text-danger">OR</small>
+										<div class="form-group border-grey">
+											<div class="card-title px-3">
+												Send To All Students</div>
 											<div class="togglebutton">
 												<label>
 													<input class="select-institute" type="checkbox" name="instituteId" value="{{_id}}" data-tuition-id="{{_id}}">
@@ -837,13 +839,15 @@
 									</div>
 								</div>
 							</div>
-
-							<div class="card-title col-12 h3 bg-info">
-								Recent Announcements
-							</div>
-							<div class="col-12">
-								<div class="row recent-notification-container my-3" data-tuition-id="{{_id}}">
-
+							<div class="card mb-3">
+								<div class="card-header card-header-info py-2">
+									<div class="title h4 m-0">Recent Announcements</div>
+								</div>
+								<div class="card-body">
+									<div class="col-12">
+										<div class="row recent-notification-container my-3" data-tuition-id="{{_id}}">
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -851,10 +855,10 @@
 							<div class="forum-landing-container" data-tuition-id="{{_id}}">
 								<form class="new-post-form" enctype="multipart/form-data" data-tuition-id="{{_id}}">
 									<div class="card mt-0">
+										<div class="card-header card-header-info py-2">
+											<div class="title h4 m-0">Add New Thread</div>
+										</div>
 										<div class="row card-body">
-											<div class="card-title col-12 h3">
-												Add New Thread
-											</div>
 											<div class="col-md-12 mb-3">
 												<input type="text" class="form-control" name="title" placeholder="Enter Title">
 											</div>
