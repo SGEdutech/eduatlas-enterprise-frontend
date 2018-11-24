@@ -100,7 +100,7 @@ const attendance = (() => {
 				const schedulesArr = schedulesByWeek[selectedWeek];
 				changeformatOfDateAndFromTime(schedulesArr);
 				const scheduleOptionsHtml = template.scheduleOptions2({ schedules: schedulesArr });
-				$dropdown.html(scheduleOptionsHtml);
+				$dropdown.html(scheduleOptionsHtml).selectpicker('refresh');
 			} else {
 				$dropdown.html('');
 			}
@@ -128,9 +128,9 @@ const attendance = (() => {
 			if (batchInfo) {
 				const schedulesByWeek = sortByWeek(batchInfo);
 				const scheduleOptionsHTML = template.scheduleOptions({ schedules: schedulesByWeek });
-				$dropdown.html(scheduleOptionsHTML);
+				$dropdown.html(scheduleOptionsHTML).selectpicker('refresh');
 			} else {
-				$dropdown.html('');
+				$dropdown.html('').selectpicker('refresh');
 			}
 		});
 		renderScheduleDropdown();
@@ -278,7 +278,7 @@ const attendance = (() => {
 			const tuitionId = $dropdown.attr('data-tuition-id');
 			const batchesOfThisInstitute = distinctBatchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
 			const batchDropDownHtml = template.batchOptions({ batches: batchesOfThisInstitute });
-			$dropdown.html(batchDropDownHtml);
+			$dropdown.html(batchDropDownHtml).selectpicker('refresh');
 		});
 	}
 
