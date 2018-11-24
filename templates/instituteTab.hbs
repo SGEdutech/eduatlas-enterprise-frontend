@@ -17,7 +17,8 @@
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill4{{tabNumber}}" data-toggle="tab">Schedule</a></li>
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill5{{tabNumber}}" data-toggle="tab">Attendance</a></li>
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill7{{tabNumber}}" data-toggle="tab">Reports</a></li>
-		<li class="nav-item"><a class="nav-link rounded-0" href="#pill6{{tabNumber}}" data-toggle="tab">Upcoming Installments</a></li>
+		{{!-- <li class="nav-item"><a class="nav-link rounded-0" href="#pill6{{tabNumber}}" data-toggle="tab">Upcoming
+				Installments</a></li> --}}
 	</ul>
 	<hr>
 	<div class="tab-content tab-space">
@@ -270,27 +271,28 @@
 									</div>
 									<div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
 										<div class="card card-plain m-0 px-3">
-											<div class="card-header pt-1 mt-3" role="tab" id="headingOne" style="border: solid 2px #eee">
-												<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+											<div class="card-header pt-1 mt-3" role="tab" id="auto_populate_heading{{_id}}" style="border: solid 2px #eee">
+												<a data-toggle="collapse" data-parent="#accordion" href="#ea_id_accordian{{_id}}" aria-expanded="true"
+												 aria-controls="ea_id_accordian{{_id}}">
 													Auto-populate student details using EA id
 													<i class="material-icons">keyboard_arrow_down</i>
 												</a>
 											</div>
-											<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-												<div class="card-body">
+											<div id="ea_id_accordian{{_id}}" class="collapse show" role="tabpanel" aria-labelledby="auto_populate_heading{{_id}}">
+												<div class="card-body py-2 text-center">
 													<button class="btn btn-info btn-sm ea-id-modal-trigger" data-tuition-id="{{_id}}">Enter EA ID</button>
 												</div>
 											</div>
 										</div>
 										<div class="card card-plain m-0 px-3">
-											<div class="card-header pt-1" role="tab" id="headingTwo" style="border: solid 2px #eee">
-												<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
-												 aria-controls="collapseTwo">
+											<div class="card-header pt-1" role="tab" id="bulk_upload_student{{_id}}" style="border: solid 2px #eee">
+												<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#student_excel_upload{{_id}}"
+												 aria-expanded="false" aria-controls="student_excel_upload{{_id}}">
 													Bulk Upload Students Through Excel
 													<i class="material-icons">keyboard_arrow_down</i>
 												</a>
 											</div>
-											<div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+											<div id="student_excel_upload{{_id}}" class="collapse" role="tabpanel" aria-labelledby="bulk_upload_student{{_id}}">
 												<div class="card-body">
 													<div class="row px-3">
 														<div class="col-4">
@@ -895,20 +897,19 @@
 						<li class="nav-item">
 							<a class="nav-link active rounded-0" href="#addSchedule{{tabNumber}}" data-toggle="tab">Add Schedule</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link rounded-0" href="#scheduleReports{{tabNumber}}" data-toggle="tab">Reports</a>
-						</li>
 					</ul>
 				</div>
 				<div class="col-md-10">
 					<div class="tab-content">
 						<div class="tab-pane active" id="addSchedule{{tabNumber}}">
 							<div class="row m-0">
-								<div class="card">
+								<div class="card mb-5">
+									<div class="card-header card-header-info py-2">
+										<div class="title h4 m-0">Add New Schedule</div>
+									</div>
 									<div class="card-body">
 										<form class="schedule-validation-form" data-tuition-id="{{_id}}">
 											<div class="row m-0">
-												<div class="card-title col-12 h3 p-0 bg-info px-3 ">Add New Schedule</div>
 												<div class="col-12">
 													<div class="form-group">
 														<label for="week-number">Week Number</label>
@@ -927,7 +928,7 @@
 														<input type="text" class="form-control to-date" data-tuition-id="{{_id}}" disabled>
 													</div>
 												</div>
-												<div class="col-md-12 add-schedule-container" data-tuition-id="{{_id}}">
+												<div class="col-md-12 add-schedule-container border-grey" data-tuition-id="{{_id}}">
 													<div class="row">
 														<div class="col-2">Day</div>
 														<div class="col-2">From Time</div>
@@ -964,7 +965,7 @@
 												<div class="col-md-12">
 													<div class="card-title">Select Batches For This Schedule</div>
 													<form class="add-schedule-form" data-tuition-id="{{_id}}">
-														<div class="p-2 batch-checkbox-container" data-tuition-id="{{_id}}" style="height:299px;background-color:rgb(184, 184, 184);overflow-y: auto;max-height:100px;">
+														<div class="p-2 batch-checkbox-container border-grey" data-tuition-id="{{_id}}" style="width:100%;max-height:500px!important;overflow-y: scroll!important;">
 															{{!-- FIXME: moved to new hbs file --}}
 														</div>
 													</form>
@@ -977,16 +978,19 @@
 										</form>
 									</div>
 								</div>
-							</div>
-							<div class="row m-0">
-								<div class="card-title col-12 h3 p-0 bg-info px-3">Active Schedules</div>
-								<div class="col-12 active-schedule-container" data-tuition-id="{{_id}}">
-									{{!-- FIXME: moved to new hbs file --}}
+								<div class="card mb-3">
+									<div class="card-header card-header-info py-2">
+										<div class="title h4 m-0">Active Schedules</div>
+									</div>
+									<div class="card-body">
+										<div class="row m-0">
+											<div class="col-12 active-schedule-container" data-tuition-id="{{_id}}">
+												{{!-- FIXME: moved to new hbs file --}}
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="tab-pane">
-							gtsghsjuhsdjd
 						</div>
 					</div>
 				</div>
@@ -1005,11 +1009,11 @@
 				<div class="col-md-10">
 					<div class="tab-content">
 						<div class="tab-pane active" id="attandance{{tabNumber}}">
-							<div class="card">
+							<div class="card mb-5">
+								<div class="card-header card-header-info py-2">
+									<div class="title h4 m-0">Mark Attendence</div>
+								</div>
 								<div class="card-body">
-									<div class="card-title h3 bg-info px-3">
-										Mark Attendence
-									</div>
 									<div class="col-12">
 										<label for="batchDropdown">Select Batch</label>
 										<select class="form-control attendance-batch-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
@@ -1021,26 +1025,42 @@
 										<select class="form-control attendance-schedule-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
 										</select>
 									</div>
-									<div class="card-title h4 bg-info px-3">
+									<div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
+										<div class="card card-plain m-0 px-3">
+											<div class="card-header pt-1 mt-3" id="headingOne{{_id}}" role="tab" style="border: solid 2px #eee">
+												<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{_id}}" aria-expanded="true"
+												 aria-controls="collapseOne{{_id}}">
+													Mark Attendence Through Excel
+													<i class="material-icons">keyboard_arrow_down</i>
+												</a>
+											</div>
+											<div id="collapseOne{{_id}}" class="collapse show" role="tabpanel" aria-labelledby="headingOne{{_id}}" style="">
+												<div class="card-body py-2">
+													<div class="row px-3">
+														<div class="col-4">
+															<a href="/assets/excel/attendance-template.csv" class="btn btn-round btn-success text-white" download>Download
+																Excel Template</a>
+														</div>
+														<div class="col-3">
+															<input class="attendance-exel-file-upload" type="file" data-tuition-id="{{_id}}">
+														</div>
+														<div class="col-3">
+															<a class="btn btn-round btn-success add-attendance-from-excel-btn text-white" data-tuition-id="{{_id}}">ADD
+																ATTENDANCE FROM EXCEL</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									{{!-- <div class="card-title h4 bg-info px-3">
 										Mark Attendence Through Excel
-									</div>
-									<div class="row px-3">
-										<div class="col-4">
-											<a href="/assets/excel/attendance-template.csv" class="btn btn-round btn-success text-white" download>Download
-												Excel Template</a>
-										</div>
-										<div class="col-3">
-											<input class="attendance-exel-file-upload" type="file" data-tuition-id="{{_id}}">
-										</div>
-										<div class="col-3">
-											<a class="btn btn-round btn-success add-attendance-from-excel-btn text-white" data-tuition-id="{{_id}}">ADD
-												ATTENDANCE FROM EXCEL</a>
-										</div>
-									</div>
-									<div class="card-title h4 bg-info px-3">
+									</div> --}}
+
+									{{!-- <div class="card-title h4 bg-info px-3">
 										Mark Attendence Manually
-									</div>
-									<div style="overflow-y: scroll;max-height: 500px;">
+									</div> --}}
+									<div class="border-grey mt-2" style="width:100%;max-height:500px!important;overflow-y: scroll!important;">
 										<form class="absent-student-form" data-tuition-id="{{_id}}">
 											<table class="table border border-light">
 												<thead class="">
@@ -1071,7 +1091,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="tab-pane" id="pill6{{tabNumber}}">
+		{{!-- <div class="tab-pane" id="pill6{{tabNumber}}">
 			<div class="row m-0">
 				<div class="col-3">
 					<div class="card bg-info">
@@ -1118,7 +1138,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> --}}
 		<div class="tab-pane" id="pill7{{tabNumber}}">
 			<div class="row m-0">
 				<div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
@@ -1131,26 +1151,30 @@
 						<div class="tab-pane active" id="financeReport{{tabNumber}}">
 							<div class="row m-0">
 								<div class="finance-landing-container col-12" data-tuition-id="{{_id}}">
-									<div class="row">
-										<div class="card-title col-12 h3 bg-info">
-											Finance
+									<div class="card mb-5">
+										<div class="card-header card-header-info py-2">
+											<div class="title h4 m-0">Finance</div>
 										</div>
-										<div class="col-md-12">
-											<h4 class="card-title">Batch Filter</h4>
-											<div class="row mb-2 finance-batch-container" data-tuition-id="{{_id}}">
-											</div>
-										</div>
-										<div class="col-12">
+										<div class="card-body">
 											<div class="row">
-												<div class="col-md-10"><input type="text" class="form-control finance-search-inp" placeholder="search students"
-													 data-tuition-id="{{_id}}"></div>
-												<div class="col-md-2">
-													<div class="btn btn-info btn-sm finance-search-reset" data-tuition-id="{{_id}}">RESET</div>
+												<div class="col-md-12">
+													<h4 class="card-title">Batch Filter</h4>
+													<div class="row mb-2 finance-batch-container" data-tuition-id="{{_id}}">
+													</div>
 												</div>
-											</div>
-										</div>
-										<div class="col-12">
-											<div class="row finance-student-container" data-tuition-id="{{_id}}">
+												<div class="col-12">
+													<div class="row">
+														<div class="col-md-10"><input type="text" class="form-control finance-search-inp" placeholder="search students"
+															 data-tuition-id="{{_id}}"></div>
+														<div class="col-md-2">
+															<div class="btn btn-info btn-sm finance-search-reset" data-tuition-id="{{_id}}">RESET</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-12">
+													<div class="row finance-student-container" data-tuition-id="{{_id}}">
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
