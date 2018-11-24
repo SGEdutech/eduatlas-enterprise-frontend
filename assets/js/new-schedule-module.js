@@ -60,6 +60,7 @@ const schedule = (() => {
 	function updateTodate(fromDate, tuitionId) {
 		const nextSunday = dateAndTime.getNextSunday(fromDate);
 		$toDate.filter(`[data-tuition-id="${tuitionId}"]`).val(nextSunday.format('DD/MM/YYYY'));
+		$toDate.filter(`[data-tuition-id="${tuitionId}"]`).val(nextSunday.format('DD/MM/YYYY'));
 	}
 
 	function updateDays(fromDate, tuitionId) {
