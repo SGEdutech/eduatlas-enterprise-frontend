@@ -18,6 +18,7 @@ const schedule = (() => {
 	let $staticInps;
 	let $staticSelects;
 	let $validationForm;
+	let $removeRowBtn;
 
 	// function getCourseCode(batchId) {
 	// 	let batchCode;
@@ -57,6 +58,22 @@ const schedule = (() => {
 		return nameToValueMap;
 	}
 
+	function removeScheduleRow(event) {
+		const $closeBtn = $(event.target);
+		const tuitionId = $closeBtn.attr('data-tuition-id');
+		if ($scheduleRow.filter(`[data-tuition-id="${tuitionId}"]`).length === 1) return;
+		let $possibleScheduleRow = $closeBtn;
+		do {
+			// Incase we reach outside html
+			if ($possibleScheduleRow.length === 0) return;
+
+			$possibleScheduleRow = $possibleScheduleRow.parent();
+		} while ($possibleScheduleRow.hasClass('schedule-row') === false);
+		$possibleScheduleRow.remove();
+		cacheDynamic();
+		bindDynamicEvents();
+	}
+
 	function updateTodate(fromDate, tuitionId) {
 		const nextSunday = dateAndTime.getNextSunday(fromDate);
 		$toDate.filter(`[data-tuition-id="${tuitionId}"]`).val(nextSunday.format('DD/MM/YYYY'));
@@ -83,7 +100,7 @@ const schedule = (() => {
 		const $button = $(event.target);
 		const tuitionId = $button.attr('data-tuition-id');
 		$scheduleRow.filter(`[data-tuition-id="${tuitionId}"]`).last().clone().addClass('cloned-row').appendTo($addScheduleContainer.filter(`[data-tuition-id="${tuitionId}"]`));
-		$fromTime.add($toTime).datetimepicker('destroy');
+		$fromTime.add($toTime);
 		cacheDynamic();
 		bindDynamicEvents();
 	}
@@ -174,6 +191,7 @@ const schedule = (() => {
 		$staticSelects.html('');
 	}
 
+	// FIXME: Optimise (Atomicity)
 	async function addSchedule(event) {
 		try {
 			event.preventDefault();
@@ -325,16 +343,16 @@ const schedule = (() => {
 		$checkedBatchesInput = $('.batches:checkbox:checked');
 		$clonedInp = $('.cloned-inp');
 		$clonedRows = $('.cloned-row');
+		$removeRowBtn = $('.remove-row-btn');
 	}
 
 	function bindDynamicEvents() {
 		$editButton.click(editModalInit);
 		$deleteButton.click(deleteSchedule);
+		$removeRowBtn.click(removeScheduleRow);
 
 		// Time Picker
 		$fromTime.add($toTime).datetimepicker(dateTimePickerConfig.timePicker);
-
-		// Selectpicker
 	}
 
 	function refresh() {

@@ -354,14 +354,14 @@
 																<input name="courseCode" type="text" class="d-none student-course-code" data-tuition-id="{{_id}}">
 																<div class="col-md-6 form-group">
 																	<label for="course_select" class="bmd-label-floating">Select Course</label>
-																	<select class="form-control selectpicker student-course-select-menu" data-style="btn btn-link" name="courseId"
+																	<select class="form-control student-course-select-menu" data-style="btn btn-link" name="courseId"
 																	 data-tuition-id="{{_id}}">
 																		<option value="">Select Course</option>
 																	</select>
 																</div>
 																<div class="col-md-6 form-group">
 																	<label class="bmd-label-floating">Select Batch</label>
-																	<select class="form-control selectpicker student-batch-select-menu" data-style="btn btn-link" name="batchId"
+																	<select class="form-control student-batch-select-menu" data-style="btn btn-link" name="batchId"
 																	 data-tuition-id="{{_id}}">
 																		<option value="">Select Batch</option>
 																	</select>
@@ -501,7 +501,7 @@
 											<div class="row">
 												<div class="col-md-6">
 													<div class="form-group">
-														<select class="form-control selectpicker course-select-menu" data-style="btn btn-link" name="courseId"
+														<select class="form-control course-select-menu" data-style="btn btn-link" name="courseId"
 														 data-tuition-id="{{_id}}" required>
 															{{!-- FIXME: moved to new hbs file --}}
 														</select>
@@ -928,31 +928,38 @@
 														<div class="col-2">From Time</div>
 														<div class="col-2">To Time</div>
 														<div class="col-3">Topic</div>
-														<div class="col-3">Faculty</div>
+														<div class="col-2">Faculty</div>
+														<div class="col-1"></div>
 													</div>
 													<div class="schedule-row row" data-tuition-id="{{_id}}">
 														<div class="col-2 schedule-col">
 															<div class="form-group">
-																<select name="date" class="form-control day-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
+																<select name="date" class="form-control day-dropdown" data-style="btn btn-link"
+																 data-tuition-id="{{_id}}">
 																</select>
 															</div>
 														</div>
 														<div class="col-2 schedule-col">
-															<input name="fromTime" type="text" class="form-control time-picker from-time" required>
+															<input name="fromTime" type="text" class="form-control from-time" required>
 														</div>
 														<div class="col-2 schedule-col">
-															<input name="toTime" type="text" class="form-control time-picker to-time">
+															<input name="toTime" type="text" class="form-control to-time">
 														</div>
 														<div class="col-3 schedule-col">
 															<input type="text" name="topic" class="form-control" required>
 														</div>
-														<div class="col-3 schedule-col">
+														<div class="col-2 schedule-col">
 															<input type="text" name="faculty" class="form-control">
+														</div>
+														<div class="col-1">
+															<button type="button" class="btn btn-link btn-sm remove-row-btn" data-tuition-id="{{_id}}">
+																<i class="material-icons" data-tuition-id="{{_id}}">close</i>
+															</button>
 														</div>
 													</div>
 												</div>
 												<div class="col-md-12 justify-content-end mx-2">
-													<a class="btn btn-round btn-success add-class-entry text-white" data-tuition-id="{{_id}}">
+													<a class="btn btn-round btn-success add-class-entry text-white pull-right" data-tuition-id="{{_id}}">
 														Add More Classes
 													</a>
 												</div>
@@ -1016,7 +1023,8 @@
 										<select class="form-control attendance-week-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
 										</select>
 										<label for="scheduleDropdown">Select Schedule</label>
-										<select class="form-control attendance-schedule-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
+										<select class="form-control attendance-schedule-dropdown" data-style="btn btn-link"
+										 data-tuition-id="{{_id}}">
 										</select>
 									</div>
 									<div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
