@@ -6,12 +6,12 @@ const schedule = (() => {
 	let $deleteButton;
 	let $fromDate;
 	let $toDate;
+	let $fromTime;
+	let $toTime;
 	let $addClassEntryBtn;
 	let $dayDropdown;
 	let $addScheduleContainer;
 	let $saveScheduleBtn;
-	let $timePicker;
-	let $datePicker;
 	let $batchCheckboxContainer;
 	let $clonedRows;
 	let $staticScheduleCol;
@@ -60,12 +60,11 @@ const schedule = (() => {
 	function updateTodate(fromDate, tuitionId) {
 		const nextSunday = dateAndTime.getNextSunday(fromDate);
 		$toDate.filter(`[data-tuition-id="${tuitionId}"]`).val(nextSunday.format('DD/MM/YYYY'));
-		$toDate.filter(`[data-tuition-id="${tuitionId}"]`).val(nextSunday.format('DD/MM/YYYY'));
 	}
 
 	function updateDays(fromDate, tuitionId) {
 		const allDaysTillSunday = dateAndTime.getDaysTillSunday(fromDate);
-		$dayDropdown.filter(`[data-tuition-id="${tuitionId}"]`).html(template.daySelectOptions({ days: allDaysTillSunday }));
+		$dayDropdown.filter(`[data-tuition-id="${tuitionId}"]`).html(template.daySelectOptions({ days: allDaysTillSunday })).selectpicker('refresh');
 	}
 
 	function updateTodateAndSelectDays(event) {
@@ -84,11 +83,9 @@ const schedule = (() => {
 		const $button = $(event.target);
 		const tuitionId = $button.attr('data-tuition-id');
 		$scheduleRow.filter(`[data-tuition-id="${tuitionId}"]`).last().clone().addClass('cloned-row').appendTo($addScheduleContainer.filter(`[data-tuition-id="${tuitionId}"]`));
-		$timePicker.datetimepicker('destroy');
-		$datePicker.datetimepicker('destroy');
+		$fromTime.add($toTime).datetimepicker('destroy');
 		cacheDynamic();
 		bindDynamicEvents();
-		initDateTimePicker();
 	}
 
 	function submitEditRequest(tuitionId, courseId, batchId, scheduleId, editedData) {
@@ -321,9 +318,10 @@ const schedule = (() => {
 		$deleteButton = $('.delete-schedule-btn');
 		$addScheduleContainer = $('.add-schedule-container');
 		$scheduleRow = $addScheduleContainer.find('.schedule-row');
-		$timePicker = $('.time-picker');
-		$datePicker = $('.date-picker');
+		$fromTime = $('.from-time');
+		$toTime = $('.to-time');
 		$dayDropdown = $('.day-dropdown');
+		// FIXME: Optimise
 		$checkedBatchesInput = $('.batches:checkbox:checked');
 		$clonedInp = $('.cloned-inp');
 		$clonedRows = $('.cloned-row');
@@ -332,6 +330,11 @@ const schedule = (() => {
 	function bindDynamicEvents() {
 		$editButton.click(editModalInit);
 		$deleteButton.click(deleteSchedule);
+
+		// Time Picker
+		$fromTime.add($toTime).datetimepicker(dateTimePickerConfig.timePicker);
+
+		// Selectpicker
 	}
 
 	function refresh() {
@@ -363,7 +366,6 @@ const schedule = (() => {
 		render();
 		cacheDynamic();
 		bindDynamicEvents();
-		initDateTimePicker();
 	}
 
 	PubSub.subscribe('course.edit', (msg, editedCourse) => {
