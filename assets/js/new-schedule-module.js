@@ -59,7 +59,7 @@ const schedule = (() => {
 
 	function updateTodate(fromDate, tuitionId) {
 		const nextSunday = dateAndTime.getNextSunday(fromDate);
-		$toDate.filter(`[data-tuition-id="${tuitionId}"]`).val(nextSunday.format('DD MM YYYY'));
+		$toDate.filter(`[data-tuition-id="${tuitionId}"]`).val(nextSunday.format('DD/MM/YYYY'));
 	}
 
 	function updateDays(fromDate, tuitionId) {
@@ -70,7 +70,11 @@ const schedule = (() => {
 	function updateTodateAndSelectDays(event) {
 		const $fromDateInp = $(event.target);
 		const tuitionId = $fromDateInp.attr('data-tuition-id');
-		const fromDate = new Date($fromDateInp.val());
+		const dateStr = $fromDateInp.val();
+		const splittedDateArr = dateStr.split('/');
+		const [dayOfTheMonth, monthPlusOne, year] = splittedDateArr;
+		const month = monthPlusOne - 1;
+		const fromDate = new Date(year, month, dayOfTheMonth);
 		updateTodate(fromDate, tuitionId);
 		updateDays(fromDate, tuitionId);
 	}
@@ -84,32 +88,6 @@ const schedule = (() => {
 		cacheDynamic();
 		bindDynamicEvents();
 		initDateTimePicker();
-	}
-
-	function cache() {
-		$saveScheduleBtn = $('.save-schedule-btn');
-		$scheduleContainer = $('.active-schedule-container');
-		$addClassEntryBtn = $('.add-class-entry');
-		$batchCheckboxContainer = $('.batch-checkbox-container');
-		$staticScheduleCol = $('.schedule-col');
-		$staticInps = $staticScheduleCol.find('input');
-		$staticSelects = $staticScheduleCol.find('select');
-		$validationForm = $('.schedule-validation-form');
-		$fromDate = $('.from-date');
-		$toDate = $('.to-date');
-	}
-
-	function cacheDynamic() {
-		$editButton = $('.schedule-edit');
-		$deleteButton = $('.delete-schedule-btn');
-		$addScheduleContainer = $('.add-schedule-container');
-		$scheduleRow = $addScheduleContainer.find('.schedule-row');
-		$timePicker = $('.time-picker');
-		$datePicker = $('.date-picker');
-		$dayDropdown = $('.day-dropdown');
-		$checkedBatchesInput = $('.batches:checkbox:checked');
-		$clonedInp = $('.cloned-inp');
-		$clonedRows = $('.cloned-row');
 	}
 
 	function submitEditRequest(tuitionId, courseId, batchId, scheduleId, editedData) {
@@ -251,17 +229,6 @@ const schedule = (() => {
 		}
 	}
 
-	function bindEvents() {
-		$addClassEntryBtn.click(appendMoreAddScheduleInputs);
-		$validationForm.submit(addSchedule);
-		$fromDate.on('input paste', updateTodateAndSelectDays);
-	}
-
-	function bindDynamicEvents() {
-		$editButton.click(editModalInit);
-		$deleteButton.click(deleteSchedule);
-	}
-
 	function sortByWeek(batchObj) {
 		return batchObj.schedules.reduce((accumulator, scheduleObj) => {
 			const yearWeek = moment(scheduleObj.date).startOf('isoweek').format('MMM Do') + '-' + moment(scheduleObj.date).endOf('isoweek').format("MMM Do");
@@ -324,6 +291,46 @@ const schedule = (() => {
 			const batchCheckBoxesHTML = template.batchesCheckbox({ batches: batchOfThisInstitute });
 			$container.html(batchCheckBoxesHTML);
 		});
+	}
+
+	function cache() {
+		$saveScheduleBtn = $('.save-schedule-btn');
+		$scheduleContainer = $('.active-schedule-container');
+		$addClassEntryBtn = $('.add-class-entry');
+		$batchCheckboxContainer = $('.batch-checkbox-container');
+		$staticScheduleCol = $('.schedule-col');
+		$staticInps = $staticScheduleCol.find('input');
+		$staticSelects = $staticScheduleCol.find('select');
+		$validationForm = $('.schedule-validation-form');
+		$fromDate = $('.from-date');
+		$toDate = $('.to-date');
+	}
+
+	function bindEvents() {
+		$addClassEntryBtn.click(appendMoreAddScheduleInputs);
+		$validationForm.submit(addSchedule);
+		$fromDate.blur(updateTodateAndSelectDays);
+
+		// Datetimepicker
+		$fromDate.datetimepicker(dateTimePickerConfig.datePicker);
+	}
+
+	function cacheDynamic() {
+		$editButton = $('.schedule-edit');
+		$deleteButton = $('.delete-schedule-btn');
+		$addScheduleContainer = $('.add-schedule-container');
+		$scheduleRow = $addScheduleContainer.find('.schedule-row');
+		$timePicker = $('.time-picker');
+		$datePicker = $('.date-picker');
+		$dayDropdown = $('.day-dropdown');
+		$checkedBatchesInput = $('.batches:checkbox:checked');
+		$clonedInp = $('.cloned-inp');
+		$clonedRows = $('.cloned-row');
+	}
+
+	function bindDynamicEvents() {
+		$editButton.click(editModalInit);
+		$deleteButton.click(deleteSchedule);
 	}
 
 	function refresh() {

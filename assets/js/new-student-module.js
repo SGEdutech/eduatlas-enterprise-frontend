@@ -552,6 +552,7 @@ const student = (() => {
 
 		$feeCollectedInp.on('input paste', renderBalancePending);
 
+		// Datetimepicker
 		$installmentDateInp.datetimepicker(dateTimePickerConfig.datePicker);
 	}
 
