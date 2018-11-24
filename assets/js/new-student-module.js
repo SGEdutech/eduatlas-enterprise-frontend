@@ -26,6 +26,7 @@ const student = (() => {
 	let $eAIdModal;
 	let $eAIdInp;
 	let $eASuceedBtn;
+	let $eAForm;
 	let $modeOfPaymentSelect;
 	let $modeOfPaymentDetailsContainer;
 	let $exelUploadInp;
@@ -389,13 +390,9 @@ const student = (() => {
 		if (userInfo.pin) $studentAddressInp.filter(`[data-tuition-id="${tuitionId}"]`).val(`${$studentAddressInp.filter(`[data-tuition-id="${tuitionId}"]`).val()} ${userInfo.pin}`);
 	}
 
-	async function fetchAndRenderUserInfoAndCloseModal() {
+	async function fetchAndRenderUserInfoAndCloseModal(event) {
 		try {
-			const eAIdRegex = new RegExp('^[a-zA-z]{3}\\d{5}$', 'i');
-			if (eAIdRegex.test($eAIdInp.val()) === false) {
-				alert('Not a valid EA ID!');
-				return
-			}
+			event.preventDefault();
 			const tuitionId = $eASuceedBtn.attr('data-tuition-id');
 
 			const eANumber = eAIdsAndNumbers.eAIdToNumber($eAIdInp.val());
@@ -411,6 +408,7 @@ const student = (() => {
 		showEaModal();
 		const $btn = $(event.target);
 		const tuitionId = $btn.attr('data-tuition-id');
+		// FIXME
 		$eASuceedBtn.attr('data-tuition-id', tuitionId);
 	}
 
@@ -493,6 +491,7 @@ const student = (() => {
 		$studentNumberInp = $('.student-phone-inp');
 		$eAIdModal = $('#ea_id_modal');
 		$eAIdInp = $('#ea_id_inp');
+		$eAForm = $('#ea-form');
 		$eASuceedBtn = $('#get_student_details_btn');
 		$eAIdModalTriggerBtn = $('.ea-id-modal-trigger');
 		$modeOfPaymentSelect = $('.mode-of-payment-select');
@@ -528,7 +527,7 @@ const student = (() => {
 		// Sort this mess
 		$addStudentForm.submit(addStudent)
 		$eAIdModalTriggerBtn.click(initEAIdModal);
-		$eASuceedBtn.click(fetchAndRenderUserInfoAndCloseModal);
+		$eAForm.submit(fetchAndRenderUserInfoAndCloseModal);
 		$modeOfPaymentSelect.change(showModeOfPaymentDetailsInputs);
 		$addStudentFromExcelBtn.click(parseAndDisplayStudents);
 		$studentSearchReset.click(clearSearch);

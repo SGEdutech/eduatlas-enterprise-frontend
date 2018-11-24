@@ -5,7 +5,15 @@
     <td class=" p-0">{{rollNumber}}</td>
     <td class=" p-0">{{email}}</td>
     <td class=" p-0">
-        <input name="students" type="checkbox" value="{{email}}" data-student-id="{{_id}}" data-tuition-id="{{tuitionId}}">
+        <div class="form-check m-0">
+            <label class="form-check-label">
+                <input class="form-check-input" name="students" type="checkbox" value="{{email}}" data-student-id="{{_id}}"
+                    data-tuition-id="{{tuitionId}}">
+                <span class="form-check-sign">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
     </td>
 </tr>
 {{/each}}

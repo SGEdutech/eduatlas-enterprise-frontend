@@ -943,16 +943,16 @@ aa
 			<div class="modal fade bd-example-modal-lg" id="ea_id_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
-						<div class="modal-body">
+						<form id="ea-form" class="modal-body">
 							<div class="form-group">
-								<label for="eaIdInp">EA id</label>
-								<input type="text" name="eaIdInp" class="form-control" id="ea_id_inp">
+								<label for="eaIdInp">EA ID</label>
+								<input type="text" name="eaIdInp" class="form-control" id="ea_id_inp" title="EA ID" pattern="^[a-zA-z]{3}\d{5}$">
 							</div>
 							<div class="row justify-content-end m-2">
-								<button id="get_student_details_btn" type="button" class="btn btn-round btn-info">Get Student Details</button>
+								<button id="get_student_details_btn" type="submit" class="btn btn-round btn-info">Get Student Details</button>
 								<button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
 							</div>
-						</div>
+						</form>
 					</div>
 				</div>
 			</div>

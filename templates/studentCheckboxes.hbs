@@ -1,12 +1,3 @@
-{{!-- {{#each students}}
-<input name="students" type="checkbox" value="{{_id}}">
-<span class="media-heading">{{name}}
-    <span class="form-check-sign">
-        <span class="check"></span>
-    </span>
-</span><br>
-{{/each}} --}}
-
 <table class="table">
     <thead>
         <tr>
@@ -25,7 +16,14 @@
             <td class="p-0">{{student.rollNumber}}</td>
             <td class="p-0">{{student.email}}</td>
             <td class="p-0">
-                <input type="checkbox" name="students" value="{{student._id}}">
+                <div class="form-check my-1">
+                    <label class="form-check-label">
+                        <input class="form-check-input" name="students" type="checkbox" value="{{student._id}}">
+                        <span class="form-check-sign">
+                            <span class="check"></span>
+                        </span>
+                    </label>
+                </div>
             </td>
         </tr> {{/each}} </tbody>
 </table>

@@ -2,7 +2,7 @@
 <div class="card">
     <div class="card-body">
         {{!-- FIXME: access batchCode efficiently --}}
-        <div class="card-title">{{#each value}}{{#if @first}}{{batchCode}}{{/if}}{{/each}}</div>
+        <div class="card-title text-uppercase">{{#each value}}{{#if @first}}{{batchCode}}{{/if}}{{/each}}</div>
         <div class="card-title text-info">WEEK: {{@key}}</div>
         <div class="row">
             <div class="col-md-12">

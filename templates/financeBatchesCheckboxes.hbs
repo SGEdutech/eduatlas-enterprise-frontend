@@ -1,7 +1,7 @@
 {{#each batches as |batch|}}
 <div class="col-md-2">
     <div class="form-check">
-        <label class="form-check-label">
+        <label class="form-check-label text-uppercase">
             <input class="form-check-input finance-batches" type="checkbox" value="{{batch._id}}" data-course-id="{{batch.courseId}}"
                 data-tuition-id="{{batch.tuitionId}}" {{#if batch.isChecked}}checked{{/if}}>
             {{batch.code}}

@@ -1,9 +1,16 @@
 {{#each batches as |batch|}}
 <tr>
     <td class="text-center p-0">{{@index}}</td>
-    <td class="p-0">{{batch.code}}</td>
+    <td class="p-0 text-uppercase">{{batch.code}}</td>
     <td class="p-0">
-        <input type="checkbox" name="batchId" value="{{batch._id}}" data-tuition-id="{{tuitionId}}">
+        <div class="form-check m-0">
+            <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="batchId" value="{{batch._id}}" data-tuition-id="{{tuitionId}}">
+                <span class="form-check-sign">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
     </td>
 </tr>
 {{/each}}

@@ -269,16 +269,16 @@
 									<div class="card-header card-header-info py-2">
 										<div class="title h4 m-0">Add New Student</div>
 									</div>
-									<div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
+									<div id="accordion{{_id}}" role="tablist" aria-multiselectable="true" class="card-collapse">
 										<div class="card card-plain m-0 px-3">
 											<div class="card-header pt-1 mt-3" role="tab" id="auto_populate_heading{{_id}}" style="border: solid 2px #eee">
-												<a data-toggle="collapse" data-parent="#accordion" href="#ea_id_accordian{{_id}}" aria-expanded="true"
+												<a data-toggle="collapse" data-parent="#accordion{{_id}}" href="#ea_id_accordian{{_id}}" aria-expanded="false"
 												 aria-controls="ea_id_accordian{{_id}}">
 													Auto-populate student details using EA id
 													<i class="material-icons">keyboard_arrow_down</i>
 												</a>
 											</div>
-											<div id="ea_id_accordian{{_id}}" class="collapse show" role="tabpanel" aria-labelledby="auto_populate_heading{{_id}}">
+											<div id="ea_id_accordian{{_id}}" class="collapse" role="tabpanel" aria-labelledby="auto_populate_heading{{_id}}">
 												<div class="card-body py-2 text-center">
 													<button class="btn btn-info btn-sm ea-id-modal-trigger" data-tuition-id="{{_id}}">Enter EA ID</button>
 												</div>
@@ -286,7 +286,7 @@
 										</div>
 										<div class="card card-plain m-0 px-3">
 											<div class="card-header pt-1" role="tab" id="bulk_upload_student{{_id}}" style="border: solid 2px #eee">
-												<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#student_excel_upload{{_id}}"
+												<a class="collapsed" data-toggle="collapse" data-parent="#accordion{{_id}}" href="#student_excel_upload{{_id}}"
 												 aria-expanded="false" aria-controls="student_excel_upload{{_id}}">
 													Bulk Upload Students Through Excel
 													<i class="material-icons">keyboard_arrow_down</i>
@@ -501,8 +501,8 @@
 											<div class="row">
 												<div class="col-md-6">
 													<div class="form-group">
-														<select class="form-control course-select-menu" data-style="btn btn-link" name="courseId"
-														 data-tuition-id="{{_id}}" required>
+														<select class="form-control course-select-menu" data-style="btn btn-link" name="courseId" data-tuition-id="{{_id}}"
+														 required>
 															{{!-- FIXME: moved to new hbs file --}}
 														</select>
 													</div>
@@ -934,8 +934,7 @@
 													<div class="schedule-row row" data-tuition-id="{{_id}}">
 														<div class="col-2 schedule-col">
 															<div class="form-group">
-																<select name="date" class="form-control day-dropdown" data-style="btn btn-link"
-																 data-tuition-id="{{_id}}">
+																<select name="date" class="form-control day-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
 																</select>
 															</div>
 														</div>
@@ -1014,29 +1013,32 @@
 								<div class="card-header card-header-info py-2">
 									<div class="title h4 m-0">Mark Attendence</div>
 								</div>
-								<div class="card-body">
-									<div class="col-12">
+								<div class="card-body row">
+									<div class="col-6">
 										<label for="batchDropdown">Select Batch</label>
 										<select class="form-control attendance-batch-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
 										</select>
+									</div>
+									<div class="col-6">
 										<label for="batchDropdown">Select Week</label>
 										<select class="form-control attendance-week-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
 										</select>
+									</div>
+									<div class="col-12 my-3">
 										<label for="scheduleDropdown">Select Schedule</label>
-										<select class="form-control attendance-schedule-dropdown" data-style="btn btn-link"
-										 data-tuition-id="{{_id}}">
+										<select class="form-control attendance-schedule-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
 										</select>
 									</div>
-									<div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
+									<div id="accordionAttendance{{_id}}" role="tablist" aria-multiselectable="true" class="card-collapse">
 										<div class="card card-plain m-0 px-3">
 											<div class="card-header pt-1 mt-3" id="headingOne{{_id}}" role="tab" style="border: solid 2px #eee">
-												<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{_id}}" aria-expanded="true"
+												<a data-toggle="collapse" data-parent="#accordionAttendance{{_id}}" href="#collapseOne{{_id}}" aria-expanded="false"
 												 aria-controls="collapseOne{{_id}}">
 													Mark Attendence Through Excel
 													<i class="material-icons">keyboard_arrow_down</i>
 												</a>
 											</div>
-											<div id="collapseOne{{_id}}" class="collapse show" role="tabpanel" aria-labelledby="headingOne{{_id}}" style="">
+											<div id="collapseOne{{_id}}" class="collapse" role="tabpanel" aria-labelledby="headingOne{{_id}}" style="">
 												<div class="card-body py-2">
 													<div class="row px-3">
 														<div class="col-4">

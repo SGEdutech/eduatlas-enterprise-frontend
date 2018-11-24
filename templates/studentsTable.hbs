@@ -1,11 +1,19 @@
 {{#each students as |student|}}
 <tr>
     <td class="text-center p-0">{{inc @index}}</td>
-    <td class=" p-0">{{name}}</td>
+    <td class=" p-0 text-capitalize">{{name}}</td>
     <td class=" p-0">{{rollNumber}}</td>
     <td class=" p-0">{{outStandingFee}}</td>
     <td class=" p-0">
-        <input name="absentees" type="checkbox" class="student-absent" value="{{_id}}" {{#if isAbsent}}checked{{/if}} data-student-id="{{_id}}" data-tuition-id="{{tuitionId}}">
+        <div class="form-check m-0">
+            <label class="form-check-label">
+                <input name="absentees" type="checkbox" class="student-absent form-check-input" value="{{_id}}" {{#if isAbsent}} checked{{/if}}
+            data-student-id="{{_id}}" data-tuition-id="{{tuitionId}}">
+                <span class="form-check-sign">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
     </td>
 </tr>
 {{/each}}
