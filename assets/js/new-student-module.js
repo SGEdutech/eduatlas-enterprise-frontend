@@ -1,3 +1,4 @@
+// FIXME: Daetimepicker initialized in bind events
 const student = (() => {
 	let distinctCoursesArr;
 	let distinctBatchesArr;
@@ -550,6 +551,8 @@ const student = (() => {
 		$discountSelectContainer.change(renderDiscountReason);
 
 		$feeCollectedInp.on('input paste', renderBalancePending);
+
+		$installmentDateInp.datetimepicker(dateTimePickerConfig.datePicker);
 	}
 
 	function bindDynamic() {
