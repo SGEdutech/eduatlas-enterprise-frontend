@@ -227,6 +227,8 @@ const attendance = (() => {
 			const schedulesByWeek = sortByWeek(batchInfo);
 			const selectedWeek = $attendanceWeekDropdown.filter(`[data-tuition-id="${tuitionId}"]`).val();
 			const schedulesArr = schedulesByWeek[selectedWeek];
+			// Terminate function if selected week has no classes scheduled
+			if (schedulesArr === undefined) return;
 			const clonedSchedulesArr = JSON.parse(JSON.stringify(schedulesArr));
 			changeformatOfDateAndFromTime(clonedSchedulesArr);
 			const scheduleOptionsHtml = template.scheduleOptions2({ schedules: clonedSchedulesArr });
