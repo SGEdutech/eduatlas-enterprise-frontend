@@ -124,3 +124,25 @@ edit_school_body .dropdown-toggle {
 .border-grey {
 	border: solid 2px #eee,
 }
+
+.bootstrap-datetimepicker-widget table td.active>div,
+.bootstrap-datetimepicker-widget table td.active:hover>div {
+	background-color: #00bcd4;
+}
+
+.bootstrap-datetimepicker-widget table td span.active {
+	background-color: #00bcd4;
+}
+
+// 
+// .bootstrap-datetimepicker-widget table td.today>div:before {
+// 	border-bottom-color: #00bcd4;
+// }
+
+// .bootstrap-datetimepicker-widget a[data-action]:hover span {
+//     color: #00bcd4;
+// }
+.bootstrap-datetimepicker-widget [data-action="togglePeriod"],
+.bootstrap-datetimepicker-widget [data-action="togglePeriod"]:hover {
+	background-color: #00bcd4;
+}
