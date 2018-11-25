@@ -264,7 +264,7 @@ const student = (() => {
 				} else {
 					alert('Payment details won\'t be updated as course fee is not provided');
 				}
-			} else if (randomScripts.isObjEmpty(installment)) {
+			} else if (randomScripts.isObjEmpty(installment) === false) {
 				alert('Installment details won\'t be updated as you haven\'t setup payment details yet');
 			}
 			const batchInfo = getNameToValueObj($studentCourseBatchInputs.filter(`[data-tuition-id="${tuitionId}"]`).not('.not-submit'));
