@@ -31,7 +31,7 @@ const attendance = (() => {
 			const batchInfo = distinctBatchesArr.find(batchObj => batchObj._id === batchId);
 			const scheduleInfo = batchInfo.schedules.find(scheduleObj => scheduleObj._id === scheduleId);
 			scheduleInfo.studentsAbsent = newAbsentArr;
-			notification.push('Attendance has been recorded!')
+			notification.push('Attendance has been recorded!');
 			refresh();
 		} catch (error) {
 			console.error(error);
@@ -259,6 +259,7 @@ const attendance = (() => {
 				$container.html('');
 			}
 		});
+		cacheDynamic();
 	}
 
 	function render() {
