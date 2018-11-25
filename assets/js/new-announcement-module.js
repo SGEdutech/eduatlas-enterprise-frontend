@@ -19,7 +19,12 @@ const announcement = (() => {
 		const tuitionId = $button.attr('data-tuition-id');
 
 		const userEmails = [];
-		$studentCheckbox.filter(`[data-tuition-id="${tuitionId}"]:checked`).each((__, inp) => {
+		const $checkedStudentCheckbox = $studentCheckbox.filter(`[data-tuition-id="${tuitionId}"]:checked`);
+		if ($checkedStudentCheckbox.length === 0) {
+			alert('Please select atleast one student to send notification to');
+			return;
+		}
+		$checkedStudentCheckbox.each((__, inp) => {
 			const $inp = $(inp);
 			userEmails.push($inp.val());
 		});
