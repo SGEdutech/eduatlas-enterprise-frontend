@@ -84,7 +84,6 @@ const batch = (() => {
 		try {
 			event.preventDefault();
 			const editedData = modal.getInputsDataObj();
-			console.log(editedData);
 			if (isEditedDataValid(editedData, batchId, tuitionId) === false) return;
 			const editedBatch = await submitEditRequest(tuitionId, courseId, batchId, editedData);
 			modal.hideModal();
@@ -323,8 +322,14 @@ const batch = (() => {
 		refresh();
 	});
 
-	PubSub.subscribe('student.delete', (msg, studentAdded) => {
-		studentsArr = studentsArr.filter(studentObj => studentObj._id !== studentAdded._id);
+	PubSub.subscribe('student.delete', (msg, studentDeleted) => {
+		studentsArr = studentsArr.filter(studentObj => studentObj._id !== studentDeleted._id);
+		// Checking if any batch has this student added
+		batchesArr.forEach(batchObj => {
+			batchObj.students.forEach((studentId, index) => {
+				if (studentId === studentDeleted._id) batchObj.students.splice(index, 1);
+			});
+		});
 		refresh();
 	});
 
