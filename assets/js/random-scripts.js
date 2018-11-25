@@ -92,5 +92,15 @@ const randomScripts = {
 			return baseFee * (discount / 100);
 		}
 		return discount;
+	},
+
+	getDateObjFromIsoDateStr(dateStr) {
+		if (dateStr === undefined) throw new Error('Date string is not provided');
+
+		const splittedDateArr = dateStr.split('/');
+		if (splittedDateArr.length !== 3) throw new Error('Date string not in iso format');
+		const [dayOfTheMonth, monthPlusOne, year] = splittedDateArr;
+		const month = monthPlusOne - 1;
+		return new Date(year, month, dayOfTheMonth);
 	}
 };
