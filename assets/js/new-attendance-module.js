@@ -77,65 +77,21 @@ const attendance = (() => {
 	}
 
 	function changeformatOfDateAndFromTime(schedulesArr) {
-		// console.log(schedulesArr);
 		schedulesArr.forEach(scheduleObj => {
-			if (scheduleObj.date) {
-				scheduleObj.date = moment(scheduleObj.date).format('MMM Do');
-			}
-			if (scheduleObj.fromTime) {
-				scheduleObj.fromTime = dateAndTime.inverseMinutesFromMidnight(scheduleObj.fromTime);
-			}
+			if (scheduleObj.date) scheduleObj.date = moment(scheduleObj.date).format('MMM Do');
+			if (scheduleObj.fromTime) scheduleObj.fromTime = dateAndTime.inverseMinutesFromMidnight(scheduleObj.fromTime);
 		})
 	}
 
-	function renderScheduleDropdown() {
-		$scheduleDropDown.each((__, dropdown) => {
-			const $dropdown = $(dropdown);
-			const tuitionId = $dropdown.attr('data-tuition-id');
-			const batchId = $batchDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
-			const batchInfo = distinctBatchesArr.find(batchObj => batchObj._id === batchId);
-			if (batchInfo) {
-				const schedulesByWeek = sortByWeek(batchInfo);
-				const selectedWeek = $attendanceWeekDropdown.filter(`[data-tuition-id="${tuitionId}"]`).val();
-				const schedulesArr = schedulesByWeek[selectedWeek];
-				changeformatOfDateAndFromTime(schedulesArr);
-				const scheduleOptionsHtml = template.scheduleOptions2({ schedules: schedulesArr });
-				$dropdown.html(scheduleOptionsHtml).selectpicker('refresh');
-			} else {
-				$dropdown.html('');
-			}
-		});
-	}
-
+	// Does not change the actual object
 	function sortByWeek(batchObj) {
 		return batchObj.schedules.reduce((accumulator, scheduleObj) => {
-			const weekOptions = moment(scheduleObj.date).startOf('isoWeek').format('MMM Do') + '-' + moment(scheduleObj.date).endOf('isoWeek').format("MMM Do");
+			const weekOptions = moment(scheduleObj.date).startOf('isoWeek').format('MMM Do') + '-' + moment(scheduleObj.date).endOf('isoWeek').format('MMM Do');
 			// check if the week number exists
-			if (typeof accumulator[weekOptions] === 'undefined') {
-				accumulator[weekOptions] = [];
-			}
+			if (typeof accumulator[weekOptions] === 'undefined') accumulator[weekOptions] = [];
 			accumulator[weekOptions].push(scheduleObj);
 			return accumulator;
 		}, {});
-	}
-
-	function renderWeekDropDowScheduleAndAttendancePallet() {
-		$attendanceWeekDropdown.each((__, dropdown) => {
-			const $dropdown = $(dropdown);
-			const tuitionId = $dropdown.attr('data-tuition-id');
-			const batchId = $batchDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
-			const batchInfo = distinctBatchesArr.find(batchObj => batchObj._id === batchId);
-			if (batchInfo) {
-				const schedulesByWeek = sortByWeek(batchInfo);
-				const scheduleOptionsHTML = template.scheduleOptions({ schedules: schedulesByWeek });
-				$dropdown.html(scheduleOptionsHTML).selectpicker('refresh');
-			} else {
-				$dropdown.html('').selectpicker('refresh');
-			}
-		});
-		renderScheduleDropdown();
-		renderStudentAttandencePallet();
-		cacheDynamic();
 	}
 
 	function cache() {
@@ -157,33 +113,6 @@ const attendance = (() => {
 		$excelUploadHeaderRow = $('#header_row');
 		$checkboxInputs = $absentStudentForm.find('.student-absent');
 		$excelUploadStudentRows = $('.attendace-student-row');
-	}
-
-	function renderStudentAttandencePallet() {
-		$studentsContainer.each((__, container) => {
-			const $container = $(container);
-			const tuitionId = $container.attr('data-tuition-id');
-
-			const batchId = $batchDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
-			const scheduleId = $scheduleDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
-
-			const batchInfo = distinctBatchesArr.find(batchObj => batchObj._id === batchId);
-			let scheduleInfo;
-			if (batchInfo) scheduleInfo = batchInfo.schedules.find(scheduleObj => scheduleObj._id === scheduleId);
-			if (batchInfo && scheduleInfo) {
-				const studentsOfThisInstituteArr = distinctStudentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
-				const studentsOfThisBatch = studentsOfThisInstituteArr.filter(studentObj => batchInfo.students.indexOf(studentObj._id) !== -1);
-				const studentsOfThisBatchAbsentInfo = studentsOfThisBatch.map(studentObj => {
-					const cloneStudentObj = JSON.parse(JSON.stringify(studentObj));
-					cloneStudentObj.isAbsent = scheduleInfo.studentsAbsent.indexOf(studentObj._id) !== -1;
-					return cloneStudentObj;
-				});
-				const studentTableHtml = template.studentsTable({ students: studentsOfThisBatchAbsentInfo });
-				$container.html(studentTableHtml);
-			} else {
-				$container.html('');
-			}
-		});
 	}
 
 	function getBatchCodeOfStudent(idOfStudent) {
@@ -259,19 +188,6 @@ const attendance = (() => {
 		$excelUploadModalBody.html('');
 	}
 
-	function bindEvents() {
-		$batchDropDown.change(renderWeekDropDowScheduleAndAttendancePallet);
-		$attendanceWeekDropdown.change(renderScheduleDropdown);
-		$scheduleDropDown.change(renderStudentAttandencePallet);
-		$saveAttendance.click(submitAttendance);
-		$excelUploadParseBtn.click(parseAndDisplayAttandance);
-		$excelUploadModal.on('hidden.bs.modal', distroyModal);
-	}
-
-	function bindDynamic() {
-		$excelUploadSubmitBtn.click(uploadExcelData);
-	}
-
 	function renderBatchDropdown() {
 		$batchDropDown.each((__, dropdown) => {
 			const $dropdown = $(dropdown);
@@ -282,15 +198,98 @@ const attendance = (() => {
 		});
 	}
 
-	function refresh() {
-		cacheDynamic();
-		renderBatchDropdown();
-		renderWeekDropDowScheduleAndAttendancePallet();
+	function renderWeekDropdown() {
+		$attendanceWeekDropdown.each((__, dropdown) => {
+			const $dropdown = $(dropdown);
+			const tuitionId = $dropdown.attr('data-tuition-id');
+			const batchId = $batchDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const batchInfo = distinctBatchesArr.find(batchObj => batchObj._id === batchId);
+			if (batchInfo === undefined) {
+				$dropdown.html('').selectpicker('refresh');
+				return;
+			}
+			const schedulesByWeek = sortByWeek(batchInfo);
+			const scheduleOptionsHTML = template.scheduleOptions({ schedules: schedulesByWeek });
+			$dropdown.html(scheduleOptionsHTML).selectpicker('refresh');
+		});
+	}
+
+	function renderScheduleDropdown() {
+		$scheduleDropDown.each((__, dropdown) => {
+			const $dropdown = $(dropdown);
+			const tuitionId = $dropdown.attr('data-tuition-id');
+			const batchId = $batchDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const batchInfo = distinctBatchesArr.find(batchObj => batchObj._id === batchId);
+			if (batchInfo === undefined) {
+				$dropdown.html('');
+				return;
+			}
+			const schedulesByWeek = sortByWeek(batchInfo);
+			const selectedWeek = $attendanceWeekDropdown.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const schedulesArr = schedulesByWeek[selectedWeek];
+			const clonedSchedulesArr = JSON.parse(JSON.stringify(schedulesArr));
+			changeformatOfDateAndFromTime(clonedSchedulesArr);
+			const scheduleOptionsHtml = template.scheduleOptions2({ schedules: clonedSchedulesArr });
+			$dropdown.html(scheduleOptionsHtml).selectpicker('refresh');
+		});
+	}
+
+	function renderAttandancePallet() {
+		$studentsContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+
+			const batchId = $batchDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const scheduleId = $scheduleDropDown.filter(`[data-tuition-id="${tuitionId}"]`).val();
+
+			const batchInfo = distinctBatchesArr.find(batchObj => batchObj._id === batchId);
+			let scheduleInfo;
+			if (batchInfo) scheduleInfo = batchInfo.schedules.find(scheduleObj => scheduleObj._id === scheduleId);
+			if (batchInfo && scheduleInfo) {
+				const studentsOfThisInstituteArr = distinctStudentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
+				const studentsOfThisBatch = studentsOfThisInstituteArr.filter(studentObj => batchInfo.students.indexOf(studentObj._id) !== -1);
+				const studentsOfThisBatchAbsentInfo = studentsOfThisBatch.map(studentObj => {
+					const cloneStudentObj = JSON.parse(JSON.stringify(studentObj));
+					cloneStudentObj.isAbsent = scheduleInfo.studentsAbsent.indexOf(studentObj._id) !== -1;
+					return cloneStudentObj;
+				});
+				const studentTableHtml = template.studentsTable({ students: studentsOfThisBatchAbsentInfo });
+				$container.html(studentTableHtml);
+			} else {
+				$container.html('');
+			}
+		});
 	}
 
 	function render() {
 		renderBatchDropdown();
-		renderWeekDropDowScheduleAndAttendancePallet();
+		renderWeekDropdown();
+		renderScheduleDropdown();
+		renderAttandancePallet();
+	}
+
+	function bindEvents() {
+		$batchDropDown.change(renderWeekDropdown);
+		$batchDropDown.change(renderScheduleDropdown);
+		$batchDropDown.change(renderAttandancePallet);
+
+		$attendanceWeekDropdown.change(renderScheduleDropdown);
+		$attendanceWeekDropdown.change(renderAttandancePallet);
+
+		$scheduleDropDown.change(renderAttandancePallet);
+
+		$saveAttendance.click(submitAttendance);
+		$excelUploadParseBtn.click(parseAndDisplayAttandance);
+		$excelUploadModal.on('hidden.bs.modal', distroyModal);
+	}
+
+	function bindDynamic() {
+		$excelUploadSubmitBtn.click(uploadExcelData);
+	}
+
+	function refresh() {
+		cacheDynamic();
+		render();
 	}
 
 	function init(batches, students) {
