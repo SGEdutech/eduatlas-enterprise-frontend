@@ -71,7 +71,7 @@ const attendance = (() => {
 		const scheduleId = $scheduleDropDown.val();
 		const studentsIdsOfThisBatch = distinctBatchesArr.find(batchObj => batchObj._id === batchId).students;
 		const studentsPresentInThisBatch = getStudentPresentFromModal();
-		const studentsAbsent = studentsIdsOfThisBatch.filter(studentId => studentsPresentInThisBatch.indexOf(studentId) !== -1);
+		const studentsAbsent = studentsIdsOfThisBatch.filter(studentId => studentsPresentInThisBatch.indexOf(studentId) === -1);
 		await submitAttendanceAndReRender(tuitionId, courseId, batchId, scheduleId, studentsAbsent);
 		$excelUploadModal.modal('hide');
 	}
