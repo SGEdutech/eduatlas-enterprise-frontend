@@ -1,5 +1,5 @@
 <div class="card-title h3">Student Name: <span class="text-capitalize">{{name}}</span></div>
-<div class="card-title h3 mt-0">Roll Number: {{rollNumber}}</div>
+<div class="card-title h3 mt-0">Roll Number: <span class="text-uppercase">{{rollNumber}}</span></div>
 {{#each payments as |payment|}}
 <div class="card">
     <div class="card-body p-0">
@@ -210,7 +210,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="bmd-label-floating">Next Installment Date</label>
-                            <input name="nextInstallmentDate" class="w-100 form-control" type="date">
+                            <input type="text" name="nextInstallmentDate" class="w-100 form-control next-installment-date-inp">
                         </div>
                     </div>
                 </div>
