@@ -110,7 +110,7 @@ const course = (() => {
 		const newCourse = await submitAddCourse(tuitionId, $form.serialize());
 		notification.push('Course has been successfully added');
 		newCourse.tuitionId = tuitionId;
-		coursesArr.unshift(newCourse);
+		coursesArr.push(newCourse);
 		PubSub.publish('course.add', newCourse);
 		$gstInp.filter(`[data-tuition-id="${tuitionId}"]`).prop('disabled', false);
 		$form.trigger('reset');
@@ -215,6 +215,22 @@ const course = (() => {
 		cacheDynamic();
 		bindDynamicEvents();
 	}
+
+	PubSub.subscribe('batch.add', (msg, batchAdded) => {
+		const courseInfo = coursesArr.find(courseObj => courseObj._id === batchAdded.courseId);
+		// Assuming courseInfo won't be undefined as all batches have parent course
+		courseInfo.batches.push(batchAdded);
+		refresh();
+	});
+
+	PubSub.subscribe('batch.delete', (msg, batchDeleted) => {
+		const courseInfo = coursesArr.find(courseObj => courseObj._id === batchDeleted.courseId);
+		// Assuming courseInfo won't be undefined as all batches have parent course
+		courseInfo.batches.forEach((batchObj, index) => {
+			if (batchObj._id === batchDeleted._id) courseInfo.batches.splice(index, 1);
+		});
+		refresh();
+	});
 
 	return { init };
 })();
