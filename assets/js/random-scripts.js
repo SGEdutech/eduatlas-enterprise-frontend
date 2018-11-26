@@ -42,7 +42,7 @@ const randomScripts = {
 			}
 			// If name already exists, we will squash all values in array
 			if (inputsDataObj[name]) {
-				inputsDataObj[name] = [inputsDataObj[name]];
+				if (Array.isArray(inputsDataObj[name]) === false) inputsDataObj[name] = [inputsDataObj[name]];
 				inputsDataObj[name].push(value);
 				return;
 			}
