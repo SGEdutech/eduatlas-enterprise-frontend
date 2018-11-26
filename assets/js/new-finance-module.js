@@ -302,38 +302,47 @@ const finance = (() => {
 		$detailsFinanceDiscountSelect.filter(`[data-tuition-id='${tuitionId}']`).html(dicountOptionsHTML).selectpicker('refresh');
 	}
 
-	function fixDateFormatAndCalculateFee(studentInfo) {
-		studentInfo.payments.forEach(paymentObj => {
-			if (paymentObj.nextInstallmentDate) {
-				paymentObj.nextInstallmentDate = moment(paymentObj.nextInstallmentDate).format('MMM Do');
-			}
-			if (paymentObj.discountAmount && paymentObj.courseFee) {
-				paymentObj.netFee = paymentObj.courseFee - paymentObj.discountAmount;
-			}
-			let totalFeeCollected = 0;
-			paymentObj.installments.forEach(installmentObj => {
-				if (installmentObj.feeCollected) {
-					totalFeeCollected += installmentObj.feeCollected;
-				}
-				if (installmentObj.nextInstallment) {
-					installmentObj.nextInstallment = moment(installmentObj.nextInstallment).format('MMM Do');
-				}
-				if (installmentObj.dateOfCheque) {
-					installmentObj.dateOfCheque = moment(installmentObj.dateOfCheque).format('MMM Do');
-				}
-			});
-			if (paymentObj.discountAmount && paymentObj.courseFee) {
-				paymentObj.pendingBalance = paymentObj.netFee - totalFeeCollected;
-			}
-		});
-	}
-
-	function injectCourseCode(studentInfo) {
+	function parseAllDates(studentInfo) {
 		if (studentInfo === undefined) throw new Error('Student info is not provided');
 		if (typeof studentInfo !== 'object') throw new Error('Student info must be an object');
 
 		studentInfo.payments.forEach(paymentObj => {
-			paymentObj.courseCode = distinctCoursesArr.find(courseObj => courseObj._id === paymentObj.courseId).code;
+			if (paymentObj.nextInstallmentDate) paymentObj.nextInstallmentDate = moment(paymentObj.nextInstallmentDate).format('MMM Do');
+			paymentObj.installments.forEach(installmentObj => {
+				if (installmentObj.dateOfCheque) installmentObj.dateOfCheque = moment(installmentObj.dateOfCheque).format('MMM Do');
+			});
+		});
+	}
+
+	function injectCourseCodeAndCourseFee(studentInfo) {
+		if (studentInfo === undefined) throw new Error('Student info is not provided');
+		if (typeof studentInfo !== 'object') throw new Error('Student info must be an object');
+
+		studentInfo.payments.forEach(paymentObj => {
+			const { code, fees } = distinctCoursesArr.find(courseObj => courseObj._id === paymentObj.courseId);
+			paymentObj.courseCode = code;
+			paymentObj.courseFee = fees;
+		});
+	}
+
+	function injectNetFeeAndPendingBalance(studentInfo) {
+		if (studentInfo === undefined) throw new Error('Student info is not provided');
+		if (typeof studentInfo !== 'object') throw new Error('Student info must be an object');
+
+		studentInfo.payments.forEach(paymentObj => {
+			if (paymentObj.courseId === undefined) return;
+			const courseFee = distinctCoursesArr.find(courseObj => courseObj._id === paymentObj.courseId).fees;
+			if (paymentObj.discountAmount) {
+				paymentObj.netFee = courseFee - paymentObj.discountAmount;
+			} else {
+				paymentObj.netFee = courseFee;
+			}
+			// Calculating total fee collected
+			let totalFeeCollected = 0;
+			paymentObj.installments.forEach(installmentObj => {
+				if (installmentObj.feeCollected) totalFeeCollected += installmentObj.feeCollected;
+			});
+			paymentObj.pendingBalance = paymentObj.netFee - totalFeeCollected;
 		});
 	}
 
@@ -342,8 +351,9 @@ const finance = (() => {
 		const clonedStudentInfo = JSON.parse(JSON.stringify(studentInfo));
 		// Trying not to change orginal object
 		// PS- Fuck pass by refrence
-		fixDateFormatAndCalculateFee(clonedStudentInfo);
-		injectCourseCode(clonedStudentInfo);
+		parseAllDates(clonedStudentInfo);
+		injectCourseCodeAndCourseFee(clonedStudentInfo);
+		injectNetFeeAndPendingBalance(clonedStudentInfo);
 		const detailsHtml = template.financeDetailView(clonedStudentInfo);
 		$detailsDisplayContainer.filter(`[data-tuition-id='${tuitionId}']`).html(detailsHtml);
 		cacheDynamic();
