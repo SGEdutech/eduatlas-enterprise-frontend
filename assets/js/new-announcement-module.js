@@ -29,7 +29,10 @@ const announcement = (() => {
 				const $inp = $(inp);
 				userEmails.push($inp.val());
 			});
-			const newNotification = await notificationApiCalls.putNewNotification(tuitionId, $announcementText.val(), userEmails);
+
+			const message = $announcementText.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			if (message === undefined || message === '') { alert('please write some message'); return }
+			const newNotification = await notificationApiCalls.putNewNotification(tuitionId, message, userEmails);
 			notification.push('Your announcement has been successfully sent');
 			distinctNotificationArr.push(newNotification);
 			$announcementText.val('');
