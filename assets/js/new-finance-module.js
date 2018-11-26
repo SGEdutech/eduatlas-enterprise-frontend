@@ -557,7 +557,7 @@ const finance = (() => {
 
 	PubSub.subscribe('student.add', (msg, studentAdded) => {
 		if (Array.isArray(studentAdded)) {
-			distinctStudentsArr = studentsArr.concat(studentAdded);
+			distinctStudentsArr = distinctStudentsArr.concat(studentAdded);
 		} else {
 			distinctStudentsArr.push(studentAdded);
 		}
