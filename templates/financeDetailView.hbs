@@ -7,7 +7,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-3 font-weight-bold">Course Code:</div>
-                    <div class="col-md-3">{{payment.courseCode}}</div>
+                    <div class="col-md-3 text-uppercase">{{payment.courseCode}}</div>
                     <div class="col-md-3 font-weight-bold">
                         Course Fee:
                     </div>
@@ -196,7 +196,8 @@
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label class="bmd-label-floating">Course Code</label>
-                            <select class="w-100 finance-course-select form-control" name="courseCode" data-tuition-id="{{tuitionId}}"></select>
+                            {{!-- FIXME: This select does not need to be parsed into an object --}}
+                            <select name="courseId" class="w-100 finance-course-select form-control" data-tuition-id="{{tuitionId}}"></select>
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="bmd-label-floating">Select Discount Code</label>
@@ -210,7 +211,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="bmd-label-floating">Next Installment Date</label>
-                            <input type="text" name="nextInstallmentDate" class="w-100 form-control next-installment-date-inp">
+                            <input type="text" name="nextInstallmentDate" class="w-100 form-control next-installment-date-inp" data-tuition-id="{{tuitionId}}">
                         </div>
                     </div>
                 </div>

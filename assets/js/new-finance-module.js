@@ -17,6 +17,7 @@ const finance = (() => {
 	let $deletePaymentBtn;
 	let $financeCourseSelect;
 	let $addPaymentForm;
+	let $paymentInputsAndSelects;
 	let $addInstallmentForm;
 	let $modeOfPaymentSelect;
 	let $modeOfPaymentDetailsContainer;
@@ -212,7 +213,12 @@ const finance = (() => {
 			const $form = $(event.target);
 			const tuitionId = $form.attr('data-tuition-id');
 			const studentId = $form.attr('data-student-id');
-			const addedPayment = await tuitionApiCalls.putPaymentDetailsInStudent(tuitionId, studentId, $form.serialize());
+			const paymentData = randomScripts.getInputsAndSelectDataObj($paymentInputsAndSelects);
+			// Calibrating next installment date string to date object
+			if (paymentData.nextInstallmentDate) {
+				paymentData.nextInstallmentDate = randomScripts.getDateObjFromIsoDateStr(paymentData.nextInstallmentDate);
+			}
+			const addedPayment = await tuitionApiCalls.putPaymentDetailsInStudent(tuitionId, studentId, paymentData);
 			const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
 			studentInfo.payments.push(addedPayment);
 			notification.push('Payment Details has been successfully added');
@@ -322,10 +328,23 @@ const finance = (() => {
 		});
 	}
 
+	function injectCourseCode(studentInfo) {
+		if (studentInfo === undefined) throw new Error('Student info is not provided');
+		if (typeof studentInfo !== 'object') throw new Error('Student info must be an object');
+
+		studentInfo.payments.forEach(paymentObj => {
+			paymentObj.courseCode = distinctCoursesArr.find(courseObj => courseObj._id === paymentObj.courseId).code;
+		});
+	}
+
 	function renderDetails(tuitionId, studentId) {
 		const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
-		fixDateFormatAndCalculateFee(studentInfo);
-		const detailsHtml = template.financeDetailView(studentInfo);
+		const clonedStudentInfo = JSON.parse(JSON.stringify(studentInfo));
+		// Trying not to change orginal object
+		// PS- Fuck pass by refrence
+		fixDateFormatAndCalculateFee(clonedStudentInfo);
+		injectCourseCode(clonedStudentInfo);
+		const detailsHtml = template.financeDetailView(clonedStudentInfo);
 		$detailsDisplayContainer.filter(`[data-tuition-id='${tuitionId}']`).html(detailsHtml);
 		cacheDynamic();
 		bindDynamic();
@@ -447,6 +466,7 @@ const finance = (() => {
 		$deletePaymentBtn = $('.delete-payment-btn');
 		$financeCourseSelect = $('.finance-course-select');
 		$addPaymentForm = $('.add-payment-form');
+		$paymentInputsAndSelects = $addPaymentForm.find('input, select');
 		$addInstallmentForm = $('.add-installment-form');
 		$modeOfPaymentSelect = $('.finance-mode-of-payment-select');
 		$modeOfPaymentDetailsContainer = $('.finance-mode-of-payment-details-container');
