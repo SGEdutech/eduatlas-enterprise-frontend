@@ -112,15 +112,23 @@ const excelUploadModal = (() => {
 			const studentsDataArr = getStudentDataArr();
 			if (validateEntries(studentsDataArr) === false) return;
 			data.students = studentsDataArr;
-			if ($batchSelectMenu.val()) {
+			const batchId = $batchSelectMenu.val();
+			if (batchId) {
 				const batchInfo = {};
 				batchInfo.courseId = $courseSelectMenu.val();
-				batchInfo.batchId = $batchSelectMenu.val();
+				batchInfo.batchId = batchId;
 				data.batchInfo = batchInfo;
 			}
 			const newStudents = await tuitionApiCalls.putStudentInTuition(tuitionId, data);
 			newStudents.forEach(studentObj => studentObj.tuitionId = tuitionId);
 			PubSub.publish('student.add', newStudents);
+			if (batchId) {
+				const newStudentsIdArr = [];
+				newStudents.forEach(studentObj => newStudentsIdArr.push(studentObj._id));
+				const batchOfStudentsAdded = batchesOfThisTuition.find(batchObj => batchObj._id === batchId);
+				batchOfStudentsAdded.students = batchOfStudentsAdded.students.concat(newStudentsIdArr);
+				PubSub.publish('batch.edit', batchOfStudentsAdded);
+			}
 			hideModal();
 		} catch (error) {
 			console.error(error);
