@@ -17,17 +17,19 @@ const finance = (() => {
 	let $deletePaymentBtn;
 	let $financeCourseSelect;
 	let $addPaymentForm;
+	let $paymentInputsAndSelects;
 	let $addInstallmentForm;
 	let $modeOfPaymentSelect;
 	let $modeOfPaymentDetailsContainer;
 	let $deleteInstallmentBtn;
 	let $editInstallmentBtn;
-	let $financeDiscountSelect;
-	let $courseFeeInp;
-	let $discountAmountInp;
-	let $discountReasonInp;
-	let $netFeeInp;
-	let $additionalDiscountInp;
+	let $detailsFinanceDiscountSelect;
+	let $detailsCourseFeeInp;
+	let $detailsDiscountAmountInp;
+	let $detailsDiscountReasonInp;
+	let $detailsNetFeeInp;
+	let $detailsAdditionalDiscountInp;
+	let $detailsNextInstallmentDateInp;
 
 	function getCourseFee(tuitionId) {
 		if (tuitionId === undefined) throw new Error('Tuition Id is not provided');
@@ -40,20 +42,20 @@ const finance = (() => {
 	function getTotalDiscountAmount(tuitionId) {
 		if (tuitionId === undefined) throw new Error('Tuition Id is not provided');
 		let totalDiscount = 0;
-		const discountId = $financeDiscountSelect.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		const discountId = $detailsFinanceDiscountSelect.filter(`[data-tuition-id="${tuitionId}"]`).val();
 		if (discountId) {
 			const { amount, isPercent } = distinctDiscountsArr.find(discountObj => discountObj._id === discountId);
 			const baseFee = getCourseFee(tuitionId);
 			totalDiscount += randomScripts.calcTotalDiscountedAmount({ baseFee, discount: amount, isPercent });
 		}
-		let additionalDiscount = $additionalDiscountInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		let additionalDiscount = $detailsAdditionalDiscountInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
 		additionalDiscount = parseInt(additionalDiscount, 10) || 0;
 		totalDiscount += additionalDiscount;
 		return totalDiscount;
 	}
 
 	function renderNetFee() {
-		$netFeeInp.each((__, inp) => {
+		$detailsNetFeeInp.each((__, inp) => {
 			const $inp = $(inp);
 			const tuitionId = $inp.attr('data-tuition-id');
 			const baseFee = getCourseFee(tuitionId);
@@ -63,12 +65,12 @@ const finance = (() => {
 	}
 
 	function renderDiscountReason() {
-		$discountReasonInp.each((__, inp) => {
+		$detailsDiscountReasonInp.each((__, inp) => {
 			const $inp = $(inp);
 			const tuitionId = $inp.attr('data-tuition-id');
 			let discountReason = '';
-			const discountId = $financeDiscountSelect.filter(`[data-tuition-id="${tuitionId}"]`).val();
-			const additionalDiscount = $additionalDiscountInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const discountId = $detailsFinanceDiscountSelect.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const additionalDiscount = $detailsAdditionalDiscountInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
 			if (discountId) {
 				let { code } = distinctDiscountsArr.find(discountObj => discountObj._id === discountId);
 				code = code.toUpperCase();
@@ -86,7 +88,7 @@ const finance = (() => {
 	}
 
 	function renderDiscountAmount() {
-		$discountAmountInp.each((__, inp) => {
+		$detailsDiscountAmountInp.each((__, inp) => {
 			const $inp = $(inp);
 			const tuitionId = $inp.attr('data-tuition-id');
 			const totalDiscount = getTotalDiscountAmount(tuitionId);
@@ -95,7 +97,7 @@ const finance = (() => {
 	}
 
 	function renderCourseFee() {
-		$courseFeeInp.each((__, inp) => {
+		$detailsCourseFeeInp.each((__, inp) => {
 			const $inp = $(inp);
 			const tuitionId = $inp.attr('data-tuition-id');
 			const courseFee = getCourseFee(tuitionId);
@@ -211,7 +213,12 @@ const finance = (() => {
 			const $form = $(event.target);
 			const tuitionId = $form.attr('data-tuition-id');
 			const studentId = $form.attr('data-student-id');
-			const addedPayment = await tuitionApiCalls.putPaymentDetailsInStudent(tuitionId, studentId, $form.serialize());
+			const paymentData = randomScripts.getInputsAndSelectDataObj($paymentInputsAndSelects);
+			// Calibrating next installment date string to date object
+			if (paymentData.nextInstallmentDate) {
+				paymentData.nextInstallmentDate = randomScripts.getDateObjFromIsoDateStr(paymentData.nextInstallmentDate);
+			}
+			const addedPayment = await tuitionApiCalls.putPaymentDetailsInStudent(tuitionId, studentId, paymentData);
 			const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
 			studentInfo.payments.push(addedPayment);
 			notification.push('Payment Details has been successfully added');
@@ -286,13 +293,13 @@ const finance = (() => {
 	function initCourseSelect(tuitionId) {
 		const courseList = distinctCoursesArr.filter(obj => obj.tuitionId === tuitionId);
 		const courseOptionsHTML = template.financeCourseOptions({ courses: courseList });
-		$financeCourseSelect.filter(`[data-tuition-id='${tuitionId}']`).html(courseOptionsHTML);
+		$financeCourseSelect.filter(`[data-tuition-id='${tuitionId}']`).html(courseOptionsHTML).selectpicker('refresh');
 	}
 
 	function initDiscountSelect(tuitionId) {
 		const discountList = distinctDiscountsArr.filter(discountObj => discountObj.tuitionId === tuitionId);
 		const dicountOptionsHTML = template.discountSelectOptions({ discounts: discountList });
-		$financeDiscountSelect.filter(`[data-tuition-id='${tuitionId}']`).html(dicountOptionsHTML);
+		$detailsFinanceDiscountSelect.filter(`[data-tuition-id='${tuitionId}']`).html(dicountOptionsHTML).selectpicker('refresh');
 	}
 
 	function fixDateFormatAndCalculateFee(studentInfo) {
@@ -321,10 +328,23 @@ const finance = (() => {
 		});
 	}
 
+	function injectCourseCode(studentInfo) {
+		if (studentInfo === undefined) throw new Error('Student info is not provided');
+		if (typeof studentInfo !== 'object') throw new Error('Student info must be an object');
+
+		studentInfo.payments.forEach(paymentObj => {
+			paymentObj.courseCode = distinctCoursesArr.find(courseObj => courseObj._id === paymentObj.courseId).code;
+		});
+	}
+
 	function renderDetails(tuitionId, studentId) {
 		const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
-		fixDateFormatAndCalculateFee(studentInfo);
-		const detailsHtml = template.financeDetailView(studentInfo);
+		const clonedStudentInfo = JSON.parse(JSON.stringify(studentInfo));
+		// Trying not to change orginal object
+		// PS- Fuck pass by refrence
+		fixDateFormatAndCalculateFee(clonedStudentInfo);
+		injectCourseCode(clonedStudentInfo);
+		const detailsHtml = template.financeDetailView(clonedStudentInfo);
 		$detailsDisplayContainer.filter(`[data-tuition-id='${tuitionId}']`).html(detailsHtml);
 		cacheDynamic();
 		bindDynamic();
@@ -446,17 +466,19 @@ const finance = (() => {
 		$deletePaymentBtn = $('.delete-payment-btn');
 		$financeCourseSelect = $('.finance-course-select');
 		$addPaymentForm = $('.add-payment-form');
+		$paymentInputsAndSelects = $addPaymentForm.find('input, select');
 		$addInstallmentForm = $('.add-installment-form');
 		$modeOfPaymentSelect = $('.finance-mode-of-payment-select');
 		$modeOfPaymentDetailsContainer = $('.finance-mode-of-payment-details-container');
 		$deleteInstallmentBtn = $('.delete-installment-btn');
 		$editInstallmentBtn = $('.installment-edit-btn');
-		$financeDiscountSelect = $('.finance-discount-select');
-		$courseFeeInp = $('.finance-course-fee');
-		$discountAmountInp = $('.finance-discount-amount');
-		$discountReasonInp = $('.finance-discount-reason');
-		$netFeeInp = $('.finance-net-fee');
-		$additionalDiscountInp = $('.finance-additional-discount');
+		$detailsFinanceDiscountSelect = $('.finance-discount-select');
+		$detailsCourseFeeInp = $('.finance-course-fee');
+		$detailsDiscountAmountInp = $('.finance-discount-amount');
+		$detailsDiscountReasonInp = $('.finance-discount-reason');
+		$detailsNetFeeInp = $('.finance-net-fee');
+		$detailsAdditionalDiscountInp = $('.finance-additional-discount');
+		$detailsNextInstallmentDateInp = $('.next-installment-date-inp');
 	}
 
 	function bindEvents() {
@@ -479,13 +501,16 @@ const finance = (() => {
 		$financeCourseSelect.change(renderCourseFee);
 		$financeCourseSelect.change(renderNetFee);
 
-		$financeDiscountSelect.change(renderDiscountAmount);
-		$financeDiscountSelect.change(renderDiscountReason);
-		$financeDiscountSelect.change(renderNetFee);
+		$detailsFinanceDiscountSelect.change(renderDiscountAmount);
+		$detailsFinanceDiscountSelect.change(renderDiscountReason);
+		$detailsFinanceDiscountSelect.change(renderNetFee);
 
-		$additionalDiscountInp.on('input paste', renderDiscountAmount);
-		$additionalDiscountInp.on('input paste', renderDiscountReason);
-		$additionalDiscountInp.on('input paste', renderNetFee);
+		$detailsAdditionalDiscountInp.on('input paste', renderDiscountAmount);
+		$detailsAdditionalDiscountInp.on('input paste', renderDiscountReason);
+		$detailsAdditionalDiscountInp.on('input paste', renderNetFee);
+
+		// FIXME: Plaese figure out a better way
+		$detailsNextInstallmentDateInp.datetimepicker(dateTimePickerConfig.datePicker);
 	}
 
 	function refresh(opts) {

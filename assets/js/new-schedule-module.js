@@ -20,32 +20,7 @@ const schedule = (() => {
 	let $validationForm;
 	let $removeRowBtn;
 
-	// function getCourseCode(batchId) {
-	// 	let batchCode;
-	// 	distinctBatchesArr.forEach(batchInfo => {
-	// 		if (batchId === batchInfo._id) batchCode = batchInfo.code;
-	// 	});
-	// 	return batchCode;
-	// }
-
-	//FIXME: Optimise
-	function initDateTimePicker() {
-		const icons = {
-			time: 'fa fa-clock-o',
-			date: 'fa fa-calendar',
-			up: 'fa fa-chevron-up',
-			down: 'fa fa-chevron-down',
-			previous: 'fa fa-chevron-left',
-			next: 'fa fa-chevron-right',
-			today: 'fa fa-screenshot',
-			clear: 'fa fa-trash',
-			close: 'fa fa-remove'
-		}
-
-		$timePicker.datetimepicker({ format: 'LT', icons });
-		$datePicker.datetimepicker({ format: 'L', icons });
-	}
-
+	// FIXME: Use function made in randon script
 	function getInputsValues($container) {
 		const $inputs = $container.find('input, select');
 		const nameToValueMap = {};
@@ -88,10 +63,7 @@ const schedule = (() => {
 		const $fromDateInp = $(event.target);
 		const tuitionId = $fromDateInp.attr('data-tuition-id');
 		const dateStr = $fromDateInp.val();
-		const splittedDateArr = dateStr.split('/');
-		const [dayOfTheMonth, monthPlusOne, year] = splittedDateArr;
-		const month = monthPlusOne - 1;
-		const fromDate = new Date(year, month, dayOfTheMonth);
+		const fromDate = randomScripts.getDateObjFromIsoDateStr(dateStr);
 		updateTodate(fromDate, tuitionId);
 		updateDays(fromDate, tuitionId);
 	}
@@ -148,7 +120,6 @@ const schedule = (() => {
 			const scheduleId = $deleteBtn.attr('data-schedule-id');
 			const deletedSchedule = await submitDeleteRequest(tuitionId, courseId, batchId, scheduleId);
 			notification.push('Schedule has been successfully deleted');
-			console.log('Schedule was successfully deleted');
 			distinctBatchesArr.forEach(batchObj => {
 				if (batchObj._id === batchId) {
 					batchObj.schedules = batchObj.schedules.filter(scheduleObj => scheduleObj._id !== scheduleId);
@@ -195,6 +166,7 @@ const schedule = (() => {
 	async function addSchedule(event) {
 		try {
 			event.preventDefault();
+			// FIXME: Optimise
 			cacheDynamic();
 			if ($checkedBatchesInput.length === 0) {
 				alert('Please select batch to add schedule');
