@@ -346,43 +346,43 @@
 														</div>
 													</div>
 												</div>
-												<div class="col-md-12 student-course-batch-container" data-tuition-id="{{_id}}">
+												<div class="col-md-12">
 													<div class="row justify-content-around pt-3">
 														<div class="col-md-8 border-grey">
 															<h4 class="card-title">Batch And Course Details</h4>
 															<div class="row">
-																<input name="courseId" type="text" class="d-none student-course-code" data-tuition-id="{{_id}}">
-																<div class="col-md-6 form-group">
+																<div class="col-md-6 form-group student-course-batch-container" data-tuition-id="{{_id}}">
 																	<label for="course_select" class="bmd-label-floating">Select Course</label>
 																	<select class="form-control student-course-select-menu" data-style="btn btn-link" name="courseId"
 																	 data-tuition-id="{{_id}}">
 																		<option value="">Select Course</option>
 																	</select>
 																</div>
-																<div class="col-md-6 form-group">
+																<div class="col-md-6 form-group student-course-batch-container" data-tuition-id="{{_id}}">
 																	<label class="bmd-label-floating">Select Batch</label>
 																	<select class="form-control student-batch-select-menu" data-style="btn btn-link" name="batchId"
 																	 data-tuition-id="{{_id}}">
 																		<option value="">Select Batch</option>
 																	</select>
 																</div>
-																<div class="col-md-6 form-group">
+																<div class="col-md-6 form-group payment-details-container" data-tuition-id="{{_id}}">
 																	<label class="bmd-label-floating">Select Discount Code</label>
 																	<select class="form-control student-discount-code-select" data-style="btn btn-link" name="discountCode"
 																	 data-tuition-id="{{_id}}">
 																	</select>
 																</div>
-																<div class="col-md-6 form-group">
+																<div class="col-md-6 form-group payment-details-container" data-tuition-id="{{_id}}">
 																	<label for="additionalDiscount" class="bmd-label-floating">Additional Discount</label>
 																	<input name="additionalDiscount" type="number" class="form-control student-additional-discount not-submit"
 																	 data-tuition-id="{{_id}}">
+																	<input name="courseId" type="text" class="d-none student-course-id" data-tuition-id="{{_id}}">
 																</div>
 																<h4 class="col-12 card-title">Payment Details</h4>
-																<div class="col-md-6 form-group">
+																<div class="col-md-6 form-group student-fee-container" data-tuition-id="{{_id}}">
 																	<label for="fee_collected" class="bmd-label-floating">Fee Collected</label>
 																	<input name="feeCollected" type="number" class="form-control student-fee-colected" data-tuition-id="{{_id}}">
 																</div>
-																<div class="col-md-6 form-group">
+																<div class="col-md-6 form-group student-fee-container" data-tuition-id="{{_id}}">
 																	<label for="modeOfPayment" class="bmd-label-floating">Mode Of Payment</label>
 																	<select class="form-control mode-of-payment-select" data-style="btn btn-link" name="modeOfPayment"
 																	 data-tuition-id="{{_id}}">
@@ -393,11 +393,11 @@
 																	</select>
 																</div>
 																<div class="col-md-12">
-																	<div class="row mode-of-payment-details-container" data-tuition-id="{{_id}}">
+																	<div class="row mode-of-payment-details-container student-fee-container" data-tuition-id="{{_id}}">
 																	</div>
 																</div>
 																<h4 class="col-12 card-title">Installment Details</h4>
-																<div class="col-md-6 form-group">
+																<div class="col-md-6 form-group payment-details-container" data-tuition-id="{{_id}}">
 																	<label for="next_install" class="bmd-label-floating">Next Installment Date</label>
 																	<input name="nextInstallmentDate" type="text" class="form-control student-installment-date-inp"
 																	 data-tuition-id="{{_id}}">
@@ -407,7 +407,7 @@
 														<div class="col-md-3 px-0">
 															<div class="card bg-info m-0" style="background-color: #b2ebf2 !important">
 																<div class="card-body">
-																	<div class="row">
+																	<div class="row payment-details-container" data-tuition-id="{{_id}}">
 																		<div class="col-md-12 form-group">
 																			<label class="bmd-label-floating text-dark">Base Fee</label>
 																			<input name="courseFee" type="text" class="w-100 student-course-fee" data-tuition-id="{{_id}}"
@@ -438,35 +438,6 @@
 															<div class="row justify-content-center mt-3"><button class="btn btn-round btn-success" type="submit">ADD
 																	STUDENTS</button></div>
 														</div>
-													</div>
-												</div>
-												<div class="col-12 payment-details-container" data-tuition-id="{{_id}}">
-													<div class="row">
-														<div class="col-md-8">
-															{{!-- <div class="row">
-																<input name="courseCode" type="text" class="d-none student-course-code" data-tuition-id="{{_id}}">
-																<input name="discountReason" type="text" class="d-none student-discount-reason" data-tuition-id="{{_id}}">
-
-															</div> --}}
-														</div>
-														<div class="col-md-4">
-
-														</div>
-													</div>
-												</div>
-												<div class="col-md-12 student-fee-container" data-tuition-id="{{_id}}">
-													<div class="row">
-														<div class="col-md-8">
-															<div class="row">
-
-															</div>
-														</div>
-														<div class="col-md-4">
-
-														</div>
-													</div>
-													<div class="col-md-12 mt-3">
-
 													</div>
 												</div>
 											</div>
@@ -1032,8 +1003,8 @@
 									<div id="accordionAttendance{{_id}}" role="tablist" aria-multiselectable="true" class="card-collapse">
 										<div class="card card-plain m-0 px-3">
 											<div class="card-header pt-1 mt-3" id="headingOne{{_id}}" role="tab" style="border: solid 2px #eee">
-												<a data-toggle="collapse" data-parent="#accordionAttendance{{_id}}" href="#collapseOne{{_id}}" aria-expanded="false"
-												 aria-controls="collapseOne{{_id}}">
+												<a data-toggle="collapse" data-parent="#accordionAttendance{{_id}}" href="#collapseOne{{_id}}"
+												 aria-expanded="false" aria-controls="collapseOne{{_id}}">
 													Mark Attendence Through Excel
 													<i class="material-icons">keyboard_arrow_down</i>
 												</a>

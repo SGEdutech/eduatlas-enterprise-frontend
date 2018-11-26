@@ -10,7 +10,7 @@ const student = (() => {
 	let $studentContainer;
 	let $courseSelectContainer;
 	let $batchSelectContainer;
-	let $courseCode;
+	let $courseIdInp;
 	let $courseFee;
 	let $netFee;
 	let $totalDiscountAmount;
@@ -257,6 +257,7 @@ const student = (() => {
 			if (randomScripts.isObjEmpty(payment) === false) {
 				if (payment.courseFee) {
 					payment.discountAmount = calibrateDiscountAmount(payment.courseFee, payment.discountAmount);
+					if (payment.nextInstallmentDate) payment.nextInstallmentDate = randomScripts.getDateObjFromIsoDateStr(payment.nextInstallmentDate); 
 					studentObj.payments = [payment];
 					if (randomScripts.isObjEmpty(installment) === false) {
 						payment.installments = [installment];
@@ -342,12 +343,11 @@ const student = (() => {
 		});
 	}
 
-	function renderCourseCode(event) {
+	function renderCourseId(event) {
 		const $select = $(event.target);
 		const courseId = $select.val();
 		const tuitionId = $select.attr('data-tuition-id');
-		const courseCode = distinctCoursesArr.find(courseObj => courseObj._id === courseId).code;
-		$courseCode.filter(`[data-tuition-id="${tuitionId}"]`).val(courseCode);
+		$courseIdInp.filter(`[data-tuition-id="${tuitionId}"]`).val(courseId);
 	}
 
 	function renderCourseFee() {
@@ -479,7 +479,7 @@ const student = (() => {
 		$courseSelectContainer = $('.student-course-select-menu');
 		$batchSelectContainer = $('.student-batch-select-menu');
 		$courseFee = $('.student-course-fee');
-		$courseCode = $('.student-course-code');
+		$courseIdInp = $('.student-course-id');
 		$netFee = $('.student-net-fee');
 		$totalDiscountAmount = $('.student-total-discount-amount');
 		$additionalDiscountInp = $('.student-additional-discount');
@@ -534,7 +534,7 @@ const student = (() => {
 		$studentSearchInp.on('input paste', renderSearchResults);
 
 		$courseSelectContainer.change(renderBatchSelectMenu);
-		$courseSelectContainer.change(renderCourseCode);
+		$courseSelectContainer.change(renderCourseId);
 		$courseSelectContainer.change(renderCourseFee);
 		$courseSelectContainer.change(renderNetFee);
 		$courseSelectContainer.change(renderBalancePending);
