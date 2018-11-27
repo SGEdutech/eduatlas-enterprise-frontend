@@ -137,6 +137,8 @@ const schedule = (() => {
 			const courseId = $deleteBtn.attr('data-course-id');
 			const scheduleId = $deleteBtn.attr('data-schedule-id');
 			const deletedSchedule = await submitDeleteRequest(tuitionId, courseId, batchId, scheduleId);
+			const studentEmailIdsOfThisBatch = getStudentEmailIds(batchId);
+			notificationApiCalls.putNewNotification(tuitionId, 'A class from your batch has been deleted', studentEmailIdsOfThisBatch);
 			notification.push('Schedule has been successfully deleted');
 			distinctBatchesArr.forEach(batchObj => {
 				if (batchObj._id === batchId) {
