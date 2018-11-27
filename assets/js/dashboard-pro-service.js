@@ -1,10 +1,21 @@
 PubSub.subscribe('user', (msg, userInfo) => {
 	navigationBar.render(userInfo);
-	redirectOnLogout.init(userInfo);
+	if (userInfo === undefined || userInfo === '') {
+		window.location.assign('https://eduatlas.com');
+	}else {
+		window.location.reload();
+	}
 });
 
 Handlebars.registerHelper('inc', function(value, options) {
 	return parseInt(value, 10) + 1;
+});
+
+user.getInfo().then(userInfo => {
+	navigationBar.init(userInfo, {
+		colorOnScroll: false,
+		activeElementId: 'home_nav'
+	});
 });
 
 async function initModules() {
