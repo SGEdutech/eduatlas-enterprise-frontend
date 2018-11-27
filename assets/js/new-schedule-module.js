@@ -97,7 +97,7 @@ const schedule = (() => {
 		return tuitionApiCalls.editScheduleInBatch(tuitionId, courseId, batchId, scheduleId, editedData);
 	}
 
-	async function editschedule(event, tuitionId, courseId, batchId, scheduleId) {
+	async function editSchedule(event, tuitionId, courseId, batchId, scheduleId) {
 		try {
 			event.preventDefault();
 			const editedData = modal.getInputValues();
@@ -108,6 +108,8 @@ const schedule = (() => {
 			editedschedule.fromTime = dateAndTime.inverseMinutesFromMidnight(editedschedule.fromTime);
 			editedschedule.toTime = dateAndTime.inverseMinutesFromMidnight(editedschedule.toTime);
 			notification.push('Schedule has been successfully edited');
+			const studentEmailIdsOfThisBatch = getStudentEmailIds(batchId);
+			notificationApiCalls.putNewNotification(tuitionId, 'A class of your batch has been edited', studentEmailIdsOfThisBatch);
 			let objToBePublished;
 			distinctBatchesArr.forEach(batchObj => {
 				if (batchObj._id !== batchId) return;
@@ -165,7 +167,7 @@ const schedule = (() => {
 		scheduleInfo.date = scheduleInfo.date.split('T')[0];
 		const editscheduleInputHTML = template.scheduleEditInputs(scheduleInfo);
 		modal.renderFormContent(editscheduleInputHTML);
-		modal.bindSubmitEvent(e => editschedule(e, tuitionId, courseId, batchId, scheduleId));
+		modal.bindSubmitEvent(e => editSchedule(e, tuitionId, courseId, batchId, scheduleId));
 		modal.initDatetimepicker();
 		modal.showModal();
 	}
