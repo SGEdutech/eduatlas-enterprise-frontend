@@ -28,7 +28,7 @@ async function initModules() {
 		course.init(claimedCourses);
 		batch.init(claimedBatches, claimedCourses, claimedStudents);
 		student.init(claimedStudents, claimedCourses, claimedBatches, claimedDiscounts);
-		schedule.init(claimedBatches);
+		schedule.init(claimedBatches, claimedStudents);
 		attendance.init(claimedBatches, claimedStudents);
 		forum.init(claimedForums);
 		announcement.init(claimedNotifications, claimedBatches, claimedStudents);

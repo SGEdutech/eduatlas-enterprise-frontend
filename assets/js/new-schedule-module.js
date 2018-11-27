@@ -1,5 +1,6 @@
 const schedule = (() => {
 	let distinctBatchesArr;
+	let distinctStudentArr;
 	let $scheduleContainer;
 	let $scheduleRow;
 	let $editButton;
@@ -31,6 +32,21 @@ const schedule = (() => {
 			nameToValueMap[name] = value;
 		})
 		return nameToValueMap;
+	}
+
+	function getStudentEmailIds(batchIds) {
+		if (batchIds === undefined) throw new Error('Batch ids is not provided');
+		// Forcing batchIds ot be an array if single batch id is provided
+		if (Array.isArray(batchIds) === false) batchIds = [batchIds];
+		let studentIdsArr = [];
+		distinctBatchesArr.forEach(batchObj => {
+			if (batchIds.indexOf(batchObj._id) === -1) return;
+			studentIdsArr = studentIdsArr.concat(batchObj.students);
+		});
+		// Removing duplicate ids
+		studentIdsArr = [...new Set(studentIdsArr)];
+		const studentInfoArr = distinctStudentArr.filter(studentObj => studentIdsArr.indexOf(studentObj._id) !== -1);
+		return studentInfoArr.map(studentObj => studentObj.email);
 	}
 
 	function removeScheduleRow(event) {
@@ -185,12 +201,15 @@ const schedule = (() => {
 			const addSchedulesPromiseArr = [];
 			$checkedBatchesInput.each((__, checkedBatch) => {
 				const $checkedBatch = $(checkedBatch);
+				// FIXME: Should always be same as upper scope tuitionId
 				const tuitionId = $checkedBatch.attr('data-tuition-id');
 				const courseId = $checkedBatch.attr('data-course-id');
 				const batchId = $checkedBatch.val();
 				batchIdsSequence.push(batchId);
 				addSchedulesPromiseArr.push(tuitionApiCalls.putScheduleInBatch(tuitionId, courseId, batchId, schedulesToBeAddedArr));
 			});
+			const batchStudentsEmailIds = getStudentEmailIds(batchIdsSequence);
+			notificationApiCalls.putNewNotification(tuitionId, 'Classes has been added to your batch', batchStudentsEmailIds);
 			const newSchedulesArr = await Promise.all(addSchedulesPromiseArr);
 			batchIdsSequence.forEach((batchId, index) => {
 				const schedulesOfThisBatch = newSchedulesArr[index];
@@ -208,7 +227,6 @@ const schedule = (() => {
 				notification.push('Schedule has been successfully added');
 				PubSub.publish('schedule.add', schedulesWithBatchId);
 			});
-
 			cacheDynamic();
 			resetForm();
 			refresh();
@@ -335,11 +353,12 @@ const schedule = (() => {
 		bindDynamicEvents();
 	}
 
-	function init(batches) {
+	function init(batches, students) {
 		if (batches === undefined) throw new Error('Batches not provided');
 		if (Array.isArray(batches) === false) throw new Error('Batches not an array');
 
 		distinctBatchesArr = JSON.parse(JSON.stringify(batches));
+		distinctStudentArr = JSON.parse(JSON.stringify(students));
 
 		// Parsing time
 		distinctBatchesArr.forEach(batch => {
@@ -385,6 +404,25 @@ const schedule = (() => {
 
 	PubSub.subscribe('batch.delete', (msg, removedBatch) => {
 		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj._id !== removedBatch._id);
+		refresh();
+	});
+
+	PubSub.subscribe('students.add', (msg, studentAdded) => {
+		if (Array.isArray(studentAdded)) {
+			distinctStudentsArr = distinctStudentsArr.concat(studentAdded);
+		} else {
+			distinctStudentsArr.push(studentAdded);
+		}
+		refresh();
+	});
+
+	PubSub.subscribe('students.edit', (msg, studentEdited) => {
+		distinctStudentsArr = distinctStudentsArr.map(studentObj => studentObj._id === studentEdited._id ? studentEdited : studentObj);
+		refresh();
+	});
+
+	PubSub.subscribe('students.delete', (msg, studentDeleted) => {
+		distinctStudentsArr = distinctStudentsArr.filter(studentObj => studentObj._id !== studentDeleted._id);
 		refresh();
 	});
 
