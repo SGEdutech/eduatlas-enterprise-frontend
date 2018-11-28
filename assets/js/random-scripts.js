@@ -102,5 +102,13 @@ const randomScripts = {
 		const [dayOfTheMonth, monthPlusOne, year] = splittedDateArr;
 		const month = monthPlusOne - 1;
 		return new Date(year, month, dayOfTheMonth);
+	},
+
+	getIsoDateStr(date) {
+		if (date === undefined) throw new Error('Date is not provided');
+		if (date instanceof Date === false) date = new Date(date);
+		if (isNaN(date.getTime())) throw new Error('Date not valid');
+
+		return `${date.getDate()}/${date.getMonth() + 1}/${date.getYear()}`
 	}
 };
