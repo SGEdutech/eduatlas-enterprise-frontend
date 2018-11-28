@@ -103,6 +103,7 @@ const schedule = (() => {
 			const editedData = modal.getInputValues();
 			editedData.fromTime = dateAndTime.twelveHourToMinutesFromMidnight(editedData.fromTime);
 			editedData.toTime = dateAndTime.twelveHourToMinutesFromMidnight(editedData.toTime);
+			editedData.date = randomScripts.getDateObjFromIsoDateStr(editedData.date);
 			const editedschedule = await submitEditRequest(tuitionId, courseId, batchId, scheduleId, editedData);
 			modal.hideModal();
 			editedschedule.fromTime = dateAndTime.inverseMinutesFromMidnight(editedschedule.fromTime);
@@ -160,13 +161,8 @@ const schedule = (() => {
 		const batchId = $editBtn.attr('data-batch-id');
 		const courseId = $editBtn.attr('data-course-id');
 		const scheduleId = $editBtn.attr('data-schedule-id');
-		let scheduleInfo;
-		distinctBatchesArr.forEach(batchObj => {
-			if (batchObj._id === batchId) {
-				scheduleInfo = batchObj.schedules.find(scheduleToBeEdited => scheduleToBeEdited._id === scheduleId);
-			}
-		});
-		scheduleInfo.date = scheduleInfo.date.split('T')[0];
+		const batchInfo = distinctBatchesArr.find(batchObj => batchObj._id === batchId);
+		const scheduleInfo = batchInfo.schedules.find(scheduleObj => scheduleObj._id === scheduleId);
 		const editscheduleInputHTML = template.scheduleEditInputs(scheduleInfo);
 		modal.renderFormContent(editscheduleInputHTML);
 		modal.bindSubmitEvent(e => editSchedule(e, tuitionId, courseId, batchId, scheduleId));
