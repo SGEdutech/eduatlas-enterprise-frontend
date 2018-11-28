@@ -95,7 +95,7 @@ const student = (() => {
 			const studentId = $deleteBtn.attr('data-student-id');
 			const deletedStudent = await tuitionApiCalls.deleteStudentInTuition(tuitionId, studentId);
 			// FIXME: add institute name in message
-			notificationApiCalls.putNewNotification(tuitionId, `You have been removed from our Study Monitor`, [deletedStudent.email])
+			notificationApiCalls.putNewNotification(tuitionId, 'You have been removed from our Study Monitor', [deletedStudent.email])
 			distinctStudentsArr = distinctStudentsArr.filter(studentObj => studentObj._id !== studentId);
 			notification.push(`${deletedStudent.name} has been successfully deleted`);
 			PubSub.publish('student.delete', deletedStudent);
@@ -279,7 +279,7 @@ const student = (() => {
 			if (isNewStudentDataValid(studentObj, tuitionId) === false) return;
 			const newStudent = await tuitionApiCalls.putStudentInTuition(tuitionId, studentObj);
 			// FIXME: add institute name in message
-			notificationApiCalls.putNewNotification(tuitionId, `You have been added to our Study Monitor`, [studentObj.email])
+			notificationApiCalls.putNewNotification(tuitionId, 'You have been added to our Study Monitor', [studentObj.email])
 			newStudent.tuitionId = tuitionId;
 			PubSub.publish('student.add', newStudent);
 			if (isBatchAllocated) {
