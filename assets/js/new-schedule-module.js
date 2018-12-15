@@ -20,6 +20,21 @@ const schedule = (() => {
 	let $staticSelects;
 	let $validationForm;
 	let $removeRowBtn;
+	let $scheduleContainerForScheduleCards;
+	let $scheduleSelectForScheduleCards;
+
+	function showSelectedScheduleContainer() {
+		event.preventDefault();
+		const $select = $(event.target);
+		const tuitionId = $select.attr('data-tuition-id');
+		const batchCode = $select.attr('data-batch-code');
+		const selectedWeek = $select.val();
+
+		const $containersOfSelectedWeek = $scheduleContainerForScheduleCards.filter(`[data-tuition-id="${tuitionId}"]`).filter(`[data-batch-code="${batchCode}"]`);
+		const $containerToShow = $containersOfSelectedWeek.filter(`[data-schedule-week="${selectedWeek}"]`);
+		$containersOfSelectedWeek.addClass('d-none');
+		$containerToShow.removeClass('d-none')
+	}
 
 	// FIXME: Use function made in randon script
 	function getInputsValues($container) {
@@ -192,12 +207,20 @@ const schedule = (() => {
 			const tuitionId = $form.attr('data-tuition-id');
 			const schedulesToBeAddedArr = [];
 			const batchIdsSequence = [];
+			let isTimeValid = true;
 			$scheduleRow.filter(`[data-tuition-id="${tuitionId}"]`).each((__, inputsGroup) => {
 				const inputsValues = getInputsValues($(inputsGroup));
 				inputsValues.fromTime = dateAndTime.twelveHourToMinutesFromMidnight(inputsValues.fromTime)
 				inputsValues.toTime = dateAndTime.twelveHourToMinutesFromMidnight(inputsValues.toTime)
+				if (inputsValues.fromTime >= inputsValues.toTime) {
+					isTimeValid = false;
+				}
 				schedulesToBeAddedArr.push(inputsValues);
 			});
+			if (!isTimeValid) {
+				alert('Please make sure from-time is less than to-time');
+				return;
+			}
 			const addSchedulesPromiseArr = [];
 			$checkedBatchesInput.each((__, checkedBatch) => {
 				const $checkedBatch = $(checkedBatch);
@@ -238,7 +261,6 @@ const schedule = (() => {
 	function sortByWeek(batchObj) {
 		return batchObj.schedules.reduce((accumulator, scheduleObj) => {
 			const yearWeek = moment(scheduleObj.date).startOf('isoweek').format('MMM Do') + '-' + moment(scheduleObj.date).endOf('isoweek').format("MMM Do");
-			// const yearWeek = moment(scheduleObj.date).week() + '-' + moment(scheduleObj.date).year();
 			// check if the week number exists
 			if (typeof accumulator[yearWeek] === 'undefined') {
 				accumulator[yearWeek] = [];
@@ -272,6 +294,7 @@ const schedule = (() => {
 		});
 	}
 
+
 	function render() {
 		$scheduleContainer.each((index, container) => {
 			const $container = $(container);
@@ -283,7 +306,12 @@ const schedule = (() => {
 			batchOfThisInstitute.forEach(batchObj => {
 				const schedulesByWeek = sortByWeek(batchObj);
 				injectBatchCodeInSortedSchedulesObj(schedulesByWeek, batchObj.code);
-				cardsHtml += template.scheduleCard({ schedules: schedulesByWeek, batchCode: batchObj.code })
+				if (Object.keys(schedulesByWeek).length === 0) {
+
+				} else {
+					console.log(schedulesByWeek);
+					cardsHtml += template.newScheduleCard({ schedules: schedulesByWeek, batchCode: batchObj.code, tuitionId: tuitionId })
+				}
 			});
 			$container.html(cardsHtml);
 		});
@@ -329,6 +357,9 @@ const schedule = (() => {
 		$fromTime = $('.from-time');
 		$toTime = $('.to-time');
 		$dayDropdown = $('.day-dropdown');
+		$scheduleSelectForScheduleCards = $('.week-select-for-schedule-cards');
+		$scheduleContainerForScheduleCards = $('.schedule-container-for-schedule-cards');
+
 		// FIXME: Optimise
 		$checkedBatchesInput = $('.batches:checkbox:checked');
 		$clonedInp = $('.cloned-inp');
@@ -340,7 +371,7 @@ const schedule = (() => {
 		$editButton.click(editModalInit);
 		$deleteButton.click(deleteSchedule);
 		$removeRowBtn.click(removeScheduleRow);
-
+		$scheduleSelectForScheduleCards.change(showSelectedScheduleContainer);
 		// Time Picker
 		$fromTime.add($toTime).datetimepicker(dateTimePickerConfig.timePicker);
 	}
