@@ -15,6 +15,43 @@ const attendance = (() => {
 	let $excelUploadSubmitBtn;
 	let $excelUploadStudentRows;
 	let $excelUploadHeaderRow;
+	let $scheduleCardsContainer;
+	let $scheduleSelectForScheduleCards;
+	let $scheduleContainerForScheduleCards;
+	let $viewAttendanceBtn;
+	let $absentStudentTableContainer;
+	let $attendanceModal;
+
+	function showAttendance() {
+		event.preventDefault();
+		const $select = $(event.currentTarget);
+		const tuitionId = $select.attr('data-tuition-id');
+		const courseId = $select.attr('data-course-id');
+		const batchId = $select.attr('data-batch-id');
+		const scheduleId = $select.attr('data-schedule-id');
+		// console.log(tuitionId, courseId, batchId, scheduleId);
+		const batch = distinctBatchesArr.find(batchObj => batchObj._id === batchId);
+		const schedule = batch.schedules.find(scheduleObj => scheduleObj._id === scheduleId);
+		const absentStudentIDs = schedule.studentsAbsent;
+		const absenrStudentDetailsArr = distinctStudentsArr.filter(studentInfo => absentStudentIDs.includes(studentInfo._id));
+		console.log(absenrStudentDetailsArr);
+		const tableHTML = template.absentStudentTable({ students: absenrStudentDetailsArr });
+		$absentStudentTableContainer.html(tableHTML);
+		$attendanceModal.modal('show');
+	}
+
+	function showSelectedScheduleContainer() {
+		event.preventDefault();
+		const $select = $(event.target);
+		const tuitionId = $select.attr('data-tuition-id');
+		const batchCode = $select.attr('data-batch-code');
+		const selectedWeek = $select.val();
+
+		const $containersOfSelectedWeek = $scheduleContainerForScheduleCards.filter(`[data-tuition-id="${tuitionId}"]`).filter(`[data-batch-code="${batchCode}"]`);
+		const $containerToShow = $containersOfSelectedWeek.filter(`[data-schedule-week="${selectedWeek}"]`);
+		$containersOfSelectedWeek.addClass('d-none');
+		$containerToShow.removeClass('d-none')
+	}
 
 	function getAbsentStudentArr(tuitionId) {
 		const absentStudentArr = [];
@@ -107,12 +144,18 @@ const attendance = (() => {
 		$excelUploadModal = $('#attendance_upload_modal');
 		$excelUploadModalBody = $('#attendance_upload_modal_body');
 		$excelUploadSubmitBtn = $('#submit_attendace_btn');
+		$scheduleCardsContainer = $('.attendance-schedule-cards-container');
+		$attendanceModal = $('#show_attendance_modal');
+		$absentStudentTableContainer = $('#absent_student_table_container');
 	}
 
 	function cacheDynamic() {
 		$excelUploadHeaderRow = $('#header_row');
 		$checkboxInputs = $absentStudentForm.find('.student-absent');
 		$excelUploadStudentRows = $('.attendace-student-row');
+		$scheduleSelectForScheduleCards = $('.week-select-for-schedule-cards-in-attendance');
+		$scheduleContainerForScheduleCards = $('.schedule-container-for-schedule-cards-in-attendance');
+		$viewAttendanceBtn = $('.view-attendance-btn');
 	}
 
 	function getBatchCodeOfStudent(idOfStudent) {
@@ -186,6 +229,67 @@ const attendance = (() => {
 
 	function distroyModal() {
 		$excelUploadModalBody.html('');
+	}
+
+	function injectClassDateInSchedules() {
+		distinctBatchesArr.forEach(batchObj => {
+			batchObj.schedules.forEach(schedulesObj => schedulesObj.classDate = (new Date(schedulesObj.date)).toDateString());
+		});
+	}
+
+	function parseFromAndToTime() {
+		distinctBatchesArr.forEach(batch => {
+			batch.schedules.forEach(scheduleInfo => {
+				scheduleInfo.fromTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.fromTime);
+				scheduleInfo.toTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.toTime);
+			});
+		});
+	}
+
+	function injectBatchCodeInSortedSchedulesObj(schedules, batchCode) {
+		const keys = Object.keys(schedules);
+		keys.forEach(key => schedules[key].forEach(scheduleObj => scheduleObj.batchCode = batchCode));
+	}
+
+	function injectBatchIdAndTuitionId() {
+		distinctBatchesArr.forEach(batchObj => {
+			const batchId = batchObj._id;
+			const tuitionId = batchObj.tuitionId;
+			const courseId = batchObj.courseId;
+			batchObj.schedules.forEach(scheduleObj => {
+				scheduleObj.batchId = batchId;
+				scheduleObj.tuitionId = tuitionId;
+				scheduleObj.courseId = courseId;
+			});
+		});
+	}
+
+	function renderScheduleCards() {
+		// Parsing time
+		parseFromAndToTime();
+		// injecting date 
+		injectClassDateInSchedules();
+		// injecting various IDs
+		injectBatchIdAndTuitionId();
+
+		$scheduleCardsContainer.each((index, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+			let cardsHtml = '';
+
+			const batchOfThisInstitute = distinctBatchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
+
+			batchOfThisInstitute.forEach(batchObj => {
+				const schedulesByWeek = sortByWeek(batchObj);
+				injectBatchCodeInSortedSchedulesObj(schedulesByWeek, batchObj.code);
+				if (Object.keys(schedulesByWeek).length === 0) {
+
+				} else {
+					cardsHtml += template.scheduleCardsForAttendance({ schedules: schedulesByWeek, batchCode: batchObj.code, tuitionId: tuitionId })
+				}
+			});
+			$container.html(cardsHtml);
+		});
 	}
 
 	function renderBatchDropdown() {
@@ -269,6 +373,7 @@ const attendance = (() => {
 		renderWeekDropdown();
 		renderScheduleDropdown();
 		renderAttandancePallet();
+		renderScheduleCards();
 	}
 
 	function bindEvents() {
@@ -288,6 +393,8 @@ const attendance = (() => {
 
 	function bindDynamic() {
 		$excelUploadSubmitBtn.click(uploadExcelData);
+		$scheduleSelectForScheduleCards.change(showSelectedScheduleContainer);
+		$viewAttendanceBtn.click(showAttendance);
 	}
 
 	function refresh() {

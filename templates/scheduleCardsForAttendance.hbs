@@ -1,0 +1,56 @@
+<div class="card">
+    <div class="card-body">
+        <div class="card-title text-uppercase">{{batchCode}}</div>
+        <label for="week-select-for-schedule-cards">Select Week: </label>
+        <select class="week-select-for-schedule-cards-in-attendance" data-tuition-id="{{tuitionId}}" data-batch-code="{{batchCode}}">
+            {{#each schedules as |value key|}}
+            <option value="{{@key}}">{{@key}}</option>
+            {{/each}}
+        </select>
+        {{#each schedules as |value key|}}
+        {{!-- FIXME: access batchCode efficiently --}}
+        <div class="schedule-container-for-schedule-cards-in-attendance {{#if @first}}{{else}}d-none{{/if}}"
+            data-tuition-id="{{../tuitionId}}" data-batch-code="{{../batchCode}}" data-schedule-week="{{@key}}">
+            {{!-- <div class="card-title text-info">Selected Week: {{@key}}</div> --}}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>From Time</th>
+                                        <th>To Time</th>
+                                        <th>Topic</th>
+                                        <th>Faculty</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each value as |scheduleArr|}}
+                                    <tr id="{{_id}}">
+                                        <td>{{classDate}}</td>
+                                        <td>{{fromTime}}</td>
+                                        <td>{{toTime}}</td>
+                                        <td>{{topic}}</td>
+                                        <td>{{faculty}}</td>
+                                        <td>
+                                            <i class="material-icons view-attendance-btn" style="top: 0%; cursor: pointer;font-size: 18px"
+                                                data-schedule-id="{{_id}}" data-tuition-id="{{tuitionId}}"
+                                                data-course-id="{{courseId}}" data-batch-id="{{batchId}}">
+                                                remove_red_eye
+                                            </i>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>

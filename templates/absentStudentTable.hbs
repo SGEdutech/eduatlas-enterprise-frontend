@@ -1,0 +1,22 @@
+<div class="px-2" style="width:100%;max-height:500px!important;overflow-y: scroll!important;">
+    <table class="w-100">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th><small>Student Name</small></th>
+                <th><small>Roll No.</small></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each students as |student|}}
+            <tr>
+                <td class="p-0">{{inc @index}}</td>
+                <td class="p-0 text-capitalize">{{name}}</td>
+                <td class="p-0 text-uppercase">{{rollNumber}}</td>
+            </tr>
+            {{else}}
+            <p class="text-danger">Either there were no absents or you haven't marked the attendance</p>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

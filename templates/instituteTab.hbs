@@ -980,84 +980,96 @@
 				<div class="col-md-10">
 					<div class="tab-content">
 						<div class="tab-pane active" id="attandance{{tabNumber}}">
-							<div class="card mb-5">
-								<div class="card-header card-header-info py-2">
-									<div class="title h4 m-0">Mark Attendence</div>
-								</div>
-								<div class="card-body row">
-									<div class="col-6">
-										<label for="batchDropdown">Select Batch</label>
-										<select class="form-control attendance-batch-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
-										</select>
+							<div class="row m-0">
+								<div class="card mb-5">
+									<div class="card-header card-header-info py-2">
+										<div class="title h4 m-0">Mark Attendence</div>
 									</div>
-									<div class="col-6">
-										<label for="batchDropdown">Select Week</label>
-										<select class="form-control attendance-week-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
-										</select>
-									</div>
-									<div class="col-12 my-3">
-										<label for="scheduleDropdown">Select Schedule</label>
-										<select class="form-control attendance-schedule-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
-										</select>
-									</div>
-									<div id="accordionAttendance{{_id}}" role="tablist" aria-multiselectable="true" class="card-collapse">
-										<div class="card card-plain m-0 px-3">
-											<div class="card-header pt-1 mt-3" id="headingOne{{_id}}" role="tab" style="border: solid 2px #eee">
-												<a data-toggle="collapse" data-parent="#accordionAttendance{{_id}}" href="#collapseOne{{_id}}"
-												 aria-expanded="false" aria-controls="collapseOne{{_id}}">
-													Mark Attendence Through Excel
-													<i class="material-icons">keyboard_arrow_down</i>
-												</a>
-											</div>
-											<div id="collapseOne{{_id}}" class="collapse" role="tabpanel" aria-labelledby="headingOne{{_id}}" style="">
-												<div class="card-body py-2">
-													<div class="row px-3">
-														<div class="col-4">
-															<a href="/assets/excel/attendance-template.csv" class="btn btn-round btn-success text-white" download>Download
-																Excel Template</a>
-														</div>
-														<div class="col-3">
-															<input class="attendance-exel-file-upload" type="file" data-tuition-id="{{_id}}">
-														</div>
-														<div class="col-3">
-															<a class="btn btn-round btn-success add-attendance-from-excel-btn text-white" data-tuition-id="{{_id}}">ADD
-																ATTENDANCE FROM EXCEL</a>
+									<div class="card-body row">
+										<div class="col-6">
+											<label for="batchDropdown">Select Batch</label>
+											<select class="form-control attendance-batch-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
+											</select>
+										</div>
+										<div class="col-6">
+											<label for="batchDropdown">Select Week</label>
+											<select class="form-control attendance-week-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
+											</select>
+										</div>
+										<div class="col-12 my-3">
+											<label for="scheduleDropdown">Select Schedule</label>
+											<select class="form-control attendance-schedule-dropdown" data-style="btn btn-link" data-tuition-id="{{_id}}">
+											</select>
+										</div>
+										<div id="accordionAttendance{{_id}}" role="tablist" aria-multiselectable="true" class="card-collapse">
+											<div class="card card-plain m-0 px-3">
+												<div class="card-header pt-1 mt-3" id="headingOne{{_id}}" role="tab" style="border: solid 2px #eee">
+													<a data-toggle="collapse" data-parent="#accordionAttendance{{_id}}" href="#collapseOne{{_id}}"
+													 aria-expanded="false" aria-controls="collapseOne{{_id}}">
+														Mark Attendence Through Excel
+														<i class="material-icons">keyboard_arrow_down</i>
+													</a>
+												</div>
+												<div id="collapseOne{{_id}}" class="collapse" role="tabpanel" aria-labelledby="headingOne{{_id}}" style="">
+													<div class="card-body py-2">
+														<div class="row px-3">
+															<div class="col-4">
+																<a href="/assets/excel/attendance-template.csv" class="btn btn-round btn-success text-white" download>Download
+																	Excel Template</a>
+															</div>
+															<div class="col-3">
+																<input class="attendance-exel-file-upload" type="file" data-tuition-id="{{_id}}">
+															</div>
+															<div class="col-3">
+																<a class="btn btn-round btn-success add-attendance-from-excel-btn text-white" data-tuition-id="{{_id}}">ADD
+																	ATTENDANCE FROM EXCEL</a>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-									{{!-- <div class="card-title h4 bg-info px-3">
-										Mark Attendence Through Excel
-									</div> --}}
+										{{!-- <div class="card-title h4 bg-info px-3">
+											Mark Attendence Through Excel
+										</div> --}}
 
-									{{!-- <div class="card-title h4 bg-info px-3">
-										Mark Attendence Manually
-									</div> --}}
-									<div class="border-grey mt-2" style="width:100%;max-height:500px!important;overflow-y: scroll!important;">
-										<form class="absent-student-form" data-tuition-id="{{_id}}">
-											<table class="table border border-light">
-												<thead class="">
-													<tr>
-														<th>#</th>
-														<th><small>Student Name</small></th>
-														<th><small>Roll No.</small></th>
-														<th><small>Outstanding Fee</small></th>
-														<th><small>SELECT
-																TO MARK ABSENT</small></th>
-													</tr>
-												</thead>
-												<tbody class="students-container" data-tuition-id="{{_id}}">
-													{{!-- FIXME: not moved to new hbs file --}}
-												</tbody>
-											</table>
-										</form>
+										{{!-- <div class="card-title h4 bg-info px-3">
+											Mark Attendence Manually
+										</div> --}}
+										<div class="border-grey mt-2" style="width:100%;max-height:500px!important;overflow-y: scroll!important;">
+											<form class="absent-student-form" data-tuition-id="{{_id}}">
+												<table class="table border border-light">
+													<thead class="">
+														<tr>
+															<th>#</th>
+															<th><small>Student Name</small></th>
+															<th><small>Roll No.</small></th>
+															<th><small>Outstanding Fee</small></th>
+															<th><small>SELECT
+																	TO MARK ABSENT</small></th>
+														</tr>
+													</thead>
+													<tbody class="students-container" data-tuition-id="{{_id}}">
+														{{!-- FIXME: not moved to new hbs file --}}
+													</tbody>
+												</table>
+											</form>
+										</div>
+										<div class="row justify-content-end m-2">
+											<button class="btn btn-success btn-round" disabled>NOTIFY</button>
+											<button class="btn btn-success btn-round save-attendance-btn" type="button" data-tuition-id="{{_id}}">Save
+												Attendance</button>
+										</div>
 									</div>
-									<div class="row justify-content-end m-2">
-										<button class="btn btn-success btn-round" disabled>NOTIFY</button>
-										<button class="btn btn-success btn-round save-attendance-btn" type="button" data-tuition-id="{{_id}}">Save
-											Attendance</button>
+								</div>
+								<div class="card mb-3">
+									<div class="card-header card-header-info py-2">
+										<div class="title h4 m-0">View Marked Attendance</div>
+									</div>
+									<div class="card-body">
+										<div class="row m-0">
+											<div class="col-12 attendance-schedule-cards-container" data-tuition-id="{{_id}}"></div>
+										</div>
 									</div>
 								</div>
 							</div>
