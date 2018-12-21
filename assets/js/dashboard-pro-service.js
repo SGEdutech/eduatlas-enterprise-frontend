@@ -46,6 +46,7 @@ async function initModules() {
 		redirectTabs.init(queryString.loadQueryString());
 		discounts.init(claimedDiscounts);
 		finance.init(claimedStudents, claimedCourses, claimedBatches, claimedDiscounts);
+		resourses.init(claimedNotifications, claimedBatches, claimedStudents);
 
 		userImgAndName.init(userInfo);
 		modal.init();
