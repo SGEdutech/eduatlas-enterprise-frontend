@@ -2,7 +2,7 @@ PubSub.subscribe('user', (msg, userInfo) => {
 	navigationBar.render(userInfo);
 	if (userInfo === undefined || userInfo === '') {
 		window.location.assign('https://eduatlas.com');
-	}else {
+	} else {
 		window.location.reload();
 	}
 });
@@ -30,15 +30,16 @@ async function initModules() {
 		promiseArr.push(tuitionApiCalls.getAllClaimedForums());
 		promiseArr.push(tuitionApiCalls.getAllClaimedDiscounts());
 		promiseArr.push(notificationApiCalls.getClaimedNotifications());
+		promiseArr.push(tuitionApiCalls.getAllClaimedResourses());
 		promiseArr.push(user.getInfo());
 
-		const [claimedCourses, claimedBatches, claimedStudents, claimedInstitute, claimedSchools, claimedEvents, claimedForums, claimedDiscounts, claimedNotifications, userInfo] =
+		const [claimedCourses, claimedBatches, claimedStudents, claimedInstitute, claimedSchools, claimedEvents, claimedForums, claimedDiscounts, claimedNotifications, claimedResourses, userInfo] =
 		await Promise.all(promiseArr);
 
 		instituteInfo.init(claimedInstitute);
 		course.init(claimedCourses);
 		batch.init(claimedBatches, claimedCourses, claimedStudents);
-		student.init(claimedStudents, claimedCourses, claimedBatches, claimedDiscounts);
+		student.init(claimedStudents, claimedCourses, claimedBatches, claimedDiscounts, claimedInstitute);
 		schedule.init(claimedBatches, claimedStudents);
 		attendance.init(claimedBatches, claimedStudents);
 		forum.init(claimedForums);
@@ -46,7 +47,7 @@ async function initModules() {
 		redirectTabs.init(queryString.loadQueryString());
 		discounts.init(claimedDiscounts);
 		finance.init(claimedStudents, claimedCourses, claimedBatches, claimedDiscounts);
-		resourses.init(claimedNotifications, claimedBatches, claimedStudents);
+		resourses.init(claimedResourses, claimedBatches, claimedStudents);
 		recieptConfig.init(claimedInstitute);
 
 		userImgAndName.init(userInfo);

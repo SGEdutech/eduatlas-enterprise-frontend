@@ -4,6 +4,7 @@ const student = (() => {
 	let distinctBatchesArr;
 	let distinctStudentsArr;
 	let distinctDiscountsArr;
+	let distinctTuitionsArr;
 	let $addStudentForm;
 	let $editButton;
 	let $deleteButton;
@@ -13,9 +14,11 @@ const student = (() => {
 	let $courseIdInp;
 	let $courseFee;
 	let $netFee;
+	let $grossFee;
 	let $totalDiscountAmount;
 	let $additionalDiscountInp;
 	let $discountReason;
+	let $taxAmount;
 	let $feeCollectedInp;
 	let $balancePending;
 	let $studentNameInp;
@@ -42,6 +45,12 @@ const student = (() => {
 	let $studentInputs;
 	let $rollNumberInp;
 	let $installmentDetailsInputs;
+	let $studentRecieptModal;
+	let $studentReceiptDownloadBtn;
+	let $studentReceiptPrintBtn;
+	let $studentReceiptMailBtn;
+	let recieptEmail;
+	let docDef;
 
 	function getNameToValueObj($inputs) {
 		if ($inputs === undefined) throw new Error('Inputs not provided');
@@ -168,6 +177,58 @@ const student = (() => {
 		modal.showModal();
 	}
 
+	async function emailReciept() {
+		try {
+			await tuitionApiCalls.emailReciept({ email: recieptEmail, docDef: JSON.stringify(docDef) })
+			notification.push(`Reciept has been mailed to ${recieptEmail}`);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	function initRecieptModal(studentInfo) {
+		if (studentInfo === undefined) throw new Error('Student info not provided');
+		if (studentInfo.payments === undefined) throw new Error('Student payments info not provided');
+		if (studentInfo.payments[0].installments === undefined) throw new Error('Student installments info not provided');
+
+		const tuitionId = studentInfo.tuitionId;
+		const tuition = distinctTuitionsArr.find(tuitionObj => tuitionObj._id === tuitionId);
+
+		const paymentInfo = studentInfo.payments[0];
+		const installmentInfo = studentInfo.payments[0].installments[0];
+
+		const courseId = paymentInfo.courseId;
+		const courseInfo = distinctCoursesArr.find(courseObj => courseObj._id === courseId);
+
+		const netFee = courseInfo.fees - paymentInfo.discountAmount;
+		const gstAmount = netFee * (courseInfo.gstPercentage / 100);
+		const totalAmount = netFee + gstAmount;
+		const balanceAmount = totalAmount - installmentInfo.feeCollected;
+
+		docDef = getDocDef({
+			busienessName: tuition.recieptConfigBusinessName,
+			addressLine1: tuition.recieptConfigAddressLine1,
+			addressLine2: tuition.recieptConfigAddressLine2,
+			pin: tuition.recieptConfigPinCode,
+			city: tuition.recieptConfigCity,
+			state: tuition.recieptConfigState,
+			taxId: tuition.recieptConfigGstNumber,
+			userName: studentInfo.name,
+			productDescription: courseInfo.code,
+			productAmount: courseInfo.fees,
+			couponName: paymentInfo.discountReason,
+			couponAmount: paymentInfo.discountAmount,
+			gstPercentage: courseInfo.gstPercentage,
+			gstAmount,
+			totalAmount,
+			// FIXME: Rename amount paid
+			paidToDate: installmentInfo.feeCollected,
+			balance: balanceAmount
+		});
+		recieptEmail = studentInfo.email;
+		$studentRecieptModal.modal('show');
+	}
+
 	function alertForMoreOrLessFeeCollected() {
 		if ($balancePending.val() < 0) alert('You are collecting more fee than necessary!');
 	}
@@ -288,8 +349,10 @@ const student = (() => {
 				PubSub.publish('batch.edit', batchOfStudentAdded);
 			}
 			notification.push(`${newStudent.name} has been added`);
+			// FIXME: Wtf is this for
 			$btn.trigger('reset');
 			refresh();
+			if (newStudent.payments.length !== 0 && newStudent.payments[0].installments.length !== 0) initRecieptModal(newStudent);
 		} catch (err) {
 			console.error(err);
 		}
@@ -347,6 +410,30 @@ const student = (() => {
 		});
 	}
 
+	function renderTaxAmount() {
+		$taxAmount.each((__, inp) => {
+			const $inp = $(inp);
+			const tuitionId = $inp.attr('data-tuition-id');
+			const courseId = $courseSelectContainer.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const courseInfo = distinctCoursesArr.find(courseObj => courseObj._id === courseId);
+			if (courseInfo === undefined) return;
+			const netFee = $netFee.filter(`[data-tuition-id="${tuitionId}"]`).val();
+			const gstPercentage = courseInfo.gstPercentage;
+			const taxAmount = netFee * (gstPercentage / 100);
+			$inp.val(taxAmount);
+		});
+	}
+
+	function renderGrossFee() {
+		$grossFee.each((__, inp) => {
+			const $inp = $(inp);
+			const tuitionId = $inp.attr('data-tuition-id');
+			const netFee = parseInt($netFee.filter(`[data-tuition-id="${tuitionId}"]`).val(), 10);
+			const taxAmount = parseInt($taxAmount.filter(`[data-tuition-id="${tuitionId}"]`).val(), 10);
+			$inp.val(netFee + taxAmount);
+		});
+	}
+
 	function renderCourseId(event) {
 		const $select = $(event.target);
 		const courseId = $select.val();
@@ -365,8 +452,7 @@ const student = (() => {
 				$input.val('');
 				return;
 			}
-			const courseFee = randomScripts.calcTotalCourseFee(courseInfo.fees, courseInfo.gstPercentage);
-			$input.val(courseFee);
+			$input.val(courseInfo.fees);
 		});
 	}
 
@@ -485,7 +571,9 @@ const student = (() => {
 		$courseFee = $('.student-course-fee');
 		$courseIdInp = $('.student-course-id');
 		$netFee = $('.student-net-fee');
+		$grossFee = $('.student-gross-fee');
 		$totalDiscountAmount = $('.student-total-discount-amount');
+		$taxAmount = $('.student-tax');
 		$additionalDiscountInp = $('.student-additional-discount');
 		$feeCollectedInp = $('.student-fee-colected');
 		$balancePending = $('.student-balance-pending');
@@ -520,6 +608,10 @@ const student = (() => {
 		$rollNumberInp = $('.student-roll-number');
 		$installmentDetailsContainers = $('.student-fee-container');
 		$installmentDetailsInputs = $installmentDetailsContainers.find('input');
+		$studentRecieptModal = $('#student_receipt_modal');
+		$studentReceiptDownloadBtn = $('#student_receipt_download_btn');
+		$studentReceiptPrintBtn = $('#student_receipt_print_btn');
+		$studentReceiptMailBtn = $('#student_receipt_mail_btn');
 	}
 
 	function cacheDynamic() {
@@ -541,20 +633,33 @@ const student = (() => {
 		$courseSelectContainer.change(renderCourseId);
 		$courseSelectContainer.change(renderCourseFee);
 		$courseSelectContainer.change(renderNetFee);
+		$courseSelectContainer.change(renderTaxAmount);
+		$courseSelectContainer.change(renderGrossFee);
 		$courseSelectContainer.change(renderBalancePending);
 
 		$additionalDiscountInp.on('input paste', renderNetFee);
 		$additionalDiscountInp.on('input paste', renderTotalDiscountAmount);
-		$additionalDiscountInp.on('input paste', renderBalancePending);
 		$additionalDiscountInp.on('input paste', renderDiscountReason);
+		$additionalDiscountInp.on('input paste', renderTaxAmount);
+		$additionalDiscountInp.on('input paste', renderGrossFee);
+		$additionalDiscountInp.on('input paste', renderBalancePending);
 
 		$discountSelectContainer.change(renderTotalDiscountAmount);
 		$discountSelectContainer.change(renderNetFee);
-		$discountSelectContainer.change(renderBalancePending);
 		$discountSelectContainer.change(renderDiscountReason);
+		$discountSelectContainer.change(renderTaxAmount);
+		$discountSelectContainer.change(renderGrossFee);
+		$discountSelectContainer.change(renderBalancePending);
 
 		$feeCollectedInp.on('input paste', renderBalancePending);
 
+		$studentRecieptModal.on('hidden.bs.modal', () => {
+			docDef = undefined;
+			recieptEmail = undefined;
+		});
+		$studentReceiptDownloadBtn.click(() => pdfMake.createPdf(docDef).download('receipt.pdf'));
+		$studentReceiptPrintBtn.click(() => pdfMake.createPdf(docDef).print());
+		$studentReceiptMailBtn.click(emailReciept);
 		// Datetimepicker
 		$installmentDateInp.datetimepicker(dateTimePickerConfig.datePicker);
 	}
@@ -622,13 +727,14 @@ const student = (() => {
 		bindDynamic();
 	}
 
-	function init(studentsArray, courseArr, batchArr, discountArr) {
+	function init(studentsArray, courseArr, batchArr, discountArr, tuitionsArr) {
 		if (studentsArray === undefined) throw new Error('Students array not defined');
 		sortStudentArray(studentsArray);
 		distinctStudentsArr = JSON.parse(JSON.stringify(studentsArray));
 		distinctCoursesArr = JSON.parse(JSON.stringify(courseArr));
 		distinctBatchesArr = JSON.parse(JSON.stringify(batchArr));
 		distinctDiscountsArr = JSON.parse(JSON.stringify(discountArr));
+		distinctTuitionsArr = JSON.parse(JSON.stringify(tuitionsArr));
 		cache();
 		bindevents();
 		render(distinctStudentsArr);

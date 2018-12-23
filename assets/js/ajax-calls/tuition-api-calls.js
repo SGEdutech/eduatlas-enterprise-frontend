@@ -701,6 +701,62 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
+	function getAllClaimedResourses() {
+		return $.ajax({
+			type: 'GET',
+			url: 'tuition/resource/claimed'
+		});
+	}
+
+	function putResourseInTuition(idOfTuition, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error('Not a valid idOfTuition');
+		}
+		return $.ajax({
+			type: 'POST',
+			url: `tuition/${idOfTuition}/resource`,
+			data: bodyObj,
+			cache: false,
+			contentType: false,
+			processData: false
+		});
+	}
+
+	function editResourseInTuition(idOfTuition, idOfResourse, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error('Not a valid idOfTuition');
+		}
+		if (!checkForHexRegExp.test(idOfResourse)) {
+			console.error('Not a valid idOfResourse');
+		}
+		return $.ajax({
+			type: 'PUT',
+			url: `tuition/${idOfTuition}/resource/${idOfResourse}`,
+			data: bodyObj
+		});
+	}
+
+	function deleteResourseInTuition(idOfTuition, idOfResourse) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error('Not a valid idOfTuition');
+		}
+		if (!checkForHexRegExp.test(idOfResourse)) {
+			console.error('Not a valid idOfResourse');
+		}
+		return $.ajax({
+			type: 'DELETE',
+			url: `tuition/${idOfTuition}/resource/${idOfResourse}`,
+		});
+	}
+
+	function emailReciept(bodyObj) {
+		return $.ajax({
+			type: 'POST',
+			url: 'tuition/email-reciept',
+			data: bodyObj
+		});
+	}
+
 	return {
 		getAllTuitions,
 		getAllClaimedTuitions,
@@ -748,6 +804,11 @@ const tuitionApiCalls = (() => {
 		deletePaymentDetailsInStudent,
 		putInstallmentInStudent,
 		editInstallmentInStudent,
-		deleteInstallmentInStudent
+		deleteInstallmentInStudent,
+		getAllClaimedResourses,
+		putResourseInTuition,
+		editResourseInTuition,
+		deleteResourseInTuition,
+		emailReciept
 	};
 })();

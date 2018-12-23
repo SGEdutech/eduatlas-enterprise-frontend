@@ -430,6 +430,14 @@
 																			<input type="text" class="w-100 student-net-fee not-submit" data-tuition-id="{{_id}}" disabled>
 																		</div>
 																		<div class="col-md-12 form-group">
+																			<label class="bmd-label-floating text-dark">Tax/GST</label>
+																			<input name="tax" type="text" class="w-100 student-tax" data-tuition-id="{{_id}}" disabled>
+																		</div>
+																		<div class="col-md-12 form-group">
+																			<label class="bmd-label-floating text-dark">Gross Fee</label>
+																			<input type="text" class="w-100 student-gross-fee" data-tuition-id="{{_id}}" disabled>
+																		</div>
+																		<div class="col-md-12 form-group">
 																			<label for="balance_pending" class="bmd-label-floating text-dark">Balance Pending</label>
 																			<input type="text" class="w-100 student-balance-pending not-submit" data-tuition-id="{{_id}}"
 																			 disabled>
@@ -527,7 +535,7 @@
 										<div class="title h4 m-0">Add/Edit Receipt Custom Fields</div>
 									</div>
 									<form class="add-receipt-config-form" data-tuition-id="{{_id}}">
-										
+
 									</form>
 								</div>
 							</div>
@@ -1213,86 +1221,92 @@
 									<div class="card-header card-header-info py-2">
 										<div class="title h4 m-0">Upload And Share Study Material</div>
 									</div>
-									<div class="card-body">
-										<div class="row">
-											<div class="col-md-10"><input type="text" placeholder="search students" class="form-control resourses-student-search-inp"
-												 data-tuition-id="{{_id}}"></div>
-											<div class="col-md-2"><a class="btn btn-sm btn-info resourses-student-search-reset text-white"
-												 data-tuition-id="{{_id}}">reset</a></div>
-										</div>
-										<div class="form-group border-grey mt-2">
-											<div class="card-title px-3">Select Students</div>
-											<div class="px-2" style="width:100%;max-height:500px!important;overflow-y: scroll!important;">
-												<table class="table">
-													<thead>
-														<tr>
-															<th class="text-center">#</th>
-															<th><small>Name</small></th>
-															<th><small>Roll Number</small></th>
-															<th><small>Email</small></th>
-															<th><small>Select</small></th>
-														</tr>
-													</thead>
-													<tbody class="select-resourses-students" data-tuition-id="{{_id}}">
-													</tbody>
-												</table>
+									<form class="resourse-add-form" data-tuition-id="{{_id}}">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-md-10"><input type="text" placeholder="search students" class="form-control resourses-student-search-inp"
+													 data-tuition-id="{{_id}}"></div>
+												<div class="col-md-2"><a class="btn btn-sm btn-info resourses-student-search-reset text-white"
+													 data-tuition-id="{{_id}}">reset</a></div>
+											</div>
+											<div class="form-group border-grey mt-2">
+												<div class="card-title px-3">Select Students</div>
+												<div class="px-2" style="width:100%;max-height:500px!important;overflow-y: scroll!important;">
+													<table class="table">
+														<thead>
+															<tr>
+																<th class="text-center">#</th>
+																<th><small>Name</small></th>
+																<th><small>Roll Number</small></th>
+																<th><small>Email</small></th>
+																<th><small>Select</small></th>
+															</tr>
+														</thead>
+														<tbody class="select-resourses-students" data-tuition-id="{{_id}}">
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<small class="text-danger">OR</small>
+											<div class="form-group border-grey">
+												<div class="card-title px-3">
+													Select A Batch</div>
+												<div class="px-2" style="width:100%;max-height:300px!important;overflow-y: scroll!important;">
+													<table class="table">
+														<thead>
+															<tr>
+																<th class="text-center">#</th>
+																<th><small>Batch Code</small></th>
+																<th><small>Select</small></th>
+															</tr>
+														</thead>
+														<tbody class="select-resourses-batches" data-tuition-id="{{_id}}">
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<small class="text-danger">OR</small>
+											<div class="form-group border-grey">
+												<div class="card-title px-3">
+													Send To All Students</div>
+												<div class="togglebutton">
+													<label>
+														<input class="resourses-select-institute" type="checkbox" name="instituteId" value="{{_id}}"
+														 data-tuition-id="{{_id}}">
+														<span class="toggle"></span>
+													</label>
+												</div>
+											</div>
+											<br>
+											<div class="form-group">
+												<label class="text-dark">Title Of File</label>
+												<input type="text" name="title" class="resourse-title-inp w-100" data-tuition-id="{{_id}}" required>
+											</div>
+											<div class="form-group">
+												<label class="text-dark">Description Of File</label>
+												<textarea class="form-control resourse-description-inp" rows="2" name="description" data-tuition-id="{{_id}}"></textarea>
+											</div>
+											<div class="">
+												<label class="text-dark">Choose File</label>
+												<input type="file" name="resourse" class="resourse-file-inp w-100" data-tuition-id="{{_id}}" required>
+											</div>
+											{{!-- <div class="form-group form-file-upload form-file-multiple">
+												<input type="file" multiple="" class="inputFileHidden">
+												<div class="input-group">
+													<input type="text" class="form-control inputFileVisible" placeholder="Single File">
+													<span class="input-group-btn">
+														<button type="button" class="btn btn-fab btn-round btn-primary">
+															<i class="material-icons">attach_file</i>
+														</button>
+													</span>
+												</div>
+											</div> --}}
+											<div class="col-12">
+												<button class="btn btn-round btn-success pull-right" type="submit"
+												 data-tuition-id="{{_id}}">UPLOAD AND SHARE</button>
 											</div>
 										</div>
-										<small class="text-danger">OR</small>
-										<div class="form-group border-grey">
-											<div class="card-title px-3">
-												Select A Batch</div>
-											<div class="px-2" style="width:100%;max-height:300px!important;overflow-y: scroll!important;">
-												<table class="table">
-													<thead>
-														<tr>
-															<th class="text-center">#</th>
-															<th><small>Batch Code</small></th>
-															<th><small>Select</small></th>
-														</tr>
-													</thead>
-													<tbody class="select-resourses-batches" data-tuition-id="{{_id}}">
-													</tbody>
-												</table>
-											</div>
-										</div>
-										<small class="text-danger">OR</small>
-										<div class="form-group border-grey">
-											<div class="card-title px-3">
-												Send To All Students</div>
-											<div class="togglebutton">
-												<label>
-													<input class="resourses-select-institute" type="checkbox" name="instituteId" value="{{_id}}"
-													 data-tuition-id="{{_id}}">
-													<span class="toggle"></span>
-												</label>
-											</div>
-										</div>
-										<br>
-										<div class="form-group">
-											<label class="text-dark">Title Of File</label>
-											<input type="text" name="title" class="resourse-title-inp w-100" data-tuition-id="{{_id}}">
-										</div>
-										<div class="form-group">
-											<label class="text-dark">Description Of File</label>
-											<textarea class="form-control resourse-description-inp" rows="2" name="description" data-tuition-id="{{_id}}"></textarea>
-										</div>
-										<div class="form-group form-file-upload form-file-multiple">
-											<input type="file" multiple="" class="inputFileHidden">
-											<div class="input-group">
-												<input type="text" class="form-control inputFileVisible" placeholder="Single File">
-												<span class="input-group-btn">
-													<button type="button" class="btn btn-fab btn-round btn-primary">
-														<i class="material-icons">attach_file</i>
-													</button>
-												</span>
-											</div>
-										</div>
-										<div class="col-12">
-											<button class="btn btn-round btn-success pull-right upload-and-share-resourse-btn" type="button"
-											 data-tuition-id="{{_id}}">UPLOAD AND SHARE</button>
-										</div>
-									</div>
+									</form>
 								</div>
 							</div>
 							<div class="card mb-3">
@@ -1302,7 +1316,7 @@
 								<div class="card-body">
 									<div class="col-12">
 										<div class="row">
-											<div class="col-md-10"><input type="text" placeholder="search file titles" class="form-control resourses-file-title-search-inp"
+											<div class="col-md-10"><input type="text" placeholder="search file names" class="form-control resourses-file-title-search-inp"
 												 data-tuition-id="{{_id}}"></div>
 											<div class="col-md-2"><a class="btn btn-sm btn-info-resourses-file-title-search-reset text-white"
 												 data-tuition-id="{{_id}}">reset</a></div>

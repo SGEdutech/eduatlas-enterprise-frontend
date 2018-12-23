@@ -42,7 +42,7 @@ const recieptConfig = (() => {
 		if (tuitions === undefined) throw new Error('Tuitions not provided');
 		if (Array.isArray(tuitions) === false) throw new Error('Tuitions must be an array');
 
-		tuitionsArr = tuitions;
+		tuitionsArr = JSON.parse(JSON.stringify(tuitions));
 		cache();
 		bindEvents();
 		render();
