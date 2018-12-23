@@ -379,10 +379,10 @@ const student = (() => {
 			const $input = $(input);
 			const tuitionId = $input.attr('data-tuition-id');
 
-			const netFee = getNetFee(tuitionId);
+			const grossFee = parseInt($grossFee.filter(`[data-tuition-id="${tuitionId}"]`).val(), 10);
 			const feeCollected = parseInt($feeCollectedInp.filter(`[data-tuition-id="${tuitionId}"]`).val(), 10) || 0;
 
-			const balancePending = (netFee - feeCollected).toFixed(2);
+			const balancePending = (grossFee - feeCollected).toFixed(2);
 			$input.val(balancePending);
 		});
 	}
