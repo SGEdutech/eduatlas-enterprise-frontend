@@ -1,0 +1,28 @@
+{{#each resourses as |resourse|}}
+<div class="col-md-6 mb-3">
+    <div class="card m-0">
+        <div class="card-body">
+            <h4 class="card-title" style="text-transform: uppercase">
+                <p class="text-secondary mb-0">File Name :</p>
+                <p class="text-danger">{{resourse.title}}</p>
+            </h4>
+            <p class="card-text mb-0" style="overflow: hidden;text-overflow: ellipsis;max-height: 30px">
+                <small class="text-secondary">Description :</small>
+                <small class="text-danger">{{resourse.description}}</small>
+            </p>
+            <p class="card-text mb-0">
+                <small class="text-secondary">Number of Students Shared With:</small>
+                <small class="text-danger" style="text-transform: uppercase">{{resourse.students.length}}</small>
+            </p>
+            <form method="get" action="{{resourse.path}}">
+                <button class="btn btn-round btn-info btn-block" type="submit">Download</button>
+            </form>
+            <div class="row pull-right text-secondary">
+                <i class="material-icons delete-resourse-btn" style="top: 0%; cursor: pointer;" data-resourse-id="{{resourse._id}}" data-tuition-id="{{resourse.tuitionId}}">delete</i>
+                {{!-- <i class="material-icons resourse-edit-btn" style="top: 0%; cursor: pointer;" data-resourse-id="{{resourse._id}}" data-tuition-id="{{resourse.tuitionId}}">edit</i> --}}
+            </div>
+            {{!-- <a class="btn btn-round btn-info" href="{{resourse.path}}" download> --}}
+        </div>
+    </div>
+</div>
+{{/each}}

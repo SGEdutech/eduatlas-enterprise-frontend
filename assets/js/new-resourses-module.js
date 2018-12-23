@@ -1,18 +1,58 @@
 const resourses = (() => {
-	let distinctFilesArr
+	let distinctResoursesArr
 	let studentsArr;
 	let distinctBatchesArr;
 	let $selectStudentContainer;
 	let $selectBatchContainer;
-	let $uploadAndShareBtn;
 	let $studentCheckbox;
 	let $batchCheckbox;
 	let $selectWholeInstitute;
-	let $resourseTitleInp;
-	let $resourseDescriptionInp;
 	let $studentSearchInp;
 	let $studentSearchResetBtn;
 	let $allUploadedFilesContainer;
+	let $deleteResourseBtn;
+	let $editResourseBtn;
+
+	let $addResourseForm;
+
+	async function deleteResourse(event) {
+		try {
+			const $btn = $(event.currentTarget);
+			const tuitionId = $btn.attr('data-tuition-id');
+			const resourseId = $btn.attr('data-resourse-id');
+			const deletedResourse = await tuitionApiCalls.deleteResourseInTuition(tuitionId, resourseId);
+			notification.push('Your resourse has been successfully deleted');
+			distinctResoursesArr = distinctResoursesArr.filter(resourseObj => resourseObj._id !== deletedResourse._id);
+			refresh();
+		} catch (e) {
+			console.error(e);
+		}
+	}
+
+	async function addResourse(event) {
+		try {
+			event.preventDefault();
+			const $form = $(event.currentTarget);
+			const tuitionId = $form.attr('data-tuition-id');
+			const formData = new FormData($form[0]);
+
+			// const userEmails = [];
+			// const $checkedStudentCheckbox = $studentCheckbox.filter(`[data-tuition-id="${tuitionId}"]:checked`);
+			// $checkedStudentCheckbox.each((__, inp) => {
+			// 	const $inp = $(inp);
+			// 	userEmails.push($inp.val());
+			// });
+
+			const newResourse = await tuitionApiCalls.putResourseInTuition(tuitionId, formData);
+			newResourse.tuitionId = tuitionId;
+			distinctResoursesArr.push(newResourse);
+			notification.push('Your resourse has been successfully uploaded');
+			$form.trigger('reset');
+			refresh();
+		} catch (e) {
+			console.error(e);
+		}
+	}
 
 	function markOrUnmarkBatchStudents(event) {
 		const $checkBox = $(event.target);
@@ -39,22 +79,23 @@ const resourses = (() => {
 	function cache() {
 		$selectStudentContainer = $('.select-resourses-students');
 		$selectBatchContainer = $('.select-resourses-batches');
-		$uploadAndShareBtn = $('.upload-and-share-resourse-btn');
 		$selectWholeInstitute = $('.resourses-select-institute');
-		$resourseTitleInp = $('.resourse-title-inp');
-		$resourseDescriptionInp = $('.resourse-description-inp');
 		$studentSearchInp = $('.resourses-student-search-inp');
 		$studentSearchResetBtn = $('.resourses-student-search-reset');
 		$allUploadedFilesContainer = $('.all-uploaded-files-container');
+		$addResourseForm = $('.resourse-add-form');
 	}
 
 	function cacheDynamic() {
 		$studentCheckbox = $selectStudentContainer.find('input:checkbox');
 		$batchCheckbox = $selectBatchContainer.find('input:checkbox');
+		$deleteResourseBtn = $('.delete-resourse-btn');
+		$editResourseBtn = $('.edit-resourse-btn');
 	}
 
 	function bindDynamic() {
 		$batchCheckbox.off().change(markOrUnmarkBatchStudents);
+		$deleteResourseBtn.click(deleteResourse);
 	}
 
 	function filterAndRenderSearceResults(event) {
@@ -95,17 +136,15 @@ const resourses = (() => {
 			$container.html(batchesOptionsHtml);
 		});
 
-		// $notificationDisplayContainer.each((__, container) => {
-		// 	const $container = $(container);
-		// 	const tuitionId = $container.attr('data-tuition-id');
-		// 	if (opts.tuitionId && opts.tuitionId !== tuitionId) return
-		// 	const notificationOfThisTuitionArr = distinctNotificationArr.filter(notificationObj => notificationObj.senderId === tuitionId);
-		// 	notificationOfThisTuitionArr.forEach(notificationObj => {
-		// 		notificationObj.fromNow = moment(notificationObj.createdAt).fromNow();
-		// 	})
-		// 	const notificationDisplayCardsHtml = template.notificationCard({ notifications: notificationOfThisTuitionArr });
-		// 	$container.html(notificationDisplayCardsHtml)
-		// });
+		$allUploadedFilesContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+			if (opts.tuitionId && opts.tuitionId !== tuitionId) return
+			const resoursesOfThisTuitionArr = distinctResoursesArr.filter(resourseObj => resourseObj.tuitionId === tuitionId);
+			// console.log(resoursesOfThisTuitionArr);
+			const notificationDisplayCardsHtml = template.resourseCards({ resourses: resoursesOfThisTuitionArr });
+			$container.html(notificationDisplayCardsHtml);
+		});
 	}
 
 	function markOrUnmarkAllStudents(event) {
@@ -119,6 +158,7 @@ const resourses = (() => {
 	}
 
 	function bindEvents() {
+		$addResourseForm.submit(addResourse);
 		// $sendBtn.click(addNotification);
 		$selectWholeInstitute.change(markOrUnmarkAllStudents);
 		$studentSearchInp.on('input paste', filterAndRenderSearceResults);
@@ -131,15 +171,15 @@ const resourses = (() => {
 		bindDynamic();
 	}
 
-	function init(filesArr, batchesArr, students) {
+	function init(resoursesArr, batchesArr, students) {
 		if (batchesArr === undefined) throw new Error('Batch array not provided!');
 		if (Array.isArray(batchesArr) === false) throw new Error('Batches not an array');
 
 		if (students === undefined) throw new Error('Students array not provided!');
 		if (Array.isArray(students) === false) throw new Error('Students not an array');
 
-		if (filesArr === undefined) throw new Error('Files array not provided!');
-		if (Array.isArray(filesArr) === false) throw new Error('Files not an array');
+		if (resoursesArr === undefined) throw new Error('Files array not provided!');
+		if (Array.isArray(resoursesArr) === false) throw new Error('Files not an array');
 
 		// const autoGeneratedMessages = [
 		// 	'You have been added to our Study Monitor',
@@ -150,7 +190,7 @@ const resourses = (() => {
 		// ];
 
 		// notificationArr = notificationArr.filter(notificationObj => autoGeneratedMessages.indexOf(notificationObj.message) === -1);
-		distinctFilesArr = JSON.parse(JSON.stringify(filesArr));
+		distinctResoursesArr = JSON.parse(JSON.stringify(resoursesArr));
 		studentsArr = JSON.parse(JSON.stringify(students));
 		distinctBatchesArr = JSON.parse(JSON.stringify(batchesArr));
 

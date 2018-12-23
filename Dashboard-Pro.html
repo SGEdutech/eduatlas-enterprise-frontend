@@ -871,6 +871,33 @@
 				</div>
 			</div>
 		</div>
+		<div id="student_receipt_modal_container">
+			<div class="modal fade bd-example-modal-lg" id="student_receipt_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-body p-0">
+							<div class="card my-0 bg-info">
+								<div class="card-body pt-0 pb-0">
+									<h3 class="card-title my-2">
+										<a href="#pablo" class="text-dark">Receipt</a>
+									</h3>
+								</div>
+							</div>
+							<div class="justify-content-around px-3">
+								<div class="row">
+									<button id="student_receipt_download_btn" class="btn btn-round btn-info">Download Recipt</button>
+									<button id="student_receipt_print_btn" class="btn btn-round btn-info">Print Recipt</button>
+									<button id="student_receipt_mail_btn" class="btn btn-round btn-info">Mail Receipt To Student</button>
+								</div>
+							</div>
+							<div class="row justify-content-end m-2">
+								<button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div id="show_attendance_modal_container">
 			<div class="modal fade bd-example-modal-lg" id="show_attendance_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-lg" role="document">
@@ -1024,8 +1051,11 @@
 		<!--seed cities-->
 		<!--Docs at: https://github.com/mroderick/PubSubJS-->
 		<script src="assets/js/core/PubSub.min.js"></script>
+		<script src="assets/js/core/pdfmake.min.js"></script>
+		<script src="assets/js/core/vfs_fonts.js"></script>
 		<script src="assets/cities/seed.js"></script>
 		<script src="assets/js/random-scripts.js"></script>
+		<script src="assets/js/receipt-definition.js"></script>
 		<script src="assets/js/ajax-calls/user-api-calls.js"></script>
 		<script src="assets/js/ajax-calls/tuition-api-calls.js"></script>
 		<script src="assets/js/ajax-calls/school-api-calls.js"></script>
