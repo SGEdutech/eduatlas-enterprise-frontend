@@ -808,5 +808,10 @@ const student = (() => {
 		refresh();
 	});
 
+	PubSub.subscribe('tuition.edit', (msg, editedTuition) => {
+		distinctTuitionsArr = distinctTuitionsArr.map(tuitionObj => tuitionObj._id === editedTuition._id ? editedTuition : tuitionObj);
+		refresh();
+	});
+
 	return { init };
 })();

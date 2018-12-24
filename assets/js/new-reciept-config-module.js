@@ -9,6 +9,7 @@ const recieptConfig = (() => {
 			const formData = $form.serialize();
 			const tuitionId = $form.attr('data-tuition-id');
 			const updatedTuition = await tuitionApiCalls.updateInTuition(tuitionId, formData, false);
+			PubSub.publish('tuition.edit', updatedTuition);
 			notification.push('Receipt Config has been successfully updated');
 			tuitionsArr = tuitionsArr.map(tuitionObj => tuitionObj._id === tuitionId ? updatedTuition : tuitionObj)
 			render();
