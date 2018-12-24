@@ -179,6 +179,7 @@ const student = (() => {
 
 	async function emailReciept() {
 		try {
+			console.log(docDef);
 			await tuitionApiCalls.emailReciept({ email: recieptEmail, docDef: JSON.stringify(docDef) })
 			notification.push(`Reciept has been mailed to ${recieptEmail}`);
 		} catch (err) {
