@@ -179,6 +179,7 @@ const student = (() => {
 
 	async function emailReciept() {
 		try {
+			console.log(docDef);
 			await tuitionApiCalls.emailReciept({ email: recieptEmail, docDef: JSON.stringify(docDef) })
 			notification.push(`Reciept has been mailed to ${recieptEmail}`);
 		} catch (err) {
@@ -805,6 +806,11 @@ const student = (() => {
 		} else {
 			distinctStudentsArr.push(newStudent);
 		}
+		refresh();
+	});
+
+	PubSub.subscribe('tuition.edit', (msg, editedTuition) => {
+		distinctTuitionsArr = distinctTuitionsArr.map(tuitionObj => tuitionObj._id === editedTuition._id ? editedTuition : tuitionObj);
 		refresh();
 	});
 

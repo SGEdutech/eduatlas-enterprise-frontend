@@ -1,17 +1,32 @@
 const recieptConfig = (() => {
 	let tuitionsArr;
 	let $receiptConfigForm;
+	let $formInputs;
+
+	function getAllInputValue() {
+		const inputNameToValues = {};
+		$formInputs.each((__, inp) => {
+			const $inp = $(inp);
+			const name = $inp.attr('name');
+			let value = $inp.val();
+			if (Boolean(value) === false) value = 'empty';
+			inputNameToValues[name] = value;
+		});
+		return inputNameToValues;
+	}
 
 	async function saveConfig(event) {
 		try {
 			event.preventDefault();
 			const $form = $(event.currentTarget);
-			const formData = $form.serialize();
+			const formData = getAllInputValue();
+			console.log(formData);
 			const tuitionId = $form.attr('data-tuition-id');
 			const updatedTuition = await tuitionApiCalls.updateInTuition(tuitionId, formData, false);
+			PubSub.publish('tuition.edit', updatedTuition);
 			notification.push('Receipt Config has been successfully updated');
 			tuitionsArr = tuitionsArr.map(tuitionObj => tuitionObj._id === tuitionId ? updatedTuition : tuitionObj)
-			render();
+			refresh();
 		} catch (err) {
 			console.error(err);
 		}
@@ -19,6 +34,10 @@ const recieptConfig = (() => {
 
 	function cache() {
 		$receiptConfigForm = $('.add-receipt-config-form');
+	}
+
+	function cacheDynamic() {
+		$formInputs = $receiptConfigForm.find('input');
 	}
 
 	function bindEvents() {
@@ -38,6 +57,11 @@ const recieptConfig = (() => {
 		});
 	}
 
+	function refresh() {
+		render();
+		cacheDynamic();
+	}
+
 	function init(tuitions) {
 		if (tuitions === undefined) throw new Error('Tuitions not provided');
 		if (Array.isArray(tuitions) === false) throw new Error('Tuitions must be an array');
@@ -46,6 +70,7 @@ const recieptConfig = (() => {
 		cache();
 		bindEvents();
 		render();
+		cacheDynamic();
 	}
 
 	return { init };

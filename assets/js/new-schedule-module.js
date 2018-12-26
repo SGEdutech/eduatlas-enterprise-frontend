@@ -306,10 +306,7 @@ const schedule = (() => {
 			batchOfThisInstitute.forEach(batchObj => {
 				const schedulesByWeek = sortByWeek(batchObj);
 				injectBatchCodeInSortedSchedulesObj(schedulesByWeek, batchObj.code);
-				if (Object.keys(schedulesByWeek).length === 0) {
-
-				} else {
-					console.log(schedulesByWeek);
+				if (Object.keys(schedulesByWeek).length === 0) {} else {
 					cardsHtml += template.newScheduleCard({ schedules: schedulesByWeek, batchCode: batchObj.code, tuitionId: tuitionId })
 				}
 			});
