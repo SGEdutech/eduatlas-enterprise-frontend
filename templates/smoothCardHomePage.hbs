@@ -10,7 +10,15 @@
                 <div class="card p-0 m-0 rounded-0 rounded-top" style="overflow: hidden;text-overflow: ellipsis">
                     <div class="rounded-top" style="position: absolute; height: 192px;width: 100%;background-color: rgba(0,0,0,0.5)">
                     </div>
-                    <img class="card-img-top" src="/assets/img/fourgirls.jpeg" alt="Tuition Image" style="height: 182px;width: 100%;">
+                    {{#if img_tuitionCoverPic}}
+                    <img class="card-img-top" src="/images/{{img_tuitionCoverPic}}" alt="Tuition Image" style="height: 182px;width: 100%;">
+                    {{else}}
+                    {{#if img_schoolCoverPic}}
+                    <img class="card-img-top" src="/images/{{img_schoolCoverPic}}" alt="School Image" style="height: 182px;width: 100%;">
+                    {{else}}
+                    <img class="card-img-top" src="/assets/img/fourgirls.jpg" alt="School Image" style="height: 182px;width: 100%;">
+                    {{/if}}
+                    {{/if}}
                     <div class="card-img-overlay">
                         <h4 class="card-title text-white">{{name}}</h4>
                         <span class="badge badge-warning">{{averageRating}}/5</span>
