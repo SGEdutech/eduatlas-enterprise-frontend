@@ -8,7 +8,7 @@ try {
 
 	getDetails.returnData('tuition', queryObject).then((tuitionInfo) => {
 		redirectTabs.init(queryObject);
-		// coverImage.init('tuition', tuitionInfo);
+		coverImage.init('tuition', tuitionInfo);
 		basicDetails.init('tuition', tuitionInfo);
 		facilitiesDescriptionCategory.init('tuition', tuitionInfo);
 		contactUs.init('tuition', tuitionInfo);
