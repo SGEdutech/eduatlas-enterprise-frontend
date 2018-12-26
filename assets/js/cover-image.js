@@ -8,7 +8,7 @@ const coverImage = (() => {
 	function render(typeOfInfo, tuitionInfo) {
 		let imagePath;
 		if (typeOfInfo === 'tuition') {
-			imagePath = 'images/' + tuitionInfo.img_coverPic;
+			imagePath = 'images/' + tuitionInfo.img_tuitionCoverPic;
 		} else if (typeOfInfo === 'school') {
 			imagePath = 'images/' + tuitionInfo.img_schoolCoverPic;
 		} else if (typeOfInfo === 'event') {
