@@ -757,6 +757,68 @@ const tuitionApiCalls = (() => {
 		});
 	}
 
+	function getAllClaimedLeads() {
+		return $.ajax({
+			type: 'GET',
+			url: 'tuition/lead/claimed'
+		});
+	}
+
+	function putLeadsInTuition(idOfTuition, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error('Not a valid idOfTuition');
+		}
+		return $.ajax({
+			type: 'POST',
+			url: `tuition/${idOfTuition}/lead`,
+			data: bodyObj,
+			cache: false,
+			contentType: false,
+			processData: false
+		});
+	}
+
+	function editLeadInTuition(idOfTuition, idOfLead, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error('Not a valid idOfTuition');
+		}
+		if (!checkForHexRegExp.test(idOfLead)) {
+			console.error('Not a valid idOfLead');
+		}
+		return $.ajax({
+			type: 'PUT',
+			url: `tuition/${idOfTuition}/lead/${idOfLead}`,
+			data: bodyObj
+		});
+	}
+
+	function putMessageInLead(idOfTuition, idOfLead, bodyObj) {
+		if (!checkForHexRegExp.test(idOfTuition)) {
+			console.error('Not a valid idOfTuition');
+		}
+		if (!checkForHexRegExp.test(idOfLead)) {
+			console.error('Not a valid idOfLead');
+		}
+		return $.ajax({
+			type: 'POST',
+			url: `tuition/${idOfTuition}/lead/${idOfLead}/comment`,
+			data: bodyObj
+		});
+	}
+
+	// function deleteLeadInTuition(idOfTuition, idOfResourse) {
+	// 	if (!checkForHexRegExp.test(idOfTuition)) {
+	// 		console.error('Not a valid idOfTuition');
+	// 	}
+	// 	if (!checkForHexRegExp.test(idOfResourse)) {
+	// 		console.error('Not a valid idOfResourse');
+	// 	}
+	// 	return $.ajax({
+	// 		type: 'DELETE',
+	// 		url: `tuition/${idOfTuition}/resource/${idOfResourse}`,
+	// 	});
+	// }
+
 	return {
 		getAllTuitions,
 		getAllClaimedTuitions,
@@ -809,6 +871,10 @@ const tuitionApiCalls = (() => {
 		putResourseInTuition,
 		editResourseInTuition,
 		deleteResourseInTuition,
-		emailReciept
+		emailReciept,
+		getAllClaimedLeads,
+		putLeadsInTuition,
+		editLeadInTuition,
+		putMessageInLead
 	};
 })();

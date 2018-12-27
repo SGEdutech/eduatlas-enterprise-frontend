@@ -11,8 +11,8 @@
 	</div>
 	<ul class="nav nav-pills nav-pills-success mt-3">
 		<li class="nav-item"><a class="nav-link active rounded-0" href="#pill1{{tabNumber}}" data-toggle="tab">Configure</a></li>
-		{{!-- <li class="nav-item"><a class="nav-link rounded-0" href="#pill2{{tabNumber}}" data-toggle="tab">Promoter</a></li>
-		--}}
+		<li class="nav-item"><a class="nav-link rounded-0" href="#pill2{{tabNumber}}" data-toggle="tab">Promoter</a></li>
+
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill3{{tabNumber}}" data-toggle="tab">Communicator</a></li>
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill4{{tabNumber}}" data-toggle="tab">Schedule</a></li>
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill5{{tabNumber}}" data-toggle="tab">Attendance</a></li>
@@ -601,156 +601,186 @@
 				</div>
 			</div>
 		</div>
-		{{!-- <div class="tab-pane" id="pill2{{tabNumber}}">
-			<ul class="nav nav-pills nav-pills-success nav-pills-icons" role="tablist">
-				<li class="nav-item col-3">
-					{{#if promotedHome}}
-					<a class="nav-link active" href="#dashboard-1{{tabNumber}}" role="tab" data-toggle="tab">
-						<i class="material-icons" style="font-size: 48px">
-							home
-						</i>
-						Ad Stats for
-						<h4 class="info-title">
-							HOMEPAGE</h4>
-					</a>
-					{{else}}
-					<a class="nav-link" href="#dashboard-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
-						<span class="badge badge-pill badge-danger">Not purchased</span>
-						<i class="material-icons" style="font-size: 48px">
-							home
-						</i>
-						Ad Stats for
-						<h4 class="info-title">
-							HOMEPAGE</h4>
-					</a>
-					{{/if}}
+		<div class="tab-pane" id="pill2{{tabNumber}}">
 
-				</li>
-				<li class="nav-item col-3">
-					{{#if promotedSearch}}
-					<a class="nav-link" href="#schedule-1{{tabNumber}}" role="tab" data-toggle="tab">
-						<i class="material-icons" style="font-size: 48px">
-							search
-						</i>
-						Ad Stats for
-						<h4 class="info-title">
-							SEARCHPAGE</h4>
-					</a>
-					{{else}}
-					<a class="nav-link" href="#schedule-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
-						<span class="badge badge-pill badge-danger">Not purchased</span>
-						<i class="material-icons" style="font-size: 48px">
-							search
-						</i>
-						Ad Stats for
-						<h4 class="info-title">
-							SEARCHPAGE</h4>
-					</a>
-					{{/if}}
-				</li>
-				<li class="nav-item col-3">
-					{{#if promotedRelated}}
-					<a class="nav-link" href="#tasks-1{{tabNumber}}" role="tab" data-toggle="tab">
-						<span class="badge badge-pill badge-danger">Not purchased</span>
-						<i class="material-icons" style="font-size: 48px">
-							format_list_bulleted
-						</i>
-						Ad Stats for
-						<h4 class="info-title">
-							RELATED LISTING</h4>
-					</a>
-					{{else}}
-					<a class="nav-link" href="##tasks-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
-						<span class="badge badge-pill badge-danger">Not purchased</span>
-						<i class="material-icons" style="font-size: 48px">
-							format_list_bulleted
-						</i>
-						Ad Stats for
-						<h4 class="info-title">
-							RELATED LISTING</h4>
-					</a>
-					{{/if}}
-				</li>
-			</ul>
-			<div class="tab-content tab-space">
-				<div class="tab-pane active" id="dashboard-1{{tabNumber}}">
-					{{#if promotedHome}}
-					<div class="row mx-3 justify-content-around">
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-body">
-									<div class="card-stats justify-content-around">
-										<canvas id="myChart{{tabNumber}}"></canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6 ">
-							<div class="card">
-								<div class="card-body">
-									<div class="card-stats justify-content-around">
-										<canvas id="myChart2{{tabNumber}}"></canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					{{else}}
-					<div class="row mx-3">
-						<small>You Don't have promoter subscription, click on above buttons to activate promoter</small>
-					</div>
-					{{/if}}
+			<div class="row m-0">
+				<div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
+					<ul class="nav nav-pills nav-pills-success flex-column">
+						<li class="nav-item"><a class="nav-link active rounded-0" href="#ads{{tabNumber}}" data-toggle="tab">Advertisements</a></li>
+						<li class="nav-item"><a class="nav-link rounded-0" href="#newleads{{tabNumber}}" data-toggle="tab">New Leads</a></li>
+						<li class="nav-item"><a class="nav-link rounded-0" href="#activeleads{{tabNumber}}" data-toggle="tab">Active
+								Leads</a></li>
+						<li class="nav-item"><a class="nav-link rounded-0" href="#closedleads{{tabNumber}}" data-toggle="tab">Closed
+								Leads</a></li>
+					</ul>
 				</div>
-				<div class="tab-pane" id="schedule-1{{tabNumber}}">
-					{{#if promotedSearch}}
-					<div class="row mx-3 justify-content-around">
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-body">
-									<div class="card-stats justify-content-around">
-										<canvas id="myChart{{tabNumber}}1"></canvas>
+				<div class="col-md-10">
+					<div class="tab-content">
+						<div class="tab-pane active" id="ads{{tabNumber}}">
+							<ul class="nav nav-pills nav-pills-success nav-pills-icons" role="tablist">
+								<li class="nav-item col-3">
+									{{#if promotedHome}}
+									<a class="nav-link active" href="#dashboard-1{{tabNumber}}" role="tab" data-toggle="tab">
+										<i class="material-icons" style="font-size: 48px">
+											home
+										</i>
+										Ad Stats for
+										<h4 class="info-title">
+											HOMEPAGE</h4>
+									</a>
+									{{else}}
+									<a class="nav-link" href="#dashboard-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
+										<span class="badge badge-pill badge-danger">Not purchased</span>
+										<i class="material-icons" style="font-size: 48px">
+											home
+										</i>
+										Ad Stats for
+										<h4 class="info-title">
+											HOMEPAGE</h4>
+									</a>
+									{{/if}}
+
+								</li>
+								<li class="nav-item col-3">
+									{{#if promotedSearch}}
+									<a class="nav-link" href="#schedule-1{{tabNumber}}" role="tab" data-toggle="tab">
+										<i class="material-icons" style="font-size: 48px">
+											search
+										</i>
+										Ad Stats for
+										<h4 class="info-title">
+											SEARCHPAGE</h4>
+									</a>
+									{{else}}
+									<a class="nav-link" href="#schedule-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
+										<span class="badge badge-pill badge-danger">Not purchased</span>
+										<i class="material-icons" style="font-size: 48px">
+											search
+										</i>
+										Ad Stats for
+										<h4 class="info-title">
+											SEARCHPAGE</h4>
+									</a>
+									{{/if}}
+								</li>
+								<li class="nav-item col-3">
+									{{#if promotedRelated}}
+									<a class="nav-link" href="#tasks-1{{tabNumber}}" role="tab" data-toggle="tab">
+										<span class="badge badge-pill badge-danger">Not purchased</span>
+										<i class="material-icons" style="font-size: 48px">
+											format_list_bulleted
+										</i>
+										Ad Stats for
+										<h4 class="info-title">
+											RELATED LISTING</h4>
+									</a>
+									{{else}}
+									<a class="nav-link" href="##tasks-1{{tabNumber}}" data-toggle="modal" data-target="#promoterModal">
+										<span class="badge badge-pill badge-danger">Not purchased</span>
+										<i class="material-icons" style="font-size: 48px">
+											format_list_bulleted
+										</i>
+										Ad Stats for
+										<h4 class="info-title">
+											RELATED LISTING</h4>
+									</a>
+									{{/if}}
+								</li>
+							</ul>
+							<div class="tab-content tab-space">
+								<div class="tab-pane active" id="dashboard-1{{tabNumber}}">
+									{{#if promotedHome}}
+									<div class="row mx-3 justify-content-around">
+										<div class="col-md-6">
+											<div class="card">
+												<div class="card-body">
+													<div class="card-stats justify-content-around">
+														<canvas id="myChart{{tabNumber}}"></canvas>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6 ">
+											<div class="card">
+												<div class="card-body">
+													<div class="card-stats justify-content-around">
+														<canvas id="myChart2{{tabNumber}}"></canvas>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
+									{{else}}
+									<div class="row mx-3">
+										<small>You Don't have promoter subscription, click on above buttons to activate promoter</small>
+									</div>
+									{{/if}}
+								</div>
+								<div class="tab-pane" id="schedule-1{{tabNumber}}">
+									{{#if promotedSearch}}
+									<div class="row mx-3 justify-content-around">
+										<div class="col-md-6">
+											<div class="card">
+												<div class="card-body">
+													<div class="card-stats justify-content-around">
+														<canvas id="myChart{{tabNumber}}1"></canvas>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6 ">
+											<div class="card">
+												<div class="card-body">
+													<div class="card-stats justify-content-around">
+														<canvas id="myChart2{{tabNumber}}1"></canvas>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									{{/if}}
+								</div>
+								<div class="tab-pane" id="tasks-1{{tabNumber}}">
+									{{#if promotedRelated}}
+									<div class="row mx-3 justify-content-around">
+										<div class="col-md-6">
+											<div class="card">
+												<div class="card-body">
+													<div class="card-stats justify-content-around">
+														<canvas id="myChart{{tabNumber}}2"></canvas>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6 ">
+											<div class="card">
+												<div class="card-body">
+													<div class="card-stats justify-content-around">
+														<canvas id="myChart2{{tabNumber}}2"></canvas>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									{{/if}}
 								</div>
 							</div>
 						</div>
-						<div class="col-md-6 ">
-							<div class="card">
-								<div class="card-body">
-									<div class="card-stats justify-content-around">
-										<canvas id="myChart2{{tabNumber}}1"></canvas>
-									</div>
-								</div>
+						<div class="tab-pane" id="newleads{{tabNumber}}">
+							<div class="row m-0 new-leads-container" data-tuition-id="{{_id}}">
+								
 							</div>
+						</div>
+						<div class="tab-pane" id="activeleads{{tabNumber}}">
+							<div class="row m-0 active-leads-container" data-tuition-id="{{_id}}"></div>
+						</div>
+						<div class="tab-pane" id="closedleads{{tabNumber}}">
+							<div class="row m-0 closed-leads-container" data-tuition-id="{{_id}}"></div>
 						</div>
 					</div>
-					{{/if}}
-				</div>
-				<div class="tab-pane" id="tasks-1{{tabNumber}}">
-					{{#if promotedRelated}}
-					<div class="row mx-3 justify-content-around">
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-body">
-									<div class="card-stats justify-content-around">
-										<canvas id="myChart{{tabNumber}}2"></canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6 ">
-							<div class="card">
-								<div class="card-body">
-									<div class="card-stats justify-content-around">
-										<canvas id="myChart2{{tabNumber}}2"></canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					{{/if}}
 				</div>
 			</div>
-		</div> --}}
+		</div>
 		<div class="tab-pane" id="pill3{{tabNumber}}">
 			<div class="row m-0">
 				<div class="col-md-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
@@ -1302,8 +1332,8 @@
 												</div>
 											</div> --}}
 											<div class="col-12">
-												<button class="btn btn-round btn-success pull-right" type="submit"
-												 data-tuition-id="{{_id}}">UPLOAD AND SHARE</button>
+												<button class="btn btn-round btn-success pull-right" type="submit" data-tuition-id="{{_id}}">UPLOAD AND
+													SHARE</button>
 											</div>
 										</div>
 									</form>

@@ -31,9 +31,10 @@ async function initModules() {
 		promiseArr.push(tuitionApiCalls.getAllClaimedDiscounts());
 		promiseArr.push(notificationApiCalls.getClaimedNotifications());
 		promiseArr.push(tuitionApiCalls.getAllClaimedResourses());
+		promiseArr.push(tuitionApiCalls.getAllClaimedLeads());
 		promiseArr.push(user.getInfo());
 
-		const [claimedCourses, claimedBatches, claimedStudents, claimedInstitute, claimedSchools, claimedEvents, claimedForums, claimedDiscounts, claimedNotifications, claimedResourses, userInfo] =
+		const [claimedCourses, claimedBatches, claimedStudents, claimedInstitute, claimedSchools, claimedEvents, claimedForums, claimedDiscounts, claimedNotifications, claimedResourses, claimedLeads, userInfo] =
 		await Promise.all(promiseArr);
 
 		instituteInfo.init(claimedInstitute);
@@ -49,6 +50,7 @@ async function initModules() {
 		finance.init(claimedStudents, claimedCourses, claimedBatches, claimedDiscounts);
 		resourses.init(claimedResourses, claimedBatches, claimedStudents);
 		recieptConfig.init(claimedInstitute);
+		leads.init(claimedLeads);
 
 		userImgAndName.init(userInfo);
 		modal.init();

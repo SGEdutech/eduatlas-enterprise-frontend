@@ -1,0 +1,17 @@
+{{#each leads as |lead|}}
+<div class="col-4">
+    <div class="card">
+        <div class="card-body">
+            {{!-- <h4 class="card-title">Card title</h4> --}}
+            <h6 class="card-subtitle mb-2 text-muted">{{createdAt}}</h6>
+            <p class="card-text" style="max-height:100px; overflow-y:hidden">{{message}}</p>
+            <div class="text-danger" style="max-height:25; overflow-y:hidden">{{name}}</div>
+            <div class="text-danger" style="max-height:25; overflow-y:hidden">{{phone}}</div>
+            <div class="text-danger" style="max-height:25; overflow-y:hidden">{{email}}</div>
+            <button class="btn btn-block btn-info rounded-0 lead-respond-button" data-lead-id="{{_id}}" data-tuition-id="{{tuitionId}}">Respond</button>
+        </div>
+    </div>
+</div>
+{{else}}
+<small class="text-danger">No Leads to show</small>
+{{/each}}

@@ -1,0 +1,30 @@
+<div class="col-md-10 mb-2" style="border: 1px solid rgba(0, 0, 0, 0.1)">
+    <div class="card-title h4">{{name}}</div>
+    <div class="text-danger">{{phone}}</div>
+    <div class="text-danger">{{email}}</div>
+    <div class="text-danger">{{createdAt}}</div>
+</div>
+<div class="col-md-2 mb-2">
+    <label for="status" class="">Status</label>
+    <select class="" name="status" id="lead_status_select">
+        <option value="active">Active</option>
+        <option value="closed">Closed</option>
+        <option value="enrolled">Enrolled</option>
+    </select>
+</div>
+<div class="col-md-12 mb-2" id="lead_comments_container">
+    {{#each comments}}
+    <div class="mx-2">
+        <p class="text-secondary mb-0">{{createdAt}}</p>
+        {{!-- <br> --}}
+        <p>{{message}}</p>
+    </div>
+    {{/each}}
+</div>
+<div class="col-md-12">
+    <textarea class="w-100 form-control" name="message" id="lead_respond_message_inp" rows="3" placeholder="add comment"></textarea>
+</div>
+<div class="col-md-12">
+    <label for="followup_date_inp">Next Follow Up</label>
+    <input class="form-control" type="datetime" value="2019-01-01T00:00" name="followUpDate" id="followup_date_inp">
+</div>
