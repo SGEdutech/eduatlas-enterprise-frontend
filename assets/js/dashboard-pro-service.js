@@ -11,6 +11,10 @@ Handlebars.registerHelper('inc', function(value, options) {
 	return parseInt(value, 10) + 1;
 });
 
+Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
+    return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+});
+
 user.getInfo().then(userInfo => {
 	navigationBar.init(userInfo, {
 		colorOnScroll: false,

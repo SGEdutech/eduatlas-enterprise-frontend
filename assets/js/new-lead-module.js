@@ -14,17 +14,28 @@ const leads = (() => {
 	let $statusSelect;
 	let $updateLeadButton;
 
-	function filterArrays(leadId, addedComment, status) {
+	function filterArraysAndInsertComment(leadId, addedComment, status, nextFollowUp) {
+		// first search in newLeadsArr
 		let leadToUpdate = newLeadsArr.find(leadObj => leadObj._id === leadId);
 		if (leadToUpdate) {
-			leadToUpdate.comments.push(addedComment);
-
 			newLeadsArr = newLeadsArr.filter(leadObj => leadObj._id !== leadId);
 		} else {
+			// now search in activeLeadsArr
 			leadToUpdate = activeLeadsArr.find(leadObj => leadObj._id === leadId);
-			leadToUpdate.comments.push(addedComment);
+			if (leadToUpdate) {
+				activeLeadsArr = activeLeadsArr.filter(leadObj => leadObj._id !== leadId);
+			} else {
+				// now search in closedLeadsArr
+				leadToUpdate = closedLeadsArr.find(leadObj => leadObj._id === leadId);
+				closedLeadsArr = closedLeadsArr.filter(leadObj => leadObj._id !== leadId);
+			}
+		}
 
-			activeLeadsArr = activeLeadsArr.filter(leadObj => leadObj._id !== leadId);
+		leadToUpdate.comments.push(addedComment);
+		leadToUpdate.status = status;
+		if (nextFollowUp) {
+			leadToUpdate.milliSec = moment(nextFollowUp).valueOf();
+			leadToUpdate.nextFollowUp = moment(nextFollowUp).format('lll');
 		}
 
 		if (status === 'closed' || status === 'enrolled') {
@@ -45,17 +56,17 @@ const leads = (() => {
 			const nextFollowUp = $nextFollowupInp.val();
 			const status = $statusSelect.val();
 			// console.log(status);
-			if (!nextFollowUp) {
+			if (!nextFollowUp && status === 'active') {
 				alert('please provide next follow-up date');
 				throw new Error('nextFollowUp not provided');
 			}
-            const bodyObj = { comment: { message }, nextFollowUp, status };
-            console.log(bodyObj);
+			const bodyObj = { comment: { message }, nextFollowUp, status };
+			console.log(bodyObj);
 			const addedComment = await tuitionApiCalls.putMessageInLead(tuitionId, leadId, bodyObj);
 			$leadRespondModal.modal('hide');
 			alert('Comment added successfully');
 			addedComment.createdAt = moment(addedComment.createdAt).format('lll');
-			filterArrays(leadId, addedComment, status);
+			filterArraysAndInsertComment(leadId, addedComment, status, nextFollowUp);
 			refresh();
 		} catch (err) {
 			console.error(err);
@@ -75,6 +86,10 @@ const leads = (() => {
 		$updateLeadButton.attr('data-lead-id', leadId);
 	}
 
+	function sortActiveLeadsArr() {
+		activeLeadsArr.sort((a, b) => parseInt(a.milliSec) - parseInt(b.milliSec));
+	}
+
 	function parseTime() {
 		distinctLeadsArr.forEach(leadObj => {
 			leadObj.createdAt = moment(leadObj.createdAt).format('lll');
@@ -82,6 +97,11 @@ const leads = (() => {
 				leadObj.comments.forEach(messageObj => {
 					messageObj.createdAt = moment(messageObj.createdAt).format('lll');
 				})
+			}
+			if (leadObj.nextFollowUp) {
+				leadObj.milliSec = moment(leadObj.nextFollowUp).valueOf();
+				// console.log(leadObj.milliSec);
+				leadObj.nextFollowUp = moment(leadObj.nextFollowUp).format('lll');
 			}
 		})
 	}
@@ -142,6 +162,7 @@ const leads = (() => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
 
+			sortActiveLeadsArr();
 			const leadsOfThisTuition = activeLeadsArr.filter(leadObj => leadObj.tuitionId === tuitionId);
 			const cardsHtml = template.leadCards({ leads: leadsOfThisTuition });
 			$container.html(cardsHtml);

@@ -3,15 +3,21 @@
     <div class="text-danger">{{phone}}</div>
     <div class="text-danger">{{email}}</div>
     <div class="text-danger">{{createdAt}}</div>
+    <div class="mx-2">
+        <p>{{message}}</p>
+    </div>
 </div>
 <div class="col-md-2 mb-2">
     <label for="status" class="">Status</label>
     <select class="" name="status" id="lead_status_select">
         <option value="active">Active</option>
-        <option value="closed">Closed</option>
-        <option value="enrolled">Enrolled</option>
+        <option value="closed" {{#ifEquals status "closed"}}selected{{/ifEquals}}>Closed</option>
+        <option value="enrolled" {{#ifEquals status "enrolled"}}selected{{/ifEquals}}>Enrolled</option>
     </select>
 </div>
+{{!-- <div class="col-md-12 mb-2">
+    
+</div> --}}
 <div class="col-md-12 mb-2" id="lead_comments_container">
     {{#each comments}}
     <div class="mx-2">
