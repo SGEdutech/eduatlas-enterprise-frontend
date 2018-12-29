@@ -179,7 +179,6 @@ const student = (() => {
 
 	async function emailReciept() {
 		try {
-			console.log(docDef);
 			await tuitionApiCalls.emailReciept({ email: recieptEmail, docDef: JSON.stringify(docDef) })
 			notification.push(`Reciept has been mailed to ${recieptEmail}`);
 		} catch (err) {
@@ -201,8 +200,9 @@ const student = (() => {
 		const courseId = paymentInfo.courseId;
 		const courseInfo = distinctCoursesArr.find(courseObj => courseObj._id === courseId);
 
+		const gstPercentage = courseInfo.gstPercentage || 0;
 		const netFee = courseInfo.fees - paymentInfo.discountAmount;
-		const gstAmount = netFee * (courseInfo.gstPercentage / 100);
+		const gstAmount = netFee * (gstPercentage / 100);
 		const totalAmount = netFee + gstAmount;
 		const balanceAmount = totalAmount - installmentInfo.feeCollected;
 
@@ -418,8 +418,8 @@ const student = (() => {
 			const courseId = $courseSelectContainer.filter(`[data-tuition-id="${tuitionId}"]`).val();
 			const courseInfo = distinctCoursesArr.find(courseObj => courseObj._id === courseId);
 			if (courseInfo === undefined) return;
-			const netFee = $netFee.filter(`[data-tuition-id="${tuitionId}"]`).val();
-			const gstPercentage = courseInfo.gstPercentage;
+			const netFee = parseInt($netFee.filter(`[data-tuition-id="${tuitionId}"]`).val());
+			const gstPercentage = courseInfo.gstPercentage || 0;
 			const taxAmount = netFee * (gstPercentage / 100);
 			$inp.val(taxAmount);
 		});

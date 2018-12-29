@@ -8,9 +8,9 @@ function getDocDef(inpObj) {
 			fontSize: 10,
 			margin: [40, 0, 0, 0],
 			stack: [
-				'SG Edutech',
-				'8906784568',
-				'eduatlas.com',
+				// 'SG Edutech',
+				// '8906784568',
+				'Eduatlas.com',
 				{ text: 'this invoice cum receipt is electronically generated and does not require any sign' }
 			]
 		},
@@ -97,22 +97,22 @@ function getDocDef(inpObj) {
 					}]
 				}]
 			},
-			{
-				stack: [
-					{ text: 'Invoice Note', style: 'bigger' },
-					{ text: 'terms and conditions', margin: [0, 10, 0, 10] },
-					{
-						ol: [
-							' the 1500s, wg release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including version',
-							' and web page editors now use Lorem Ipsum as their default model text, and a search for will uncover many web sites still in their infancy. Various versions have evolve',
-							'e majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to us',
-							'sher dhgtjd srfsegfs rdhtrgd hdrghdr',
-							'dfs sufhs fesufh esf se ef',
-							'sgf sdfdsfsd sdf df sd fd fsd fds fdsdsf d fsdf d '
-						]
-					}
-				],
-			},
+			// {
+			// 	stack: [
+			// 		{ text: 'Invoice Note', style: 'bigger' },
+			// 		{ text: 'terms and conditions', margin: [0, 10, 0, 10] },
+			// 		{
+			// 			ol: [
+			// 				' the 1500s, wg release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including version',
+			// 				' and web page editors now use Lorem Ipsum as their default model text, and a search for will uncover many web sites still in their infancy. Various versions have evolve',
+			// 				'e majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to us',
+			// 				'sher dhgtjd srfsegfs rdhtrgd hdrghdr',
+			// 				'dfs sufhs fesufh esf se ef',
+			// 				'sgf sdfdsfsd sdf df sd fd fsd fds fdsdsf d fsdf d '
+			// 			]
+			// 		}
+			// 	],
+			// },
 
 		],
 		styles: {
@@ -215,18 +215,18 @@ function insertVariableFields(docDefinition, inpObj) {
 	}
 
 	if (couponName && couponAmount) {
-		const couponNameObj = { text: `${couponName} (${couponAmount})` };
+		const couponNameObj = { text: couponName };
 		docDefinition.content[3].columns[1].columns[0].stack.push(couponNameObj);
 
 		docDefinition.content[3].columns[1].columns[1].stack.push('-' + couponAmount);
 	}
 
-	if (additionalDiscountAmount) {
-		const additionalDiscountObj = { text: 'Additional Discount' };
-		docDefinition.content[3].columns[1].columns[0].stack.push(additionalDiscountObj);
+	// if (additionalDiscountAmount) {
+	// 	const additionalDiscountObj = { text: 'Additional Discount' };
+	// 	docDefinition.content[3].columns[1].columns[0].stack.push(additionalDiscountObj);
 
-		docDefinition.content[3].columns[1].columns[1].stack.push('-' + additionalDiscountAmount);
-	}
+	// 	docDefinition.content[3].columns[1].columns[1].stack.push('-' + additionalDiscountAmount);
+	// }
 
 	if (gstPercentage && gstAmount) {
 		const additionalDiscountObj = { text: `GST (${gstPercentage})` };
@@ -251,7 +251,7 @@ function insertVariableFields(docDefinition, inpObj) {
 		docDefinition.content[3].columns[1].columns[1].stack.push(amountObj);
 	}
 
-	if (true) {
+	if (balance) {
 		const textObj = { text: 'Balance', style: 'bigger' };
 		docDefinition.content[3].columns[1].columns[0].stack.push(textObj);
 
