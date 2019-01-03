@@ -14,9 +14,10 @@
                 <small class="text-secondary">Number of Students Shared With:</small>
                 <small class="text-danger" style="text-transform: uppercase">{{resourse.students.length}}</small>
             </p>
-            <form method="get" action="{{resourse.path}}">
+            <a class="btn btn-round btn-info btn-block" href="{{resourse.path}}" download>Download</a>
+            {{!-- <form method="get" action="{{resourse.path}}">
                 <button class="btn btn-round btn-info btn-block" type="submit">Download</button>
-            </form>
+            </form> --}}
             <div class="row pull-right text-secondary">
                 <i class="material-icons delete-resourse-btn" style="top: 0%; cursor: pointer;" data-resourse-id="{{resourse._id}}" data-tuition-id="{{resourse.tuitionId}}">delete</i>
                 {{!-- <i class="material-icons resourse-edit-btn" style="top: 0%; cursor: pointer;" data-resourse-id="{{resourse._id}}" data-tuition-id="{{resourse.tuitionId}}">edit</i> --}}
