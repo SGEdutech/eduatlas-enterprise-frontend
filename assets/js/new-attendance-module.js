@@ -34,7 +34,6 @@ const attendance = (() => {
 		const schedule = batch.schedules.find(scheduleObj => scheduleObj._id === scheduleId);
 		const absentStudentIDs = schedule.studentsAbsent;
 		const absenrStudentDetailsArr = distinctStudentsArr.filter(studentInfo => absentStudentIDs.includes(studentInfo._id));
-		console.log(absenrStudentDetailsArr);
 		const tableHTML = template.absentStudentTable({ students: absenrStudentDetailsArr });
 		$absentStudentTableContainer.html(tableHTML);
 		$attendanceModal.modal('show');
@@ -447,11 +446,13 @@ const attendance = (() => {
 	});
 
 	PubSub.subscribe('schedule.edit', (msg, scheduleInfo) => {
+		// Cloning schedules so we don't end up messing with it
+		const editedSchedule = JSON.parse(JSON.stringify(scheduleInfo.schedule));
 		distinctBatchesArr.forEach(batchObj => {
 			if (batchObj._id === scheduleInfo.batchId) {
 				batchObj.schedules.forEach((schedule, index) => {
 					if (schedule._id === scheduleInfo.schedule._id) {
-						batchObj.schedules[index] = scheduleInfo.schedule;
+						batchObj.schedules[index] = editedSchedule;
 					}
 				});
 			}

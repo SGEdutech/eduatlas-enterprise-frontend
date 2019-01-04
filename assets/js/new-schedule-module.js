@@ -12,7 +12,6 @@ const schedule = (() => {
 	let $addClassEntryBtn;
 	let $dayDropdown;
 	let $addScheduleContainer;
-	let $saveScheduleBtn;
 	let $batchCheckboxContainer;
 	let $clonedRows;
 	let $staticScheduleCol;
@@ -72,7 +71,6 @@ const schedule = (() => {
 		do {
 			// Incase we reach outside html
 			if ($possibleScheduleRow.length === 0) return;
-
 			$possibleScheduleRow = $possibleScheduleRow.parent();
 		} while ($possibleScheduleRow.hasClass('schedule-row') === false);
 		$possibleScheduleRow.remove();
@@ -119,20 +117,17 @@ const schedule = (() => {
 			editedData.fromTime = dateAndTime.twelveHourToMinutesFromMidnight(editedData.fromTime);
 			editedData.toTime = dateAndTime.twelveHourToMinutesFromMidnight(editedData.toTime);
 			editedData.date = randomScripts.getDateObjFromIsoDateStr(editedData.date);
-			const editedschedule = await submitEditRequest(tuitionId, courseId, batchId, scheduleId, editedData);
+			const editedSchedule = await submitEditRequest(tuitionId, courseId, batchId, scheduleId, editedData);
 			modal.hideModal();
-			editedschedule.fromTime = dateAndTime.inverseMinutesFromMidnight(editedschedule.fromTime);
-			editedschedule.toTime = dateAndTime.inverseMinutesFromMidnight(editedschedule.toTime);
 			notification.push('Schedule has been successfully edited');
 			const studentEmailIdsOfThisBatch = getStudentEmailIds(batchId);
 			notificationApiCalls.putNewNotification(tuitionId, 'A class of your batch has been edited', studentEmailIdsOfThisBatch);
 			let objToBePublished;
 			distinctBatchesArr.forEach(batchObj => {
 				if (batchObj._id !== batchId) return;
-				batchObj.schedules = batchObj.schedules.filter(scheduleObj => scheduleObj._id !== scheduleId);
-				batchObj.schedules.push(editedschedule);
+				batchObj.schedules = batchObj.schedules.map(scheduleObj => scheduleObj._id === scheduleId ? editedSchedule : scheduleObj);
 				// Preparing new object to for PubSub
-				objToBePublished = { batchId: batchObj._id, schedule: editedschedule };
+				objToBePublished = { batchId: batchObj._id, schedule: editedSchedule };
 				PubSub.publish('schedule.edit', objToBePublished);
 			});
 			refresh();
@@ -236,10 +231,6 @@ const schedule = (() => {
 			const newSchedulesArr = await Promise.all(addSchedulesPromiseArr);
 			batchIdsSequence.forEach((batchId, index) => {
 				const schedulesOfThisBatch = newSchedulesArr[index];
-				schedulesOfThisBatch.forEach(scheduleObj => {
-					if (scheduleObj.fromTime) scheduleObj.fromTime = dateAndTime.inverseMinutesFromMidnight(scheduleObj.fromTime);
-					if (scheduleObj.toTime) scheduleObj.toTime = dateAndTime.inverseMinutesFromMidnight(scheduleObj.toTime);
-				});
 				let batchInfo;
 				distinctBatchesArr.forEach(batchObj => {
 					if (batchObj._id === batchId) batchInfo = batchObj;
@@ -294,6 +285,15 @@ const schedule = (() => {
 		});
 	}
 
+	function injectFromAndToTime() {
+		distinctBatchesArr.forEach(batch => {
+			batch.schedules.forEach(scheduleInfo => {
+				// Only parse if it has not already been parsed before
+				if (typeof scheduleInfo.fromTime === 'number') scheduleInfo.fromTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.fromTime);
+				if (typeof scheduleInfo.toTime === 'number') scheduleInfo.toTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.toTime);
+			});
+		});
+	}
 
 	function render() {
 		$scheduleContainer.each((index, container) => {
@@ -306,7 +306,9 @@ const schedule = (() => {
 			batchOfThisInstitute.forEach(batchObj => {
 				const schedulesByWeek = sortByWeek(batchObj);
 				injectBatchCodeInSortedSchedulesObj(schedulesByWeek, batchObj.code);
-				if (Object.keys(schedulesByWeek).length === 0) {} else {
+				if (Object.keys(schedulesByWeek).length === 0) {
+					// TODO: Warning
+				} else {
 					cardsHtml += template.newScheduleCard({ schedules: schedulesByWeek, batchCode: batchObj.code, tuitionId: tuitionId })
 				}
 			});
@@ -325,7 +327,6 @@ const schedule = (() => {
 	}
 
 	function cache() {
-		$saveScheduleBtn = $('.save-schedule-btn');
 		$scheduleContainer = $('.active-schedule-container');
 		$addClassEntryBtn = $('.add-class-entry');
 		$batchCheckboxContainer = $('.batch-checkbox-container');
@@ -374,6 +375,7 @@ const schedule = (() => {
 	}
 
 	function refresh() {
+		injectFromAndToTime();
 		injectClassDateInSchedules();
 		injectBatchIdAndTuitionId();
 		render();
@@ -384,18 +386,13 @@ const schedule = (() => {
 	function init(batches, students) {
 		if (batches === undefined) throw new Error('Batches not provided');
 		if (Array.isArray(batches) === false) throw new Error('Batches not an array');
+		if (students === undefined) throw new Error('Students not provided');
+		if (Array.isArray(students) === false) throw new Error('Students not an array');
 
 		distinctBatchesArr = JSON.parse(JSON.stringify(batches));
 		distinctStudentArr = JSON.parse(JSON.stringify(students));
 
-		// Parsing time
-		distinctBatchesArr.forEach(batch => {
-			batch.schedules.forEach(scheduleInfo => {
-				scheduleInfo.fromTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.fromTime);
-				scheduleInfo.toTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.toTime);
-			});
-		});
-
+		injectFromAndToTime();
 		injectClassDateInSchedules();
 		injectBatchIdAndTuitionId();
 		cache();

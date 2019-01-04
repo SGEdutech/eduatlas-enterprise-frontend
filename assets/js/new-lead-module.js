@@ -188,7 +188,6 @@ const leads = (() => {
 	function init(leadsArr) {
 		if (Array.isArray(leadsArr) === false) throw new Error('Leads must be an array');
 		distinctLeadsArr = leadsArr;
-		console.log(distinctLeadsArr);
 		parseTime();
 		splitLeads();
 
