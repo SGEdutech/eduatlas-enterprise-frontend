@@ -239,8 +239,8 @@ const attendance = (() => {
 	function parseFromAndToTime() {
 		distinctBatchesArr.forEach(batch => {
 			batch.schedules.forEach(scheduleInfo => {
-				scheduleInfo.fromTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.fromTime);
-				scheduleInfo.toTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.toTime);
+				if (typeof scheduleInfo.fromTime === 'number') scheduleInfo.fromTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.fromTime);
+				if (typeof scheduleInfo.fromTime === 'number') scheduleInfo.toTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.toTime);
 			});
 		});
 	}
@@ -264,13 +264,6 @@ const attendance = (() => {
 	}
 
 	function renderScheduleCards() {
-		// Parsing time
-		parseFromAndToTime();
-		// injecting date 
-		injectClassDateInSchedules();
-		// injecting various IDs
-		injectBatchIdAndTuitionId();
-
 		$scheduleCardsContainer.each((index, container) => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
@@ -398,6 +391,9 @@ const attendance = (() => {
 
 	function refresh() {
 		cacheDynamic();
+		parseFromAndToTime();
+		injectClassDateInSchedules();
+		injectBatchIdAndTuitionId();
 		render();
 	}
 
@@ -409,6 +405,9 @@ const attendance = (() => {
 		distinctStudentsArr = JSON.parse(JSON.stringify(students));
 		cache();
 		bindEvents();
+		parseFromAndToTime();
+		injectClassDateInSchedules();
+		injectBatchIdAndTuitionId();
 		render();
 		cacheDynamic();
 		bindDynamic();
