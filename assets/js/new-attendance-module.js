@@ -402,15 +402,17 @@ const attendance = (() => {
 		$excelUploadSubmitBtn.click(uploadExcelData);
 		$scheduleSelectForScheduleCards.change(showSelectedScheduleContainer);
 		$viewAttendanceBtn.click(showAttendance);
+		$scheduleSelectForScheduleCards.selectpicker();
 	}
 
 	function refresh() {
-		cacheDynamic();
 		sortByDateAndTime();
 		parseFromAndToTime();
 		injectClassDateInSchedules();
 		injectBatchIdAndTuitionId();
 		render();
+		cacheDynamic();
+		bindDynamic();
 	}
 
 	function init(batches, students) {
