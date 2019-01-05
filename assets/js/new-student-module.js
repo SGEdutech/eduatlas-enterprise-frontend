@@ -392,7 +392,7 @@ const student = (() => {
 		$discountReason.each((__, inp) => {
 			const $inp = $(inp);
 			const tuitionId = $inp.attr('data-tuition-id');
-			const discountId = $discountSelectContainer.val();
+			const discountId = $discountSelectContainer.filter(`[data-tuition-id="${tuitionId}"]`).val();
 			const additionalDiscount = $additionalDiscountInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
 			let discountReason = '';
 			if (discountId) {

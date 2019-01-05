@@ -64,14 +64,14 @@ function getDocDef(inpObj) {
 				alignment: 'justify',
 				columns: [
 				{
-					width: '*',
+					width: '30%',
 					text: '',
 
 				},
 				{
 					columns: [
 					{
-						width: '*',
+						width: '60%',
 						stack: [
 							{ text: 'Sub Total' },
 							// { text: 'Coupon1 (9993.30)' },
@@ -219,6 +219,9 @@ function insertVariableFields(docDefinition, inpObj) {
 		docDefinition.content[3].columns[1].columns[0].stack.push(couponNameObj);
 
 		docDefinition.content[3].columns[1].columns[1].stack.push('-' + couponAmount);
+		if (couponName.length >= 32) {
+			docDefinition.content[3].columns[1].columns[1].stack.push(' ');
+		}
 	}
 
 	// if (additionalDiscountAmount) {
