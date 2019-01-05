@@ -41,8 +41,8 @@ function getDocDef(inpObj) {
 				{
 					width: '*',
 					stack: [
-						{ text: 'Invoice Number', style: 'bigger' },
-						'INV 5',
+						// { text: 'Invoice Number', style: 'bigger' },
+						// 'INV 5',
 						{ text: 'Date', style: 'bigger' },
 						'Sep 15 2018'
 					],
@@ -64,14 +64,14 @@ function getDocDef(inpObj) {
 				alignment: 'justify',
 				columns: [
 				{
-					width: '*',
+					width: '30%',
 					text: '',
 
 				},
 				{
 					columns: [
 					{
-						width: '*',
+						width: '60%',
 						stack: [
 							{ text: 'Sub Total' },
 							// { text: 'Coupon1 (9993.30)' },
@@ -200,8 +200,10 @@ function insertVariableFields(docDefinition, inpObj) {
 
 	if (userName) {
 		const today = new Date();
-		const date = today.getDate();
-		docDefinition.content[1].columns[1].stack[3] = date;
+		var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+		const date = today.toLocaleDateString('en-US', options);
+
+		docDefinition.content[1].columns[1].stack[1] = date;
 	}
 
 
@@ -219,6 +221,9 @@ function insertVariableFields(docDefinition, inpObj) {
 		docDefinition.content[3].columns[1].columns[0].stack.push(couponNameObj);
 
 		docDefinition.content[3].columns[1].columns[1].stack.push('-' + couponAmount);
+		if (couponName.length >= 32) {
+			docDefinition.content[3].columns[1].columns[1].stack.push(' ');
+		}
 	}
 
 	// if (additionalDiscountAmount) {

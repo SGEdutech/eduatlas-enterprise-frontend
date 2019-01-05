@@ -36,12 +36,16 @@ const resourses = (() => {
 			const tuitionId = $form.attr('data-tuition-id');
 			const formData = new FormData($form[0]);
 
-			// const userEmails = [];
-			// const $checkedStudentCheckbox = $studentCheckbox.filter(`[data-tuition-id="${tuitionId}"]:checked`);
-			// $checkedStudentCheckbox.each((__, inp) => {
-			// 	const $inp = $(inp);
-			// 	userEmails.push($inp.val());
-			// });
+			const userEmails = [];
+			const $checkedStudentCheckbox = $studentCheckbox.filter(`[data-tuition-id="${tuitionId}"]:checked`);
+			$checkedStudentCheckbox.each((__, inp) => {
+				const $inp = $(inp);
+				userEmails.push($inp.val());
+			});
+			if (userEmails.length === 0) {
+				alert('Please select atleast one student');
+				throw new Error('no user selected');
+			}
 
 			const newResourse = await tuitionApiCalls.putResourseInTuition(tuitionId, formData);
 			newResourse.tuitionId = tuitionId;

@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
         <div class="card-title text-uppercase">{{batchCode}}</div>
-        <label for="week-select-for-schedule-cards">Select Week: </label>
+        <label class="mb-0" for="week-select-for-schedule-cards">Select Week: </label>
         <select class="week-select-for-schedule-cards" data-tuition-id="{{tuitionId}}" data-batch-code="{{batchCode}}">
             {{#each schedules as |value key|}}
             <option value="{{@key}}">{{@key}}</option>
@@ -30,8 +30,8 @@
                                     {{#each value as |scheduleArr|}}
                                     <tr id="{{_id}}">
                                         <td>{{classDate}}</td>
-                                        <td>{{fromTime}}</td>
-                                        <td>{{toTime}}</td>
+                                        <td>{{classFromTime}}</td>
+                                        <td>{{classToTime}}</td>
                                         <td>{{topic}}</td>
                                         <td>{{faculty}}</td>
                                         <td>

@@ -23,7 +23,7 @@ const attendance = (() => {
 	let $attendanceModal;
 
 	function showAttendance() {
-		event.preventDefault();
+		// How the fuck is this working
 		const $select = $(event.currentTarget);
 		const tuitionId = $select.attr('data-tuition-id');
 		const courseId = $select.attr('data-course-id');
@@ -112,10 +112,9 @@ const attendance = (() => {
 		$excelUploadModal.modal('hide');
 	}
 
-	function changeformatOfDateAndFromTime(schedulesArr) {
+	function changeformatOfDate(schedulesArr) {
 		schedulesArr.forEach(scheduleObj => {
 			if (scheduleObj.date) scheduleObj.date = moment(scheduleObj.date).format('MMM Do');
-			if (scheduleObj.fromTime) scheduleObj.fromTime = dateAndTime.inverseMinutesFromMidnight(scheduleObj.fromTime);
 		})
 	}
 
@@ -236,11 +235,27 @@ const attendance = (() => {
 		});
 	}
 
+	function sortByDateAndTime() {
+		// requires fromTime as Integer
+		distinctBatchesArr.forEach(batch => {
+			batch.schedules.forEach(scheduleInfo => {
+				if (scheduleInfo.date) {
+					scheduleInfo.milliSec = parseInt(moment(scheduleInfo.date).valueOf(), 10);
+				}
+			});
+			batch.schedules.sort((a, b) => {
+				if (a.milliSec > b.milliSec) return 1
+				if (a.milliSec < b.milliSec) return -1
+				return a.fromTime - b.fromTime;
+			});
+		});
+	}
+
 	function parseFromAndToTime() {
 		distinctBatchesArr.forEach(batch => {
 			batch.schedules.forEach(scheduleInfo => {
 				if (typeof scheduleInfo.fromTime === 'number') scheduleInfo.fromTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.fromTime);
-				if (typeof scheduleInfo.fromTime === 'number') scheduleInfo.toTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.toTime);
+				if (typeof scheduleInfo.toTime === 'number') scheduleInfo.toTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.toTime);
 			});
 		});
 	}
@@ -326,7 +341,7 @@ const attendance = (() => {
 			// Terminate function if selected week has no classes scheduled
 			if (schedulesArr === undefined) return;
 			const clonedSchedulesArr = JSON.parse(JSON.stringify(schedulesArr));
-			changeformatOfDateAndFromTime(clonedSchedulesArr);
+			changeformatOfDate(clonedSchedulesArr);
 			const scheduleOptionsHtml = template.scheduleOptions2({ schedules: clonedSchedulesArr });
 			$dropdown.html(scheduleOptionsHtml).selectpicker('refresh');
 		});
@@ -387,14 +402,17 @@ const attendance = (() => {
 		$excelUploadSubmitBtn.click(uploadExcelData);
 		$scheduleSelectForScheduleCards.change(showSelectedScheduleContainer);
 		$viewAttendanceBtn.click(showAttendance);
+		$scheduleSelectForScheduleCards.selectpicker();
 	}
 
 	function refresh() {
-		cacheDynamic();
+		sortByDateAndTime();
 		parseFromAndToTime();
 		injectClassDateInSchedules();
 		injectBatchIdAndTuitionId();
 		render();
+		cacheDynamic();
+		bindDynamic();
 	}
 
 	function init(batches, students) {
@@ -405,6 +423,7 @@ const attendance = (() => {
 		distinctStudentsArr = JSON.parse(JSON.stringify(students));
 		cache();
 		bindEvents();
+		sortByDateAndTime();
 		parseFromAndToTime();
 		injectClassDateInSchedules();
 		injectBatchIdAndTuitionId();
