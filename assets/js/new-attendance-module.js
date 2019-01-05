@@ -23,7 +23,7 @@ const attendance = (() => {
 	let $attendanceModal;
 
 	function showAttendance() {
-		event.preventDefault();
+		// How the fuck is this working
 		const $select = $(event.currentTarget);
 		const tuitionId = $select.attr('data-tuition-id');
 		const courseId = $select.attr('data-course-id');
