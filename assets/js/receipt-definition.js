@@ -41,8 +41,8 @@ function getDocDef(inpObj) {
 				{
 					width: '*',
 					stack: [
-						{ text: 'Invoice Number', style: 'bigger' },
-						'INV 5',
+						// { text: 'Invoice Number', style: 'bigger' },
+						// 'INV 5',
 						{ text: 'Date', style: 'bigger' },
 						'Sep 15 2018'
 					],
@@ -200,8 +200,10 @@ function insertVariableFields(docDefinition, inpObj) {
 
 	if (userName) {
 		const today = new Date();
-		const date = today.getDate();
-		docDefinition.content[1].columns[1].stack[3] = date;
+		var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+		const date = today.toLocaleDateString('en-US', options);
+
+		docDefinition.content[1].columns[1].stack[1] = date;
 	}
 
 

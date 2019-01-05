@@ -22,6 +22,22 @@ const schedule = (() => {
 	let $scheduleContainerForScheduleCards;
 	let $scheduleSelectForScheduleCards;
 
+	function sortByDateAndTime() {
+		// requires fromTime as Integer
+		distinctBatchesArr.forEach(batch => {
+			batch.schedules.forEach(scheduleInfo => {
+				if (scheduleInfo.date) {
+					scheduleInfo.milliSec = parseInt(moment(scheduleInfo.date).valueOf(), 10);
+				}
+			});
+			batch.schedules.sort((a, b) => {
+				if (a.milliSec > b.milliSec) return 1
+				if (a.milliSec < b.milliSec) return -1
+				return a.fromTime - b.fromTime;
+			});
+		});
+	}
+
 	function showSelectedScheduleContainer() {
 		event.preventDefault();
 		const $select = $(event.target);
@@ -289,8 +305,8 @@ const schedule = (() => {
 		distinctBatchesArr.forEach(batch => {
 			batch.schedules.forEach(scheduleInfo => {
 				// Only parse if it has not already been parsed before
-				if (typeof scheduleInfo.fromTime === 'number') scheduleInfo.fromTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.fromTime);
-				if (typeof scheduleInfo.toTime === 'number') scheduleInfo.toTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.toTime);
+				if (typeof scheduleInfo.fromTime === 'number') scheduleInfo.classFromTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.fromTime);
+				if (typeof scheduleInfo.toTime === 'number') scheduleInfo.classToTime = dateAndTime.inverseMinutesFromMidnight(scheduleInfo.toTime);
 			});
 		});
 	}
@@ -376,6 +392,7 @@ const schedule = (() => {
 	}
 
 	function refresh() {
+		sortByDateAndTime();
 		injectFromAndToTime();
 		injectClassDateInSchedules();
 		injectBatchIdAndTuitionId();
@@ -393,6 +410,7 @@ const schedule = (() => {
 		distinctBatchesArr = JSON.parse(JSON.stringify(batches));
 		distinctStudentArr = JSON.parse(JSON.stringify(students));
 
+		sortByDateAndTime();
 		injectFromAndToTime();
 		injectClassDateInSchedules();
 		injectBatchIdAndTuitionId();
