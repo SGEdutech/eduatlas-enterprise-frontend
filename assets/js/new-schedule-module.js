@@ -85,7 +85,7 @@ const schedule = (() => {
 
 	function updateDays(fromDate, tuitionId) {
 		const allDaysTillSunday = dateAndTime.getDaysTillSunday(fromDate);
-		$dayDropdown.filter(`[data-tuition-id="${tuitionId}"]`).html(template.daySelectOptions({ days: allDaysTillSunday })).selectpicker('refresh');
+		$dayDropdown.filter(`[data-tuition-id="${tuitionId}"]`).html(template.daySelectOptions({ days: allDaysTillSunday }));
 	}
 
 	function updateTodateAndSelectDays(event) {
@@ -372,6 +372,7 @@ const schedule = (() => {
 		$scheduleSelectForScheduleCards.change(showSelectedScheduleContainer);
 		// Time Picker
 		$fromTime.add($toTime).datetimepicker(dateTimePickerConfig.timePicker);
+		$scheduleSelectForScheduleCards.selectpicker();
 	}
 
 	function refresh() {
