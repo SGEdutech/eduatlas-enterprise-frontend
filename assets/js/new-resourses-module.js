@@ -12,7 +12,6 @@ const resourses = (() => {
 	let $allUploadedFilesContainer;
 	let $deleteResourseBtn;
 	let $editResourseBtn;
-
 	let $addResourseForm;
 
 	async function deleteResourse(event) {
@@ -204,6 +203,52 @@ const resourses = (() => {
 		cacheDynamic();
 		bindDynamic();
 	}
+
+	PubSub.subscribe('course.edit', (msg, editedCourse) => {
+		distinctBatchesArr.forEach(batchObj => {
+			if (editedCourse._id === batchObj.courseId) batchObj.courseCode = editedCourse.code;
+		});
+		refresh();
+	});
+
+	PubSub.subscribe('course.delete', (msg, deletedCourse) => {
+		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj.courseId !== deletedCourse._id);
+		refresh();
+	});
+
+	PubSub.subscribe('batch.add', (msg, addedBatch) => {
+		distinctBatchesArr.push(addedBatch);
+		refresh();
+	});
+
+	PubSub.subscribe('batch.edit', (msg, editedBatch) => {
+		distinctBatchesArr = distinctBatchesArr.map(batchObj => batchObj._id === editedBatch._id ? editedBatch : batchObj);
+		refresh();
+	});
+
+	PubSub.subscribe('batch.delete', (msg, removedBatch) => {
+		distinctBatchesArr = distinctBatchesArr.filter(batchObj => batchObj._id !== removedBatch._id);
+		refresh();
+	});
+
+	PubSub.subscribe('student.add', (msg, studentAdded) => {
+		if (Array.isArray(studentAdded)) {
+			studentsArr = studentsArr.concat(studentAdded);
+			return;
+		}
+		studentsArr.push(studentAdded);
+		refresh();
+	});
+
+	PubSub.subscribe('student.edit', (msg, studentEdited) => {
+		studentsArr = studentsArr.map(studentObj => studentObj._id === studentEdited._id ? studentEdited : studentObj);
+		refresh();
+	});
+
+	PubSub.subscribe('student.delete', (msg, studentDeleted) => {
+		studentsArr = studentsArr.filter(studentObj => studentObj._id !== studentDeleted._id);
+		refresh();
+	});
 
 	return { init };
 })();

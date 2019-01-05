@@ -207,10 +207,7 @@ const announcement = (() => {
 	});
 
 	PubSub.subscribe('batch.edit', (msg, editedBatch) => {
-		distinctBatchesArr = distinctBatchesArr.map(batchObj => {
-			if (batchObj._id === editedBatch._id) return editedBatch;
-			return batchObj;
-		});
+		distinctBatchesArr = distinctBatchesArr.map(batchObj => batchObj._id === editedBatch._id ? editedBatch : batchObj);
 		refresh();
 	});
 
@@ -222,9 +219,9 @@ const announcement = (() => {
 	PubSub.subscribe('student.add', (msg, studentAdded) => {
 		if (Array.isArray(studentAdded)) {
 			studentsArr = studentsArr.concat(studentAdded);
-		} else {
-			studentsArr.push(studentAdded);
+			return;
 		}
+		studentsArr.push(studentAdded);
 		refresh();
 	});
 
