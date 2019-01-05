@@ -749,12 +749,10 @@ const student = (() => {
 	});
 
 	PubSub.subscribe('course.edit', (msg, editedCourse) => {
-		distinctCoursesArr.forEach(courseObj => {
-			if (courseObj._id === editedCourse._id) courseObj.code = editedCourse.code;
+		distinctCoursesArr = distinctCoursesArr.map(courseObj => courseObj._id === editedCourse._id ? editedCourse : courseObj);
+		distinctBatchesArr.forEach(batchObj => {
+			if (batchObj.courseId === editedCourse._id) batchObj.courseCode = editedCourse.code;
 		});
-		distinctCoursesArr.forEach(batchObj => {
-			if (editedCourse._id === batchObj.courseId) batchObj.courseCode = editedCourse.code;
-		})
 		refresh();
 	});
 
