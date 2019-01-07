@@ -1,7 +1,9 @@
 <div class="col-12">
     <div class="form-group">
         <label class="text-dark">YouTube Link</label>
-        <input type="text" name="ytUrl" class="form-control resourse-title-inp w-100" data-tuition-id="{{_id}}" required>
+        <input type="text" name="ytUrl" class="form-control resourse-title-inp w-100" data-tuition-id="{{_id}}"
+        pattern="^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
+        title="Youtube URL" required>
     </div>
     <div class="col-12">
         <button class="btn btn-round btn-success pull-right" type="submit" data-tuition-id="{{_id}}">UPLOAD AND
