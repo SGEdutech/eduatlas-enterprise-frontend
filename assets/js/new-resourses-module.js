@@ -45,7 +45,6 @@ const resourses = (() => {
 				alert('Please select atleast one student');
 				throw new Error('no user selected');
 			}
-
 			const newResourse = await tuitionApiCalls.putResourseInTuition(tuitionId, formData);
 			newResourse.tuitionId = tuitionId;
 			distinctResoursesArr.push(newResourse);

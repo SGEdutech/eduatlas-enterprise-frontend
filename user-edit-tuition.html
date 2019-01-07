@@ -457,12 +457,12 @@
 												<form id="newImageForm" enctype="multipart/form-data">
 													<div class="form-group">
 														<label for="albumTitle">Image Title</label>
-														<small class="text-danger">*</small>
+														<small class="text-danger">* (must be unique)</small>
 														<input class="form-control" name="imageName" type="text" id="imageTitle" required>
 													</div>
 													<div class="form-group">
 														<label for="albumTitle">Album Name</label>
-														<input class="form-control" name="album" type="text" id="albumTitle">
+														<input class="form-control" name="album" type="text" id="albumTitle" placeholder="optional">
 													</div>
 													<input type="file" name="path" accept="image/*" id="galleryImgInp" required>
 													<!-- <div class="form-group form-file-upload form-file-multiple">

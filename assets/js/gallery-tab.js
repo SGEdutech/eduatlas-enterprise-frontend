@@ -11,12 +11,12 @@ const galleryTab = (() => {
 	function cache() {
 		$newImageform = $('#newImageForm');
 		$addNewImageButton = $('#add_new_image_button');
-		$galleryContainer = $("#galleryContainer");
+		$galleryContainer = $('#galleryContainer');
 		$galleryImgInp = $('#galleryImgInp');
 		$newImageModal = $('#new_image_modal');
 		$saveAndExitButton = $('#saveNExit');
 		$galleryBackBtn = $('#gallery_back_btn');
-		$lastTab = $(`[href = "#tab5"]`);
+		$lastTab = $('[href = "#tab5"]');
 	}
 
 	function cacheDynamic() {
@@ -108,24 +108,23 @@ const galleryTab = (() => {
 
 	function deleteImage(typeOfInfo, element, instituteId) {
 		const $element = $(element);
-		let album = $element.attr('data-album');
+		let imageName = $element.attr('data-image-name');
 		let cardId = $element.attr('data-image-id');
-		// console.log(album);
 		// console.log(cardId);
 
 		eagerRemoveCard(cardId);
 		let tempPromise;
 		if (typeOfInfo === "tuition") {
 			tempPromise = tuitionApiCalls.deleteInArrayInTuition(instituteId, "gallery", {
-				album: album
+				imageName: imageName
 			})
 		} else if (typeOfInfo === "school") {
 			tempPromise = schoolApiCalls.deleteInArrayInSchool(instituteId, "gallery", {
-				album: album
+				imageName: imageName
 			})
 		} else {
 			tempPromise = eventApiCalls.deleteInArrayInEvent(instituteId, "gallery", {
-				album: album
+				imageName: imageName
 			})
 		}
 		tempPromise.then(() => {
