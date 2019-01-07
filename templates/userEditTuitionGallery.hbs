@@ -4,7 +4,7 @@
         <span style="position: absolute;left: 92%;top: -6%;">
             <!-- send (_id of result obj received , id of card) as arguments for function deleteResult()-->
             <button class="btn btn-danger btn-fab btn-fab-mini btn-round deleteBtn delete-image-button" data-image-id="{{_id}}"
-                data-album="{{album}}">
+                data-image-name="{{imageName}}">
                 <i class="material-icons">
                     delete
                 </i>
@@ -17,7 +17,7 @@
         {{/if}}
         <div class="card-body">
             <div class="card-title">
-                {{album}}
+                {{imageName}}
             </div>
         </div>
     </div>
