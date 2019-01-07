@@ -54,7 +54,7 @@ async function initModules() {
 		finance.init(claimedStudents, claimedCourses, claimedBatches, claimedDiscounts);
 		resourses.init(claimedResourses, claimedBatches, claimedStudents);
 		recieptConfig.init(claimedInstitute);
-		leads.init(claimedLeads);
+		leads.init(claimedLeads, claimedCourses);
 
 		userImgAndName.init(userInfo);
 		modal.init();

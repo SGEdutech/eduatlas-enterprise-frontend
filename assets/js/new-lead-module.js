@@ -1,5 +1,6 @@
 const leads = (() => {
 	let distinctLeadsArr;
+	let distinctCoursesArr;
 	let newLeadsArr = [];
 	let activeLeadsArr = [];
 	let closedLeadsArr = [];
@@ -61,7 +62,7 @@ const leads = (() => {
 				throw new Error('nextFollowUp not provided');
 			}
 			const bodyObj = { comment: { message }, nextFollowUp, status };
-			console.log(bodyObj);
+			// console.log(bodyObj);
 			const addedComment = await tuitionApiCalls.putMessageInLead(tuitionId, leadId, bodyObj);
 			$leadRespondModal.modal('hide');
 			alert('Comment added successfully');
@@ -77,7 +78,7 @@ const leads = (() => {
 		const $btn = $(event.currentTarget);
 		const tuitionId = $btn.attr('data-tuition-id');
 		const leadId = $btn.attr('data-lead-id');
-		const leadObj = distinctLeadsArr.find(leadObj => leadObj._id === leadId);
+		const leadObj = distinctLeadsArr.find(leadInfo => leadInfo._id === leadId);
 		const leadModalBodyHTML = template.leadBody(leadObj);
 		$leadBodyContainer.html(leadModalBodyHTML);
 		$leadRespondModal.modal('show');
@@ -87,7 +88,7 @@ const leads = (() => {
 	}
 
 	function sortActiveLeadsArr() {
-		activeLeadsArr.sort((a, b) => parseInt(a.milliSec) - parseInt(b.milliSec));
+		activeLeadsArr.sort((a, b) => parseInt(a.milliSec, 10) - parseInt(b.milliSec, 10));
 	}
 
 	function parseTime() {
@@ -185,9 +186,11 @@ const leads = (() => {
 		bindDynamicEvents();
 	}
 
-	function init(leadsArr) {
+	function init(leadsArr, courseArr) {
 		if (Array.isArray(leadsArr) === false) throw new Error('Leads must be an array');
+		if (Array.isArray(courseArr) === false) throw new Error('Courses must be an array');
 		distinctLeadsArr = leadsArr;
+		distinctCoursesArr = courseArr;
 		parseTime();
 		splitLeads();
 

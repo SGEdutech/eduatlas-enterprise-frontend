@@ -15,15 +15,33 @@
                 <small class="text-danger" style="text-transform: uppercase">{{resourse.students.length}}</small>
             </p>
             <a class="btn btn-round btn-info btn-block" href="{{resourse.path}}" download>Download</a>
-            {{!-- <form method="get" action="{{resourse.path}}">
-                <button class="btn btn-round btn-info btn-block" type="submit">Download</button>
-            </form> --}}
             <div class="row pull-right text-secondary">
-                <i class="material-icons delete-resourse-btn" style="top: 0%; cursor: pointer;" data-resourse-id="{{resourse._id}}" data-tuition-id="{{resourse.tuitionId}}">delete</i>
-                {{!-- <i class="material-icons resourse-edit-btn" style="top: 0%; cursor: pointer;" data-resourse-id="{{resourse._id}}" data-tuition-id="{{resourse.tuitionId}}">edit</i> --}}
+                <i class="material-icons delete-resourse-btn" style="top: 0%; cursor: pointer;" data-resourse-id="{{resourse._id}}"
+                    data-tuition-id="{{resourse.tuitionId}}">delete</i>
             </div>
-            {{!-- <a class="btn btn-round btn-info" href="{{resourse.path}}" download> --}}
         </div>
     </div>
+</div>
+{{else}}
+<small class="text-danger">No Study Materials Shared</small>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-3">
+                <img src="{{thumbNail}}" alt="youtube thumbnail">
+            </div>
+            <div class="col-9">
+                <div class="row">
+                    <div class="card-title">{{title}}</div>
+                </div>
+                <div class="row">
+                    <p class="card-text">{{description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+
 </div>
 {{/each}}
