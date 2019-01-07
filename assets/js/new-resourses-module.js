@@ -14,7 +14,23 @@ const resourses = (() => {
 	let $allUploadedFilesContainer;
 	let $deleteResourseBtn;
 	let $editResourseBtn;
+	let $resourseTypeSelect;
+	let $resourseInpContainer;
+
 	let $addResourseForm;
+
+	function renderInps(event) {
+		const $select = $(event.currentTarget);
+		const tuitionId = $select.attr('data-tuition-id');
+		const typeOfResourse = $select.val();
+		if (typeOfResourse === 'video') {
+			const videoInpHTML = template.resourseVideoInp();
+			$resourseInpContainer.html(videoInpHTML);
+		} else {
+			const fileInpHTML = template.resourseFileInp();
+			$resourseInpContainer.html(fileInpHTML);
+		}
+	}
 
 	async function deleteResourse(event) {
 		try {
@@ -88,6 +104,8 @@ const resourses = (() => {
 		$studentSearchResetBtn = $('.resourses-student-search-reset');
 		$allUploadedFilesContainer = $('.all-uploaded-files-container');
 		$addResourseForm = $('.resourse-add-form');
+		$resourseTypeSelect = $('.resourses-select-type');
+		$resourseInpContainer = $('.resourse-inp-container');
 	}
 
 	function bindEvents() {
@@ -190,7 +208,7 @@ const resourses = (() => {
 		vidResourceArr.forEach(vidResource => promiseArr.push(getYtVidInfo(resource.ytUrl)));
 		const vidDataArr = await promiseArr;
 		vidResourceArr.forEach((vidResource, index) => {
-			res = promiseArr[index];
+			res = vidDataArr[index];
 			// If video id is incorrect
 			const vidData = res.items.length;
 			if (vidData === 0) return;

@@ -1309,32 +1309,47 @@
 											</div>
 											<br>
 											<div class="form-group">
-												<label class="text-dark">Title Of File</label>
-												<input type="text" name="title" class="resourse-title-inp w-100" data-tuition-id="{{_id}}" required>
+												<label class="text-dark">Type Of Resourse</label>
+												<select name="type" class="form-control resourses-select-type" data-style="btn btn-link" data-tuition-id="{{_id}}" required>
+													<option value="" disabled="" selected="">Select Type</option>
+													<option class="text-uppercase" value="reference material">Reference Material</option>
+													<option class="text-uppercase" value="homework">Homework</option>
+													<option class="text-uppercase" value="test">Assignment/Test</option>
+													<option class="text-uppercase" value="video">Video</option>
+												</select>
 											</div>
-											<div class="form-group">
-												<label class="text-dark">Description Of File</label>
-												<textarea class="form-control resourse-description-inp" rows="2" name="description" data-tuition-id="{{_id}}"></textarea>
-											</div>
-											<div class="">
-												<label class="text-dark">Choose File</label>
-												<input type="file" name="resourse" class="resourse-file-inp w-100" data-tuition-id="{{_id}}" required
-												 accept=".xlsx,.xls,image/*,.doc,.docx,.ppt,.pptx,.txt,.pdf" />
-											</div>
-											{{!-- <div class="form-group form-file-upload form-file-multiple">
-												<input type="file" multiple="" class="inputFileHidden">
-												<div class="input-group">
-													<input type="text" class="form-control inputFileVisible" placeholder="Single File">
-													<span class="input-group-btn">
-														<button type="button" class="btn btn-fab btn-round btn-primary">
-															<i class="material-icons">attach_file</i>
-														</button>
-													</span>
+											<div class="row resourse-inp-container" data-tuition-id="{{_id}}">
+												<div class="col-12">
+													<div class="form-group">
+														<label class="text-dark">Title Of File</label>
+														<input type="text" name="title" class="form-control resourse-title-inp w-100" data-tuition-id="{{_id}}"
+														 required>
+													</div>
+													<div class="form-group">
+														<label class="text-dark">Description Of File</label>
+														<textarea class="form-control resourse-description-inp" rows="2" name="description" data-tuition-id="{{_id}}"></textarea>
+													</div>
+													<div class="">
+														<label class="text-dark">Choose File</label>
+														<input type="file" name="resourse" class="resourse-file-inp w-100" data-tuition-id="{{_id}}" required
+														 accept=".xlsx,.xls,image/*,.doc,.docx,.ppt,.pptx,.txt,.pdf" />
+													</div>
+													{{!-- <div class="form-group form-file-upload form-file-multiple">
+														<input type="file" multiple="" class="inputFileHidden">
+														<div class="input-group">
+															<input type="text" class="form-control inputFileVisible" placeholder="Single File">
+															<span class="input-group-btn">
+																<button type="button" class="btn btn-fab btn-round btn-primary">
+																	<i class="material-icons">attach_file</i>
+																</button>
+															</span>
+														</div>
+													</div> --}}
+													<div class="col-12">
+														<button class="btn btn-round btn-success pull-right" type="submit" data-tuition-id="{{_id}}">UPLOAD AND
+															SHARE FILE</button>
+													</div>
 												</div>
-											</div> --}}
-											<div class="col-12">
-												<button class="btn btn-round btn-success pull-right" type="submit" data-tuition-id="{{_id}}">UPLOAD AND
-													SHARE</button>
 											</div>
 										</div>
 									</form>
