@@ -12,8 +12,23 @@ const resourses = (() => {
 	let $allUploadedFilesContainer;
 	let $deleteResourseBtn;
 	let $editResourseBtn;
+	let $resourseTypeSelect;
+	let $resourseInpContainer;
 
 	let $addResourseForm;
+
+	function renderInps(event) {
+		const $select = $(event.currentTarget);
+		const tuitionId = $select.attr('data-tuition-id');
+		const typeOfResourse = $select.val();
+		if (typeOfResourse === 'video') {
+			const videoInpHTML = template.resourseVideoInp();
+			$resourseInpContainer.html(videoInpHTML);
+		} else {
+			const fileInpHTML = template.resourseFileInp();
+			$resourseInpContainer.html(fileInpHTML);
+		}
+	}
 
 	async function deleteResourse(event) {
 		try {
@@ -88,6 +103,8 @@ const resourses = (() => {
 		$studentSearchResetBtn = $('.resourses-student-search-reset');
 		$allUploadedFilesContainer = $('.all-uploaded-files-container');
 		$addResourseForm = $('.resourse-add-form');
+		$resourseTypeSelect = $('.resourses-select-type');
+		$resourseInpContainer = $('.resourse-inp-container');
 	}
 
 	function cacheDynamic() {
@@ -167,6 +184,7 @@ const resourses = (() => {
 		$selectWholeInstitute.change(markOrUnmarkAllStudents);
 		$studentSearchInp.on('input paste', filterAndRenderSearceResults);
 		$studentSearchResetBtn.click(resetSearchResults);
+		$resourseTypeSelect.change(renderInps);
 	}
 
 	function refresh(opts) {
