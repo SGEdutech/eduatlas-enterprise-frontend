@@ -279,6 +279,114 @@
 								</div>
 								<div class="row">
 									<div class="col-md-12">
+										<div class="p-3">
+											<h2 class="card-title h3">Tags <small>(with better tags your institue will be included in our search results)</small>:</h2>
+											<div id="tagsContainer">
+												<!--FIXME: - fix backend to support array in tags-->
+												<div class="form-check form-check-inline">
+													<label class="form-check-label">
+														<input class="form-check-input" type="checkbox" name="tags" value="home tuitions"> home tuitions
+														<span class="form-check-sign">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<label class="form-check-label">
+														<input class="form-check-input" type="checkbox" name="tags" value="tuitions"> tuitions
+														<span class="form-check-sign">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<label class="form-check-label">
+														<input class="form-check-input" type="checkbox" name="tags" id="tagInp1" value="9th"> 9th
+														<span class="form-check-sign">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<label class="form-check-label">
+														<input class="form-check-input" type="checkbox" name="tags" value="10th"> 10th
+														<span class="form-check-sign">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<label class="form-check-label">
+														<input class="form-check-input" type="checkbox" name="tags" value="12th"> 12th
+														<span class="form-check-sign">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<label class="form-check-label">
+														<input class="form-check-input" type="checkbox" name="tags" value="Coaching"> Coaching
+														<span class="form-check-sign">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<label class="form-check-label">
+														<input class="form-check-input" type="checkbox" name="tags" id="tagInp2" value="CAT"> CAT
+														<span class="form-check-sign">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<label class="form-check-label">
+														<input class="form-check-input" type="checkbox" name="tags" id="tagInp3" value="JEE"> JEE
+														<span class="form-check-sign">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<label class="form-check-label">
+														<input class="form-check-input" type="checkbox" name="tags" id="tagInp4" value="NEET"> NEET
+														<span class="form-check-sign">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<label class="form-check-label">
+														<input class="form-check-input" type="checkbox" name="tags" id="tagInp5" value="SSC"> SSC
+														<span class="form-check-sign">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<label class="form-check-label">
+														<input class="form-check-input" type="checkbox" name="tags" id="tagInp6" value="JAM"> JAM
+														<span class="form-check-sign">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<label class="form-check-label">
+														<input class="form-check-input" type="checkbox" name="tags" id="tagInp7" value="UPSC"> UPSC
+														<span class="form-check-sign">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div id="other_tags_container"></div>
+												<button class="btn btn-round btn-info btn-sm" id="add_other_tags">Add More Tags</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
 										<div class="p-3 ">
 											<h2 class="card-title h3">About Us</h2>
 											<div id="descriptionContainer">
@@ -1004,6 +1112,17 @@
 						<label for="other_facility_input">Facility Name</label>
 						<input class="text-secondary form-control" type="text" id="other_facility_input">
 						<button class="btn btn-round btn-info" id="add_facility_btn">Add</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="other_tags_modal_container">
+			<div id="add_tags_modal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content p-2">
+						<label for="other_facility_input">Tag</label>
+						<input class="text-secondary form-control" type="text" id="other_tags_input">
+						<button class="btn btn-round btn-info" id="add_tags_btn">Add</button>
 					</div>
 				</div>
 			</div>
