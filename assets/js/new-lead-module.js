@@ -14,6 +14,40 @@ const leads = (() => {
 	let $nextFollowupInp;
 	let $statusSelect;
 	let $updateLeadButton;
+	let $manualLeadBtn;
+	let $manualLeadModal;
+	let $manualLeadForm;
+
+	async function addManualLead(event) {
+		try {
+			event.preventDefault();
+			const $form = $(event.currentTarget);
+			const tuitionId = $form.attr('data-tuition-id');
+			const manuallyAddedLead = await tuitionApiCalls.putLeadsInTuition(tuitionId, $form.serialize());
+			// insert tuitionId
+			manuallyAddedLead.tuitionId = tuitionId;
+			// parse time
+			if (manuallyAddedLead.nextFollowUp) {
+				manuallyAddedLead.milliSec = moment(manuallyAddedLead.nextFollowUp).valueOf();
+				manuallyAddedLead.nextFollowUp = moment(manuallyAddedLead.nextFollowUp).format('lll');
+			}
+			activeLeadsArr.push(manuallyAddedLead);
+			distinctLeadsArr.push(manuallyAddedLead);
+			$manualLeadModal.modal('hide');
+			$manualLeadForm.trigger('reset');
+			alert('lead successfully to Active Leads Tab');
+			refresh();
+		} catch (e) {
+			console.error(e);
+		}
+	}
+
+	function initManualLeadModal(event) {
+		const $btn = $(event.currentTarget);
+		const tuitionId = $btn.attr('data-tuition-id');
+		$manualLeadModal.modal('show');
+		$manualLeadForm.attr('data-tuition-id', tuitionId);
+	}
 
 	function filterArraysAndInsertComment(leadId, addedComment, status, nextFollowUp) {
 		// first search in newLeadsArr
@@ -129,6 +163,9 @@ const leads = (() => {
 		$leadBodyContainer = $('#lead_body_container');
 		$leadRespondModal = $('#lead_respond_modal');
 		$updateLeadButton = $('#update_lead_button');
+		$manualLeadBtn = $('.manual-lead-btn');
+		$manualLeadModal = $('#manual_lead_modal');
+		$manualLeadForm = $('#manual_lead_form');
 	}
 
 	function cacheModalBody() {
@@ -147,6 +184,8 @@ const leads = (() => {
 
 	function bindEvents() {
 		$updateLeadButton.click(addMesageToLead);
+		$manualLeadBtn.click(initManualLeadModal);
+		$manualLeadForm.submit(addManualLead);
 	}
 
 	function render() {

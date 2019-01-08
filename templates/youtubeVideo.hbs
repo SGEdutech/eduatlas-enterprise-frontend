@@ -1,0 +1,29 @@
+{{#each resourses as |resourse|}}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-3 pl-0">
+                <a href="{{ytUrl}}" target="_blank">
+                    <img class="card-image w-100" src="{{thumbnail}}" alt="thumbnail">
+                </a>
+            </div>
+            <div class="col-9">
+                <div class="row">
+                    <div class="card-title">{{title}}</div>
+                </div>
+                <div class="row">
+                    <p class="card-text text-dark" style="max-height:75px; overflow-y: hidden;overflow-y: hidden">{{description}}</p>
+                </div>
+                <div class="row ">
+                    <i class="material-icons delete-resourse-btn " style="top: 0%; cursor: pointer;" data-resourse-id="{{resourse._id}}"
+                    data-tuition-id="{{resourse.tuitionId}}">delete</i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{else}}
+<small class="text-danger">No Videos Shared</small>
+{{/each}}

@@ -771,10 +771,10 @@ const tuitionApiCalls = (() => {
 		return $.ajax({
 			type: 'POST',
 			url: `tuition/${idOfTuition}/lead`,
-			data: bodyObj,
-			cache: false,
-			contentType: false,
-			processData: false
+			data: bodyObj
+			// cache: false,
+			// contentType: false,
+			// processData: false
 		});
 	}
 

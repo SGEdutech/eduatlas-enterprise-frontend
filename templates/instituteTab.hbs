@@ -248,10 +248,7 @@
 							<br><br>
 						</div>
 						<div class="tab-pane" id="innertab2{{tabNumber}}">
-							{{!-- <div class=" card-title col-12 h3 bg-info">
-								Active Students
-							</div> --}}
-							<div class="row m-0">
+							<div class="row m-0 student-landing-container" data-tuition-id="{{_id}}">
 								<div class="card mb-5">
 									<div class="card-header card-header-info py-2">
 										<div class="title h4 m-0">Active Students</div>
@@ -455,7 +452,7 @@
 									</form>
 								</div>
 							</div>
-
+							<div class="row m-0 student-details-container d-none" data-tuition-id="{{_id}}"></div>
 						</div>
 						<div class="tab-pane" id="innertab3{{tabNumber}}">
 							<div class="row m-0">
@@ -767,6 +764,10 @@
 							</div>
 						</div>
 						<div class="tab-pane" id="newleads{{tabNumber}}">
+							<div class="row m-0 justify-content-end">
+								<button class="btn btn-info btn-round pull-right manual-lead-btn" data-tuition-id="{{_id}}">Add New Lead
+									Manually</button>
+							</div>
 							<div class="row m-0 new-leads-container" data-tuition-id="{{_id}}">
 
 							</div>
@@ -1241,6 +1242,11 @@
 					<ul class="nav nav-pills nav-pills-success flex-column">
 						<li class="nav-item"><a class="nav-link active rounded-0" href="#shareresourses{{tabNumber}}" data-toggle="tab">Upload
 								And Share</a></li>
+						<li class="nav-item"><a class="nav-link rounded-0" href="#refrenceMaterial{{tabNumber}}" data-toggle="tab">Ref
+								Material</a></li>
+						<li class="nav-item"><a class="nav-link rounded-0" href="#homework{{tabNumber}}" data-toggle="tab">Homework</a></li>
+						<li class="nav-item"><a class="nav-link rounded-0" href="#assignment{{tabNumber}}" data-toggle="tab">Assignment/Test</a></li>
+						<li class="nav-item"><a class="nav-link rounded-0" href="#ytVideo{{tabNumber}}" data-toggle="tab">Video</a></li>
 					</ul>
 				</div>
 				<div class="col-md-10">
@@ -1310,7 +1316,8 @@
 											<br>
 											<div class="form-group">
 												<label class="text-dark">Type Of Resourse</label>
-												<select name="type" class="form-control resourses-select-type" data-style="btn btn-link" data-tuition-id="{{_id}}" required>
+												<select name="type" class="form-control resourses-select-type" data-style="btn btn-link" data-tuition-id="{{_id}}"
+												 required>
 													<option value="" disabled="" selected="">Select Type</option>
 													<option class="text-uppercase" value="reference material">Reference Material</option>
 													<option class="text-uppercase" value="homework">Homework</option>
@@ -1355,7 +1362,7 @@
 									</form>
 								</div>
 							</div>
-							<div class="card mb-3">
+							{{!-- <div class="card mb-3">
 								<div class="card-header card-header-info py-2">
 									<div class="title h4 m-0">All Uploaded Files</div>
 								</div>
@@ -1371,7 +1378,19 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> --}}
+						</div>
+						<div class="tab-pane" id="refrenceMaterial{{tabNumber}}">
+							<div class="row m-0 refrence-material-container" data-tuition-id="{{_id}}"></div>
+						</div>
+						<div class="tab-pane" id="homework{{tabNumber}}">
+							<div class="row m-0 homework-container" data-tuition-id="{{_id}}"></div>
+						</div>
+						<div class="tab-pane" id="assignment{{tabNumber}}">
+							<div class="row m-0 assignment-container" data-tuition-id="{{_id}}"></div>
+						</div>
+						<div class="tab-pane" id="ytVideo{{tabNumber}}">
+							<div class="row m-0 yt-video-container" data-tuition-id="{{_id}}"></div>
 						</div>
 					</div>
 				</div>

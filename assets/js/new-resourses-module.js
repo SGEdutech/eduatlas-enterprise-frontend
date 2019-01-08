@@ -11,11 +11,14 @@ const resourses = (() => {
 	let $selectWholeInstitute;
 	let $studentSearchInp;
 	let $studentSearchResetBtn;
-	let $allUploadedFilesContainer;
 	let $deleteResourseBtn;
 	let $editResourseBtn;
 	let $resourseTypeSelect;
 	let $resourseInpContainer;
+	let $refrenceMaterialContainer;
+	let $homeworkContainer;
+	let $assignmentContainer;
+	let $youtubeVideoContainer;
 
 	let $addResourseForm;
 
@@ -25,10 +28,10 @@ const resourses = (() => {
 		const typeOfResourse = $select.val();
 		if (typeOfResourse === 'video') {
 			const videoInpHTML = template.resourseVideoInp();
-			$resourseInpContainer.html(videoInpHTML);
+			$resourseInpContainer.filter(`[data-tuition-id="${tuitionId}"]`).html(videoInpHTML);
 		} else {
 			const fileInpHTML = template.resourseFileInp();
-			$resourseInpContainer.html(fileInpHTML);
+			$resourseInpContainer.filter(`[data-tuition-id="${tuitionId}"]`).html(fileInpHTML);
 		}
 	}
 
@@ -102,10 +105,13 @@ const resourses = (() => {
 		$selectWholeInstitute = $('.resourses-select-institute');
 		$studentSearchInp = $('.resourses-student-search-inp');
 		$studentSearchResetBtn = $('.resourses-student-search-reset');
-		$allUploadedFilesContainer = $('.all-uploaded-files-container');
 		$addResourseForm = $('.resourse-add-form');
 		$resourseTypeSelect = $('.resourses-select-type');
 		$resourseInpContainer = $('.resourse-inp-container');
+		$refrenceMaterialContainer = $('.refrence-material-container');
+		$homeworkContainer = $('.homework-container');
+		$assignmentContainer = $('.assignment-container');
+		$youtubeVideoContainer = $('.yt-video-container');
 	}
 
 	function bindEvents() {
@@ -114,6 +120,7 @@ const resourses = (() => {
 		$selectWholeInstitute.change(markOrUnmarkAllStudents);
 		$studentSearchInp.on('input paste', filterAndRenderSearceResults);
 		$studentSearchResetBtn.click(resetSearchResults);
+		$resourseTypeSelect.change(renderInps);
 	}
 
 	function cacheDynamic() {
@@ -126,65 +133,6 @@ const resourses = (() => {
 	function bindDynamic() {
 		$batchCheckbox.off().change(markOrUnmarkBatchStudents);
 		$deleteResourseBtn.click(deleteResourse);
-	}
-
-	function filterAndRenderSearceResults(event) {
-		const $input = $(event.target);
-		const tuitionId = $input.attr('data-tuition-id');
-		const searchStr = $studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
-		const searchResultsArr = randomScripts.getStudentSearchResults(studentsArr, searchStr);
-		refresh({ renderStudentsArr: searchResultsArr, renderTuitionId: tuitionId });
-	}
-
-	function resetSearchResults(event) {
-		const $btn = $(event.target);
-		const tuitionId = $btn.attr('data-tuition-id');
-		$studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val('');
-		refresh({ renderTuitionId: tuitionId })
-	}
-
-	function render(opts) {
-		opts = opts || {};
-		opts.renderStudentsArr = opts.renderStudentsArr || studentsArr;
-		$selectStudentContainer.each((__, container) => {
-			const $container = $(container);
-			const tuitionId = $container.attr('data-tuition-id');
-			if (opts.renderTuitionId && opts.renderTuitionId !== tuitionId) return
-
-			const studentsOfThisInstitute = opts.renderStudentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
-			const studentsOptionsHtml = template.announcementStudentsTable({ students: studentsOfThisInstitute });
-			$container.html(studentsOptionsHtml);
-		});
-
-		$selectBatchContainer.each((__, container) => {
-			const $container = $(container);
-			const tuitionId = $container.attr('data-tuition-id');
-			if (opts.tuitionId && opts.tuitionId !== tuitionId) return
-
-			const batchesOfThisInstitute = distinctBatchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
-			const batchesOptionsHtml = template.batchesTable({ batches: batchesOfThisInstitute });
-			$container.html(batchesOptionsHtml);
-		});
-
-		$allUploadedFilesContainer.each((__, container) => {
-			const $container = $(container);
-			const tuitionId = $container.attr('data-tuition-id');
-			if (opts.tuitionId && opts.tuitionId !== tuitionId) return
-			const resoursesOfThisTuitionArr = distinctResoursesArr.filter(resourseObj => resourseObj.tuitionId === tuitionId);
-			// console.log(resoursesOfThisTuitionArr);
-			const notificationDisplayCardsHtml = template.resourseCards({ resourses: resoursesOfThisTuitionArr });
-			$container.html(notificationDisplayCardsHtml);
-		});
-	}
-
-	function markOrUnmarkAllStudents(event) {
-		const $checkBox = $(event.target);
-		const tuitionId = $checkBox.attr('data-tuition-id');
-		if ($checkBox.is(':checked')) {
-			$studentCheckbox.filter(`[data-tuition-id="${tuitionId}"]`).prop('checked', true);
-		} else {
-			$studentCheckbox.filter(`[data-tuition-id="${tuitionId}"]`).prop('checked', false);
-		}
 	}
 
 	function getYtVidInfo(url) {
@@ -205,23 +153,131 @@ const resourses = (() => {
 		// We are changing the original object as it is passed by refrence
 		const vidResourceArr = distinctResoursesArr.filter(resource => Boolean(resource.ytUrl));
 		const promiseArr = [];
-		vidResourceArr.forEach(vidResource => promiseArr.push(getYtVidInfo(resource.ytUrl)));
-		const vidDataArr = await promiseArr;
+		vidResourceArr.forEach(vidResource => promiseArr.push(getYtVidInfo(vidResource.ytUrl)));
+		const vidDataArr = await Promise.all(promiseArr);
 		vidResourceArr.forEach((vidResource, index) => {
 			res = vidDataArr[index];
 			// If video id is incorrect
-			const vidData = res.items.length;
-			if (vidData === 0) return;
+			if (res.items.length === 0) return;
+			const vidData = res.items[0].snippet;
 
-			vidResource.thumbnail = vidData.thumbnail.high.url;
+			vidResource.thumbnail = vidData.thumbnails.high.url;
 			vidResource.title = vidData.title;
 			vidResource.description = vidData.description
 		});
+		return;
 	}
 
-	function refresh(opts) {
-		injectYtVidInfo();
-		render(opts);
+	function filterAndRenderSearceResults(event) {
+		const $input = $(event.target);
+		const tuitionId = $input.attr('data-tuition-id');
+		const searchStr = $studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val();
+		const searchResultsArr = randomScripts.getStudentSearchResults(studentsArr, searchStr);
+		refresh({ renderStudentsArr: searchResultsArr, renderTuitionId: tuitionId });
+	}
+
+	function resetSearchResults(event) {
+		const $btn = $(event.target);
+		const tuitionId = $btn.attr('data-tuition-id');
+		$studentSearchInp.filter(`[data-tuition-id="${tuitionId}"]`).val('');
+		refresh({ renderTuitionId: tuitionId })
+	}
+
+	function renderStudentsCheakboxes() {
+		$selectStudentContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+
+			const studentsOfThisInstitute = studentsArr.filter(studentObj => studentObj.tuitionId === tuitionId);
+			const studentsOptionsHtml = template.announcementStudentsTable({ students: studentsOfThisInstitute });
+			$container.html(studentsOptionsHtml);
+		});
+	}
+
+	function renderBatchCheakboxes() {
+		$selectBatchContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+
+			const batchesOfThisInstitute = distinctBatchesArr.filter(batchObj => batchObj.tuitionId === tuitionId);
+			const batchesOptionsHtml = template.batchesTable({ batches: batchesOfThisInstitute });
+			$container.html(batchesOptionsHtml);
+		});
+	}
+
+	function renderRefrenceMaterialTab() {
+		$refrenceMaterialContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+			const resourcesOfThisTuitionArr = distinctResoursesArr.filter(resourseObj => resourseObj.tuitionId === tuitionId);
+			const refrenceMaterialOfThisTuitionArr = resourcesOfThisTuitionArr.filter(resourseObj => resourseObj.type === 'reference material');
+			const notificationDisplayCardsHtml = template.resourseCards({ resourses: refrenceMaterialOfThisTuitionArr });
+			$container.html(notificationDisplayCardsHtml);
+		});
+	}
+
+	function renderHomeworkTab() {
+		$homeworkContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+			const resourcesOfThisTuitionArr = distinctResoursesArr.filter(resourseObj => resourseObj.tuitionId === tuitionId);
+			const homeworkOfThisTuitionArr = resourcesOfThisTuitionArr.filter(resourseObj => resourseObj.type === 'homework');
+			const notificationDisplayCardsHtml = template.resourseCards({ resourses: homeworkOfThisTuitionArr });
+			$container.html(notificationDisplayCardsHtml);
+		});
+	}
+
+	function renderAssignmentTab() {
+		$assignmentContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+			const resourcesOfThisTuitionArr = distinctResoursesArr.filter(resourseObj => resourseObj.tuitionId === tuitionId);
+			const assignmentsOfThisTuitionArr = resourcesOfThisTuitionArr.filter(resourseObj => resourseObj.type === 'test');
+			const notificationDisplayCardsHtml = template.resourseCards({ resourses: assignmentsOfThisTuitionArr });
+			$container.html(notificationDisplayCardsHtml);
+		});
+	}
+
+	function renderVideosContainer() {
+		$youtubeVideoContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+			const resourcesOfThisTuitionArr = distinctResoursesArr.filter(resourseObj => resourseObj.tuitionId === tuitionId);
+			const videosOfThisTuitionArr = resourcesOfThisTuitionArr.filter(resourseObj => resourseObj.type === 'video');
+			const notificationDisplayCardsHtml = template.youtubeVideo({ resourses: videosOfThisTuitionArr });
+			$container.html(notificationDisplayCardsHtml);
+		});
+	}
+
+	async function render() {
+		try {
+			renderStudentsCheakboxes();
+			renderBatchCheakboxes();
+			renderRefrenceMaterialTab();
+			renderHomeworkTab();
+			renderAssignmentTab();
+			await injectYtVidInfo();
+			renderVideosContainer();
+			// Caching and binding here as this is done asynchronously
+			cacheDynamic();
+			bindDynamic();
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	function markOrUnmarkAllStudents(event) {
+		const $checkBox = $(event.target);
+		const tuitionId = $checkBox.attr('data-tuition-id');
+		if ($checkBox.is(':checked')) {
+			$studentCheckbox.filter(`[data-tuition-id="${tuitionId}"]`).prop('checked', true);
+		} else {
+			$studentCheckbox.filter(`[data-tuition-id="${tuitionId}"]`).prop('checked', false);
+		}
+	}
+
+	function refresh() {
+		render();
 		cacheDynamic();
 		bindDynamic();
 	}
@@ -242,7 +298,6 @@ const resourses = (() => {
 
 		cache();
 		bindEvents();
-		injectYtVidInfo();
 		render();
 		cacheDynamic();
 		bindDynamic();
