@@ -11,26 +11,30 @@
     <label for="status" class="">Status</label>
     <select class="" name="status" id="lead_status_select">
         <option value="active">Active</option>
-        <option value="closed" {{#ifEquals status "closed"}}selected{{/ifEquals}}>Closed</option>
-        <option value="enrolled" {{#ifEquals status "enrolled"}}selected{{/ifEquals}}>Enrolled</option>
-    </select>
-</div>
-{{!-- <div class="col-md-12 mb-2">
-    
-</div> --}}
-<div class="col-md-12 mb-2" id="lead_comments_container">
-    {{#each comments}}
-    <div class="mx-2">
-        <p class="text-secondary mb-0">{{createdAt}}</p>
-        {{!-- <br> --}}
-        <p>{{message}}</p>
-    </div>
-    {{/each}}
+        <option value="closed" {{#ifEquals status "closed"}} selected{{/ifEquals}}>Closed </option> <option value="enrolled"
+            {{#ifEquals status "enrolled"}} selected{{/ifEquals}}>Enrolled </option> </select> </div> <div class="col-md-12 mb-2"
+            id="lead_comments_container">
+            {{#each comments}}
+            <div class="mx-2">
+                <p class="text-secondary mb-0">{{createdAt}}</p>
+                <p>{{message}}</p>
+            </div>
+            {{/each}}
 </div>
 <div class="col-md-12">
     <textarea class="w-100 form-control" name="message" id="lead_respond_message_inp" rows="3" placeholder="add comment"></textarea>
 </div>
-<div class="col-md-12">
+<div class="col-md-6">
+    <label>Target Course For Lead</label>
+    <select name="courseId" id="lead_course_select" class="form-control">
+        {{#each courses as |course|}}
+        <option value="{{course._id}}" {{#ifEquals ../courseId course._id}}selected{{/ifEquals}}>{{course.code}}</option>
+        {{else}}
+        <small class="text-danger">No courses defined in config</small>
+        {{/each}}
+    </select>
+</div>
+<div class="col-md-6">
     <label for="followup_date_inp">Next Follow Up</label>
     <input class="form-control" type="datetime" value="2019-01-01T00:00" name="nextFollowUp" id="followup_date_inp">
 </div>

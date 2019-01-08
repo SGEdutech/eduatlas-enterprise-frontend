@@ -17,6 +17,27 @@ const leads = (() => {
 	let $manualLeadBtn;
 	let $manualLeadModal;
 	let $manualLeadForm;
+	let $courseSelect;
+	let $leadCourseFilterSelect;
+	let $manualLeadCourseSelect;
+
+	function filterActiveLeads(event) {
+		const $select = $(event.currentTarget);
+		const tuitionId = $select.attr('data-tuition-id');
+		const courseId = $select.val();
+		if (courseId === 'all') {
+			renderActiveLeads(activeLeadsArr, tuitionId);
+			// FIXME:
+			cacheDynamic();
+			bindDynamicEvents()
+			return;
+		}
+		const leadsOfThisCourse = activeLeadsArr.filter(leadObj => leadObj.courseId === courseId);
+		renderActiveLeads(leadsOfThisCourse, tuitionId);
+		// FIXME:
+		cacheDynamic();
+		bindDynamicEvents();
+	}
 
 	async function addManualLead(event) {
 		try {
@@ -30,6 +51,7 @@ const leads = (() => {
 			if (manuallyAddedLead.nextFollowUp) {
 				manuallyAddedLead.milliSec = moment(manuallyAddedLead.nextFollowUp).valueOf();
 				manuallyAddedLead.nextFollowUp = moment(manuallyAddedLead.nextFollowUp).format('lll');
+				manuallyAddedLead.createdAt = moment(manuallyAddedLead.createdAt).format('lll');
 			}
 			activeLeadsArr.push(manuallyAddedLead);
 			distinctLeadsArr.push(manuallyAddedLead);
@@ -47,9 +69,12 @@ const leads = (() => {
 		const tuitionId = $btn.attr('data-tuition-id');
 		$manualLeadModal.modal('show');
 		$manualLeadForm.attr('data-tuition-id', tuitionId);
+		const coursesOfThisTuition = distinctCoursesArr.filter(courseObj => courseObj.tuitionId === tuitionId);
+		const courseOptionsHTML = template.courseOptions({ courses: coursesOfThisTuition });
+		$manualLeadCourseSelect.html(courseOptionsHTML);
 	}
 
-	function filterArraysAndInsertComment(leadId, addedComment, status, nextFollowUp) {
+	function filterArraysAndInsertComment(leadId, addedComment, status, nextFollowUp, courseId) {
 		// first search in newLeadsArr
 		let leadToUpdate = newLeadsArr.find(leadObj => leadObj._id === leadId);
 		if (leadToUpdate) {
@@ -68,11 +93,12 @@ const leads = (() => {
 
 		leadToUpdate.comments.push(addedComment);
 		leadToUpdate.status = status;
+		leadToUpdate.courseId = courseId;
+
 		if (nextFollowUp) {
 			leadToUpdate.milliSec = moment(nextFollowUp).valueOf();
 			leadToUpdate.nextFollowUp = moment(nextFollowUp).format('lll');
 		}
-
 		if (status === 'closed' || status === 'enrolled') {
 			closedLeadsArr.push(leadToUpdate);
 		} else {
@@ -90,18 +116,19 @@ const leads = (() => {
 			const message = $messageInp.val();
 			const nextFollowUp = $nextFollowupInp.val();
 			const status = $statusSelect.val();
+			const courseId = $courseSelect.val();
 			// console.log(status);
 			if (!nextFollowUp && status === 'active') {
 				alert('please provide next follow-up date');
 				throw new Error('nextFollowUp not provided');
 			}
-			const bodyObj = { comment: { message }, nextFollowUp, status };
+			const bodyObj = { comment: { message }, nextFollowUp, status, courseId };
 			// console.log(bodyObj);
 			const addedComment = await tuitionApiCalls.putMessageInLead(tuitionId, leadId, bodyObj);
 			$leadRespondModal.modal('hide');
 			alert('Comment added successfully');
 			addedComment.createdAt = moment(addedComment.createdAt).format('lll');
-			filterArraysAndInsertComment(leadId, addedComment, status, nextFollowUp);
+			filterArraysAndInsertComment(leadId, addedComment, status, nextFollowUp, courseId);
 			refresh();
 		} catch (err) {
 			console.error(err);
@@ -112,8 +139,10 @@ const leads = (() => {
 		const $btn = $(event.currentTarget);
 		const tuitionId = $btn.attr('data-tuition-id');
 		const leadId = $btn.attr('data-lead-id');
-		const leadObj = distinctLeadsArr.find(leadInfo => leadInfo._id === leadId);
-		const leadModalBodyHTML = template.leadBody(leadObj);
+		const clonedLeadObj = JSON.parse(JSON.stringify(distinctLeadsArr.find(leadInfo => leadInfo._id === leadId)));
+		const coursesOfThisTuition = distinctCoursesArr.filter(courseObj => courseObj.tuitionId === tuitionId);
+		clonedLeadObj.courses = coursesOfThisTuition;
+		const leadModalBodyHTML = template.leadBody(clonedLeadObj);
 		$leadBodyContainer.html(leadModalBodyHTML);
 		$leadRespondModal.modal('show');
 		cacheModalBody();
@@ -166,12 +195,15 @@ const leads = (() => {
 		$manualLeadBtn = $('.manual-lead-btn');
 		$manualLeadModal = $('#manual_lead_modal');
 		$manualLeadForm = $('#manual_lead_form');
+		$leadCourseFilterSelect = $('.lead-course-filter-select');
+		$manualLeadCourseSelect = $('#manual_lead_course_select');
 	}
 
 	function cacheModalBody() {
 		$messageInp = $('#lead_respond_message_inp');
 		$nextFollowupInp = $('#followup_date_inp');
 		$statusSelect = $('#lead_status_select');
+		$courseSelect = $('#lead_course_select');
 	}
 
 	function cacheDynamic() {
@@ -179,7 +211,8 @@ const leads = (() => {
 	}
 
 	function bindDynamicEvents() {
-		$leadRespondBtn.click(initLeadRespondModal)
+		$leadRespondBtn.click(initLeadRespondModal);
+		$leadCourseFilterSelect.change(filterActiveLeads);
 	}
 
 	function bindEvents() {
@@ -188,35 +221,49 @@ const leads = (() => {
 		$manualLeadForm.submit(addManualLead);
 	}
 
+	function renderActiveLeads(customLeadsArr, customTuitionId) {
+		customLeadsArr = customLeadsArr || activeLeadsArr;
+		$activeLeadsContainer.each((__, container) => {
+			const $container = $(container);
+			const tuitionId = $container.attr('data-tuition-id');
+			if (customTuitionId && customTuitionId !== tuitionId) return;
+
+			sortActiveLeadsArr();
+			const leadsOfThisTuition = customLeadsArr.filter(leadObj => leadObj.tuitionId === tuitionId);
+			const cardsHtml = template.activeLeadTable({ leads: leadsOfThisTuition });
+			$container.html(cardsHtml);
+		});
+	}
+
 	function render() {
 		$newLeadsContainer.each((__, container) => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
 
 			const leadsOfThisTuition = newLeadsArr.filter(leadObj => leadObj.tuitionId === tuitionId);
-			const cardsHtml = template.leadCards({ leads: leadsOfThisTuition });
+			const cardsHtml = template.newLeadTable({ leads: leadsOfThisTuition });
 			$container.html(cardsHtml);
 		});
 
-		$activeLeadsContainer.each((__, container) => {
-			const $container = $(container);
-			const tuitionId = $container.attr('data-tuition-id');
-
-			sortActiveLeadsArr();
-			const leadsOfThisTuition = activeLeadsArr.filter(leadObj => leadObj.tuitionId === tuitionId);
-			const cardsHtml = template.leadCards({ leads: leadsOfThisTuition });
-			$container.html(cardsHtml);
-		});
+		renderActiveLeads();
 
 		$closedLeadsContainer.each((__, container) => {
 			const $container = $(container);
 			const tuitionId = $container.attr('data-tuition-id');
 
 			const leadsOfThisTuition = closedLeadsArr.filter(leadObj => leadObj.tuitionId === tuitionId);
-			const cardsHtml = template.leadCards({ leads: leadsOfThisTuition });
+			const cardsHtml = template.newLeadTable({ leads: leadsOfThisTuition });
 			$container.html(cardsHtml);
 		});
 
+		$leadCourseFilterSelect.each((__, container) => {
+			const $select = $(container);
+			const tuitionId = $select.attr('data-tuition-id');
+
+			const coursesOfThisTuition = distinctCoursesArr.filter(courseObj => courseObj.tuitionId === tuitionId);
+			const cardsHtml = template.courseOptionsLead({ courses: coursesOfThisTuition });
+			$select.html(cardsHtml);
+		});
 	}
 
 	function refresh() {

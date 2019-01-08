@@ -765,14 +765,15 @@
 						</div>
 						<div class="tab-pane" id="newleads{{tabNumber}}">
 							<div class="row m-0 justify-content-end">
-								<button class="btn btn-info btn-round pull-right manual-lead-btn" data-tuition-id="{{_id}}">Add New Lead
+								<button class="btn btn-info btn-round btn-sm pull-right manual-lead-btn" data-tuition-id="{{_id}}">Add New Lead
 									Manually</button>
 							</div>
 							<div class="row m-0 new-leads-container" data-tuition-id="{{_id}}">
-
 							</div>
 						</div>
 						<div class="tab-pane" id="activeleads{{tabNumber}}">
+							<label for="">Filter</label>
+							<select class="lead-course-filter-select" data-tuition-id="{{_id}}"></select>
 							<div class="row m-0 active-leads-container" data-tuition-id="{{_id}}"></div>
 						</div>
 						<div class="tab-pane" id="closedleads{{tabNumber}}">
