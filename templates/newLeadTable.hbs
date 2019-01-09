@@ -1,0 +1,59 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center">#</th>
+            <th>Date And Time</th>
+            <th>Person Name</th>
+            <th>Phone Number</th>
+            <th>Email Address</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each leads as |lead|}}
+        <tr>
+            <td class="text-center">{{inc @index}}</td>
+            <td>{{createdAt}}</td>
+            <td>{{name}}</td>
+            <td>{{phone}}</td>
+            <td style="max-width: 170px">{{email}}</td>
+            <td><button class="btn btn-block btn-info btn-sm rounded-0 lead-respond-button" data-lead-id="{{_id}}"
+                    data-tuition-id="{{tuitionId}}">Respond</button></td>
+        </tr>
+        {{else}}
+        <tr>
+            <td></td>
+            <td></td>
+            <td><small class="text-danger">No Leads to show</small></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+
+{{!--
+{{#each leads as |lead|}}
+<div class="col-4">
+    <div class="card">
+        <div class="card-body">
+            {{#if nextFollowUp}}
+            <small class="m-0">Next Follow-Up</small>
+            {{else}}
+            <small class="m-0">Lead Created At</small>
+            {{/if}}
+            <div class="card-title mt-0">{{#if nextFollowUp}}{{nextFollowUp}}{{else}}{{createdAt}}{{/if}}</div>
+            <p class="card-text" style="max-height:100px; overflow-y:hidden">{{message}}</p>
+            <div class="text-danger" style="max-height:25; overflow-y:hidden">{{name}}</div>
+            <div class="text-danger" style="max-height:25; overflow-y:hidden">{{phone}}</div>
+            <div class="text-danger" style="max-height:25; overflow-y:hidden">{{email}}</div>
+            <button class="btn btn-block btn-info rounded-0 lead-respond-button" data-lead-id="{{_id}}" data-tuition-id="{{tuitionId}}">Respond</button>
+        </div>
+    </div>
+</div>
+{{else}}
+<small class="text-danger">No Leads to show</small>
+{{/each}} --}}
