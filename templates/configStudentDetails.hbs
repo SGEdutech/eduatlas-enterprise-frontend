@@ -1,0 +1,138 @@
+<div class="col-12">
+    <button class="btn btn-sm btn-info student-landing-view-btn" data-tuition-id="{{tuitionId}}">
+        <i class="material-icons" data-tuition-id="{{tuitionId}}">
+            arrow_back
+        </i>
+    </button>
+</div>
+<div class="col-12">
+    <div class="row">
+        <div class="col-2">
+            <div class="row justify-content-center"><img class="media-object" src="../assets/img/logo.png" alt="..."></div>
+            <div class="row">
+                <button class="btn btn-info btn-block btn-sm config-student-edit-btn" data-tuition-id="{{tuitionId}}"
+                    data-student-id="{{_id}}">Edit</button>
+                <button class="btn btn-danger btn-block btn-sm config-student-delete-btn" data-tuition-id="{{tuitionId}}"
+                    data-student-id="{{_id}}">Delete</button>
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="row justify-content-center">
+                <div class="col-3">
+                    <small class="row">Name:</small>
+                    <small class="row">Roll Number:</small>
+                    <small class="row">Email:</small>
+                    <small class="row">Phone Number:</small>
+                    <small class="row">Address:</small>
+                </div>
+                <div class="col-6">
+                    <div class="card-title m-0 text-capitalize">{{name}}</div>
+                    <div class="card-title m-0">{{rollNumber}}</div>
+                    <div class="card-title m-0">{{email}}</div>
+                    <div class="card-title m-0">{{#if phone}}{{phone}}{{else}}<small>No Data</small>{{/if}}</div>
+                    <div class="card-title m-0">{{#if address}}{{address}}{{else}}<small>No Data</small>{{/if}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{#each payments as |payment|}}
+    <div class="row my-3 border-grey">
+        <small class="col-md-3">Course Code:</small>
+        <div class="col-md-3 text-uppercase">{{payment.courseCode}}</div>
+        <small class="col-md-3">
+            Course Fee:
+        </small>
+        <div class="col-md-3">
+            {{payment.courseFee}}
+        </div>
+        <small class="col-md-3">
+            Discount Amount:
+        </small>
+        <div class="col-md-3">
+            {{payment.discountAmount}}
+        </div>
+        <small class="col-md-3">
+            Discount Reason:
+        </small>
+        <div class="col-md-3">
+            {{payment.discountReason}}
+        </div>
+        <small class="col-md-3">
+            Net Fee:
+        </small>
+        <div class="col-md-3">
+            {{payment.netFee}}
+        </div>
+        <small class="col-md-3">
+            Pending Balance:
+        </small>
+        <div class="col-md-3">
+            {{payment.pendingBalance}}
+        </div>
+        <small class="col-md-3">
+            Next Installment Date:
+        </small>
+        <div class="col-md-3 text-danger">
+            {{payment.nextInstallmentDate}}
+        </div>
+        <small class="col-md-3">
+            Actions:
+        </small>
+        <div class="col-md-3 text-danger">
+            <button class="btn btn-info btn-sm student-payment-edit-btn" data-student-id="{{../_id}}" data-payment-id="{{payment._id}}"
+                data-tuition-id="{{../tuitionId}}">Edit</button>
+            <button class="btn btn-danger btn-sm student-payment-delete-btn" data-student-id="{{../_id}}" data-payment-id="{{payment._id}}"
+                data-tuition-id="{{../tuitionId}}">Delete</button>
+        </div>
+        <div class="col-12 mt-3">
+            {{!--
+            <hr> --}}
+            {{!-- <div class="row justify-content-center card-title">Installents</div>
+            <hr> --}}
+        </div>
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th><small>Mode Of Payment</small></th>
+                        <th><small>Date</small></th>
+                        <th><small>Collected Fee</small></th>
+                        <th><small>Actions</small></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each payment.installments as |installment|}}
+                    <tr>
+                        <td class="text-center">{{inc @index}}</td>
+                        <td class="text-uppercase">{{installment.modeOfPayment}}</td>
+                        <td>{{installment.createdAt}}</td>
+                        <td>{{installment.feeCollected}}</td>
+                        <td>
+                            <button type="button" class="btn btn-info btn-sm student-installment-edit-btn" data-student-id="{{../../_id}}" data-payment-id="{{payment._id}}" data-tuition-id="{{../../tuitionId}}"
+                                data-installment-id="{{installment._id}}">
+                                <i class="material-icons">edit</i>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm student-installment-delete-btn" data-student-id="{{../../_id}}" data-payment-id="{{payment._id}}" data-tuition-id="{{../../tuitionId}}"
+                                data-installment-id="{{installment._id}}">
+                                <i class="material-icons">delete</i>
+                            </button>
+                        </td>
+                    </tr>
+                    {{else}}
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-uppercase"></td>
+                        <td><small class="text-danger">No Installments Found</small></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {{else}}
+    <small class="text-danger">No Payments Initialized</small>
+    {{/each}}
+</div>

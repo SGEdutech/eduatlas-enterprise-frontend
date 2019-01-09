@@ -374,7 +374,9 @@
 																	<label for="additionalDiscount" class="bmd-label-floating">Additional Discount</label>
 																	<input name="additionalDiscount" type="number" class="form-control student-additional-discount not-submit"
 																	 data-tuition-id="{{_id}}">
+																	 {{!-- Hidden Inputs --}}
 																	<input name="courseId" type="text" class="d-none student-course-id" data-tuition-id="{{_id}}">
+																	<input name="courseGstPercentage" type="text" class="d-none student-gst-percentage" data-tuition-id="{{_id}}">
 																</div>
 																<h4 class="col-12 card-title">Payment Details</h4>
 																<div class="col-md-6 form-group student-fee-container" data-tuition-id="{{_id}}">

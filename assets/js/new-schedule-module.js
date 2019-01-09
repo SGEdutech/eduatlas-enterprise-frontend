@@ -137,7 +137,7 @@ const schedule = (() => {
 			modal.hideModal();
 			notification.push('Schedule has been successfully edited');
 			const studentEmailIdsOfThisBatch = getStudentEmailIds(batchId);
-			notificationApiCalls.putNewNotification(tuitionId, 'A class of your batch has been edited', studentEmailIdsOfThisBatch);
+			notificationApiCalls.putNewNotification(tuitionId, 'A schedule of your batch has been edited', studentEmailIdsOfThisBatch);
 			let objToBePublished;
 			distinctBatchesArr.forEach(batchObj => {
 				if (batchObj._id !== batchId) return;

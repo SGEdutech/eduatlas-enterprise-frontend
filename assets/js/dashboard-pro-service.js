@@ -7,12 +7,12 @@ PubSub.subscribe('user', (msg, userInfo) => {
 	}
 });
 
-Handlebars.registerHelper('inc', function(value, options) {
+Handlebars.registerHelper('inc', (value, options) => {
 	return parseInt(value, 10) + 1;
 });
 
-Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
-    return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+Handlebars.registerHelper('ifEquals', (arg1, arg2, options) => {
+	return arg1 == arg2 ? options.fn(this) : options.inverse(this);
 });
 
 user.getInfo().then(userInfo => {

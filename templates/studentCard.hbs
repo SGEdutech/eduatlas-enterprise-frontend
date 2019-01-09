@@ -2,7 +2,7 @@
 <div class="col-md-6" id="{{_id}}">
     <div class="media-area main-raised m-3">
         <div class="media">
-            <a class="float-left" href="#pablo">
+            <a class="float-left view-student-btn" data-student-id="{{_id}}" data-tuition-id="{{tuitionId}}" style="cursor: pointer">
                 <div class="avatar">
                     <img class="media-object" src="../assets/img/logo.png" alt="...">
                 </div>
@@ -21,6 +21,8 @@
                 {{!-- <small class="text-danger">{{rollNumber}}</small> --}}
                 <div class="card-footer p-0 mb-3">
                     <div class="stats ml-auto text-secondary">
+                        <i class="material-icons view-student-btn" style="top: 0%; cursor: pointer;font-size:18px"
+                            data-student-id="{{_id}}" data-tuition-id="{{tuitionId}}">remove_red_eye</i>
                         <i class="material-icons delete-student-btn" style="top: 0%; cursor: pointer;font-size:18px"
                             data-student-id="{{_id}}" data-tuition-id="{{tuitionId}}">delete</i>
                         <i class="material-icons student-edit" style="top: 0%; cursor: pointer;font-size:18px"
