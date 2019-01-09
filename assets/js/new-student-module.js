@@ -1,4 +1,4 @@
-// FIXME: Daetimepicker initialized in bind events
+// FIXME: Datetimepicker initialized in bind events
 const student = (() => {
 	let distinctCoursesArr;
 	let distinctBatchesArr;
@@ -12,6 +12,7 @@ const student = (() => {
 	let $courseSelectContainer;
 	let $batchSelectContainer;
 	let $courseIdInp;
+	let $gstPercentage;
 	let $courseFee;
 	let $netFee;
 	let $grossFee;
@@ -49,6 +50,16 @@ const student = (() => {
 	let $studentReceiptDownloadBtn;
 	let $studentReceiptPrintBtn;
 	let $studentReceiptMailBtn;
+	let $landingContainer;
+	let $detailsContainer;
+	let $viewDetailsBtn;
+	let $backBtnDetails;
+	let $detailsStudentEditBtn;
+	let $detailsStudentDeleteBtn;
+	let $detailsPaymentEditBtn;
+	let $detailsPaymentDeleteBtn;
+	let $detailsInstallmentEditBtn;
+	let $detailsInstallmentDeleteBtn;
 	let recieptEmail;
 	let docDef;
 
@@ -84,17 +95,54 @@ const student = (() => {
 		return totalDiscount;
 	}
 
-	function getNetFee(tuitionId) {
-		if (tuitionId === undefined) throw new Error('Tuition Id is not provided')
-
-		const courseId = $courseSelectContainer.filter(`[data-tuition-id="${tuitionId}"]`).val();
-		if (Boolean(courseId) === false) return 0;
-		const courseFee = parseFloat(distinctCoursesArr.find(courseObj => courseObj._id === courseId).fees);
-		return courseFee - getTotalDiscountAmount(tuitionId);
-	}
-
 	function sortStudentArray(studentArr) {
 		studentArr.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
+	}
+
+	function showDetailsContainer(tuitionId) {
+		if (tuitionId === undefined) throw new Error('Tuiton id not provided');
+		$landingContainer.filter(`[data-tuition-id="${tuitionId}"]`).addClass('d-none');
+		$detailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).removeClass('d-none');
+	}
+
+	function showLandingContainer(tuitionId) {
+		if (tuitionId === undefined) throw new Error('Tuiton id not provided');
+		$detailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).addClass('d-none').html('');
+		$landingContainer.filter(`[data-tuition-id="${tuitionId}"]`).removeClass('d-none');
+	}
+
+	function viewLandingContainer(event) {
+		const $backBtn = $(event.currentTarget);
+		const tuitionId = $backBtn.attr('data-tuition-id');
+		showLandingContainer(tuitionId);
+	}
+
+	function renderStudentDetailsContainer(studentId, tuitionId) {
+		if (studentId === undefined) throw new Error('Student id not provided');
+		if (tuitionId === undefined) throw new Error('Tuition id not provided');
+
+		const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+		const detailsHtml = template.configStudentDetails(studentInfo);
+		$detailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).html(detailsHtml);
+	}
+
+	function refreshStudentDetails(studentId, tuitionId) {
+		if (studentId === undefined) throw new Error('Student id not provided');
+		if (tuitionId === undefined) throw new Error('Tuition id not provided');
+
+		renderStudentDetailsContainer(studentId, tuitionId);
+		cacheDynamic();
+		bindDynamic();
+	}
+
+	function initStudentDetails(event) {
+		$viewBtn = $(event.currentTarget);
+		const tuitionId = $viewBtn.attr('data-tuition-id');
+		const studentId = $viewBtn.attr('data-student-id');
+		renderStudentDetailsContainer(studentId, tuitionId);
+		showDetailsContainer(tuitionId);
+		cacheDynamic();
+		bindDynamic();
 	}
 
 	async function deleteStudent(event) {
@@ -108,6 +156,8 @@ const student = (() => {
 			distinctStudentsArr = distinctStudentsArr.filter(studentObj => studentObj._id !== studentId);
 			notification.push(`${deletedStudent.name} has been successfully deleted`);
 			PubSub.publish('student.delete', deletedStudent);
+			// Closing details container if details container is open
+			if ($detailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).hasClass('d-none') === false) showLandingContainer(tuitionId);
 			refresh();
 		} catch (err) {
 			console.error(err);
@@ -159,13 +209,15 @@ const student = (() => {
 			editedStudent.tuitionId = tuitionId;
 			distinctStudentsArr = distinctStudentsArr.map(studentObj => studentObj._id === studentId ? editedStudent : studentObj)
 			PubSub.publish('student.edit', editedStudent);
+			// Refreshing student edit container if it's open
+			if ($detailsContainer.filter(`[data-tuition-id="${tuitionId}"]`).hasClass('d-none') === false) refreshStudentDetails(studentId, tuitionId);
 			refresh();
 		} catch (err) {
 			console.error(err);
 		}
 	}
 
-	function editModalInit() {
+	function studentEditModalInit(event) {
 		const $editBtn = $(event.target);
 		const tuitionId = $editBtn.attr('data-tuition-id');
 		const studentId = $editBtn.attr('data-student-id');
@@ -173,7 +225,102 @@ const student = (() => {
 		if (studentInfo.nextInstallment) studentInfo.nextInstallment = studentInfo.nextInstallment.split('T')[0];
 		const editStudentInputHTML = template.studentEditInputs(studentInfo);
 		modal.renderFormContent(editStudentInputHTML);
-		modal.bindSubmitEvent(event => editStudent(event, tuitionId, studentId));
+		modal.bindSubmitEvent(e => editStudent(e, tuitionId, studentId));
+		modal.showModal();
+	}
+
+	async function deletePayment(event) {
+		try {
+			$btn = $(event.target);
+			const tuitionId = $btn.attr('data-tuition-id');
+			const studentId = $btn.attr('data-student-id');
+			const paymentId = $btn.attr('data-payment-id');
+			await tuitionApiCalls.deletePaymentDetailsInStudent(tuitionId, studentId, paymentId);
+			const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+			studentInfo.payments = studentInfo.payments.filter(paymentObj => paymentObj._id !== paymentId);
+			notification.push('Payment Details has been successfully deleted');
+			refreshStudentDetails(studentId, tuitionId);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	async function editPayment(event, tuitionId, studentId, paymentId) {
+		try {
+			event.preventDefault();
+			const editedData = modal.getInputsDataObj();
+			const editedPayment = await tuitionApiCalls.editPaymentDetailsInStudent(tuitionId, studentId, paymentId, editedData);
+			modal.hideModal();
+			const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+			studentInfo.payments = studentInfo.payments.map(paymentObj => paymentObj._id === paymentId ? editedPayment : paymentObj);
+			notification.push('Payment Details has been successfully edited');
+			refreshStudentDetails(studentId, tuitionId);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	async function deleteInstallment(event) {
+		try {
+			event.preventDefault();
+			$btn = $(event.target);
+			const tuitionId = $btn.attr('data-tuition-id');
+			const studentId = $btn.attr('data-student-id');
+			const paymentId = $btn.attr('data-payment-id');
+			const installmentId = $btn.attr('data-installment-id');
+			await tuitionApiCalls.deleteInstallmentInStudent(tuitionId, studentId, paymentId, installmentId);
+			const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+			const paymentInfo = studentInfo.payments.find(paymentObj => paymentObj._id === paymentId);
+			paymentInfo.installments = paymentInfo.installments.filter(installmentObj => installmentObj._id !== installmentId)
+			notification.push('Installment has been successfully deleted');
+			refreshStudentDetails(studentId, tuitionId);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	async function editInstallment(event, tuitionId, studentId, paymentId, installmentId) {
+		try {
+			event.preventDefault();
+			const editedData = modal.getInputsDataObj();
+			const editedInstallment = await tuitionApiCalls.editInstallmentInStudent(tuitionId, studentId, paymentId, installmentId, editedData);
+			modal.hideModal();
+			const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+			const paymentInfo = studentInfo.payments.find(paymentObj => paymentObj._id === paymentId);
+			paymentInfo.installments = paymentInfo.installments.map(installmentObj => installmentObj._id === installmentId ? editedInstallment : installmentObj);
+			notification.push('Installment has been successfully edited');
+			refreshStudentDetails(studentId, tuitionId);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	function initInstallmentEditModal(event) {
+		const $btn = $(event.target);
+		const tuitionId = $btn.attr('data-tuition-id');
+		const studentId = $btn.attr('data-student-id');
+		const paymentId = $btn.attr('data-payment-id');
+		const installmentId = $btn.attr('data-installment-id');
+		const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+		const paymentInfo = studentInfo.payments.find(paymentObj => paymentObj._id === paymentId);
+		const installmentInfo = paymentInfo.installments.find(installmentObj => installmentObj._id === installmentId);
+		const editInstallmentInputHTML = template.installmentEditInputs(installmentInfo);
+		modal.renderFormContent(editInstallmentInputHTML);
+		modal.bindSubmitEvent(e => editInstallment(e, tuitionId, studentId, paymentId, installmentId));
+		modal.showModal();
+	}
+
+
+	function paymentEditModalEdit(event) {
+		$btn = $(event.target);
+		const tuitionId = $btn.attr('data-tuition-id');
+		const studentId = $btn.attr('data-student-id');
+		const paymentId = $btn.attr('data-payment-id');
+		const studentInfo = distinctStudentsArr.find(studentObj => studentObj._id === studentId);
+		const paymentInfo = studentInfo.payments.find(paymentObj => paymentObj._id === paymentId);
+		const editPaymentInputHTML = template.paymentEditInputs(paymentInfo);
+		modal.renderFormContent(editPaymentInputHTML);
+		modal.bindSubmitEvent(e => editPayment(e, tuitionId, studentId, paymentId));
 		modal.showModal();
 	}
 
@@ -340,6 +487,7 @@ const student = (() => {
 			}
 			if (isNewStudentDataValid(studentObj, tuitionId) === false) return;
 			const newStudent = await tuitionApiCalls.putStudentInTuition(tuitionId, studentObj);
+			console.log(newStudent);
 			// FIXME: add institute name in message
 			notificationApiCalls.putNewNotification(tuitionId, 'You have been added to our Study Monitor', [studentObj.email])
 			newStudent.tuitionId = tuitionId;
@@ -440,6 +588,14 @@ const student = (() => {
 		const courseId = $select.val();
 		const tuitionId = $select.attr('data-tuition-id');
 		$courseIdInp.filter(`[data-tuition-id="${tuitionId}"]`).val(courseId);
+	}
+
+	function renderCourseGstPercentage(event) {
+		const $select = $(event.target);
+		const courseId = $select.val();
+		const tuitionId = $select.attr('data-tuition-id');
+		const gstPercentage = distinctCoursesArr.find(courseObj => courseObj._id === courseId).gstPercentage || 0;
+		$gstPercentage.filter(`[data-tuition-id="${tuitionId}"]`).val(gstPercentage);
 	}
 
 	function renderCourseFee() {
@@ -571,6 +727,7 @@ const student = (() => {
 		$batchSelectContainer = $('.student-batch-select-menu');
 		$courseFee = $('.student-course-fee');
 		$courseIdInp = $('.student-course-id');
+		$gstPercentage = $('.student-gst-percentage');
 		$netFee = $('.student-net-fee');
 		$grossFee = $('.student-gross-fee');
 		$totalDiscountAmount = $('.student-total-discount-amount');
@@ -613,11 +770,8 @@ const student = (() => {
 		$studentReceiptDownloadBtn = $('#student_receipt_download_btn');
 		$studentReceiptPrintBtn = $('#student_receipt_print_btn');
 		$studentReceiptMailBtn = $('#student_receipt_mail_btn');
-	}
-
-	function cacheDynamic() {
-		$editButton = $('.student-edit');
-		$deleteButton = $('.delete-student-btn');
+		$landingContainer = $('.student-landing-container');
+		$detailsContainer = $('.student-details-container');
 	}
 
 	function bindevents() {
@@ -632,6 +786,7 @@ const student = (() => {
 
 		$courseSelectContainer.change(renderBatchSelectMenu);
 		$courseSelectContainer.change(renderCourseId);
+		$courseSelectContainer.change(renderCourseGstPercentage);
 		$courseSelectContainer.change(renderCourseFee);
 		$courseSelectContainer.change(renderNetFee);
 		$courseSelectContainer.change(renderTaxAmount);
@@ -665,9 +820,30 @@ const student = (() => {
 		$installmentDateInp.datetimepicker(dateTimePickerConfig.datePicker);
 	}
 
+	function cacheDynamic() {
+		$editButton = $('.student-edit');
+		$deleteButton = $('.delete-student-btn');
+		$viewDetailsBtn = $('.view-student-btn');
+		$backBtnDetails = $('.student-landing-view-btn');
+		$detailsStudentEditBtn = $('.config-student-edit-btn');
+		$detailsStudentDeleteBtn = $('.config-student-delete-btn');
+		$detailsPaymentEditBtn = $('.student-payment-edit-btn');
+		$detailsPaymentDeleteBtn = $('.student-payment-delete-btn');
+		$detailsInstallmentEditBtn = $('.student-installment-edit-btn');
+		$detailsInstallmentDeleteBtn = $('.student-installment-delete-btn');
+	}
+
 	function bindDynamic() {
-		$editButton.click(editModalInit);
+		$editButton.click(studentEditModalInit);
 		$deleteButton.click(deleteStudent);
+		$viewDetailsBtn.click(initStudentDetails);
+		$backBtnDetails.click(viewLandingContainer);
+		$detailsStudentEditBtn.click(studentEditModalInit);
+		$detailsStudentDeleteBtn.click(deleteStudent);
+		$detailsPaymentEditBtn.click(paymentEditModalEdit);
+		$detailsPaymentDeleteBtn.click(deletePayment);
+		$detailsInstallmentEditBtn.click(initInstallmentEditModal);
+		$detailsInstallmentDeleteBtn.click(deleteInstallment);
 	}
 
 	function clearSearch(event) {
