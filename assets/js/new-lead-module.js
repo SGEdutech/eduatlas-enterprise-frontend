@@ -20,8 +20,36 @@ const leads = (() => {
 	let $courseSelect;
 	let $leadCourseFilterSelect;
 	let $manualLeadCourseSelect;
+	let $fromDateFilter;
+	let $toDateFilter;
+	let $applyFilterBtn;
+	let $resetFilterBtn;
 
-	function filterActiveLeads(event) {
+	function resetFiltersInActiveLeads() {
+		$fromDateFilter.val('');
+		$toDateFilter.val('');
+		refresh();
+	}
+
+	function filterActiveLeadsFromDate(event) {
+		const $btn = $(event.currentTarget);
+		const tuitionId = $btn.attr('data-tuition-id');
+		const fromDate = $fromDateFilter.val();
+		const toDate = $toDateFilter.val();
+		const fromDateMilliSec = moment(fromDate).valueOf();
+		const toDateMilliSec = moment(toDate).valueOf();
+		if (!fromDateMilliSec || !toDateMilliSec) {
+			console.error('date not provided');
+			return;
+		}
+		const leadsAfterThisDate = activeLeadsArr.filter(leadObj => leadObj.milliSec >= fromDateMilliSec && leadObj.milliSec <= toDateMilliSec);
+		renderActiveLeads(leadsAfterThisDate, tuitionId);
+		// FIXME:
+		cacheDynamic();
+		bindDynamicEvents();
+	}
+
+	function filterActiveLeadsCourse(event) {
 		const $select = $(event.currentTarget);
 		const tuitionId = $select.attr('data-tuition-id');
 		const courseId = $select.val();
@@ -90,10 +118,15 @@ const leads = (() => {
 				closedLeadsArr = closedLeadsArr.filter(leadObj => leadObj._id !== leadId);
 			}
 		}
-
-		leadToUpdate.comments.push(addedComment);
-		leadToUpdate.status = status;
-		leadToUpdate.courseId = courseId;
+		if (addedComment) {
+			leadToUpdate.comments.push(addedComment);
+		}
+		if (status) {
+			leadToUpdate.status = status;
+		}
+		if (courseId) {
+			leadToUpdate.courseId = courseId;
+		}
 
 		if (nextFollowUp) {
 			leadToUpdate.milliSec = moment(nextFollowUp).valueOf();
@@ -122,13 +155,20 @@ const leads = (() => {
 				alert('please provide next follow-up date');
 				throw new Error('nextFollowUp not provided');
 			}
-			const bodyObj = { comment: { message }, nextFollowUp, status, courseId };
+			let bodyObj, addedComment;
+			if (message === '') {
+				bodyObj = { nextFollowUp, status, courseId };
+				addedComment = tuitionApiCalls.editLeadInTuition(tuitionId, leadId, bodyObj);
+				filterArraysAndInsertComment(leadId, undefined, status, nextFollowUp, courseId);
+			} else {
+				bodyObj = { comment: { message }, nextFollowUp, status, courseId };
+				addedComment = await tuitionApiCalls.putMessageInLead(tuitionId, leadId, bodyObj);
+				addedComment.createdAt = moment(addedComment.createdAt).format('lll');
+				filterArraysAndInsertComment(leadId, addedComment, status, nextFollowUp, courseId);
+			}
 			// console.log(bodyObj);
-			const addedComment = await tuitionApiCalls.putMessageInLead(tuitionId, leadId, bodyObj);
 			$leadRespondModal.modal('hide');
 			alert('Comment added successfully');
-			addedComment.createdAt = moment(addedComment.createdAt).format('lll');
-			filterArraysAndInsertComment(leadId, addedComment, status, nextFollowUp, courseId);
 			refresh();
 		} catch (err) {
 			console.error(err);
@@ -197,6 +237,10 @@ const leads = (() => {
 		$manualLeadForm = $('#manual_lead_form');
 		$leadCourseFilterSelect = $('.lead-course-filter-select');
 		$manualLeadCourseSelect = $('#manual_lead_course_select');
+		$fromDateFilter = $('.lead-from-date-filter');
+		$toDateFilter = $('.lead-to-date-filter');
+		$applyFilterBtn = $('.apply-filter-btn');
+		$resetFilterBtn = $('.reset-filter-btn');
 	}
 
 	function cacheModalBody() {
@@ -212,13 +256,15 @@ const leads = (() => {
 
 	function bindDynamicEvents() {
 		$leadRespondBtn.click(initLeadRespondModal);
-		$leadCourseFilterSelect.change(filterActiveLeads);
 	}
 
 	function bindEvents() {
 		$updateLeadButton.click(addMesageToLead);
 		$manualLeadBtn.click(initManualLeadModal);
 		$manualLeadForm.submit(addManualLead);
+		$leadCourseFilterSelect.change(filterActiveLeadsCourse);
+		$applyFilterBtn.click(filterActiveLeadsFromDate);
+		$resetFilterBtn.click(resetFiltersInActiveLeads);
 	}
 
 	function renderActiveLeads(customLeadsArr, customTuitionId) {

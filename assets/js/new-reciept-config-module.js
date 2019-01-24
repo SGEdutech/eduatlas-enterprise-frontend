@@ -3,9 +3,9 @@ const recieptConfig = (() => {
 	let $receiptConfigForm;
 	let $formInputs;
 
-	function getAllInputValue() {
+	function getAllInputValue(tuitionId) {
 		const inputNameToValues = {};
-		$formInputs.each((__, inp) => {
+		$formInputs.filter(`[data-tuition-id="${tuitionId}"]`).each((__, inp) => {
 			const $inp = $(inp);
 			const name = $inp.attr('name');
 			let value = $inp.val();
@@ -19,9 +19,8 @@ const recieptConfig = (() => {
 		try {
 			event.preventDefault();
 			const $form = $(event.currentTarget);
-			const formData = getAllInputValue();
-			console.log(formData);
 			const tuitionId = $form.attr('data-tuition-id');
+			const formData = getAllInputValue(tuitionId);
 			const updatedTuition = await tuitionApiCalls.updateInTuition(tuitionId, formData, false);
 			PubSub.publish('tuition.edit', updatedTuition);
 			notification.push('Receipt Config has been successfully updated');

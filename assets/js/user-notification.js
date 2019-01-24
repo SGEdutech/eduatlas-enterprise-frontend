@@ -3,20 +3,31 @@ const userNotification = (() => {
 	let $notificationNumber;
 	let $notificationUpdateForm;
 	let $notificationReadTrigger;
+	let $clearAllBtn;
+
+	async function clearAllNotifications() {
+		try {
+			await notificationApiCalls.clearAllUserNotifications();
+			distinctNotificationsArr = [];
+			render();
+		} catch (e) {
+			console.error(e);
+		}
+	}
 
 	function cache() {
 		$notificationContainer = $('#notification-container');
 		$notificationNumber = $('#notification-number');
 		$notificationUpdateForm = $('#notification-update-form');
-		$notificationReadTrigger = $('#notification-read-trigger')
+		$notificationReadTrigger = $('#notification-read-trigger');
+		$clearAllBtn = $('#clear_all_notification');
 	}
 
 	function bindEvents() {
 		$notificationReadTrigger.click(function(e) {
-			// e.preventDefault();
 			markAsRead();
-
 		});
+		$clearAllBtn.click(clearAllNotifications);
 	}
 
 	function render() {

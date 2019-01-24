@@ -53,11 +53,18 @@ const notificationApiCalls = (() => {
 		});
 	}
 
+	function clearAllUserNotifications() {
+		return $.ajax({
+			type: "DELETE",
+			url: `/notification/user-notification`,
+		});
+	}
 
 	return {
 		getUserNotifications,
 		putNewNotification,
 		markNotificationsAsRead,
-		getClaimedNotifications
+		getClaimedNotifications,
+		clearAllUserNotifications
 	};
 })();

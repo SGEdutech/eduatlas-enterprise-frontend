@@ -12,7 +12,6 @@
 	<ul class="nav nav-pills nav-pills-success mt-3">
 		<li class="nav-item"><a class="nav-link active rounded-0" href="#pill1{{tabNumber}}" data-toggle="tab">Configure</a></li>
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill2{{tabNumber}}" data-toggle="tab">Promoter</a></li>
-
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill3{{tabNumber}}" data-toggle="tab">Communicator</a></li>
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill4{{tabNumber}}" data-toggle="tab">Schedule</a></li>
 		<li class="nav-item"><a class="nav-link rounded-0" href="#pill5{{tabNumber}}" data-toggle="tab">Attendance</a></li>
@@ -374,7 +373,7 @@
 																	<label for="additionalDiscount" class="bmd-label-floating">Additional Discount</label>
 																	<input name="additionalDiscount" type="number" class="form-control student-additional-discount not-submit"
 																	 data-tuition-id="{{_id}}">
-																	 {{!-- Hidden Inputs --}}
+																	{{!-- Hidden Inputs --}}
 																	<input name="courseId" type="text" class="d-none student-course-id" data-tuition-id="{{_id}}">
 																	<input name="courseGstPercentage" type="text" class="d-none student-gst-percentage" data-tuition-id="{{_id}}">
 																</div>
@@ -774,8 +773,24 @@
 							</div>
 						</div>
 						<div class="tab-pane" id="activeleads{{tabNumber}}">
-							<label for="">Filter</label>
-							<select class="lead-course-filter-select" data-tuition-id="{{_id}}"></select>
+							<div class="border-grey row m-2 p-1">
+								<div class="col-3">
+									<label for="">Course Filter</label>
+									<select class="lead-course-filter-select form-control" data-tuition-id="{{_id}}"></select>
+								</div>
+								<div class="col-3">
+									<label for="">From Date Filter</label>
+									<input type="date" class="form-control lead-from-date-filter" data-tuition-id="{{_id}}">
+								</div>
+								<div class="col-3">
+									<label for="">To Date Filter</label>
+									<input type="date" class="form-control lead-to-date-filter" data-tuition-id="{{_id}}">
+								</div>
+								<div class="col-3 text-center">
+									<button class="btn btn-sm btn-info apply-filter-btn" data-tuition-id="{{_id}}">Apply</button>
+									<button class="btn btn-sm btn-info reset-filter-btn" data-tuition-id="{{_id}}">Reset</button>
+								</div>
+							</div>
 							<div class="row m-0 active-leads-container" data-tuition-id="{{_id}}"></div>
 						</div>
 						<div class="tab-pane" id="closedleads{{tabNumber}}">

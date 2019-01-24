@@ -353,8 +353,9 @@ const student = (() => {
 		const totalAmount = netFee + gstAmount;
 		const balanceAmount = totalAmount - installmentInfo.feeCollected;
 
+
 		docDef = getDocDef({
-			busienessName: tuition.recieptConfigBusinessName,
+			businessName: tuition.recieptConfigBusinessName,
 			addressLine1: tuition.recieptConfigAddressLine1,
 			addressLine2: tuition.recieptConfigAddressLine2,
 			pin: tuition.recieptConfigPinCode,
@@ -487,7 +488,6 @@ const student = (() => {
 			}
 			if (isNewStudentDataValid(studentObj, tuitionId) === false) return;
 			const newStudent = await tuitionApiCalls.putStudentInTuition(tuitionId, studentObj);
-			console.log(newStudent);
 			// FIXME: add institute name in message
 			notificationApiCalls.putNewNotification(tuitionId, 'You have been added to our Study Monitor', [studentObj.email])
 			newStudent.tuitionId = tuitionId;
